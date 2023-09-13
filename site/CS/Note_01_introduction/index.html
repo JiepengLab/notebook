@@ -9,22 +9,25 @@
       
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../..">
       
       
-        <link rel="next" href="../Note_01_introduction/">
+        <link rel="next" href="../Note_02_Image_Formation/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
     
     
       
-        <title>Note 00 - My notes</title>
+        <title>Note 01 introduction - My notes</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
       
       
   
@@ -84,7 +87,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -94,7 +97,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     
@@ -106,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mathematics-for-deep-learning" class="md-skip">
+        <a href="#1-computer-vision-summer-2022" class="md-skip">
           Skip to content
         </a>
       
@@ -118,11 +128,9 @@
     
       
 
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="My notes" class="md-header__button md-logo" aria-label="My notes" data-md-component="logo">
+    <a href="../.." title="My notes" class="md-header__button md-logo" aria-label="My notes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -142,12 +150,38 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Note 00
+              Note 01 introduction
             
           </span>
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
     
@@ -198,6 +232,68 @@
       
         
           
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+    
+  
+  CS
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -211,10 +307,12 @@
                     
 
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="My notes" class="md-nav__button md-logo" aria-label="My notes" data-md-component="logo">
+    <a href="../.." title="My notes" class="md-nav__button md-logo" aria-label="My notes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -230,16 +328,50 @@
   
   
   
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+    
+    
+      
         
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
   
   <span class="md-ellipsis">
-    Welcome to MkDocs
+    Home
   </span>
   
 
-      </a>
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -252,6 +384,10 @@
   
   
     
+    
+      
+        
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -266,7 +402,7 @@
             
   
   <span class="md-ellipsis">
-    ML-4360
+    CS
   </span>
   
 
@@ -275,6 +411,50 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            CS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             ML-4360
           </label>
@@ -299,7 +479,7 @@
           
   
   <span class="md-ellipsis">
-    Note 00
+    Note 01 introduction
   </span>
   
 
@@ -310,7 +490,7 @@
         
   
   <span class="md-ellipsis">
-    Note 00
+    Note 01 introduction
   </span>
   
 
@@ -332,84 +512,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#broadcasting" class="md-nav__link">
-    Broadcasting
+  <a href="#11-organization" class="md-nav__link">
+    1.1 Organization
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hadamard-product" class="md-nav__link">
-    Hadamard product
+  <a href="#12-course-materials" class="md-nav__link">
+    1.2 Course Materials
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#vector-and-matrix-norms" class="md-nav__link">
-    Vector and Matrix Norms
+  <a href="#13-prerequisites" class="md-nav__link">
+    1.3 Prerequisites
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#eigen-and-singular-value-decomposition" class="md-nav__link">
-    Eigen and Singular Value Decomposition
-  </a>
-  
-    <nav class="md-nav" aria-label="Eigen and Singular Value Decomposition">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#eigenvalue-decompositionevd" class="md-nav__link">
-    Eigenvalue Decomposition(EVD)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#singular-value-decompositionsvd" class="md-nav__link">
-    Singular Value Decomposition(SVD)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#relationship-between-evd-and-svd" class="md-nav__link">
-    Relationship between EVD and SVD
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#application-principal-component-analysis-pca" class="md-nav__link">
-    Application: Principal Component Analysis (PCA)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#probability" class="md-nav__link">
-    Probability
+  <a href="#14-introduction" class="md-nav__link">
+    1.4 Introduction
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#information-and-entropy" class="md-nav__link">
-    Information and Entropy
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-argmin-and-argmax-operators" class="md-nav__link">
-    The Argmin and Argmax Operators
+  <a href="#15-history" class="md-nav__link">
+    1.5 History
   </a>
   
 </li>
@@ -429,15 +561,43 @@
   
   
     <li class="md-nav__item">
-      <a href="../Note_01_introduction/" class="md-nav__link">
+      <a href="../Note_02_Image_Formation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Note 01
+    Note 02 Image Formatio
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Note_03_Structure_from_Motion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Note 03 Structure from Motion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -477,84 +637,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#broadcasting" class="md-nav__link">
-    Broadcasting
+  <a href="#11-organization" class="md-nav__link">
+    1.1 Organization
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hadamard-product" class="md-nav__link">
-    Hadamard product
+  <a href="#12-course-materials" class="md-nav__link">
+    1.2 Course Materials
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#vector-and-matrix-norms" class="md-nav__link">
-    Vector and Matrix Norms
+  <a href="#13-prerequisites" class="md-nav__link">
+    1.3 Prerequisites
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#eigen-and-singular-value-decomposition" class="md-nav__link">
-    Eigen and Singular Value Decomposition
-  </a>
-  
-    <nav class="md-nav" aria-label="Eigen and Singular Value Decomposition">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#eigenvalue-decompositionevd" class="md-nav__link">
-    Eigenvalue Decomposition(EVD)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#singular-value-decompositionsvd" class="md-nav__link">
-    Singular Value Decomposition(SVD)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#relationship-between-evd-and-svd" class="md-nav__link">
-    Relationship between EVD and SVD
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#application-principal-component-analysis-pca" class="md-nav__link">
-    Application: Principal Component Analysis (PCA)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#probability" class="md-nav__link">
-    Probability
+  <a href="#14-introduction" class="md-nav__link">
+    1.4 Introduction
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#information-and-entropy" class="md-nav__link">
-    Information and Entropy
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-argmin-and-argmax-operators" class="md-nav__link">
-    The Argmin and Argmax Operators
+  <a href="#15-history" class="md-nav__link">
+    1.5 History
   </a>
   
 </li>
@@ -574,102 +686,65 @@
                   
 
 
-<h1 id="mathematics-for-deep-learning">Mathematics for Deep Learning</h1>
-<h2 id="broadcasting">Broadcasting</h2>
-<p>
-<script type="math/tex; mode=display">\begin{aligned}
-\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 1 & 2 & 3 \end{bmatrix} &= \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{bmatrix} \\
-\end{aligned}</script>
-</p>
-<p>
-<script type="math/tex; mode=display">\begin{aligned}
-\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 1 \\ 2 \end{bmatrix} &= \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 1 & 1 & 1 \\ 2 & 2 & 2 \end{bmatrix} \\
-\end{aligned}</script>
-</p>
-<h2 id="hadamard-product">Hadamard product</h2>
-<p>
-<script type="math/tex; mode=display">\begin{aligned}
-\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \odot \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} &= \begin{bmatrix} 1 & 4 & 9 \\ 16 & 25 & 36 \end{bmatrix} \\
-\end{aligned}</script>
-</p>
-<h2 id="vector-and-matrix-norms">Vector and Matrix Norms</h2>
-<p>The $L_p$ norm of a vector $x \in \mathbb{R}^n$ is defined as</p>
-<p>
-<script type="math/tex; mode=display">\|x\|_p = \left(\sum_{i=1}^n |x_i|^p\right)^{1/p}</script>
-</p>
-<p>The $L_2$ norm is also called the <strong>Euclidean norm</strong>.</p>
-<blockquote>
-<p>$|x|<em>1 = \sum</em>{i=1}^n |x_i|$
-$|x|<em>2 = \sqrt{\sum</em>{i=1}^n x_i^2}$
-$|x|<em>\infty = \max</em>{i=1,\ldots,n} |x_i|$</p>
-</blockquote>
-<p><strong>Frobenius norm</strong> of a matrix $A \in \mathbb{R}^{m \times n}$ is defined as</p>
-<p>
-<script type="math/tex; mode=display">\|A\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n a_{ij}^2}</script>
-</p>
-<h2 id="eigen-and-singular-value-decomposition">Eigen and Singular Value Decomposition</h2>
-<h3 id="eigenvalue-decompositionevd">Eigenvalue Decomposition(EVD)</h3>
-<p>Only be applied to square matrices</p>
-<p>
-<script type="math/tex; mode=display">A = V \Lambda V^{-1}</script>
-</p>
-<blockquote>
-<p>$V$ is a matrix whose columns are the eigenvectors of $A$.
-$\Lambda$ is a diagonal matrix whose diagonal entries are the eigenvalues of $A$.</p>
-</blockquote>
-<p>Each <strong>real symmetric</strong> matrix $A \in \mathbb{R}^{n \times n}$ can be decomposed into</p>
-<p>
-<script type="math/tex; mode=display">A = Q \Lambda Q^T</script>
-</p>
-<p>where $Q$ is an orthogonal matrix whose columns are the eigenvectors of $A$ and $\Lambda$ is a diagonal matrix whose diagonal entries are the eigenvalues of $A$.</p>
-<h3 id="singular-value-decompositionsvd">Singular Value Decomposition(SVD)</h3>
-<p>For non-square matrices we can use <strong>singular value decomposition</strong></p>
-<p>
-<script type="math/tex; mode=display">A = U D V^T</script>
-</p>
-<blockquote>
-<p>$U$ and $V$ are orthogonal matrices.
-$D$ is a diagonal matrix whose diagonal entries are the singular values of $A$.
-$U$ and $V$ are the left and right singular vectors of $A$.</p>
-</blockquote>
-<h3 id="relationship-between-evd-and-svd">Relationship between EVD and SVD</h3>
-<p>
-<script type="math/tex; mode=display">A = U D V^T</script>
-</p>
-<p>
-<script type="math/tex; mode=display">A^T A = V D^T U^T U D V^T = V D^T D V^T= V D^2 V^T</script>
-</p>
-<p>
-<script type="math/tex; mode=display">A A^T = U D V^T V D U^T = U D^T D U^T = U D^2 U^T</script>
-</p>
-<blockquote>
-<p>The right singular vectors $V$ of $A$ are the eigenvectors of $A^T A$.
-The left singular vectors $U$ of $A$ are the eigenvectors of $A A^T$.
-The singular values of $A$ are the square roots of the eigenvalues of $A^T A$ or $A A^T$.</p>
-</blockquote>
-<h3 id="application-principal-component-analysis-pca">Application: Principal Component Analysis (PCA)</h3>
-<blockquote>
-<p>PCA is a technique for analyzing large high-dimensional datasets</p>
-</blockquote>
-<h2 id="probability">Probability</h2>
-<p>To do</p>
-<h2 id="information-and-entropy">Information and Entropy</h2>
-<p>To satisfy all requirements, we define the self-information of an event $X = x$ as</p>
-<p>
-<script type="math/tex; mode=display">I(x) = -\log P(x)</script> [unit:nat]</p>
-<blockquote>
-<p><strong>Self-information</strong> is also interpreted as quantifying the level of “surprise”
-When using base-2 logarithms, units are called “bits” or “shannons”</p>
-</blockquote>
-<h2 id="the-argmin-and-argmax-operators">The Argmin and Argmax Operators</h2>
-<p>Let $\mathcal{X}$ be a set and $f: \mathcal{X} \rightarrow \mathbb{R}$ be a function. The <strong>argmin</strong> of $f$ is defined as</p>
-<p>
-<script type="math/tex; mode=display">\arg \min_{x \in \mathcal{X}} f(x) = \{x \in \mathcal{X} | f(x) = \min_{x' \in \mathcal{X}} f(x')\}</script>
-</p>
-<p>The <strong>argmax</strong> of $f$ is defined as</p>
-<p>
-<script type="math/tex; mode=display">\arg \max_{x \in \mathcal{X}} f(x) = \{x \in \mathcal{X} | f(x) = \max_{x' \in \mathcal{X}} f(x')\}</script>
-</p>
+<h1 id="1-computer-vision-summer-2022">1 Computer Vision – Summer 2022</h1>
+<h2 id="11-organization">1.1 Organization</h2>
+<p>Goal: Students gain an understanding of the theoretical and practical concepts of computer vision using deep neural networks and graphical models. A strong focus is put on 3D vision. After this course, students should be able to develop and train computer vision models, reproduce research results and conduct original research.</p>
+<p>Course website: <a href="https://uni-tuebingen.de/de/203146">https://uni-tuebingen.de/de/203146</a></p>
+<p>Exercises are offered every 2 weeks, 6 assignments in total</p>
+<h2 id="12-course-materials">1.2 Course Materials</h2>
+<p><strong>Books:</strong></p>
+<ul>
+<li><a href="http://szeliski.org/Book/">Szeliski: Computer Vision: Algorithms and Applications</a></li>
+<li><a href="https://www.robots.ox.ac.uk/~vgg/hzbook/">Hartley and Zisserman: Multiple View Geometry in Computer Vision</a></li>
+<li><a href="https://pub.ist.ac.at/~chl/papers/nowozin-fnt2011.pdf">Nowozin and Lampert: Structured Learning and Prediction in Computer Vision</a></li>
+<li><a href="https://www.deeplearningbook.org/">Goodfellow, Bengio, Courville: Deep Learning</a></li>
+<li><a href="https://mml-book.github.io/">Deisenroth, Faisal, Ong: Mathematics for Machine Learning</a></li>
+<li><a href="https://uni-tuebingen.de/de/203146">Inoffical lecture notes written by students in summer 2021</a></li>
+</ul>
+<p><strong>Tutorials:</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3/tutorial/">The Python Tutorial</a></li>
+<li><a href="https://numpy.org/devdocs/user/quickstart.html">NumPy Quickstart</a></li>
+<li><a href="https://pytorch.org/tutorials/">PyTorch Tutorial</a></li>
+</ul>
+<p><strong>Frameworks / IDEs:</strong></p>
+<ul>
+<li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+<li><a href="https://colab.research.google.com">Google Colab</a></li>
+</ul>
+<p><strong>Related Courses:</strong></p>
+<ul>
+<li><a href="http://www.cs.cmu.edu/~16385/">Gkioulekas (CMU): Computer Vision</a></li>
+<li><a href="https://web.eecs.umich.edu/~ahowens/eecs504/w20/">Owens (University of Michigan): Foundations of Computer Vision</a></li>
+<li><a href="https://slazebni.cs.illinois.edu/spring19/">Lazebnik (UIUC): Computer Vision</a></li>
+<li><a href="http://6.869.csail.mit.edu/sp21/">Freeman and Isola (MIT): Advances in Computer Vision</a></li>
+<li><a href="https://courses.cs.washington.edu/courses/cse576/20sp/">Seitz (University of Washington): Computer Vision</a></li>
+<li><a href="http://szeliski.org/Book/">Slide Decks covering Szeliski Book</a></li>
+</ul>
+<h2 id="13-prerequisites">1.3 Prerequisites</h2>
+<p><strong>Math:</strong></p>
+<ul>
+<li>Linear algebra, probability and information theory. If unsure, have a look at: Goodfellow et al.: <a href="https://www.deeplearningbook.org/">Deep Learning (Book)</a>, Chapters 1-4</li>
+<li>Luxburg: <a href="http://www.tml.cs.uni-tuebingen.de/teaching/2020_maths_for_ml/index.php">Mathematics for Machine Learning (Lecture)</a></li>
+<li>Deisenroth et al.:<a href="https://mml-book.github.io/">Mathematics for Machine Learning (Book)</a></li>
+</ul>
+<p><strong>Computer Science:</strong></p>
+<ul>
+<li>Variables, functions, loops, classes, algorithms</li>
+</ul>
+<p><strong>Deep Learning:</strong></p>
+<ul>
+<li>Geiger: <a href="https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/autonomous-vision/lectures/deep-learning/">Deep Learning (Lecture)</a></li>
+</ul>
+<p><strong>Python and PyTorch:</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3/tutorial/">The Python Tutorial</a></li>
+<li><a href="https://pytorch.org/tutorials/">PyTorch Tutorial</a></li>
+</ul>
+<h2 id="14-introduction">1.4 Introduction</h2>
+<p>Goal of Computer Vision is to <strong>convert light into meaning</strong> (geometric, semantic, . . . )</p>
+<h2 id="15-history">1.5 History</h2>
+<p>Hard to say...</p>
 
 
 
@@ -681,6 +756,12 @@ When using base-2 logarithms, units are called “bits” or “shannons”</p>
           
           
         </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
         
       </main>
       
@@ -707,10 +788,16 @@ When using base-2 logarithms, units are called “bits” or “shannons”</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["announce.dismiss", "navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

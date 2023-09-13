@@ -2,17 +2,17 @@
 
 ## Broadcasting
 
-$$\begin{aligned}
+$$ \begin{aligned}
 \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 1 & 2 & 3 \end{bmatrix} &= \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{bmatrix} \\
 \end{aligned}$$
 
-$$\begin{aligned}
+$$ \begin{aligned}
 \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 1 \\ 2 \end{bmatrix} &= \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 1 & 1 & 1 \\ 2 & 2 & 2 \end{bmatrix} \\
 \end{aligned}$$
 
 ## Hadamard product
 
-$$\begin{aligned}
+$$ \begin{aligned}
 \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \odot \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} &= \begin{bmatrix} 1 & 4 & 9 \\ 16 & 25 & 36 \end{bmatrix} \\
 \end{aligned}$$
 
@@ -20,7 +20,7 @@ $$\begin{aligned}
 
 The $L_p$ norm of a vector $x \in \mathbb{R}^n$ is defined as
 
-$$\|x\|_p = \left(\sum_{i=1}^n |x_i|^p\right)^{1/p}$$
+$$ \|x\|_p = \left(\sum_{i=1}^n |x_i|^p\right)^{1/p}$$
 
 The $L_2$ norm is also called the **Euclidean norm**.
 
@@ -30,7 +30,7 @@ The $L_2$ norm is also called the **Euclidean norm**.
 
 **Frobenius norm** of a matrix $A \in \mathbb{R}^{m \times n}$ is defined as
 
-$$\|A\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n a_{ij}^2}$$
+$$ \|A\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n a_{ij}^2}$$
 
 ## Eigen and Singular Value Decomposition
 
@@ -83,7 +83,7 @@ To do
 
 To satisfy all requirements, we define the self-information of an event $X = x$ as
 
-$$I(x) = -\log P(x)$$ [unit:nat]
+$$ I(x) = -\log P(x) \quad \text{[unit:nat]}$$
 
 > **Self-information** is also interpreted as quantifying the level of “surprise”
 > When using base-2 logarithms, units are called “bits” or “shannons”
@@ -92,8 +92,8 @@ $$I(x) = -\log P(x)$$ [unit:nat]
 
 Let $\mathcal{X}$ be a set and $f: \mathcal{X} \rightarrow \mathbb{R}$ be a function. The **argmin** of $f$ is defined as
 
-$$\arg \min_{x \in \mathcal{X}} f(x) = \{x \in \mathcal{X} | f(x) = \min_{x' \in \mathcal{X}} f(x')\}$$
+$$ \arg \min_{x \in \mathcal{X}} f(x) = \{x \in \mathcal{X} | f(x) = \min_{x' \in \mathcal{X}} f(x')\}$$
 
 The **argmax** of $f$ is defined as
 
-$$\arg \max_{x \in \mathcal{X}} f(x) = \{x \in \mathcal{X} | f(x) = \max_{x' \in \mathcal{X}} f(x')\}$$
+$$ \arg \max_{x \in \mathcal{X}} f(x) = \{x \in \mathcal{X} | f(x) = \max_{x' \in \mathcal{X}} f(x')\}$$

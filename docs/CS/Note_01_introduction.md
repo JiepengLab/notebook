@@ -1,6 +1,6 @@
-# Computer Vision – Summer 2022
+# 1 Computer Vision – Summer 2022
 
-## Organization
+## 1.1 Organization
 
 Goal: Students gain an understanding of the theoretical and practical concepts of computer vision using deep neural networks and graphical models. A strong focus is put on 3D vision. After this course, students should be able to develop and train computer vision models, reproduce research results and conduct original research.
 
@@ -8,7 +8,7 @@ Course website: <https://uni-tuebingen.de/de/203146>
 
 Exercises are offered every 2 weeks, 6 assignments in total
 
-## Course Materials
+## 1.2 Course Materials
 
 **Books:**
 
@@ -39,7 +39,7 @@ Exercises are offered every 2 weeks, 6 assignments in total
 - [Seitz (University of Washington): Computer Vision](https://courses.cs.washington.edu/courses/cse576/20sp/)
 - [Slide Decks covering Szeliski Book](http://szeliski.org/Book/)
 
-## Prerequisites
+## 1.3 Prerequisites
 
 **Math:**
 
@@ -60,10 +60,10 @@ Exercises are offered every 2 weeks, 6 assignments in total
 - [The Python Tutorial](https://docs.python.org/3/tutorial/)
 - [PyTorch Tutorial](https://pytorch.org/tutorials/)
 
-## Introduction
+## 1.4 Introduction
 
 Goal of Computer Vision is to **convert light into meaning** (geometric, semantic, . . . )
 
-## History
+## 1.5 History
 
 Hard to say...

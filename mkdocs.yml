@@ -15,13 +15,38 @@ theme:
       bug: octicons/bug-16
       example: octicons/beaker-16
       quote: octicons/quote-16
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: 切换至夜间模式
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: 切换至日间模式
+  features:
+    # - navigation.instant #这玩意跟公式爆了
+    # - header.autohide #自动隐藏头栏
+    - announce.dismiss
+    - navigation.tracking # 在url中使用标题定位锚点
+    - navigation.tabs # 顶部显示导航顶层nav（也就是第一个节点）
+    # - navigation.tabs.sticky # 滚动是隐藏顶部nav，需要配合navigation.tabs使用
+    - navigation.indexes # 指定节点index pages ，跟instant不兼容
+    - navigation.top # 一键回顶部
+
 
 markdown_extensions:
+  - attr_list
   - admonition
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.arithmatex:
       generic: true
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 # mathjax
 extra_javascript:
@@ -30,8 +55,10 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
-
-- "index.md"
-- ML-4360:
-  - Note 00: Note_00_Mathematics for Deep Learning.md
-  - Note 01: Note_01_introduction.md
+  - Home:
+    - home: index.md
+  - CS:
+    - ML-4360:
+      - Note 01 introduction: ./CS/Note_01_introduction.md
+      - Note 02 Image Formatio: ./CS/Note_02_Image_Formation.md
+      - Note 03 Structure from Motion: ./CS/Note_03_Structure_from_Motion.md
