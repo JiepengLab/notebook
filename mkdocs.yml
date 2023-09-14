@@ -1,6 +1,81 @@
-site_name: "My notes"
+copyright: Copyright &copy; 2023 Jiepeng Jin
+
+site_name: "Jiepeng's notes"
+site_url: https://jiepenglab.github.io/notebook/
+repo_name: JiepengLab/notebook
+repo_url: https://github.com/JiepengLab/notebook
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - attr_list 
+  - admonition 
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.betterem
+
+# mathjax
+extra_javascript:
+  # - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/titlechange.js
+
+nav:
+  - Home:
+    - home: index.md
+  - CS:
+    - ML-4360:
+      - Note 01 introduction: ./CS/Note_01_introduction.md
+      - Note 02 Image Formatio: ./CS/Note_02_Image_Formation.md
+      - Note 03 Structure from Motion: ./CS/Note_03_Structure_from_Motion.md
+
 theme:
   name: material
+
+  palette: 
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      # primary: brown
+      # accent: black
+      toggle:
+        icon: material/brightness-4
+        name: 切换至日间模式
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      # primary: brown
+      # accent: black
+      toggle:
+        icon: material/brightness-7
+        name: 切换至夜间模式
+
+  features:
+    # - header.autohide #自动隐藏头栏
+    # - announce.dismiss # 公告栏
+    # - navigation.instant #这玩意跟公式爆了
+    - navigation.tracking # 在url中使用标题定位锚点
+    - navigation.path # 显示当前路径
+    # - navigation.prune # 侧边栏自动折叠
+    - navigation.tabs # 顶部显示导航顶层nav（也就是第一个节点）
+    # - navigation.tabs.sticky # 滚动是隐藏顶部nav，需要配合navigation.tabs使用
+    - navigation.indexes # 指定节点index pages ，跟instant不兼容
+    - navigation.top # 一键回顶部
+    - navigation.footer # 底部导航
+    - search.highlight # 搜索高亮
+    - search.suggest # 搜索建议
+    - toc.follow # toc 跟随
+
+    - content.code.annotate # 代码行号
+  language: 'zh'
+  custom_dir: overrides
   icon:
     admonition:
       note: octicons/tag-16
@@ -15,50 +90,15 @@ theme:
       bug: octicons/bug-16
       example: octicons/beaker-16
       quote: octicons/quote-16
-  palette: 
-    # Palette toggle for light mode
-    - scheme: default
-      toggle:
-        icon: material/brightness-7
-        name: 切换至夜间模式
-    # Palette toggle for dark mode
-    - scheme: slate
-      toggle:
-        icon: material/brightness-4
-        name: 切换至日间模式
-  features:
-    # - navigation.instant #这玩意跟公式爆了
-    # - header.autohide #自动隐藏头栏
-    - announce.dismiss
-    - navigation.tracking # 在url中使用标题定位锚点
-    - navigation.tabs # 顶部显示导航顶层nav（也就是第一个节点）
-    # - navigation.tabs.sticky # 滚动是隐藏顶部nav，需要配合navigation.tabs使用
-    - navigation.indexes # 指定节点index pages ，跟instant不兼容
-    - navigation.top # 一键回顶部
+  logo: https://img1.imgtp.com/2023/09/14/vMIyvpOG.png
+  favicon: https://img1.imgtp.com/2023/09/14/v4bv7Caz.png
 
+plugins:
+  - search:
+      jieba_dict: dict.txt 
 
-markdown_extensions:
-  - attr_list
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.arithmatex:
-      generic: true
-  - def_list
-  - pymdownx.tasklist:
-      custom_checkbox: true
-
-# mathjax
-extra_javascript:
-  - javascripts/config.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-nav:
-  - Home:
-    - home: index.md
-  - CS:
-    - ML-4360:
-      - Note 01 introduction: ./CS/Note_01_introduction.md
-      - Note 02 Image Formatio: ./CS/Note_02_Image_Formation.md
-      - Note 03 Structure from Motion: ./CS/Note_03_Structure_from_Motion.md
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/JiepengLab
+      name: Jiepeng's Lab

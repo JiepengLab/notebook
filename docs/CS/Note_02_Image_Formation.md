@@ -55,7 +55,7 @@ More complex algebraic objects can be represented using **polynomial homogeneous
 
 $$ \mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
 
-![conics](./pics/02_pics/02_conic_surface.png)
+![conics](https://img1.imgtp.com/2023/09/13/OoZbICan.png)
 
 ### 2.1.2 3D Primitives
 
@@ -94,13 +94,13 @@ The 3D analog of 2D conics is a **quadric surface**:
 
 $$ \mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
 
-![quadrics](./pics/02_pics/02_quadric_surface.png)
+![quadrics](https://img1.imgtp.com/2023/09/13/nDEP8rWj.png)
 
 **Superquadrics**: generalization of quadrics
 
 ### 2.1.3 2D Transformations
 
-![2D transformations](./pics/02_pics/02_2D_Transformations.png)
+![2D transformations](https://img1.imgtp.com/2023/09/13/AJ7zkQht.png)
 
 #### Translation
 
@@ -213,7 +213,7 @@ Let $\mathcal{X}=\{\mathbf{\widetilde{x}_i,\widetilde{x}'_i}\}_{i=1}^N$denote a 
 
 > Why to say "the same direction but differ in magnitude"?
 > See the following picture:
-> ![homography](./pics/02_pics/02_homo_vector.png)
+> ![homography](https://img1.imgtp.com/2023/09/13/wUtd0U9C.png)
 
 Thus, the equation above can be expressed as $\mathbf{\widetilde{x}}'_i\times\mathbf{\widetilde{H}}\mathbf{\widetilde{x}}_i=0$. Using the $\mathbf{\widetilde{h}}^T_k$ to denote the k-th row of $\mathbf{\widetilde{H}}$, we can write:
 
@@ -255,9 +255,11 @@ Each point correspondence yields two equations. Stacking all equations into a $2
 
 由于误差的存在，上式可能不等于0，所以用最小二乘法来估计 $\mathbf{H}$:
 
-令 $\mathbf{A} \widetilde{\mathbf{h}} = \omega$
+令
 
-$\Omega = \omega^T \omega $
+$$ \mathbf{A} \widetilde{\mathbf{h}} = \omega$$
+
+$$ \Omega = \omega^T \omega $$
 
 求解 $\widetilde{\mathbf{h}}$ 使得 $\Omega$ 最小也就是
 
@@ -274,20 +276,20 @@ The solution to the above optimization problem is the **singular vector** corres
 ### 2.2.1 Basic camera models
 
 **Physical Camera Model**
-![Physical Camera Model](./pics/02_pics/02_physical_camera_model.png)
+![Physical Camera Model](https://img1.imgtp.com/2023/09/13/WNhLDTHE.png)
 
 **Mathematical Camera Model**
-![Mathematical Camera Model](./pics/02_pics/02_mathematical_camera_model.png)
+![Mathematical Camera Model](https://img1.imgtp.com/2023/09/13/FNcfbnJN.png)
 
 ### 2.2.2 Projection models
 
-#### Orthographic Projection*
+#### Orthographic Projection
 
-![Orthographic Projection](./pics/02_pics/02_orthographic_projection.png)
+![Orthographic Projection](https://img1.imgtp.com/2023/09/13/4xACnlkC.png)
 
 An **orthographic projection** simply **drops the z component** of the 3D point in camera coordinates $\mathbf{x}_c$ to obtain the corresponding 2D point on the image plane (= screen) $\mathbf{x}_s$.
 
-![Orthographic Projection](./pics/02_pics/02_orthographic_projection_2.png)
+![Orthographic Projection](https://img1.imgtp.com/2023/09/13/BjWf1ox2.png)
 
 $$ \mathbf{x}_s=\begin{bmatrix}1&0&0\\0&1&0\end{bmatrix}\mathbf{x}_c
 \Leftrightarrow \overline{\mathbf{x}}_s=\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\end{bmatrix}\overline{\mathbf{x}}_c$$
@@ -306,14 +308,14 @@ $$ \mathbf{x}_s=\begin{bmatrix}s&0&0\\0&s&0\end{bmatrix}\mathbf{x}_c
 
 Under orthography, structure and motion can be estimated simultaneously using factorization methods (e.g., via singular value decomposition).
 
-#### Perspective Projection**
+#### Perspective Projection
 
-![Perspective Projection](./pics/02_pics/02_perspective_projection.png)
+![Perspective Projection](https://img1.imgtp.com/2023/09/13/xZU9c69B.png)
 
 For perspective projection, we can use the following relationship (which is just from the principle of equal triangles):
 $$ \frac{x_s}{f}=\frac{x_c}{z_c}$$
 
-![Perspective Projection](./pics/02_pics/02_Perspective_projection_2.png)
+![Perspective Projection](https://img1.imgtp.com/2023/09/13/80J3T6Sr.png)
 
 In **perspective projection**, 3D points in camera coordinates are mapped to the image plane by **dividing** them **by their z component** and multiplying with the focal length:
 
@@ -327,10 +329,10 @@ $$ \begin{pmatrix}x_s\\y_s\end{pmatrix}=\begin{pmatrix}fx_c/z_c\\fy_c/z_c\end{pm
 Usually in practice, we compute the **principal point offset** to derive a coordinate system for the image plane that is much more convenient as it does not include negative values.
 
 1. Without principal point offset
-![Without principal point offset](./pics/02_pics/02_without_principal_point_offset.png)
+![Without principal point offset](https://img1.imgtp.com/2023/09/13/d31wsMFr.png)
 
-2. With principal point offset
-![With principal point offset](./pics/02_pics/02_with_principal_point_offset.png)
+1. With principal point offset
+![With principal point offset](https://img1.imgtp.com/2023/09/13/UWfadleQ.png)
 
 This moves the image coordinate system to the corner of the image plane
 
@@ -352,7 +354,7 @@ Let $\mathbf{K}$ be the calibration matrix (intrinsics) and $\begin{bmatrix}\mat
 
 $$ \widetilde{\mathbf{x}}_s=\begin{bmatrix}\mathbf{K}&\mathbf{0}\end{bmatrix}\overline{\mathbf{x}}_c=\begin{bmatrix}\mathbf{K}&\mathbf{0}\end{bmatrix}\begin{bmatrix}\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\overline{\mathbf{x}}_w=\mathbf{K}\begin{bmatrix}\mathbf{R}&\mathbf{t}\end{bmatrix}\overline{\mathbf{x}}_w=\mathbf{P}\overline{\mathbf{x}}_w$$
 
-![Chaining Transformations](./pics/02_pics/02_Chaining_Transformations.png)
+![Chaining Transformations](https://img1.imgtp.com/2023/09/13/P56Gz6Dh.png)
 
 > The matrix $\mathbf{P}=\mathbf{K}\begin{bmatrix}\mathbf{R}&\mathbf{t}\end{bmatrix}$ is called the **camera matrix**, which is a $3 × 4$ matrix, can be precomputed and is used to project 3D points to the image plane.
 
@@ -384,7 +386,7 @@ We now discuss how an image is formed in terms of **pixel intensities** and **co
 
 ### 2.3.1 Rendering Equation
 
-![Rendering Equation](./pics/02_pics/02_rendering_equation.png)
+![Rendering Equation](https://img1.imgtp.com/2023/09/13/1tDZYQHG.png)
 
 Let $\mathbf{p} \in \mathbb{R}^3$ denote  a 3D surface point, $\mathbf{v} \in \mathbb{R}^3$ the viewing direction and $\mathbf{s} \in \mathbb{R}^3$ the incoming light direction. The **rendering equation** describes how much of the light $L_{in}$ with wavelength $\lambda$ arriving at $\mathbf{p}$ is reflected into the viewing direction $\mathbf{v}$:
 
@@ -402,7 +404,7 @@ $$L_{out}(\mathbf{p},\mathbf{v},\lambda)=L_{emit}(\mathbf{p},\mathbf{v},\lambda)
 
 Typical BRDFs have a **diffuse**(漫反射) and a **specular**(镜面反射) component:
 
-![BRDF Components](./pics/02_pics/02_BRDF_Components.png)
+![BRDF Components](https://img1.imgtp.com/2023/09/13/1HifVDJE.png)
 
 > - 因为表面不一定是完全光滑的,所以会呈现Specular的效果
 > - The specular component depends strongly on the outgoing light direction.（想想塑料的各个角度的效果）
@@ -421,7 +423,7 @@ Modeling one light bounce is insufficient for rendering complex scenes. Light so
 
 #### The thin lens model
 
-![The thin lens model](./pics/02_pics/02_the_thin_lens_model.png)
+![The thin lens model](https://img1.imgtp.com/2023/09/13/LINAT0cq.png)
 
 $$ \frac{1}{f}=\frac{1}{z_s}+\frac{1}{z_c}$$
 
@@ -435,7 +437,7 @@ From Snell’s law we obtain $f=\frac{R}{2(n-1)}$ with radius $R$ and index of r
 
 #### Depth of Field(景深)
 
-![Depth of Field](./pics/02_pics/02_DOF.png)
+![Depth of Field](https://img1.imgtp.com/2023/09/13/uYJAblqH.png)
 
 > 这里的$\Delta z_s$是指在焦平面上的景深范围，是前景和后景的距离。
 
@@ -454,7 +456,7 @@ To control the **size of the circle of confusion**, we change the lens **apertur
 
 ## 2.4 Image Sensing Pipeline
 
-![Image Sensing Pipeline](./pics/02_pics/02_image_sensing_pipeline.png)
+![Image Sensing Pipeline](https://img1.imgtp.com/2023/09/13/3zmkmf0H.png)
 
 The **image sensing pipeline** can be divided into three stages:
 
