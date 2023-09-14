@@ -1,12 +1,1 @@
-./site/
-site/404.html
-site/index.html
-site/sitemap.xml
-site/sitemap.xml.gz
-site/CS/Note_00_Mathematics for Deep Learning/index.html
-site/CS/Note_01_introduction/index.html
-site/CS/Note_02_Image_Formation/index.html
-site/CS/Note_03_Structure_from_Motion/index.html
-site/javascripts/mathjax.js
-site/javascripts/titlechange.js
-site/search/search_index.json
+/site/

@@ -6,35 +6,77 @@ repo_name: JiepengLab/notebook
 repo_url: https://github.com/JiepengLab/notebook
 
 markdown_extensions:
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - tables
+  - footnotes
+  - md_in_html
   - toc:
       permalink: true
       toc_depth: 3
-  - attr_list 
-  - admonition 
-  - pymdownx.details
-  - pymdownx.superfences
+  # Python Markdown Extensions
   - pymdownx.arithmatex:
       generic: true
-  - def_list
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.betterem
+  - pymdownx.tilde
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
 
 # mathjax
 extra_javascript:
-  # - javascripts/mathjax.js
+  - javascripts/katex.js 
+  - javascripts/mathjax.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - javascripts/titlechange.js
 
 nav:
-  - Home:
+  - 首页:
     - home: index.md
+  - 基础课程:
+    - Discrete Mathematics And Its Applications:
+      - Chapter.1-The Foundations: ./Discrete Mathematics And Its Applications/Chapter1.md
+      - Chapter.4-The Number Theory and Cryptography: ./Discrete Mathematics And Its Applications/Chapter4.md
+      - Chapter.5-Induction and Recursion: ./Discrete Mathematics And Its Applications/Chapter5.md
+      - Chapter.6-Counting: ./Discrete Mathematics And Its Applications/Chapter6.md
+      - Chapter.8-Advanced Counting Techniques: ./Discrete Mathematics And Its Applications/Chapter8.md
+      - Chapter.9-Relations: ./Discrete Mathematics And Its Applications/Chapter9.md
+      - Chapter.10-Graphs: ./Discrete Mathematics And Its Applications/Chapter10.md
+      - Chapter.11-Trees: ./Discrete Mathematics And Its Applications/Chapter11.md
+  
   - CS:
     - ML-4360:
       - Note 01 introduction: ./CS/Note_01_introduction.md
       - Note 02 Image Formatio: ./CS/Note_02_Image_Formation.md
       - Note 03 Structure from Motion: ./CS/Note_03_Structure_from_Motion.md
+  
 
 theme:
   name: material
@@ -73,7 +115,7 @@ theme:
     - search.suggest # 搜索建议
     - toc.follow # toc 跟随
     - content.code.annotate # 代码行号
-    
+
   language: 'zh'
   icon:
     admonition:
@@ -95,6 +137,11 @@ theme:
 plugins:
   - search:
       jieba_dict: dict.txt 
+  - heti:
+      extra_skipped_class:
+        - arithmatex
+      disable_serve: false
+
 
 extra:
   social:
