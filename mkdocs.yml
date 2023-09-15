@@ -61,21 +61,25 @@ nav:
   - 首页:
     - home: index.md
   - 基础课程:
+    - ./基础课程/index.md
     - Discrete Mathematics And Its Applications:
-      - Chapter.1-The Foundations: ./Discrete Mathematics And Its Applications/Chapter1.md
-      - Chapter.4-The Number Theory and Cryptography: ./Discrete Mathematics And Its Applications/Chapter4.md
-      - Chapter.5-Induction and Recursion: ./Discrete Mathematics And Its Applications/Chapter5.md
-      - Chapter.6-Counting: ./Discrete Mathematics And Its Applications/Chapter6.md
-      - Chapter.8-Advanced Counting Techniques: ./Discrete Mathematics And Its Applications/Chapter8.md
-      - Chapter.9-Relations: ./Discrete Mathematics And Its Applications/Chapter9.md
-      - Chapter.10-Graphs: ./Discrete Mathematics And Its Applications/Chapter10.md
-      - Chapter.11-Trees: ./Discrete Mathematics And Its Applications/Chapter11.md
+      - ./基础课程/Discrete Mathematics And Its Applications/index.md
+      - Chapter.1-The Foundations: ./基础课程/Discrete Mathematics And Its Applications/Chapter1.md
+      - Chapter.4-The Number Theory and Cryptography: ./基础课程/Discrete Mathematics And Its Applications/Chapter4.md
+      - Chapter.5-Induction and Recursion: ./基础课程/Discrete Mathematics And Its Applications/Chapter5.md
+      - Chapter.6-Counting: ./基础课程/Discrete Mathematics And Its Applications/Chapter6.md
+      - Chapter.8-Advanced Counting Techniques: ./基础课程/Discrete Mathematics And Its Applications/Chapter8.md
+      - Chapter.9-Relations: ./基础课程/Discrete Mathematics And Its Applications/Chapter9.md
+      - Chapter.10-Graphs: ./基础课程/Discrete Mathematics And Its Applications/Chapter10.md
+      - Chapter.11-Trees: ./基础课程/Discrete Mathematics And Its Applications/Chapter11.md
   
-  - CS:
+  - CS: 
+    - ./CS/index.md
     - ML-4360:
-      - Note 01 introduction: ./CS/Note_01_introduction.md
-      - Note 02 Image Formatio: ./CS/Note_02_Image_Formation.md
-      - Note 03 Structure from Motion: ./CS/Note_03_Structure_from_Motion.md
+      - ./CS/ML-4360/index.md
+      - Note 01 introduction: ./CS/ML-4360/Note_01_introduction.md
+      - Note 02 Image Formation: ./CS/ML-4360/Note_02_Image_Formation.md
+      - Note 03 Structure from Motion: ./CS/ML-4360/Note_03_Structure_from_Motion.md
   
 
 theme:
@@ -105,7 +109,7 @@ theme:
     # - navigation.instant #这玩意跟公式爆了
     - navigation.tracking # 在url中使用标题定位锚点
     - navigation.path # 显示当前路径
-    # - navigation.prune # 侧边栏自动折叠
+    - navigation.prune # 侧边栏自动折叠
     - navigation.tabs # 顶部显示导航顶层nav（也就是第一个节点）
     # - navigation.tabs.sticky # 滚动是隐藏顶部nav，需要配合navigation.tabs使用
     - navigation.indexes # 指定节点index pages ，跟instant不兼容
@@ -136,7 +140,6 @@ theme:
 
 plugins:
   - search:
-      jieba_dict: dict.txt 
   - heti:
       extra_skipped_class:
         - arithmatex

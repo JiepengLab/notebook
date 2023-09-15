@@ -10,31 +10,36 @@ Geometric primitives(几何图元) are the basic building blocks used to describ
 
 **2D points** can be written in **inhomogeneous coordinates**(非齐次坐标) as
 
-$$ \mathbf{x} =(x,y)^T\in \mathbb{R}^2$$
+$$\mathbf{x} =(x,y)^T\in \mathbb{R}^2$$
 
 or in **homogeneous coordinates**(齐次坐标) as
 
-$$ \widetilde{\mathbf{x}} =\left(\widetilde{x},\widetilde{y},\widetilde{w}\right)^T\in \mathbb{P}^2$$
+$$\widetilde{\mathbf{x}} =\left(\widetilde{x},\widetilde{y},\widetilde{w}\right)^T\in \mathbb{P}^2$$
 
 where $\mathbb{P}^2 ( = \mathbb{R}^3)$ is the **projective plane**(射影空间) and $\widetilde{\mathbf{x}}$ is a **projective point**(投影点).
 > The tilde sign (~) is a convention for homogeneous coordinates.
+>
 > Homogeneous vectors are defined only up to scale.
 
 **Inhomogeneous vector** $\mathbf{x}$ is converted to a **homogeneous vector** $\widetilde{\mathbf{x}}$ as follows:
 
-$$ \widetilde{\mathbf{x} }=\begin{pmatrix}\widetilde{x}\\\widetilde{y}\\\widetilde{w}\end{pmatrix}=\begin{pmatrix}x\\y\\1\end{pmatrix}=\begin{pmatrix}\mathbf{x}\\1\end{pmatrix}= \overline{\mathbf{x} }$$
+$$\widetilde{\mathbf{x} }=\begin{pmatrix}\widetilde{x}\\\widetilde{y}\\\widetilde{w}\end{pmatrix}=\begin{pmatrix}x\\y\\1\end{pmatrix}=\begin{pmatrix}\mathbf{x}\\1\end{pmatrix}= \overline{\mathbf{x} }$$
 
 where $\overline{x}$ is the **augmented vector**(增广向量) of $\mathbf{x}$.
 > We say augmented vector $\overline{\mathbf{x} }$ for all homogeneous vectors which last coordinate is equal to 1.
+>
 > Special vector: Homogeneous points whose last element is $\widetilde{w}=0$ are called **ideal points** or **points at infinity**. These points can’t be represented with inhomogeneous coordinates!
 
 #### 2D Lines
 
-**2D lines** can also be expressed using **homogeneous coordinates**(齐次坐标) $\mathbf{\widetilde{l}}=(a,b,c)^T$ : $$ \{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{\widetilde{l}}=0\} \Leftrightarrow \{x,y | ax+by+c=0\}$$
+**2D lines** can also be expressed using **homogeneous coordinates**(齐次坐标) $\mathbf{\widetilde{l}}=(a,b,c)^T$ :
+
+$$\{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{\widetilde{l}}=0\} \Leftrightarrow \{x,y | ax+by+c=0\}$$
 
 左到右是因为 $\mathbf{\overline{x}}^T\mathbf{\widetilde{l}}=0 \Rightarrow (x,y,1)\begin{pmatrix}a\\b\\c\end{pmatrix}=0 \Rightarrow ax+by+c=0$
 
 标准化 $\mathbf{\widetilde{l}}$：$\mathbf{\widetilde{l}}=(n_x,n_y,d)^T$，
+
 其中 $n_x^2+n_y^2=1$， $(n_x,n_y)$ 是 $\mathbf{\widetilde{l}}$ 的**法向量** ，$d$ 是 $\mathbf{\widetilde{l}}$ 到原点的距离.
 
 > An exception is the **line at infinity** $\mathbf{\widetilde{l}}_{\infty}=(0,0,1)^T$, which passes through all ideal points.
@@ -42,18 +47,20 @@ where $\overline{x}$ is the **augmented vector**(增广向量) of $\mathbf{x}$.
 #### 2D Line Arithmetic
 
 In homogeneous coordinates, **the intersection of two lines** is given by:
-$$ \mathbf{\overline{x}}=\mathbf{\widetilde{l}}_1\times \mathbf{\widetilde{l}}_2$$
+
+$$\mathbf{\overline{x}}=\mathbf{\widetilde{l}}_1\times \mathbf{\widetilde{l}}_2$$
 
 where $\times$ is the **cross product** of two vectors.
 
 Similarly, **the intersection of two points** is given by:
-$$ \mathbf{\widetilde{l}}=\mathbf{\overline{x}}_1\times \mathbf{\overline{x}}_2$$
+
+$$\mathbf{\widetilde{l}}=\mathbf{\overline{x}}_1\times \mathbf{\overline{x}}_2$$
 
 #### 2D Conics(二次曲线)
 
 More complex algebraic objects can be represented using **polynomial homogeneous equations**. For example, **conic sections** (arising as the intersection of a plane and a 3D cone) can be written using quadric equations:
 
-$$ \mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
+$$\mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
 
 ![conics](https://img1.imgtp.com/2023/09/13/OoZbICan.png)
 
@@ -62,28 +69,32 @@ $$ \mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
 #### 3D Points
 
 **3D points** can be written in **inhomogeneous coordinates** as
-$$ \mathbf{x}=(x,y,z)^T\in \mathbb{R}^3$$
+
+$$\mathbf{x}=(x,y,z)^T\in \mathbb{R}^3$$
+
 or in **homogeneous coordinates** as
-$$ \widetilde{\mathbf{x}}=(\widetilde{x},\widetilde{y},\widetilde{z},\widetilde{w})^T\in \mathbb{P}^3$$
+
+$$\widetilde{\mathbf{x}}=(\widetilde{x},\widetilde{y},\widetilde{z},\widetilde{w})^T\in \mathbb{P}^3$$
 
 where $\mathbb{P}^3 (=\mathbb{R}^4)$  is the **projective space**.
 
 #### 3D Planes
 
 **3D planes** can be expressed using homogeneous coordinates $\mathbf{\widetilde{m}}=(a,b,c,d)^T$:
-$$ \{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{\widetilde{m}}=0\} \Leftrightarrow \{x,y,z | ax+by+cz+d=0\}$$
+
+$$\{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{\widetilde{m}}=0\} \Leftrightarrow \{x,y,z | ax+by+cz+d=0\}$$
 
 标准化 $\mathbf{\widetilde{m}}$：$\mathbf{\widetilde{m}}=(n_x,n_y,n_z,d)^T$
+
 其中 $n_x^2+n_y^2+n_z^2=1$, $(n_x,n_y,n_z)$ 是 $\mathbf{\widetilde{m}}$ 的**法向量**，$d$ 是 $\mathbf{\widetilde{m}}$ 到原点的距离。
 
 > An exception is the **plane at infinity** $\mathbf{\widetilde{m}}_{\infty}=(0,0,0,1)^T$, which passes through all ideal points.
 
 #### 3D Lines
 
-**3D lines** are less elegant than either 2D lines or 3D planes. One possible representation
-is to express points on a line as a **linear combination** of two points $\mathbf{p}$ and $\mathbf{q}$ on the line:
+**3D lines** are less elegant than either 2D lines or 3D planes. One possible representation is to express points on a line as a **linear combination** of two points $\mathbf{p}$ and $\mathbf{q}$ on the line:
 
-$$ \{\mathbf{x}|\mathbf{x}=(1-\lambda)\mathbf{p}+\lambda\mathbf{q},\lambda\in \mathbb{R}\}$$
+$$\{\mathbf{x}|\mathbf{x}=(1-\lambda)\mathbf{p}+\lambda\mathbf{q},\lambda\in \mathbb{R}\}$$
 
 However, this representation uses 6 parameters($\mathbf{p}$和$\mathbf{q}$分别三个参数) for 4 degrees of freedom(一个点(3个不自由度)+方向(1个不自由度)).
 > 所以可以用**two-plane parameterization**（两平面参数化）来表示3D line.
@@ -92,7 +103,7 @@ However, this representation uses 6 parameters($\mathbf{p}$和$\mathbf{q}$分别
 
 The 3D analog of 2D conics is a **quadric surface**:
 
-$$ \mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
+$$\mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
 
 ![quadrics](https://img1.imgtp.com/2023/09/13/nDEP8rWj.png)
 
@@ -106,7 +117,7 @@ $$ \mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
 
 **Translation**: (2D Translation of the Input, 2 DoF(两个自由度: $t_x$和$t_y$))
 
-$$ \mathbf{x}'=\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}1&0&t_x\\0&1&t_y\\0&0&1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{I}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\mathbf{\overline{x}}$$
+$$\mathbf{x}'=\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}1&0&t_x\\0&1&t_y\\0&0&1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{I}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\mathbf{\overline{x}}$$
 
 > - Using homogeneous representations allows to chain/invert transformations.
 > - Augmented vectors $\mathbf{\overline{x}}$ can always be replaced by general homogeneous ones $\widetilde{\mathbf{x}}$.
@@ -115,7 +126,7 @@ $$ \mathbf{x}'=\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\en
 
 **Euclidean**: (2D Translation + 2D Rotation, 3 DoF)
 
-$$ \mathbf{x}'=\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}\cos\theta&-\sin\theta&t_x\\\sin\theta&\cos\theta&t_y\\0&0&1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\mathbf{\overline{x}}$$
+$$\mathbf{x}'=\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}\cos\theta&-\sin\theta&t_x\\\sin\theta&\cos\theta&t_y\\0&0&1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\mathbf{\overline{x}}$$
 
 > - $\mathbf{R} \in SO(2)$: **special orthogonal group** of 2D rotations,which is an **orthogonal rotation matrix** with $\mathbf{R}^T\mathbf{R}=\mathbf{I}$ and $\det(\mathbf{R})=1$.
 > - Euclidean transformations preserve Euclidean distances
@@ -124,7 +135,7 @@ $$ \mathbf{x}'=\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'
 
 **Similarity**: (2D Translation + Scaled 2D Rotation, 4 DoF)
 
-$$ \mathbf{x}'=s\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}s\cos\theta&-s\sin\theta&t_x\\s\sin\theta&s\cos\theta&t_y\\0&0&1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}s\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\mathbf{\overline{x}}$$
+$$\mathbf{x}'=s\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}s\cos\theta&-s\sin\theta&t_x\\s\sin\theta&s\cos\theta&t_y\\0&0&1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}s\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\mathbf{\overline{x}}$$
 
 > - $s$ is the **scale factor**.
 > - The similarity transform preserves angles between lines
@@ -133,7 +144,7 @@ $$ \mathbf{x}'=s\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x
 
 **Affine**: (2D Translation + 2D Rotation + 2D Shear, 6 DoF)
 
-$$ \mathbf{x}'=\mathbf{A}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}a_{11}&a_{12}&t_x\\a_{21}&a_{22}&t_y\\0&0&1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{A}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\mathbf{\overline{x}}$$
+$$\mathbf{x}'=\mathbf{A}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}a_{11}&a_{12}&t_x\\a_{21}&a_{22}&t_y\\0&0&1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{A}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\mathbf{\overline{x}}$$
 
 > - $\mathbf{A}$ is an **arbitrary 2D matrix**.
 > - Parallel lines remain parallel under affine transformations
@@ -142,7 +153,7 @@ $$ \mathbf{x}'=\mathbf{A}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'
 
 **Projective**: (2D Translation + 2D Rotation + 2D Shear + 2D Homography, 8 DoF)（对同构矩阵整体乘以一个常数并不改变射影变换,所以可以让其中一个元素取任意定值(例如取1),等价去掉一个自由度）
 
-$$ \mathbf{\widetilde{x}}'=\mathbf{\widetilde{H}}\mathbf{\widetilde{x}} \Leftrightarrow \begin{pmatrix}\widetilde{x}'\\\widetilde{y}'\\\widetilde{w}'\end{pmatrix}=\begin{bmatrix}h_{11}&h_{12}&h_{13}\\h_{21}&h_{22}&h_{23}\\h_{31}&h_{32}&h_{33}\end{bmatrix}\begin{pmatrix}\widetilde{x}\\\widetilde{y}\\\widetilde{w}\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\frac{1}{\widetilde{w}'}\widetilde{x}'$$
+$$\mathbf{\widetilde{x}}'=\mathbf{\widetilde{H}}\mathbf{\widetilde{x}} \Leftrightarrow \begin{pmatrix}\widetilde{x}'\\\widetilde{y}'\\\widetilde{w}'\end{pmatrix}=\begin{bmatrix}h_{11}&h_{12}&h_{13}\\h_{21}&h_{22}&h_{23}\\h_{31}&h_{32}&h_{33}\end{bmatrix}\begin{pmatrix}\widetilde{x}\\\widetilde{y}\\\widetilde{w}\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\frac{1}{\widetilde{w}'}\widetilde{x}'$$
 
 > - $\mathbf{\widetilde{H}}$ is an **arbitrary homogeneous 3x3 matrix**.
 > - Projective transformations preserve straight lines
@@ -156,16 +167,20 @@ Consider a **covector** $\mathbf{\widetilde{l}}=(a,b,c)^T$ representing a 2D lin
 **Solution**: Consider a point $\mathbf{\overline{x}}$ on the line $\mathbf{\widetilde{l}}$:
 
 Considering any perspective 2D transformation:
-$$ \mathbf{\widetilde{x}}'=\mathbf{H}\mathbf{\widetilde{x}}$$
+
+$$\mathbf{\widetilde{x}}'=\mathbf{H}\mathbf{\widetilde{x}}$$
 
 the transformed 2D line equation is given by:
-$$ \mathbf{\widetilde{l}'}^T\mathbf{\widetilde{x}}'=\mathbf{\widetilde{l}}^T\mathbf{\widetilde{x}}=0$$
+
+$$\mathbf{\widetilde{l}'}^T\mathbf{\widetilde{x}}'=\mathbf{\widetilde{l}}^T\mathbf{\widetilde{x}}=0$$
 
 So:
-$$ \mathbf{\widetilde{l}'}^T\mathbf{H}\mathbf{\widetilde{x}}=\mathbf{\widetilde{l}}^T\mathbf{\widetilde{x}}=0$$
+
+$$\mathbf{\widetilde{l}'}^T\mathbf{H}\mathbf{\widetilde{x}}=\mathbf{\widetilde{l}}^T\mathbf{\widetilde{x}}=0$$
 
 which implies:
-$$ \mathbf{\widetilde{l}'}=\mathbf{H}^{-T}\mathbf{\widetilde{l}}$$
+
+$$\mathbf{\widetilde{l}'}=\mathbf{H}^{-T}\mathbf{\widetilde{l}}$$
 
 > Thus, the action of a projective transformation on a co-vector such as a 2D line or 3D normal can be represented by the transposed inverse of the matrix.
 
@@ -212,7 +227,9 @@ How can we estimate a homography from a set of 2D correspondences?
 Let $\mathcal{X}=\{\mathbf{\widetilde{x}_i,\widetilde{x}'_i}\}_{i=1}^N$denote a set of $N$ 2D-to-2D correspondences related by $\mathbf{\widetilde{x}}'_i=\mathbf{\widetilde{H}}\mathbf{\widetilde{x}}_i$.As the correspondence vectors are homogeneous, they have **the same direction but differ in magnitude**.
 
 > Why to say "the same direction but differ in magnitude"?
+>
 > See the following picture:
+>
 > ![homography](https://img1.imgtp.com/2023/09/13/wUtd0U9C.png)
 
 Thus, the equation above can be expressed as $\mathbf{\widetilde{x}}'_i\times\mathbf{\widetilde{H}}\mathbf{\widetilde{x}}_i=0$. Using the $\mathbf{\widetilde{h}}^T_k$ to denote the k-th row of $\mathbf{\widetilde{H}}$, we can write:
@@ -257,13 +274,13 @@ Each point correspondence yields two equations. Stacking all equations into a $2
 
 令
 
-$$ \mathbf{A} \widetilde{\mathbf{h}} = \omega$$
+$$\mathbf{A} \widetilde{\mathbf{h}} = \omega$$
 
-$$ \Omega = \omega^T \omega $$
+$$\Omega = \omega^T \omega $$
 
 求解 $\widetilde{\mathbf{h}}$ 使得 $\Omega$ 最小也就是
 
-$$ \widetilde{\mathbf{h}}^*=\arg\min_{\widetilde{\mathbf{h}}}\Omega + \lambda (\|\widetilde{\mathbf{h}}\|^2-1)=\arg\min_{\widetilde{\mathbf{h}}}\|\mathbf{A}\widetilde{\mathbf{h}}\|^2+\lambda (\|\widetilde{\mathbf{h}}\|^2-1)$$
+$$\widetilde{\mathbf{h}}^*=\arg\min_{\widetilde{\mathbf{h}}}\Omega + \lambda (\|\widetilde{\mathbf{h}}\|^2-1)=\arg\min_{\widetilde{\mathbf{h}}}\|\mathbf{A}\widetilde{\mathbf{h}}\|^2+\lambda (\|\widetilde{\mathbf{h}}\|^2-1)$$
 
 其中 $\widetilde{\mathbf{h}}^*$ 是 $\mathbf{H}$ 的最小二乘解。
 
@@ -291,7 +308,7 @@ An **orthographic projection** simply **drops the z component** of the 3D point 
 
 ![Orthographic Projection](https://img1.imgtp.com/2023/09/13/BjWf1ox2.png)
 
-$$ \mathbf{x}_s=\begin{bmatrix}1&0&0\\0&1&0\end{bmatrix}\mathbf{x}_c
+$$\mathbf{x}_s=\begin{bmatrix}1&0&0\\0&1&0\end{bmatrix}\mathbf{x}_c
 \Leftrightarrow \overline{\mathbf{x}}_s=\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\end{bmatrix}\overline{\mathbf{x}}_c$$
 
 > - remember that $\overline{\mathbf{x}}_c$ is the augmented vector of $\mathbf{x}_c$.
@@ -301,7 +318,7 @@ $$ \mathbf{x}_s=\begin{bmatrix}1&0&0\\0&1&0\end{bmatrix}\mathbf{x}_c
 
 In practice, world coordinates (which may measure dimensions in meters) must be scaled to fit onto an image sensor (measuring in pixels) ⇒ **scaled orthography**:
 
-$$ \mathbf{x}_s=\begin{bmatrix}s&0&0\\0&s&0\end{bmatrix}\mathbf{x}_c
+$$\mathbf{x}_s=\begin{bmatrix}s&0&0\\0&s&0\end{bmatrix}\mathbf{x}_c
 \Leftrightarrow \overline{\mathbf{x}}_s=\begin{bmatrix}s&0&0&0\\0&s&0&0\\0&0&0&1\end{bmatrix}\overline{\mathbf{x}}_c$$
 
 > The unit for s is px/m or px/mm to convert metric 3D points into pixels
@@ -313,13 +330,17 @@ Under orthography, structure and motion can be estimated simultaneously using fa
 ![Perspective Projection](https://img1.imgtp.com/2023/09/13/xZU9c69B.png)
 
 For perspective projection, we can use the following relationship (which is just from the principle of equal triangles):
-$$ \frac{x_s}{f}=\frac{x_c}{z_c}$$
+$$\frac{x_s}{f}=\frac{x_c}{z_c}$$
 
 ![Perspective Projection](https://img1.imgtp.com/2023/09/13/80J3T6Sr.png)
 
 In **perspective projection**, 3D points in camera coordinates are mapped to the image plane by **dividing** them **by their z component** and multiplying with the focal length:
 
-$$ \begin{pmatrix}x_s\\y_s\end{pmatrix}=\begin{pmatrix}fx_c/z_c\\fy_c/z_c\end{pmatrix} \Leftrightarrow \widetilde{\mathbf{x}}_s=\begin{bmatrix}f&0&0\\0&f&0\\0&0&1\end{bmatrix}\overline{\mathbf{x}}_c$$
+$$\begin{pmatrix}x_s\\y_s\end{pmatrix}
+=\begin{pmatrix}fx_c/z_c\\fy_c/z_c\end{pmatrix}
+\Leftrightarrow
+\widetilde{\mathbf{x}}_s
+=\begin{bmatrix}f&0&0\\0&f&0\\0&0&1\end{bmatrix}\overline{\mathbf{x}}_c$$
 
 > - Note that this projection is **linear** when using **homogeneous** coordinates. After the projection it is not possible to recover the distance of the 3D point from the image.
 > - Remark: The unit for $f$ is px (=pixels) to convert metric 3D points into pixels.
@@ -340,7 +361,7 @@ This moves the image coordinate system to the corner of the image plane
 
 The complete perspective projection model is given by:
 
-$$ \begin{pmatrix}x_s\\y_s\end{pmatrix}=\begin{pmatrix}f_xx_c/z_c+sy_c+c_x\\f_yy_c/z_c+c_y\end{pmatrix} \Leftrightarrow \widetilde{\mathbf{x}}_s=\begin{bmatrix}f_x&s&c_x&0\\0&f_y&c_y&0\\0&0&1&0\end{bmatrix}\overline{\mathbf{x}}_c$$
+$$\begin{pmatrix}x_s\\y_s\end{pmatrix}=\begin{pmatrix}f_xx_c/z_c+sy_c+c_x\\f_yy_c/z_c+c_y\end{pmatrix} \Leftrightarrow \widetilde{\mathbf{x}}_s=\begin{bmatrix}f_x&s&c_x&0\\0&f_y&c_y&0\\0&0&1&0\end{bmatrix}\overline{\mathbf{x}}_c$$
 
 > - The Matrix $\mathbf{K}=\begin{bmatrix}f_x&s&c_x\\0&f_y&c_y\\0&0&1\end{bmatrix}$ is called the **calibration matrix**.
 > - The parameters of K are called **camera intrinsics** (as opposed to extrinsic pose)
@@ -352,7 +373,7 @@ $$ \begin{pmatrix}x_s\\y_s\end{pmatrix}=\begin{pmatrix}f_xx_c/z_c+sy_c+c_x\\f_yy
 
 Let $\mathbf{K}$ be the calibration matrix (intrinsics) and $\begin{bmatrix}\mathbf{R}&\mathbf{t}\end{bmatrix}$ be the camera pose (extrinsics). We **chain both transformations** to project a point in world coordinates to the image:
 
-$$ \widetilde{\mathbf{x}}_s=\begin{bmatrix}\mathbf{K}&\mathbf{0}\end{bmatrix}\overline{\mathbf{x}}_c=\begin{bmatrix}\mathbf{K}&\mathbf{0}\end{bmatrix}\begin{bmatrix}\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\overline{\mathbf{x}}_w=\mathbf{K}\begin{bmatrix}\mathbf{R}&\mathbf{t}\end{bmatrix}\overline{\mathbf{x}}_w=\mathbf{P}\overline{\mathbf{x}}_w$$
+$$\widetilde{\mathbf{x}}_s=\begin{bmatrix}\mathbf{K}&\mathbf{0}\end{bmatrix}\overline{\mathbf{x}}_c=\begin{bmatrix}\mathbf{K}&\mathbf{0}\end{bmatrix}\begin{bmatrix}\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\overline{\mathbf{x}}_w=\mathbf{K}\begin{bmatrix}\mathbf{R}&\mathbf{t}\end{bmatrix}\overline{\mathbf{x}}_w=\mathbf{P}\overline{\mathbf{x}}_w$$
 
 ![Chaining Transformations](https://img1.imgtp.com/2023/09/13/P56Gz6Dh.png)
 
@@ -362,22 +383,24 @@ $$ \widetilde{\mathbf{x}}_s=\begin{bmatrix}\mathbf{K}&\mathbf{0}\end{bmatrix}\ov
 
 It is sometimes preferable to use a **full rank** 4 × 4 projection matrix:
 
-$$ \widetilde{\mathbf{x}}_s=\begin{bmatrix}\mathbf{K}&\mathbf{0}\\\mathbf{0}^T&1\end{bmatrix}\begin{bmatrix}\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\overline{\mathbf{x}}_w$$
+$$\widetilde{\mathbf{x}}_s=\begin{bmatrix}\mathbf{K}&\mathbf{0}\\\mathbf{0}^T&1\end{bmatrix}\begin{bmatrix}\mathbf{R}&\mathbf{t}\\\mathbf{0}^T&1\end{bmatrix}\overline{\mathbf{x}}_w$$
 
-Now, the homogeneous vector $\widetilde{\mathbf{x}}_s$ is a 4D vector and must be normalized wrt. its 3rd
-entry to obtain inhomogeneous image pixels:
-$$ \overline{\mathbf{x}}_s=\frac{\widetilde{\mathbf{x}}_s}{\widetilde{z}_s}= \begin{pmatrix}x_s/z_s & y_s/z_s & 1 & 1/z_s\end{pmatrix}^T$$
+Now, the homogeneous vector $\widetilde{\mathbf{x}}_s$ is a 4D vector and must be normalized wrt. its 3rd entry to obtain inhomogeneous image pixels:
+
+$$\overline{\mathbf{x}}_s=\frac{\widetilde{\mathbf{x}}_s}{\widetilde{z}_s}= \begin{pmatrix}x_s/z_s & y_s/z_s & 1 & 1/z_s\end{pmatrix}^T$$
+
 Note that the 4th component of the inhomogeneous 4D vector is the **inverse depth**. If the inverse depth is known, a 3D point can be retrieved from its pixel coordinates via $\widetilde{\mathbf{x}}_w=\mathbf{P}^{-1}\overline{\mathbf{x}}_s$ and subsequent normalization of $\widetilde{\mathbf{x}}$ wrt. its 4th entry.
 
 ### 2.2.3 Lens Distortion
 
 The assumption of linear projection (straight lines remain straight) is violated in practice due to the properties of the camera lens which introduces distortions. Both **radial and tangential distortion** effects can be modeled relatively easily: Let $x = x_c/z_c, y = y_c/z_c$ and $r^2 = x^2 + y^2$ . The distorted point is obtained as:
 
-$$ \mathbf{x}' = (1+\kappa_1r^2+\kappa_2r^4)\begin{pmatrix}x\\y\end{pmatrix}+\begin{pmatrix}2\tau_1xy+\tau_2(r^2+2x^2)\\2\tau_2xy+\tau_1(r^2+2y^2)\end{pmatrix}$$
+$$\mathbf{x}' = (1+\kappa_1r^2+\kappa_2r^4)\begin{pmatrix}x\\y\end{pmatrix}+\begin{pmatrix}2\tau_1xy+\tau_2(r^2+2x^2)\\2\tau_2xy+\tau_1(r^2+2y^2)\end{pmatrix}$$
 
 where $\kappa_1, \kappa_2$ are the radial distortion coefficients and $\tau_1, \tau_2$ are the tangential distortion coefficients.
 
 > Images can be undistorted such that the perspective projection model applies.
+>
 > Note here, that is practice, this is **already done** before the image is computed. More complex distortion models must be used for wide-angle lenses
 
 ## 2.3 Photometric Image Formation
@@ -425,14 +448,16 @@ Modeling one light bounce is insufficient for rendering complex scenes. Light so
 
 ![The thin lens model](https://img1.imgtp.com/2023/09/13/LINAT0cq.png)
 
-$$ \frac{1}{f}=\frac{1}{z_s}+\frac{1}{z_c}$$
+$$\frac{1}{f}=\frac{1}{z_s}+\frac{1}{z_c}$$
 
 > - $f$ is the focal length
 > - $z_s$ is the distance from the lens to the image plane
 > - $z_c$ is the distance from the lens to the object plane
 
 The thin lens model with spherical lens is often used as an approximation.
+
 Properties: Axis-parallel rays pass the focal point, rays via center keep direction.
+
 From Snell’s law we obtain $f=\frac{R}{2(n-1)}$ with radius $R$ and index of refraction $n$.
 
 #### Depth of Field(景深)
@@ -444,8 +469,11 @@ From Snell’s law we obtain $f=\frac{R}{2(n-1)}$ with radius $R$ and index of r
 If the image plane is **out of focus**, a 3D point projects to the **circle of confusion** $c$. The circle of confusion is a little disc - if the disc is larger than the pixel size, we get blur!
 
 The allowable depth variation that limits the circle of confusion $c$ is called depth of field and is a function of both the focus distance and the lens aperture. Typical DSLR cameras have a Depth of Field Indicator which describes the range where the image appears sharply.
+
 The commonly displayed **f-number** is defined as
-$$ N = \frac{f}{d}$$
+
+$$N = \frac{f}{d}$$
+
 where $f$ is the focal length and $d$ is the diameter of aperture（光圈直径）. The f-number is inversely proportional to the aperture diameter.
 
 To control the **size of the circle of confusion**, we change the lens **aperture**. An aperture is a hole or an opening through which light travels. The aperture limits the amount of light that can reach the image plane. Smaller apertures lead to sharper, but more noisy images (less photons)
@@ -474,7 +502,9 @@ A **focal plane shutter**(焦平面快门) is positioned just in front the image
 ### 2.4.2 Sensor
 
 Two main principles: CCD and CMOS for light sensors.
+
 **CCDs** move charge from pixel to pixel and convert it to voltage at the output node.
+
 **CMOS** images convert charge to voltage inside each pixel and are standard today
 
 ### 2.4.3 Color Filter Arrays
@@ -483,12 +513,14 @@ To measure color, pixels are arranged in a **color array**, e.g.: Bayer RGB patt
 
 Each pixel **integrates the light spectrum** $L$ according to its spectral sensitivity $S$:
 
-$$ \mathbf{R}=\int_{\lambda}L(\lambda)S_R(\lambda)d\lambda$$
+$$\mathbf{R}=\int_{\lambda}L(\lambda)S_R(\lambda)d\lambda$$
 
 ### 2.4.4 Different color spaces
 
 RGB: red, green, blue
+
 L*a*b*: lightness, red-green, blue-yellow
+
 HSV: hue(色调), saturation(饱和度), value(明度)
 
 ### 2.4.5 Gamma Compression(伽马压缩)
