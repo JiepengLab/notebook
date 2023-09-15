@@ -283,7 +283,7 @@ $$N(P_1'P_2'\dots P_n')=N-\sum_{1 \leq i \leq n}N(P_i)+\sum_{1 \leq i < j \leq n
 $$n^m - C(n,1)(n-1)^m + C(n,2)(n-2)^m - \dots + (-1)^{n-1}C(n,n-1)1^m$$
 
 onto functions from a set with $m$ elements to a set with $n$ elements.
-> 也就是$ S(m,n)n! $，其中$S(m,n)$为第二类Stirling数。
+> 也就是$S(m,n)n!$，其中$S(m,n)$为第二类Stirling数。
 
 ### Derangements 错排
 

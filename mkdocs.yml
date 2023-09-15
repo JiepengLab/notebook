@@ -140,10 +140,10 @@ theme:
 
 plugins:
   - search:
-  - heti:
-      extra_skipped_class:
-        - arithmatex
-      disable_serve: false
+#  - heti: #git action跑不起来
+#      extra_skipped_class:
+#        - arithmatex
+#      disable_serve: false
 
 
 extra:
