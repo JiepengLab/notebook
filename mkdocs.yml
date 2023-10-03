@@ -17,15 +17,22 @@ markdown_extensions:
   - toc:
       permalink: true
       toc_depth: 3
+      permalink_title: 点击此处可置顶内容
   # Python Markdown Extensions
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.betterem
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.caret
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.mark
@@ -46,8 +53,10 @@ markdown_extensions:
 
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
-
+  - https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
+  - stylesheets/extra.css
 # mathjax
+
 extra_javascript:
   - javascripts/katex.js 
   - javascripts/mathjax.js
@@ -60,28 +69,49 @@ extra_javascript:
 nav:
   - 首页:
     - home: index.md
+    - 正在学习的课程: 正在学习的课程与相关链接.md
   - 基础课程:
-    - ./基础课程/index.md
+    - ./Fundemental/index.md
     - Discrete Mathematics And Its Applications:
-      - ./基础课程/Discrete Mathematics And Its Applications/index.md
-      - Chapter.1-The Foundations: ./基础课程/Discrete Mathematics And Its Applications/Chapter1.md
-      - Chapter.4-The Number Theory and Cryptography: ./基础课程/Discrete Mathematics And Its Applications/Chapter4.md
-      - Chapter.5-Induction and Recursion: ./基础课程/Discrete Mathematics And Its Applications/Chapter5.md
-      - Chapter.6-Counting: ./基础课程/Discrete Mathematics And Its Applications/Chapter6.md
-      - Chapter.8-Advanced Counting Techniques: ./基础课程/Discrete Mathematics And Its Applications/Chapter8.md
-      - Chapter.9-Relations: ./基础课程/Discrete Mathematics And Its Applications/Chapter9.md
-      - Chapter.10-Graphs: ./基础课程/Discrete Mathematics And Its Applications/Chapter10.md
-      - Chapter.11-Trees: ./基础课程/Discrete Mathematics And Its Applications/Chapter11.md
+      - ./Fundemental/Discrete Mathematics And Its Applications/index.md
+      - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md
+      - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete Mathematics And Its Applications/Chapter4.md
+      - Chapter.5-Induction and Recursion: ./Fundemental/Discrete Mathematics And Its Applications/Chapter5.md
+      - Chapter.6-Counting: ./Fundemental/Discrete Mathematics And Its Applications/Chapter6.md
+      - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete Mathematics And Its Applications/Chapter8.md
+      - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
+      - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
+      - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
   
   - CS: 
     - ./CS/index.md
     - ML-4360:
       - ./CS/ML-4360/index.md
-      - Note 01 introduction: ./CS/ML-4360/Note_01_introduction.md
-      - Note 02 Image Formation: ./CS/ML-4360/Note_02_Image_Formation.md
-      - Note 03 Structure from Motion: ./CS/ML-4360/Note_03_Structure_from_Motion.md
-  
-
+      - Note 01 introduction: ./CS/ML-4360/Lec1/Note_1_introduction.md
+      - Note 02 Image Formation: 
+        - ./CS/ML-4360/Lec2/index.md
+        - Note 2.1 Primitives and Transformations: ./CS/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
+        - Note 2-2 Geometric Image Formation: ./CS/ML-4360/Lec2/Note 2-2 Geometric Image Formation.md
+        - Note 2-3 Photometric Image Formation: ./CS/ML-4360/Lec2/Note 2-3 Photometric Image Formation.md
+        - Note 2-4 Image Sensing Pipeline: ./CS/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
+        - Maths Basic-SVD: ./CS/ML-4360/Lec2/Math Basic SVD.md
+        - HW1.1 Pen and Paper: ./CS/ML-4360/Lec2/HW1.1 Pen and Paper.md
+    - 数字逻辑设计:
+      - ./CS/数字逻辑设计/index.md
+    - 计算机图形学:
+      - ./CS/计算机图形学/index.md
+    - 数值分析:
+      - ./CS/NA/index.md
+    - 图像信息处理:
+      - ./CS/图像信息处理/index.md
+  - 杂项:
+    - ./杂项/index.md
+    - 遥感:
+      - ./杂项/遥感/index.md
+  - 导航:
+    - ./nav/index.html
+  - 导航(webvpn):
+    - ./nav-webvpn/index.html
 theme:
   name: material
 
@@ -119,6 +149,7 @@ theme:
     - search.suggest # 搜索建议
     - toc.follow # toc 跟随
     - content.code.annotate # 代码行号
+    - content.code.copy # 代码复制
 
   language: 'zh'
   icon:
@@ -135,11 +166,18 @@ theme:
       bug: octicons/bug-16
       example: octicons/beaker-16
       quote: octicons/quote-16
-  logo: https://img1.imgtp.com/2023/09/14/vMIyvpOG.png
-  favicon: https://img1.imgtp.com/2023/09/14/v4bv7Caz.png
+  logo: ./images/logo.png
+  favicon: ./images/icon.jpg
 
 plugins:
   - search:
+      lang:
+        - zh
+        - en
+        - ja
+      separator: '[\s\u200b\-]'
+  - glightbox
+
 #  - heti: #git action跑不起来
 #      extra_skipped_class:
 #        - arithmatex

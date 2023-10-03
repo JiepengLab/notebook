@@ -16,8 +16,8 @@ The process of **finding the intrinsic and extrinsic parameters** is known as **
 - Then, **features**, such as corners, are detected in the images.
 ![Camera Calibration](./pics/03_pics/03_Camera_Calibration_02.png)
 - Finally, the **camera intrinsics and extrinsics** are **jointly optimized** by non-linear optimization of reprojection errors.
-  - **Closed-form solution** initializes all parameters except for distortion parameters
-  - **Non-linear optimization** of all parameters by minimizing reprojection errors
+    - **Closed-form solution** initializes all parameters except for distortion parameters
+    - **Non-linear optimization** of all parameters by minimizing reprojection errors
 ![Camera Calibration](./pics/03_pics/03_Camera_Calibration_03.png)
 
 - There exists a variety of calibration techniques that are used in different settings.
@@ -242,8 +242,9 @@ Let $\mathcal{W} = {(x_{ip}, y_{ip})|i = 1, . . . , N, p = 1, . . . , P}$ denote
 
 Under orthographic projection, a 3D point $\tilde{\mathbf{x}}_p$ maps to a pixel $(x_{ip}, y_{ip})$ in the $i$th frame as follows:
 
-$$x_{ip}= \mathbf{u}^T_i(\mathbf{x}_p-\mathbf{t}_i) \\
- y_{ip}= \mathbf{v}^T_i(\mathbf{x}_p-\mathbf{t}_i) $$
+$$x_{ip}= \mathbf{u}^T_i(\mathbf{x}_p-\mathbf{t}_i) $$
+
+$$y_{ip}= \mathbf{v}^T_i(\mathbf{x}_p-\mathbf{t}_i) $$
 
 ![Factorization](./pics/03_pics/03_Factorization_02.png)
 
@@ -339,5 +340,3 @@ Disadvantages:
 Complete feature tracks are required, which means that it cannot handle occlusions of feature points.
 
 ## 3.4 Bundle Adjustment（光束平差法）
-
-

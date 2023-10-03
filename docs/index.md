@@ -1,3 +1,12 @@
-# Welcome to JiepengLab
+# 👋欢迎
 
-The lab is for my personal research and study. I will share my research and study notes here.
+欢迎来到JiepengLab！我会时不时更新一些目前正在学习的笔记！
+
+!!! example "注意"
+    网站仍在建设中，内容尚不完备。
+
+!!! tip "欢迎来到我的导航页↓"
+
+    [点击前往导航页](./nav)
+
+    [点击前往导航页的校外版本](./nav-webvpn)
