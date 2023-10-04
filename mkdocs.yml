@@ -69,7 +69,7 @@ plugins:
         - en
         - ja
       separator: '[\s\u200b\-]'
-  - glightbox #git action跑不起来
+#  - glightbox #git action跑不起来
   - git-revision-date-localized:
       type: datetime
       timezone: Asia/Shanghai
