@@ -5,113 +5,6 @@ site_url: https://jiepenglab.github.io/notebook/
 repo_name: JiepengLab/notebook
 repo_url: https://github.com/JiepengLab/notebook
 
-markdown_extensions:
-  # Python Markdown
-  - abbr
-  - admonition
-  - attr_list
-  - def_list
-  - tables
-  - footnotes
-  - md_in_html
-  - toc:
-      permalink: true
-      toc_depth: 3
-      permalink_title: 点击此处可置顶内容
-  # Python Markdown Extensions
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.betterem
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.caret
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.keys
-  - pymdownx.mark
-  - pymdownx.smartsymbols
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tilde
-  - pymdownx.snippets:
-      auto_append:
-        - includes/abbreviations.md
-
-extra_css:
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
-  - https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
-  - stylesheets/extra.css
-# mathjax
-
-extra_javascript:
-  - javascripts/katex.js 
-  - javascripts/mathjax.js
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-  - javascripts/titlechange.js
-
-nav:
-  - 首页:
-    - home: index.md
-    - 正在学习的课程: 正在学习的课程与相关链接.md
-  - 基础课程:
-    - ./Fundemental/index.md
-    - Discrete Mathematics And Its Applications:
-      - ./Fundemental/Discrete Mathematics And Its Applications/index.md
-      - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md
-      - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete Mathematics And Its Applications/Chapter4.md
-      - Chapter.5-Induction and Recursion: ./Fundemental/Discrete Mathematics And Its Applications/Chapter5.md
-      - Chapter.6-Counting: ./Fundemental/Discrete Mathematics And Its Applications/Chapter6.md
-      - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete Mathematics And Its Applications/Chapter8.md
-      - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
-      - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
-      - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
-  
-  - CS: 
-    - ./CS/index.md
-    - ML-4360:
-      - ./CS/ML-4360/index.md
-      - Note 01 introduction: ./CS/ML-4360/Lec1/Note_1_introduction.md
-      - Note 02 Image Formation: 
-        - ./CS/ML-4360/Lec2/index.md
-        - Note 2.1 Primitives and Transformations: ./CS/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
-        - Note 2-2 Geometric Image Formation: ./CS/ML-4360/Lec2/Note 2-2 Geometric Image Formation.md
-        - Note 2-3 Photometric Image Formation: ./CS/ML-4360/Lec2/Note 2-3 Photometric Image Formation.md
-        - Note 2-4 Image Sensing Pipeline: ./CS/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
-        - Maths Basic-SVD: ./CS/ML-4360/Lec2/Math Basic SVD.md
-        - HW1.1 Pen and Paper: ./CS/ML-4360/Lec2/HW1.1 Pen and Paper.md
-    - 数字逻辑设计:
-      - ./CS/数字逻辑设计/index.md
-    - 计算机图形学:
-      - ./CS/计算机图形学/index.md
-    - 数值分析:
-      - ./CS/NA/index.md
-    - 图像信息处理:
-      - ./CS/图像信息处理/index.md
-  - 杂项:
-    - ./杂项/index.md
-    - 遥感:
-      - ./杂项/遥感/index.md
-  - 导航:
-    - ./nav/index.html
-  - 导航(webvpn):
-    - ./nav-webvpn/index.html
 theme:
   name: material
 
@@ -177,6 +70,11 @@ plugins:
         - ja
       separator: '[\s\u200b\-]'
   - glightbox
+  # - git-revision-date-localized:
+  #     type: datetime
+  #     timezone: Asia/Shanghai
+  #     locale: zh
+  #     enable_creation_date: true
 
 #  - heti: #git action跑不起来
 #      extra_skipped_class:
@@ -189,3 +87,119 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/JiepengLab
       name: Jiepeng's Lab
+
+markdown_extensions:
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - tables
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+      permalink_title: 点击此处可置顶内容
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+
+extra_css:
+  - stylesheets/extra.css
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+  - https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
+# - https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.1.0/style.css
+# - https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.0.0/style.css
+# - https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css
+
+extra_javascript:
+  - javascripts/katex.js 
+  - javascripts/mathjax.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/titlechange.js
+
+nav:
+  - 首页:
+    - home: index.md
+    - 正在学习的课程: 正在学习的课程与相关链接.md
+  - 基础课程:
+    - ./Fundemental/index.md
+    - Discrete Mathematics And Its Applications:
+      - ./Fundemental/Discrete Mathematics And Its Applications/index.md
+      - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md
+      - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete Mathematics And Its Applications/Chapter4.md
+      - Chapter.5-Induction and Recursion: ./Fundemental/Discrete Mathematics And Its Applications/Chapter5.md
+      - Chapter.6-Counting: ./Fundemental/Discrete Mathematics And Its Applications/Chapter6.md
+      - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete Mathematics And Its Applications/Chapter8.md
+      - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
+      - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
+      - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
+  
+  - CS: 
+    - ./CS/index.md
+    - ML-4360:
+      - ./CS/ML-4360/index.md
+      - Note 01 introduction: ./CS/ML-4360/Lec1/Note_1_introduction.md
+      - Note 02 Image Formation: 
+        - ./CS/ML-4360/Lec2/index.md
+        - Note 2.1 Primitives and Transformations: ./CS/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
+        - Note 2-2 Geometric Image Formation: ./CS/ML-4360/Lec2/Note 2-2 Geometric Image Formation.md
+        - Note 2-3 Photometric Image Formation: ./CS/ML-4360/Lec2/Note 2-3 Photometric Image Formation.md
+        - Note 2-4 Image Sensing Pipeline: ./CS/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
+        - Maths Basic-SVD: ./CS/ML-4360/Lec2/Math Basic SVD.md
+        - HW1.1 Pen and Paper: ./CS/ML-4360/Lec2/HW1.1 Pen and Paper.md
+    - 数字逻辑设计:
+      - ./CS/DigitalDesign/index.md
+      - Note 01-Introduction: ./CS/DigitalDesign/Note01.md
+      - Note 02-Digital Systems and Information: ./CS/DigitalDesign/Note02.md
+    - 计算机图形学:
+      - ./CS/计算机图形学/index.md
+    - 数值分析:
+      - ./CS/NA/index.md
+      - Chapter 1 Mathematical Preliminaries: ./CS/NA/Note_01.md
+    - 图像信息处理:
+      - ./CS/图像信息处理/index.md
+    - 人工智能初步:
+      - ./CS/AI_Start/index.md
+      - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
+  - 杂项:
+    - ./杂项/index.md
+    - 遥感:
+      - ./杂项/遥感/index.md
+  - 导航:
+    - ./nav/index.html
+  - 导航(webvpn):
+    - ./nav-webvpn/index.html
