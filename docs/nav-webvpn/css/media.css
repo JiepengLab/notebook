@@ -1,0 +1,145 @@
+
+/*小屏幕（平板，大于等于 768px） */
+@media (min-width: 768px) { 
+  .col, .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12{ padding: 0 10px }
+  #content .main{ padding-top: 51px;}
+  .sousuo{ padding: 40px 0; margin-top: 0;}
+  .sousuo-form{
+    width: 100%;
+    margin: 0 auto;
+  }
+  #input{
+    outline: none;
+    padding: 0 10px;
+    height: 46px;
+    line-height: 46px;
+    border: 1px solid #ccc;
+    border-left: none;
+    display: block;
+    padding-left: 90px;
+  }
+  #so-btn{
+    width: 15%;
+    float: right;
+    height: 45px;
+    background: #3385ff;
+    color: #fff;
+    border: none;
+  }
+  /*内容区域样式*/
+  .two-list-con .link-box{ width: 18.285%; float: left}/*pc端调整理解盒子的内容为7列*/
+  .link-box{ width: 12.5%; float: left}/*pc端调整理解盒子的内容为7列*/
+  .item-tit > strong{ padding: 5px 0 0 10px; margin-bottom: 10px;}
+
+  /*返回首页盒子*/
+  .get-home{
+    margin: 0;
+    margin-top: 20px;
+  }
+
+  /*网站页脚*/
+  .footer{ margin-top: 20px;}
+}
+
+/*中等屏幕（桌面显示器，大于等于 992px）*/ 
+@media (min-width: 992px) {
+  header{
+    height: 60px;
+    border-bottom: 0px solid #ff0000;
+  }
+  header .main{
+    padding: 0 0px;
+  }
+  header .logo{
+    float: center;
+    font-size: 20px;
+    margin: 0;
+    font-weight: 400;
+    border: none;
+    font-family:inherit
+  }
+  header .logo a{
+    display: block;
+    line-height: 60px;
+    color: #484848;
+    font-weight: 400;
+  }
+  header .logo img{
+    width: 40px;
+    vertical-align: -13px;
+  }
+  /*PC端logo样式*/
+
+  /*---------------首页内容区域------------------*/
+  #content .main{ padding-top: 50px}
+  .mainContent{ padding: 0px 0px;}
+  .linkList-item .col-md-4{
+    padding: 0 15px;
+    margin-top: 10px;
+  }
+  .linkList-item .col-xs-4{
+    padding: 0 4px;
+  }
+  .link-list-a{
+    margin-bottom: 6px;
+  }
+  .sousuo-form{ width: 80%}
+
+  
+  /*-----------------------------页脚---------------------------------*/
+  .footer{
+    margin-top: 30px;
+  }
+}
+
+/*大屏幕（大桌面显示器，大于等于 1200px） */
+@media (min-width: 1200px) {
+  #content .main{ padding-top: 60px}
+  .mainContent{ padding: 0 px;}
+  .linkList-item .col-md-4{ padding: 0 30px}
+  .sousuo{ margin-top: 10px;}
+  .sousuo-form{ width: 60%}
+  
+  /*编辑按钮*/
+  .customize_mode .link-list-a{
+    color: #75b1c7;
+  }
+  .customize_mode .bianji{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    line-height: 45px;
+    width: 100%;
+    background: #3384a2;
+    color: #FFF;
+    opacity: 0;
+  }
+  .customize_mode .bianji:hover{
+    opacity: 1;
+  }
+  .edit-category{
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .main .banner{ margin-top: 90px;}
+  .shaow-edit-category{display: block}
+  /*行业版导航PC端适配样式*/
+  .item > .container-fluid{
+    padding-top: 91px;
+    margin-top: -65px;
+  }
+
+/*超大屏幕（大桌面显示器，大于等于 1700px） */
+@media (min-width: 1700px) {
+  .mainContent{ max-width: 1400px;}
+  .col-md-3{ width: 20%;}
+  .imgDes-item .col-md-3{ width: 25%;}
+  /*文章内容右边列表外边距*/
+  .article-box .widget{
+    margin: 0 10px 30px 10px;
+  }
+}
+}
