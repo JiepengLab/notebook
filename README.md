@@ -1,3 +1,5 @@
-这里是Jiepeng Lab的网址，记载自己的学习笔记，欢迎大家访问。
+# 👋欢迎
 
-[点击前往笔记本](https://jiepenglab.github.io/notebook/)
+欢迎来到JiepengLab！我会时不时更新一些目前正在学习的笔记！
+
+[点击前往笔记本](https://note.jiepeng.tech)
