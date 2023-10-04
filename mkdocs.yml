@@ -70,11 +70,11 @@ plugins:
         - ja
       separator: '[\s\u200b\-]'
 #  - glightbox #git action跑不起来
-  - git-revision-date-localized:
-      type: datetime
-      timezone: Asia/Shanghai
-      locale: zh
-      enable_creation_date: true
+#  - git-revision-date-localized:
+#      type: datetime
+#      timezone: Asia/Shanghai
+#      locale: zh
+#      enable_creation_date: true
 
 #  - heti: #git action跑不起来
 #      extra_skipped_class:
