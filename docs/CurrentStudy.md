@@ -161,6 +161,7 @@
 
 !!! note "考核方式"
     总评成绩 = Experiments(30%) + Project(15%) + Quiz(25%) +Final(30%)
+
     - Project: 15%
         - Source code, source project and technical report should be submitted
         - Deadline: before the final examination
@@ -236,9 +237,12 @@
     - 学在浙大：[🔗](https://courses.zju.edu.cn/course/61083/content)
 
 !!! note "考核方式"
-    1、出席情况与课堂表现，30%；30 分（6 次考勤，每次 5 分）
-    2、 期中读书报告（1000-1500 字），30%。从课程读书资料中选择某一份加以阅读并撰写读书报告，遵守学术规范。
-    3、期末考核作业（2000-3000 字左右），40%。题目自拟，与新中国史相关即可，遵守学术规范。
+
+    1. 出席情况与课堂表现，30%；30 分（6 次考勤，每次 5 分）
+
+    2. 期中读书报告（1000-1500 字），30%。从课程读书资料中选择某一份加以阅读并撰写读书报告，遵守学术规范。
+
+    3. 期末考核作业（2000-3000 字左右），40%。题目自拟，与新中国史相关即可，遵守学术规范。
     读书报告和期末作业的注释格式参考《历史研究》。
 
 ## 创业实践：从0到1
@@ -248,8 +252,7 @@
 
 !!! note "考核方式"
 
-    （1）出勤：15%（迟到扣2分，旷课一次扣5分，超过
-1/3课时以上重修）
+    （1）出勤：15%（迟到扣2分，旷课一次扣5分，超过1/3课时以上重修）
 
     （2）课堂活跃度：10%
 
@@ -266,8 +269,11 @@
     - 学在浙大：[🔗](https://courses.zju.edu.cn/course/65402/content#/)
 
 !!! note "考核方式"
+
     课堂作业(独立完成)25%
+
     概念设计作业(小组合作)55%
+    
     课程教学参与(出勤、发言)20%
 
 ## 数学建模
@@ -278,7 +284,7 @@
     - 笔记：[📙](./Fundemental/Mathematical%20Modeling/index.md)
 
 !!! example "额外链接："
-    [lhmd参考](https://github.com/lhmd/ZJU-course/tree/master/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1)
+    [lhmd作业参考](https://github.com/lhmd/ZJU-course/tree/master/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1)
 
 ## 数据结构基础
 
