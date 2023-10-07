@@ -156,19 +156,23 @@ extra_javascript:
 nav:
   - 首页:
     - home: index.md
-    - 正在学习的课程: 正在学习的课程与相关链接.md
+    - 正在学习的课程: CurrentStudy.md
   - 基础课程:
     - ./Fundemental/index.md
-    - Discrete Mathematics And Its Applications:
-      - ./Fundemental/Discrete Mathematics And Its Applications/index.md
-      - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md
-      - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete Mathematics And Its Applications/Chapter4.md
-      - Chapter.5-Induction and Recursion: ./Fundemental/Discrete Mathematics And Its Applications/Chapter5.md
-      - Chapter.6-Counting: ./Fundemental/Discrete Mathematics And Its Applications/Chapter6.md
-      - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete Mathematics And Its Applications/Chapter8.md
-      - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
-      - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
-      - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
+    - 数学建模:
+      - ./Fundemental/Mathematical Modeling/index.md
+      - 数学建模概论: ./Fundemental/Mathematical Modeling/Lec01.md
+      - 搜索引擎的PageRank模型: ./Fundemental/Mathematical Modeling/Lec02.md
+    # - 离散数学及其应用:
+    #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md
+    #   - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md
+    #   - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete Mathematics And Its Applications/Chapter4.md
+    #   - Chapter.5-Induction and Recursion: ./Fundemental/Discrete Mathematics And Its Applications/Chapter5.md
+    #   - Chapter.6-Counting: ./Fundemental/Discrete Mathematics And Its Applications/Chapter6.md
+    #   - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete Mathematics And Its Applications/Chapter8.md
+    #   - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
+    #   - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
+    #   - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
   
   - CS: 
     - ./CS/index.md
@@ -183,25 +187,29 @@ nav:
         - Note 2-4 Image Sensing Pipeline: ./CS/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
         - Maths Basic-SVD: ./CS/ML-4360/Lec2/Math Basic SVD.md
         - HW1.1 Pen and Paper: ./CS/ML-4360/Lec2/HW1.1 Pen and Paper.md
+    - 人工智能引论:
+      - ./CS/Introduction-to-AI/index.md
+    - 数值分析:
+      - ./CS/NA/index.md
+      - Chapter 1 Mathematical Preliminaries: ./CS/NA/Note_01.md
+    - 人工智能初步:
+      - ./CS/AI_Start/index.md
+      - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
     - 数字逻辑设计:
       - ./CS/DigitalDesign/index.md
       - Note 01-Introduction: ./CS/DigitalDesign/Note01.md
       - Note 02-Digital Systems and Information: ./CS/DigitalDesign/Note02.md
-    - 计算机图形学:
-      - ./CS/计算机图形学/index.md
-    - 数值分析:
-      - ./CS/NA/index.md
-      - Chapter 1 Mathematical Preliminaries: ./CS/NA/Note_01.md
+      - Note 03-Combinational Logic Circuits: ./CS/DigitalDesign/Note03.md
     - 图像信息处理:
-      - ./CS/图像信息处理/index.md
-    - 人工智能初步:
-      - ./CS/AI_Start/index.md
-      - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
+      - ./CS/DIP/index.md
+    - 数据结构基础:
+      - ./CS/FDS/index.md
+      - Note 01-Algorithm Analysis: ./CS/FDS/Lec01.md
   - 杂项:
     - ./杂项/index.md
-    - 遥感:
-      - ./杂项/遥感/index.md
-  - 导航:
-    - ./nav/index.html
-  - 导航(webvpn):
-    - ./nav-webvpn/index.html
+    # - 遥感:
+    #   - ./杂项/遥感/index.md
+  # - 导航:
+  #   - ./nav/index.html
+  # - 导航(webvpn):
+  #   - ./nav-webvpn/index.html

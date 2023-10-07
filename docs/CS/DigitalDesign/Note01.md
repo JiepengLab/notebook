@@ -1,5 +1,8 @@
 # Chap 0 Introduction
 
+!!! note "单元概述"
+    - 介绍本课程的学习内容
+
 ## 计算机系统设计中的抽象层 | Abstraction Layers in Computer Systems Design
 
 |越上层抽象程度越高|例子|

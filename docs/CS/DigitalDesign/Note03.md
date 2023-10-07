@@ -1,5 +1,9 @@
 # Chap 2 Combinational Logic Circuits
 
+!!! note "单元概述"
+    - 介绍信息的表示和编码
+    - 介绍信息传输中的错误检测机制及解决方案
+
 ## 逻辑运算
 
 逻辑运算的对象是布尔变量，也就是 0/1 二值。
@@ -19,7 +23,7 @@
 
 - `A` `AND` `B` 可写作 $A\cdot B$ 或者 $AB$；
 - `A` `OR` `B` 可写作 $A+B$；
-- `NOT A` 可写作 $\overline{A}$；
+- `NOT A` 可写作 $\overline{A}$、$A'$、$\sim A$；
 
 由此可以进行一些组合，例如：
 

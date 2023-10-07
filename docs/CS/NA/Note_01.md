@@ -9,10 +9,13 @@
 
 - **截断误差(Truncation Error)**: 使用截断的(或者说有限的)求和来近似无穷级数的和->产生的误差
 
-    - 近似无穷级数的有限求和：估计$\int_0^1 e^{-x^2}dx$，需要泰勒展开，但是无法计算无穷项，只能计算有限项，这样就会产生截断误差。
+    - 理论：$e=\sum_{n=0}^{\infty} \frac{1}{n!} $
+
+    - 计算机: $e=\sum_{n=0}^{N} \frac{1}{n!} $-
   
 - **舍入误差(Roundoff Error)**: 当计算机执行实数计算时产生的误差。这是因为计算机中的算术运算涉及到的数字只有有限位数。
-    - 由于计算机只能表示有限位数的小数，所以会产生舍入误差。
+    - 理论：$0.3333333\cdots$
+    - 计算机: $0.333333$
 
 ### 1.2.2 Chopping and Rounding
 
@@ -24,7 +27,7 @@
 
     $$fl(y) = \begin{cases} 0.d_1d_2d_3\ldots d_k \times 10^n& \text{/* chopping */} \\ chop(y + 5 \times 10^{n-(k+1)}) & \text{/* rounding */} \end{cases}$$
 
-### 1.2.3 Absolute error and relative error:
+### 1.2.3 绝对误差与相对误差 | Absolute error and relative error:
 
 Denote $p^*$ as the approximation of $p$.
 

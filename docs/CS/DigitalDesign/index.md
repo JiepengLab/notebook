@@ -11,6 +11,6 @@
     - 教材：Logic and Computer Design Fundamentals, Fifth Edition
 
 !!! note "List"
-    [Glossary](glossary.md)
-    [Chap 0 Introduction](Note01.md)
-    [Chap 1 Digital Systems and Information](Note02.md)
+    - [Glossary](glossary.md)
+    - [Chap 0 Introduction](Note01.md)
+    - [Chap 1 Digital Systems and Information](Note02.md)

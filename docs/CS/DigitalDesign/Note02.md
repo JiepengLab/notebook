@@ -1,5 +1,9 @@
 # Chap 1 Digital Systems and Information
 
+!!! note "单元概述"
+    - 介绍信息的表示和编码
+    - 介绍信息传输中的错误检测机制及解决方案
+
 ## 信息表达 | Information Representation
 
 现实世界中的信息往往是 **连续(continuous)** 的，但在人造物的世界中，大部分信息都是 **离散(discrete)** 的。
@@ -112,7 +116,7 @@ MSB(Most Significant Bit): 最高有效位。
 
 ### 独热码 & 独冷码
 
-**独热码(one-hot)** 要求比特向量中只有一位是 `1`；对应的还有 **独冷码(one-cold)**。
+**独热码(one-hot)** 要求比特向量中只有一位是 `1`，例如 `0001`，`0010`，`0100`，`1000` 等；对应的还有 **独冷码(one-cold)**。
 
 使用这种编码的好处是，决定或改变状态机目前的状态的成本相对较低，容易设计也容易检测非法行为等。
 
@@ -128,9 +132,9 @@ MSB(Most Significant Bit): 最高有效位。
 
 而我们需要设计的编码系统，就是将我们需要的信息映射到这 $2^n$ 个“空位”中。当然，当我们需要表示的信息数量并不是 2 的幂次时候，会出现一些 未分配(unassigned) 的比特组合。
 
-而在这种编码中，最常用的就是 **BCD码(binary-coded demical)**。其核心思路就是，将十进制的每一位 **分别** 用 **真值相等的 4 位二进制** 表示，即 `0` ~ `9` 分别用 `0000` ~ `1001` 表示。
+而在这种编码中，最常用的就是 **BCD码(binary-coded demical)**。其核心思路就是，将十进制的每一位 **分别** 用 **真值相等的 4 位二进制** 表示，即 `0` ~ `9` 分别用 `0000` ~ `1001` 表示。而 `1010` 及之后的编码都是非法的。
 
-|Decimal<br>Symbol|BCD<br>Digit|
+|Decimal Symbol|BCD Digit|
 |:-:|:-:|
 |`0`|`0000`|
 |`1`|`0001`|
@@ -143,10 +147,43 @@ MSB(Most Significant Bit): 最高有效位。
 |`8`|`1000`|
 |`9`|`1001`|
 
-!!! note "eg"
+!!! note ""
+    不要将十进制数转换为二进制数与用二进制编码的十进制数混淆。
+
+    $13_{10}=1101_2$，这是转换(Conversion)
+
+    $13_{10}=0001\;0011_{BCD}$，这是编码(Coding)
+
+!!! note "例子"
     $$
     \mathrm{ (185)_{10}\;=\;(0001\;1000\;0101)_{BCD}\;=\;(10111001)_2 }
     $$
+
+#### BCD 码的加法
+
+BCD 码的加法和二进制加法类似，只不过需要考虑进位的问题。比如：
+
+$$
+\begin{aligned}
+&\mathrm{ (1001)_{BCD} }\\
++&\mathrm{ (0101)_{BCD} }\\
+=&\mathrm{ (1110)_{BCD} }
+\end{aligned}
+$$
+
+注意到最后的结果是非法的($>9$)。所以我们需要进位，即：如果结果大于 $9_{10}=1001_{BCD}$，则再加上 $6_{10}={0101}$ (因为BCD编码为10的时候要进位成"16")。
+
+$$
+\begin{aligned}
+&\mathrm{ (1001)_{BCD} }\\
++&\mathrm{ (0101)_{BCD} }\\
+=&\mathrm{ (1110)_{BCD} }\\
++&\mathrm{ (0110)_{BCD} }\\
+=&\mathrm{ (0001\;0100)_{BCD} }
+\end{aligned}
+$$
+
+!!! example "$2905+1897$转换成BCD码计算"
 
 ---
 
@@ -154,7 +191,7 @@ MSB(Most Significant Bit): 最高有效位。
 
 一种 **BCD码** 的改进是 **余三码(Excess3)**。其核心思路是在 BCD码的基础上，增加一个大小为 3 的偏移量。
 
-|Decimal<br>Symbol|Excess3<br>Digit|
+|Decimal Symbol|Excess3 Digit|
 |:-:|:-:|
 |`0`|`0011`|
 |`1`|`0100`|
@@ -173,55 +210,110 @@ MSB(Most Significant Bit): 最高有效位。
 
 ---
 
-### 格雷码
-
-此外，这里不得不提的另外一个编码是 **格雷码(Gray Codes)**。格雷码的特征，也是他的优点，就是相邻的两个数在二进制下的表示只差一位（当在占满时，对于整个编码序列，环状满足该条件）。
-
-比如有如下应用：
-
-![Optical Shaft Encoder](img/5.png)
-
-以及在许多状态控制中都有着广泛的应用。
-
-从笔试做题角度来说，格雷码最麻烦的其实是与十进制数的转换。（此处 [@CSP-S2019-Day1-T1](https://www.luogu.com.cn/problem/P5657)）
-
-!!! note ""
-    个人认为最好做的做法就是，假设我们要找的是第 k 个格雷码，则对应的格雷码为：
-
-    $$
-    k \;\;\mathrm{XOR}\;\; (k>>1)
-    $$
-
----
-
 ### ASCII 码
 
 字符编码所使用的一般是 ASCII 编码，由于 ASCII 已经是老生常谈了，所以这里不再展开。
 
+!!! note ""
+    小写($0110 0001_{16}-0111 1010_{16}$)和大写($0100 0001_{16}-0101 1010_{16}$)的字母之间的转换，是通过翻转第 6 位实现的；而
+    小写到大写的转换是通过翻转第 5 位实现的。
+
 ---
 
-### 奇偶校验位
+### 错误检测 | Error-Detection
 
-信道编码与信源编码：
+在信道编码中，可能会有噪声干扰，导致信息传输出错，例如：
+![Error](images/image-6.png)
 
-![Source Coding and Channel Coding](img/6.png)
+!!! note "信源编码(Source Coding)与信道编码(Channel Coding)"
+
+    ![Source Coding and Channel Coding](images/image-5.png)
+
+#### Shannon Capacity Theorem/Limit
+
+香农容量定理定义了在存在噪声的情况下，可以在特定带宽的通信信道上传输信息的最大速率。下面是香农容量/极限方程(Shannon Capacity/Limit Equation)：
+
+$$
+C=B\log_2(1+\frac{S}{N})
+$$
+
+!!! note ""
+    $C$ 是信道的容量(capacity)，单位是比特/秒；
+
+    $B$ 是信道的带宽(bandwidth)，单位是赫兹；
+
+    $S$ 是平均信号接收功率(average received signal power)，单位是瓦特；
+
+    $N$ 是平均噪声接收功率(average received noise power)，单位是瓦特。
+
+    $S/N$ 是信噪比(SNR, signal-to-noise ratio)。
+
+#### 错误检测机制
 
 在信号传输过程中，可能由于环境干扰等原因，出现各种信号抖动，所以为了保证数据的可信度，我们需要一个错误检测机制。
 
 一种常见的方法是 **冗余(Redundancy)**，即加入一些额外的信息用以校验。
 
-    ```mermaid
-    graph TD
-    A[Error Detection Techniques]
-    B[Single Parity Check]
-    C[Cyclic Redundancy Check]
-    D[Check Sum]
+```mermaid
+graph TD
+A[Error Detection Techniques]
+B[Single Parity Check]
+C[Cyclic Redundancy Check]
+D[Check Sum]
 
-    A-->B
-    A-->C
-    A-->D
-    ```
+A-->B
+A-->C
+A-->D
+```
 
 其中一种做法是引入 **奇偶校验位(Parity Bit)**。它分为 **奇校验(Odd Parity)** 和 **偶校验(Even Parity)**。分别通过引入额外的一位，来保证整个信息串中 `1` 的数量是奇数/偶数。
 
 - 比如，如果我们采用偶校验，原始信息为 `1101`，其中有 3 个 `1`，这时我们在后面再加上一个 `1`，保证了整个信息串中有偶数个 `1`；或者如果原始信息为 `1001`，其中有 2 个 `1`，这时我们则在后面加一个 `0`。此时，如果传输过程中出现了问题，那么 `1` 的数量很可能变成了一个奇数，此时我们就知道，这个信息是不对的。
+
+---
+
+### 格雷码 | Gray Codes
+
+为了解决可能产生的错误，不得不提的另外一个编码是 **格雷码(Gray Codes)**。格雷码的特征，也是他的优点，就是相邻的两个数在二进制下的表示只差一位（当在占满时，对于整个编码序列，环状满足该条件）。
+
+下图的光轴编码器，左侧是二进制编码，右侧是格雷码。二进制数由于信号抖动可能会出现多种中间状态（如下图3到4(100->011)中间有7个状态），而这里的格雷码能有效地防止由于信号抖动导致的错误（因为必然只变动一位），防止伪输出（spurious output）。
+
+![Optical Shaft Encoder](images/image-8.png)
+
+格雷码在许多状态控制中有着广泛的应用。
+
+从笔试做题角度来说，格雷码最麻烦的其实是与十进制数的转换。（此处 [@CSP-S2019-Day1-T1](https://www.luogu.com.cn/problem/P5657)）
+
+!!! note ""
+    个人认为最好做的做法就是，假设我们要找的是第 k 个格雷码(用二进制表示)，则对应的格雷码为：
+
+    $$
+    k \;\;\mathrm{XOR}\;\; (k>>1)
+    $$
+
+    此时得到的格雷码也叫**二进制反射格雷码(Binary Reflected Gray Code, BRGC)**。
+
+    !!! example "Example"
+
+        $$
+        \begin{aligned}
+        3 \;\;&\mathrm{XOR}\;\; (3>>1)\\
+        =&\mathrm{011\;XOR\;001}\\
+        =&\mathrm{010}\\
+        \end{aligned}
+        $$
+
+常见的格雷码有：
+
+|Decimal|Binary|Gray Code|
+|:-:|:-:|:-:|
+|0|000|000|
+|1|001|001|
+|2|010|011|
+|3|011|010|
+|4|100|110|
+|5|101|111|
+|6|110|101|
+|7|111|100|
+
+---
