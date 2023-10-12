@@ -1,23 +1,25 @@
-# Chapter 1 Mathematical Preliminaries
+# Chapter 1 数学基础 | Mathematical Preliminaries
 
 !!! note "本讲概述"
     本讲主要介绍数值计算中的误差类型和误差分析，以及IEEE 754浮点数表示。
 
-## 1.2 Roundoff Errors and Computer Arithmetic
+## 1.2 舍入误差和计算机算术 | Roundoff Errors and Computer Arithmetic
 
-### 1.2.1 Truncation Error and Roundoff Error
+### 1.2.1 截断误差和舍入误差 | Truncation Error and Roundoff Error
 
-- **截断误差(Truncation Error)**: 使用截断的(或者说有限的)求和来近似无穷级数的和->产生的误差
+- **截断误差**: 使用截断的(或者说有限的)求和来近似无穷级数的和->产生的误差
 
     - 理论：$e=\sum_{n=0}^{\infty} \frac{1}{n!} $
 
     - 计算机: $e=\sum_{n=0}^{N} \frac{1}{n!} $-
   
-- **舍入误差(Roundoff Error)**: 当计算机执行实数计算时产生的误差。这是因为计算机中的算术运算涉及到的数字只有有限位数。
+- **舍入误差**: 当计算机执行实数计算时产生的误差。这是因为计算机中的算术运算涉及到的数字只有有限位数。
     - 理论：$0.3333333\cdots$
     - 计算机: $0.333333$
 
-### 1.2.2 Chopping and Rounding
+### 1.2.2 截断法和舍入法 | Chopping and Rounding
+
+使用舍入法或截断法产生的误差都叫做**舍入误差**。
 
 - Chopping: 0.1119 -> 0.111，直接截断
 - Rounding: 0.1119 -> 0.112，四舍五入
@@ -27,7 +29,7 @@
 
     $$fl(y) = \begin{cases} 0.d_1d_2d_3\ldots d_k \times 10^n& \text{/* chopping */} \\ chop(y + 5 \times 10^{n-(k+1)}) & \text{/* rounding */} \end{cases}$$
 
-### 1.2.3 绝对误差与相对误差 | Absolute error and relative error:
+### 1.2.3 绝对误差与相对误差 | Absolute error and relative error
 
 Denote $p^*$ as the approximation of $p$.
 
@@ -44,11 +46,10 @@ Denote $p^*$ as the approximation of $p$.
 
     $$\frac{|y - fl(y)|}{|y|} \leq \frac{0.5 \times 10^{n-k}}{0.d_1d_2d_3\ldots d_k \times 10^n} = \frac{0.5}{0.1} \times 10^{-k} = 0.5 \times 10^{-k+1}$$
 
-!!! note "相减导致有效位数减少"
-    - $a=0.123456789, b=0.123456788$，两者本来有9位有效数字，但是相减后只剩下1位有效数字。
+!!! note "误差产生"
 
-!!! note "误差扩大"
-    - 除以一个小数（或者乘以一个大数）会导致误差扩大。
+    - 两个近乎相等的数相减二导致有效数字的相消，例如：$a=0.123456789, b=0.123456788$，两者本来有9位有效数字，但是相减后只剩下1位有效数字。
+    - 如果有限位的表示或计算产生了误差，则除以一个小数（或者乘以一个大数）会放大绝对误差。
 
 误差计算举例：
 
@@ -87,7 +88,7 @@ $$f(x) = ((\ldots(a_nx + a_{n-1})x + a_{n-2})x + \ldots)x + a_1)x + a_0$$
 
 $$f(x) = ((x-6.1)x + 3.2)x + 1.5$$
 
-**Chopping**: 
+**Chopping**:
 
 $$\begin{aligned}
 &((4.71-6.1)4.71 + 3.2)4.71 + 1.5 \\
@@ -117,15 +118,15 @@ Relative error: $\frac{|-14.263899 + 14.3|}{|-14.263899|} \approx 0.25\%$
 
 可见，此时误差明显减小了。
 
-## 1.3 Algorithms and Convergence(算法和收敛性)
+## 1.3 算法和收敛性 | Algorithms and Convergence
 
-### Stability
+### 稳定性 | Stability
 
 一个算法，如果初始数据的**小变化**会导致最终结果的**小变化**，则称为**稳定**(stable)；否则称为**不稳定**(unstable)。
 
 一个算法，如果只有在某些初始数据的选择下才是稳定的，则称为**条件稳定**(conditionally stable)。
 
-### The growth of errors
+### 误差增长 | The growth of errors
 
 假设$E_0 > 0$是初始误差(initial error)，$E_n$是第$n$步的误差。
 
@@ -136,6 +137,24 @@ Relative error: $\frac{|-14.263899 + 14.3|}{|-14.263899|} \approx 0.25\%$
 - 如果$E_n \approx C^nE_0$，则称为**指数增长**(exponential growth)。
 
 指数增长的误差应该避免，因为即使$E_0$很小，$C^n$也会变得很大。这会导致不可接受的不准确性。
+
+### 收敛速度 | Convergence rate
+
+使用$O$符号来表示收敛速度。
+
+假设$\lim_{h\to 0} F(h) = L$，$\lim_{h\to 0} G(h) = 0$。如果存在正常数$K$使得
+
+$$|F(h)-L| \leq K|G(h)|$$
+
+对于足够小的$h$成立，则记为$F(h)=L+O(G(h))$
+
+我们通常取$G(h)=h^p,(p>0)$，并对最大的$p$值感兴趣。
+
+!!! example "求当$h\to 0$时下列函数的收敛速度"
+     $\lim_{h\to 0}\frac{\sin h}{h} = 1$
+    解: $F(h)-L=\frac{\sin h}{h}-1 = \frac{\sin h-h}{h} \sim \frac{h-\frac{h^3}{6}+o(h^3)-h}{h} \sim-\frac{h^2}{6}\leq K|h^2|$
+
+    所以收敛速度为$O(h^2)$。
 
 ## 1.4 IEEE 754 FLOATING POINT REPRESENTATION
 
@@ -151,16 +170,16 @@ Relative error: $\frac{|-14.263899 + 14.3|}{|-14.263899|} \approx 0.25\%$
 
     - $S$代表符号位(sign bit)。$S$为$0$表示非负数，$S$为$1$表示负数。
     - 有效位数($Significand = 1 + Fraction$) 中$1$是默认的，我们只存储小数点后面的位数(即Fraction)。
-    - $Fraction$代表尾数部分(fraction part)。
+    - $Fraction$ 代表尾数部分(也称作**mantissa**)。
       - Single: $23$ $bits$
       - Double: $52$ $bits$
-    - Exponent表示指数部分。
+    - $Exponent$ 表示指数部分(也称作**characteristic**)。
         - Single: $8$ $bits$
         - Double: $11$ $bits$
         - excess representation(偏移表示法) $=$ actual exponent $-$ bias，其中：
             - Single: $bias = 127$ $bits$
             - Double: $bias = 1023$ $bits$
-        - 指数为全 $0$ 和全 $1$ 时用作特殊值处理(`NAN`和`INF`)
+        - 指数为全 $0$ 和全 $1$ 时用作特殊值处理
     
     !!! tip "Single & Double的值域"
 
@@ -218,4 +237,3 @@ Relative error: $\frac{|-14.263899 + 14.3|}{|-14.263899|} \approx 0.25\%$
     4. Fraction: $01000\cdots 00$
     5. Significand: $1.01000\cdots 00 = 1.25$
     6. $\therefore$ Number: $–1.25 × 2^2 = –5.0$
-

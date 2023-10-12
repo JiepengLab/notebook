@@ -4,7 +4,7 @@
     - 本课程主题：Introduction
     - 本课程概述：简单宏观了解计算机视觉的基本概念和应用。
 
-## 1.1 instroduction
+## 1.1 Introduction
 
 ### 1.1.1 Artificial Intelligence
 

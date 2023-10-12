@@ -1,4 +1,4 @@
-## 人工智能引论
+# 人工智能引论
 
 !!! note "基本信息："
     - 智云课堂：[🔗](https://classroom.zju.edu.cn/coursedetail?course_id=56046&tenant_code=112)

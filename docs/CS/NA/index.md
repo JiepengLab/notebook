@@ -6,8 +6,6 @@
     - 课程概括: 了解计算器是怎么通过一系列的技巧和优化让离散的数据存储能够运算连续世界的问题的
     
     - 课程网站: [🔗](https://classroom.zju.edu.cn/coursedetail?course_id=55711&tenant_code=112)
-    
-
 
 !!! example "笔记列表"
     - [Chapter 1 Mathematical Preliminaries](Note_01.md)

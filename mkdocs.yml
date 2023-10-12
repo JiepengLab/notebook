@@ -99,7 +99,7 @@ markdown_extensions:
   - md_in_html
   - toc:
       permalink: true
-      toc_depth: 3
+      toc_depth: 4
       permalink_title: 点击此处可置顶内容
   # Python Markdown Extensions
   - pymdownx.arithmatex:
@@ -191,15 +191,19 @@ nav:
       - ./CS/Introduction-to-AI/index.md
     - 数值分析:
       - ./CS/NA/index.md
-      - Chapter 1 Mathematical Preliminaries: ./CS/NA/Note_01.md
+      - Chapter 1 Mathematical Preliminaries: ./CS/NA/Chapter_01.md
+      - Chapter 2 Solutions of Equations in One Variable: ./CS/NA/Chapter_02.md
     - 人工智能初步:
       - ./CS/AI_Start/index.md
       - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
     - 数字逻辑设计:
       - ./CS/DigitalDesign/index.md
-      - Note 01-Introduction: ./CS/DigitalDesign/Note01.md
-      - Note 02-Digital Systems and Information: ./CS/DigitalDesign/Note02.md
-      - Note 03-Combinational Logic Circuits: ./CS/DigitalDesign/Note03.md
+      - Chap 00-Introduction: ./CS/DigitalDesign/Chap00.md
+      - Chap 01-Digital Systems and Information: ./CS/DigitalDesign/Chap01.md
+      - Chap 02-Combinational Logic Circuits: 
+        - ./CS/DigitalDesign/Chap02/index.md
+        - 布尔代数与逻辑运算: ./CS/DigitalDesign/Chap02/Chap02_1.md
+        - 电路实现与经典组合电路: ./CS/DigitalDesign/Chap02/Chap02_2.md
     - 图像信息处理:
       - ./CS/DIP/index.md
     - 数据结构基础:

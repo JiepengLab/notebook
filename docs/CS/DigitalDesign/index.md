@@ -12,5 +12,6 @@
 
 !!! note "List"
     - [Glossary](glossary.md)
-    - [Chap 0 Introduction](Note01.md)
-    - [Chap 1 Digital Systems and Information](Note02.md)
+    - [Chap 0 Introduction](Chap00.md)
+    - [Chap 1 Digital Systems and Information](Chap01.md)
+    - [Chap 2 Combinational Logic Circuits](./Chap02/index.md)
