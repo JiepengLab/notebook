@@ -2,14 +2,11 @@
 
 **随机变量**是定义在样本空间$S$上的实值单值函数。<br />常用大写字母$X,Y,Z$来表示**随机变量**，用小写字母$x,y,z$表示其**取值**。
 
-
 ## 离散型随机变量
 
 **离散型随机变量(discrete random variable)**<br />如果随机变量取有限个或可列个值，则此随机变量为**离散型随机变量**，而弱其可能取值为$\{x_i\}$，则称$P\{X=x_k\}=p_k\;,\;k=1,2,...$为$X$的**概率分布律(probability mass function)**，也可以用列表的方式表达。<br />因为样本空间$S=\{X=x_1,X=x_2,\,...\,,X=x_n\,...\,\}$中各样本点两两不相容，所以：<br />$1=P(S)=\sum_{i=1}^{+\infty}P(X=x_i)=\sum_{i=1}^{+\infty}{p_i}$
 
-
 ---
-
 
 ### 两点分布
 
@@ -18,9 +15,7 @@
 $P\{X=k\}=p^k(1-p)^{1-k}\;,\;\;\;k=0\;or\;1$
 则称$X$为服从**参数为**$p$**的**$0-1$**分布**，也称为**两点分布**，并记为$X\sim B(1,p)$或者$X\sim 0-1(p)$。
 
-
 **定义伯努利(Bernoulli)试验**为：在$n$次独立重复试验中，每次只有$A$和$\overline A$两种结果，且概率不变，则这一系列试验为伯努利试验。
-
 
 ### 二项分布
 
@@ -28,7 +23,6 @@ $P\{X=k\}=p^k(1-p)^{1-k}\;,\;\;\;k=0\;or\;1$
 则称$X$为服从**参数为**$(n,p)$**的二项分布(binomial distribution)**，并记为$X\sim B(n,p)$。<br />根据二项式定理，二项分布有如下性质：<br />$\sum_{k=0}^n{\rm C}_n^kp^k(1-p)^{n-k}=1$
 
 - 如果遇到来自于**两点分布**的总体的，容量为$n$的样本的均值$\overline X$，则有$n·\overline X=\sum_{i=1}^n X_i \sim B(n,p)$
-
 
 ### 泊松分布
 
@@ -38,7 +32,6 @@ $P\{X=k\}=p^k(1-p)^{1-k}\;,\;\;\;k=0\;or\;1$
 - 当$n$足够大，$p$充分小(一般要求$p<0.1$)，且$np$保持适当大小时，**参数为**$(n,p)$**的二项分布**可以**用泊松分布近似描述**，其中$\lambda = np$，即：
 
 ${\rm C}_n^kp^k(1-p)^{n-k} \sim \frac{e^{-\lambda}\lambda^k}{k!}\;\;\;\;\;(n\rightarrow\infty,p<\varepsilon,\lambda=np)$
-
 
 ### 超几何分布
 
@@ -50,9 +43,7 @@ ${\rm C}_n^kp^k(1-p)^{n-k} \sim \frac{e^{-\lambda}\lambda^k}{k!}\;\;\;\;\;(n\rig
 如果随机变量$X$的概率分布律为：<br />$P\{X=k\}=p(1-p)^{k-1}\;,\;\;\;k=1,2,...$
 则称$X$为服从**参数为**$p$**的几何分布(geometric distribution)**。
 
-
 ---
-
 
 ## 连续型随机变量
 
@@ -67,9 +58,7 @@ ${\rm C}_n^kp^k(1-p)^{n-k} \sim \frac{e^{-\lambda}\lambda^k}{k!}\;\;\;\;\;(n\rig
 3. $F(x)$右连续，即$F(x+0)=F(x)$；
 4. $P(a<X\leq b)=F(b)-F(a)$；
 
-
 ---
-
 
 如果对于随机变量$X$，其**分布函数**为$F(x)$，若存在一个非负的实函数$f(x)$，使对于**任意实数**$x$，有：<br />$F(x) = \int_{-\infty}^{x}f(t)dt$
 则称$X$为**连续型随机变量**，并且称$f(x)$为$X$的**概率密度函数(probability density function)**，简称为**密度函数**。<br />关于$f(x)$有以下结论：
@@ -80,30 +69,36 @@ ${\rm C}_n^kp^k(1-p)^{n-k} \sim \frac{e^{-\lambda}\lambda^k}{k!}\;\;\;\;\;(n\rig
 4. 在$f(x)$的连续点$x$处，$F'(x)=f(x)$
 5. $P\{X=a\} = 0$，即连续型随机变量任取一个定值的概率为零，因此连续型随机变量落在开区间与相应闭区间上的概率相等；
 
-
 ### 均匀分布
 
-设随机变量$X$就有密度函数：<br />$f(x)=\begin{align}
-    \left\{
-    \begin{align}
-    &\frac{1}{b-a},& x\in(a,b),\\
-    &0,&\text{其他},
-    \end{align}
-    \right.
+设随机变量$X$就有密度函数：
 
-    \end{align}$
-则称$X$服从区间$(a,b)$上的均匀分布，并记为$X\sim U(a,b)$。<br />而得到对应的分布函数为：<br />$F(x)=\begin{align}
+$$
+f(x)=\begin{align*}
+\left\{
+\begin{matrix}
+&\frac{1}{b-a},& x\in(a,b),\\
+&0,&\text{其他},
+\end{matrix}
+\right.
+\end{align*}
+$$
+
+则称$X$服从区间$(a,b)$上的均匀分布，并记为$X\sim U(a,b)$。<br />而得到对应的分布函数为：
+
+$$
+F(x)=
+\begin{align*}
     \left\{
-    \begin{align}
+    \begin{matrix}
     &0,&x<a,\\
     &\frac{x-a}{b-a},& a\leq x<b,\\
     &1,&x\geq b,
-    \end{align}
+    \end{matrix}
     \right.
+    \end{align*}$$
 
-    \end{align}$
 ![](./1648038533691-be9d322f-845f-4b2b-86ca-fb410b22dc14.jpeg)
-
 
 ### 指数分布
 
@@ -111,10 +106,10 @@ ${\rm C}_n^kp^k(1-p)^{n-k} \sim \frac{e^{-\lambda}\lambda^k}{k!}\;\;\;\;\;(n\rig
 $$$
 f(x)=\begin{cases}
 \lambda e^{-\lambda x}\;,\; & x>0 , \\
-0，&x\leq0. 
+0，&x\leq0.
 \end{cases}$ <br />也有地方写成这样：<br />（$f(x)=\begin{cases}
 \frac{1}{\theta} e^{-\frac{1}{\theta} x}\;,\; & x>0 , \\
-0，&x\leq0. 
+0，&x\leq0.
 \end{cases}
 $$$
 其中$\lambda > 0$，则称$X$服从**参数为**$\lambda$**的指数分布(exponential distribution)**，记为$X\sim E(\lambda)$。
@@ -123,12 +118,11 @@ $$$
 F(x)=\int_{-\infty}^{x}f(t)\mathrm{d}t=
 \begin{cases}
 1-e^{-\lambda x}\;,\; & x>0 , \\
-0，&x\leq0. 
+0，&x\leq0.
 \end{cases}
 $$$
 
 指数分布具有无记忆性，即$P(X>s | X>t_0)=P(X>s-t_0)$。
-
 
 ### 正态分布
 
@@ -155,20 +149,18 @@ $\Phi(x) = \int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}dt$
 
 - 则显然有$\Phi(x)+\Phi(-x)=1$
 - 然而由于其无法计算，所以我们需要查**表**获得具体值。-
-   - 标准正态分布表
-      - [https://www.shuxuele.com/data/standard-normal-distribution-table.html](https://www.shuxuele.com/data/standard-normal-distribution-table.html)
-      - [https://www.chip1stop.com/sp/knowledge/019_normal-distribution-table_zh](https://www.chip1stop.com/sp/knowledge/019_normal-distribution-table_zh)
+    - 标准正态分布表
+        - [https://www.shuxuele.com/data/standard-normal-distribution-table.html](https://www.shuxuele.com/data/standard-normal-distribution-table.html)
+        - [https://www.chip1stop.com/sp/knowledge/019_normal-distribution-table_zh](https://www.chip1stop.com/sp/knowledge/019_normal-distribution-table_zh)
 
 - 而对于不是标准正态分布的正态分布，我们可以通过线性变换（标准化）来转换为正态分布。
 - 有：若$X\sim N(\mu,\sigma^2)$，则$P\{a<X<b\}=
 P\{\frac{a-\mu}{\sigma}< \frac{X-\mu}{\sigma} < \frac{b-\mu}{\sigma} \}
 =\Phi(\frac{b-\mu}{\sigma})-\Phi(\frac{a-\mu}{\sigma})$
-   - 特别的：若$X\sim N(\mu,\sigma^2)$，则$P\{|X-\mu|<k\sigma\} = \Phi(k)-\Phi(-k)=2\Phi(k)-1$
+    - 特别的：若$X\sim N(\mu,\sigma^2)$，则$P\{|X-\mu|<k\sigma\} = \Phi(k)-\Phi(-k)=2\Phi(k)-1$
 - $3\sigma$法则
 
-
 ---
-
 
 ## 随机变量函数的分布
 
@@ -186,9 +178,7 @@ f_X(h(y))·|h'(y)|,&y\in D,\\
 
 - 其中$D$为$y=g(x)$的值域。
 
-
 有关**正态分布**的重要结论：<br />若$X\sim N(\mu,\sigma^2)$，则$Y=aX+b \sim N(a\mu+b,a^2\sigma^2)$。
 
 - **标准化**：特别的，若$X\sim N(\mu,\sigma^2)$，则$\frac{X-\mu}{\sigma}\sim N(0,1)$；
 - 即正态分布的随机变量线性变换后正态性不变；
-

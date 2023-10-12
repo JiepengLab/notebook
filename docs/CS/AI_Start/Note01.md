@@ -78,7 +78,7 @@
         $$
 
         $$
-        \frac{\text{d} (\vec{u}^TXX^T\vec{v})}{\text{d} X} = X\vec{v}\vec{u}^T + X\vec{u}\vec{v}^T
+        \frac{\text{d} (\vec{u}^TXX^T\vec{v})}{\text{d} X} = X(\vec{v}\vec{u}^T + \vec{u}\vec{v}^T)
         $$
 
 
@@ -146,7 +146,80 @@
             =& X\vec{v}\vec{u}^T + X\vec{u}\vec{v}^T
             \end{align*}$$
 
-### 1.1.3 向量积对列向量求导
+        然后，我们不加证明地给出(证明写累了QAQ)：
+
+        $$
+        \frac{\text{d} (\vec{u}^TXDX^T\vec{v})}{\text{d} X} = D^TX\vec{v}\vec{u}^T + DX\vec{u}\vec{v}^T
+        $$
+
+
+        !!! note "应用"
+            
+            $$\begin{aligned}
+            \frac{\text{d}[(X\vec{u}-\vec{v})^T(X\vec{u}-\vec{v})]}{\text{d} X} &= \frac{\text{d}[(\vec{u}^TX^T-\vec{v}^T)(X\vec{u}-\vec{v})]}{\text{d} X} \\
+            &= \frac{\text{d}[\vec{u}^TX^TX\vec{u}]}{\text{d} X} - \frac{\text{d}[\vec{u}^TX^T\vec{v}]}{\text{d} X} - \frac{\text{d}[\vec{v}^TX\vec{u}]}{\text{d} X} + \frac{\text{d}[\vec{v}^T\vec{v}]}{\text{d} X} \\
+            &= 2X\vec{u}\vec{u}^T - \vec{v}\vec{u}^T - \vec{v}\vec{u}^T + 0\\
+            &= 2(X\vec{u}-\vec{v})\vec{u}^T
+            \end{aligned}$$
+
+            之后我们会用链式法则再把这道题做一遍
+
+### 1.1.3 行列向量对行列向量求导
+
+实际上就是每个元素对后面的那个向量进行求导，可能刚接触的时候不太熟悉，这里逐一列举：
+
+#### 行向量对列向量求导
+
+!!! note "行向量$\vec{y}^T=\begin{bmatrix}f_1(x) & f_2(x) & \cdots & f_n(x)\end{bmatrix}$对列向量$\vec{x}=\begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_m\end{bmatrix}$求导:"
+
+    $$\frac{\text{d} \vec{y}^T}{\text{d} \vec{x}} = \begin{bmatrix}
+    \frac{\partial f_1}{\partial x_1} & \frac{\partial f_2}{\partial x_1} & \cdots & \frac{\partial f_n}{\partial x_1} \\
+    \frac{\partial f_1}{\partial x_2} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_n}{\partial x_2} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \frac{\partial f_1}{\partial x_m} & \frac{\partial f_2}{\partial x_m} & \cdots & \frac{\partial f_n}{\partial x_m}
+    \end{bmatrix}$$
+    
+    !!! note "重要结论"
+        $$\frac{\text{d} \vec{x}^T}{\text{d} \vec{x}}= I,\frac{\text{d} (A\vec{x})^T}{\text{d} \vec{x}} = A^T$$
+
+#### 列向量对行向量求导
+
+!!! note "列向量$\vec{y}=\begin{bmatrix}f_1(x) \\ f_2(x) \\ \vdots \\ f_n(x)\end{bmatrix}$对行向量$\vec{x}^T=\begin{bmatrix}x_1 & x_2 & \cdots & x_m\end{bmatrix}$求导:"
+
+    $$\frac{\text{d} \vec{y}}{\text{d} \vec{x}^T} =(\frac{\text{d} \vec{y}^T}{\text{d} \vec{x}})^T = \begin{bmatrix}
+    \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_m} \\
+    \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_2}{\partial x_m} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \frac{\partial f_n}{\partial x_1} & \frac{\partial f_n}{\partial x_2} & \cdots & \frac{\partial f_n}{\partial x_m}
+    \end{bmatrix}$$
+
+    !!! note "重要结论"
+        $$\frac{\text{d} \vec{x}}{\text{d} \vec{x}^T}= I,\frac{\text{d} (A\vec{x})}{\text{d} \vec{x}^T} = A$$
+
+#### 行向量对行向量求导
+
+!!! note "行向量$\vec{y}^T=\begin{bmatrix}y_1 & y_2 & \cdots & y_n\end{bmatrix}$对行向量$\vec{x}^T=\begin{bmatrix}x_1 & x_2 & \cdots & x_m\end{bmatrix}$求导:"
+
+    $$\frac{\text{d} \vec{y}^T}{\text{d} \vec{x}^T} = \begin{bmatrix}
+    \frac{\partial \vec{y}^T}{\partial x_1} , \frac{\partial \vec{y}^T}{\partial x_2} , \cdots , \frac{\partial \vec{y}^T}{\partial x_m}
+    \end{bmatrix}$$
+
+#### 列向量对列向量求导
+
+!!! note "列向量$\vec{y}=\begin{bmatrix}y_1 \\ y_2 \\ \vdots \\ y_n\end{bmatrix}$对列向量$\vec{x}=\begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_m\end{bmatrix}$求导:"
+
+    $$\frac{\text{d} \vec{y}}{\text{d} \vec{x}} = \begin{bmatrix}
+    \frac{\partial y_1}{\partial \vec{x}} \\
+    \frac{\partial y_2}{\partial \vec{x}} \\
+    \vdots \\
+    \frac{\partial y_n}{\partial \vec{x}}
+    \end{bmatrix}$$
+
+### 1.1.4 行列向量、矩阵对矩阵求导
+
+其实就是每个元素对后面的矩阵求导，然后每个元素生成一个矩阵，按原来的顺序拼接起来，不常用到，这里有个概念即可。
+
+### 1.1.5 向量积对列向量求导
 
 !!! note "向量积$\vec{u}^T\vec{v}$对列向量$\vec{x}$求导"
 
@@ -206,7 +279,11 @@
 
     !!! note "重要结论"
         
-        $$\frac{\text{d} (\vec{x}^T\vec{x})}{\text{d} \vec{x}} = 2\vec{x},\frac{\text{d} (\vec{x}^TA\vec{x})}{\text{d} \vec{x}} = (A+A^T)\vec{x}$$
+        $$\frac{\partial \vec{x}^T\vec{a}}{\partial \vec{x}} = \frac{\partial \vec{a}^T\vec{x}}{\partial \vec{x}} = \vec{a}$$
+        
+        $$
+        \frac{\text{d} (\vec{x}^T\vec{x})}{\text{d} \vec{x}} = 2\vec{x},\frac{\text{d} (\vec{x}^TA\vec{x})}{\text{d} \vec{x}} = (A+A^T)\vec{x}
+        $$
     
     !!! warning "注意"
         !!! note ""
@@ -226,51 +303,38 @@
 
             最后一个等号是因为$\vec{x}^T\vec{b}$是标量，所以$\vec{x}^T\vec{b}= \vec{b}^T\vec{x}$
 
-### 1.1.4 行列向量对行列向量求导
+### 1.1.6 链式法则
 
-#### 行向量对列向量求导
+有些求导运算中中更好的方法是采用链式法则：
 
-!!! note "行向量$\vec{y}^T=\begin{bmatrix}f_1(x) & f_2(x) & \cdots & f_n(x)\end{bmatrix}$对列向量$\vec{x}=\begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_m\end{bmatrix}$求导:"
+!!! note ""
+    $$\begin{aligned}
+    \frac{\text{d}[(X\vec{u}-\vec{v})^T(X\vec{u}-\vec{v})]}{\text{d} X} &= \frac{\text{d}[(X\vec{u}-\vec{v})^T(X\vec{u}-\vec{v})]}{\text{d} (X\vec{u}-\vec{v})}\frac{\text{d} (X\vec{u}-\vec{v})}{\text{d} X} \\
+    &= 2(X\vec{u}-\vec{v})\vec{u}^T
+    \end{aligned}$$
 
-    $$\frac{\text{d} \vec{y}^T}{\text{d} \vec{x}} = \begin{bmatrix}
-    \frac{\partial f_1}{\partial x_1} & \frac{\partial f_2}{\partial x_1} & \cdots & \frac{\partial f_n}{\partial x_1} \\
-    \frac{\partial f_1}{\partial x_2} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_n}{\partial x_2} \\
-    \vdots & \vdots & \ddots & \vdots \\
-    \frac{\partial f_1}{\partial x_m} & \frac{\partial f_2}{\partial x_m} & \cdots & \frac{\partial f_n}{\partial x_m}
-    \end{bmatrix}$$
+!!! note ""
+    $$\begin{aligned}
+    \frac{\partial[(X\vec{b}+c)^TD(X\vec{b}+c)]}{\partial X} &= \frac{\partial[(X\vec{b}+c)^TD(X\vec{b}+c)]}{\partial (X\vec{b}+c)}\frac{\partial (X\vec{b}+c)}{\partial X} \\
+    &= (D+D^T)(X\vec{b}+c)\vec{b}^T
+    \end{aligned}$$
+
+### 1.1.7 方阵的迹对方阵求导
+
+!!! note "重要结论"
+    $$
+    \frac{\partial \text{tr}(X)}{\partial X} = \frac{\partial \text{tr}(X)^T}{\partial X} =\frac{\partial \text{tr}(X)}{\partial X^T} = I
+    $$
+
+    $$
+    \frac{\partial \text{tr}(AX)}{\partial X} = \frac{\partial \text{tr}(XA)}{\partial X} = A^T，     \frac{\partial \text{tr}(AX^T)}{\partial X} = \frac{\partial \text{tr}(X^TA)}{\partial X} = A
+    $$
     
-    !!! note "重要结论"
-        $$\frac{\text{d} \vec{x}^T}{\text{d} \vec{x}}= I,\frac{\text{d} (A\vec{x})^T}{\text{d} \vec{x}} = A^T$$
+    $$
+    \frac{\partial \text{tr}(AXB)}{\partial X} = \frac{\partial \text{tr}(XBA)}{\partial X} =(BA)^T， 
+    \frac{\partial \text{tr}(AX^TB)}{\partial X} = \frac{\partial \text{tr}(X^TBA)}{\partial X} = BA
+    $$
 
-#### 列向量对行向量求导
-
-!!! note "列向量$\vec{y}=\begin{bmatrix}f_1(x) \\ f_2(x) \\ \vdots \\ f_n(x)\end{bmatrix}$对行向量$\vec{x}^T=\begin{bmatrix}x_1 & x_2 & \cdots & x_m\end{bmatrix}$求导:"
-
-    $$\frac{\text{d} \vec{y}}{\text{d} \vec{x}^T} =(\frac{\text{d} \vec{y}^T}{\text{d} \vec{x}})^T = \begin{bmatrix}
-    \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_m} \\
-    \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_2}{\partial x_m} \\
-    \vdots & \vdots & \ddots & \vdots \\
-    \frac{\partial f_n}{\partial x_1} & \frac{\partial f_n}{\partial x_2} & \cdots & \frac{\partial f_n}{\partial x_m}
-    \end{bmatrix}$$
-
-    !!! note "重要结论"
-        $$\frac{\text{d} \vec{x}}{\text{d} \vec{x}^T}= I,\frac{\text{d} (A\vec{x})}{\text{d} \vec{x}^T} = A$$
-
-#### 行向量对行向量求导
-
-!!! note "行向量$\vec{y}^T=\begin{bmatrix}y_1 & y_2 & \cdots & y_n\end{bmatrix}$对行向量$\vec{x}^T=\begin{bmatrix}x_1 & x_2 & \cdots & x_m\end{bmatrix}$求导:"
-
-    $$\frac{\text{d} \vec{y}^T}{\text{d} \vec{x}^T} = \begin{bmatrix}
-    \frac{\partial \vec{y}^T}{\partial x_1} , \frac{\partial \vec{y}^T}{\partial x_2} , \cdots , \frac{\partial \vec{y}^T}{\partial x_m}
-    \end{bmatrix}$$
-
-#### 列向量对列向量求导
-
-!!! note "列向量$\vec{y}=\begin{bmatrix}y_1 \\ y_2 \\ \vdots \\ y_n\end{bmatrix}$对列向量$\vec{x}=\begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_m\end{bmatrix}$求导:"
-
-    $$\frac{\text{d} \vec{y}}{\text{d} \vec{x}} = \begin{bmatrix}
-    \frac{\partial y_1}{\partial \vec{x}} \\
-    \frac{\partial y_2}{\partial \vec{x}} \\
-    \vdots \\
-    \frac{\partial y_n}{\partial \vec{x}}
-    \end{bmatrix}$$
+    $$
+    \frac{\partial \text{tr}(X^2)}{\partial X} = 2X
+    $$
