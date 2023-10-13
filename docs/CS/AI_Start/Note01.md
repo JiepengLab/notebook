@@ -321,6 +321,98 @@
 
 ### 1.1.7 方阵的迹对方阵求导
 
+我们来研究一下矩阵的微分和矩阵的迹的关系：
+
+??? note "复习一下微分"
+    取矩阵变元的实值标量函数
+    
+    $f(\pmb{X}),\pmb{X}_{m\times n}=(x_{ij})_{i=1,j=1}^{m,n}$
+
+    它也是多元函数，设其可微，则它的全微分，就是：
+
+    $$\begin{aligned} \mathbb{d}f(\pmb{X}) &=\frac{\partial f}{\partial x_{11}}\mathbb{d}x_{11}+\frac{\partial f}{\partial x_{12}}\mathbb{d}x_{12} + \cdots+\frac{\partial f}{\partial x_{1n}}\mathbb{d}x_{1n}\\ &+\frac{\partial f}{\partial x_{21}}\mathbb{d}x_{21}+\frac{\partial f}{\partial x_{22}}\mathbb{d}x_{22} + \cdots+\frac{\partial f}{\partial x_{2n}}\mathbb{d}x_{2n}\\ &+\cdots\\ &+\frac{\partial f}{\partial x_{m1}}\mathbb{d}x_{m1}+\frac{\partial f}{\partial x_{m2}}\mathbb{d}x_{m2} + \cdots+\frac{\partial f}{\partial x_{mn}}\mathbb{d}x_{mn} \end{aligned} $$
+
+    我们从这个结果中发现，它其实就是矩阵 $(\frac{\partial f}{\partial x_{ij}})_{i=1,j=1}^{m,n}$ 与矩阵 $(\mathbb{d}x_{ij})_{i=1,j=1}^{m,n}$ 对应位置的元素相乘并相加，则该式也可以写成迹的形式，即：
+
+    $$\begin{aligned} \mathbb{d}f(\pmb{X}) &=\frac{\partial f}{\partial x_{11}}\mathbb{d}x_{11}+\frac{\partial f}{\partial x_{12}}\mathbb{d}x_{12} + \cdots+\frac{\partial f}{\partial x_{1n}}\mathbb{d}x_{1n}\\ &+\frac{\partial f}{\partial x_{21}}\mathbb{d}x_{21}+\frac{\partial f}{\partial x_{22}}\mathbb{d}x_{22} + \cdots+\frac{\partial f}{\partial x_{2n}}\mathbb{d}x_{2n}\\ &+\cdots\\ &+\frac{\partial f}{\partial x_{m1}}\mathbb{d}x_{m1}+\frac{\partial f}{\partial x_{m2}}\mathbb{d}x_{m2} + \cdots+\frac{\partial f}{\partial x_{mn}}\mathbb{d}x_{mn} \\\\ &=\mathbb{tr}( \begin{bmatrix} \frac{\partial f}{\partial x_{11}}&\frac{\partial f}{\partial x_{21}}&\cdots&\frac{\partial f}{\partial x_{m1}} \\ \frac{\partial f}{\partial x_{12}}&\frac{\partial f}{\partial x_{22}}& \cdots & \frac{\partial f}{\partial x_{m2}}\\ \vdots&\vdots&\vdots&\vdots\\ \frac{\partial f} {\partial x_{1n}}&\frac{\partial f}{\partial x_{2n}}&\cdots&\frac{\partial f}{\partial x_{mn}} \end{bmatrix}_{n\times m} \begin{bmatrix} \mathbb{d}x_{11} & \mathbb{d}x_{12} & \cdots & \mathbb{d}x_{1n} \\ \mathbb{d}x_{21} & \mathbb{d}x_{22} & \cdots & \mathbb{d}x_{2n} \\ \vdots&\vdots&\vdots&\vdots\\ \mathbb{d}x_{m1} & \mathbb{d}x_{m2} & \cdots & \mathbb{d}x_{mn} \end{bmatrix}_{m \times n} ) \end{aligned}  $$
+
+??? note "矩阵微分和迹的关系: $\begin{aligned} \mathbb{d}f(\pmb{X}) &=\mathbb{tr}(\frac{\partial f(\pmb{X})}{\partial\pmb{X}^T} \mathbb{d}\pmb{X})\end{aligned}$"
+
+    $\pmb{X}_{m \times n}$ 自己就是矩阵变元为 $\pmb{X}_{m \times n}$ 的实矩阵函数，它的每个元素是 $x_{ij}$ ，每个元素的全微分是 $\mathbb d{x_{ij}}$ 。
+
+    因此， $\pmb{X}_{m \times n}$ 的矩阵微分是：
+
+    $$
+    \begin{aligned} \mathbb{d}\pmb{X}_{m \times n} &= \begin{bmatrix} \mathbb{d}x_{11}& \mathbb{d}x_{12} & \cdots & \mathbb{d}x_{1n} \\ \mathbb{d}x_{21}& \mathbb{d}x_{22} & \cdots & \mathbb{d}x_{2n} \\ \vdots&\vdots&\vdots&\vdots \\ \mathbb{d}x_{m1}& \mathbb{d}x_{m2} & \cdots & \mathbb{d}x_{mn} \\ \end{bmatrix}_{m \times n} \end{aligned}
+    $$
+
+    向量 $\pmb{x}=[x_1,x_2,\cdots,x_n]^T$ 的矩阵微分是：
+
+    $$
+    \begin{aligned} \mathbb{d}\pmb{x} &= \begin{bmatrix} \mathbb{d}x_{1}\\ \mathbb{d}x_{2}\\ \vdots \\ \mathbb{d}x_{n} \\ \end{bmatrix}_{n \times 1} \end{aligned}
+    $$
+
+    我们现在回到矩阵变元的实值标量函数的全微分：
+
+    $$\begin{aligned} \mathbb{d}f(\pmb{X}) &=\frac{\partial f}{\partial x_{11}}\mathbb{d}x_{11}+\frac{\partial f}{\partial x_{12}}\mathbb{d}x_{12} + \cdots+\frac{\partial f}{\partial x_{1n}}\mathbb{d}x_{1n}\\ &+\frac{\partial f}{\partial x_{21}}\mathbb{d}x_{21}+\frac{\partial f}{\partial x_{22}}\mathbb{d}x_{22} + \cdots+\frac{\partial f}{\partial x_{2n}}\mathbb{d}x_{2n}\\ &+\cdots\\ &+\frac{\partial f}{\partial x_{m1}}\mathbb{d}x_{m1}+\frac{\partial f}{\partial x_{m2}}\mathbb{d}x_{m2} + \cdots+\frac{\partial f}{\partial x_{mn}}\mathbb{d}x_{mn} \\\\ &=\mathbb{tr}( \begin{bmatrix} \frac{\partial f}{\partial x_{11}}&\frac{\partial f}{\partial x_{21}}&\cdots&\frac{\partial f}{\partial x_{m1}} \\ \frac{\partial f}{\partial x_{12}}&\frac{\partial f}{\partial x_{22}}& \cdots & \frac{\partial f}{\partial x_{m2}}\\ \vdots&\vdots&\vdots&\vdots\\ \frac{\partial f} {\partial x_{1n}}&\frac{\partial f}{\partial x_{2n}}&\cdots&\frac{\partial f}{\partial x_{mn}} \end{bmatrix}_{n\times m} \begin{bmatrix} \mathbb{d}x_{11} & \mathbb{d}x_{12} & \cdots & \mathbb{d}x_{1n} \\ \mathbb{d}x_{21} & \mathbb{d}x_{22} & \cdots & \mathbb{d}x_{2n} \\ \vdots&\vdots&\vdots&\vdots\\ \mathbb{d}x_{m1} & \mathbb{d}x_{m2} & \cdots & \mathbb{d}x_{mn} \end{bmatrix}_{m \times n} ) \end{aligned}$$
+
+    观察结果，发现在 $\mathbb{tr}$ 中，左边的矩阵，其实就是式：
+
+    $$\begin{aligned} \text{D}_{\pmb{X}}f(\pmb{X})= \frac{\partial f(\pmb{X})}{\partial \pmb{X}^T_{m\times n}}\end{aligned} $$
+
+    而右边的矩阵，其实就是：
+
+    $$
+    \begin{aligned} \mathbb{d}\pmb{X}_{m \times n} &= \begin{bmatrix} \mathbb{d}x_{11}& \mathbb{d}x_{12} & \cdots & \mathbb{d}x_{1n} \\ \mathbb{d}x_{21}& \mathbb{d}x_{22} & \cdots & \mathbb{d}x_{2n} \\ \vdots&\vdots&\vdots&\vdots \\ \mathbb{d}x_{m1}& \mathbb{d}x_{m2} & \cdots & \mathbb{d}x_{mn} \\ \end{bmatrix}_{m \times n} \end{aligned}$$
+
+    因此，矩阵变元的实值标量函数的全微分，可以写成：
+
+    $$\begin{aligned} \mathbb{d}f(\pmb{X}) &=\mathbb{tr}(\frac{\partial f(\pmb{X})}{\partial\pmb{X}^T} \mathbb{d}\pmb{X})\end{aligned}$$
+
+    别忘了我们的目标是什么，其实就是要求 $\frac{\partial f(\pmb{X})}{\partial \pmb{X}^T}$ 。所以，只要我们可以把一个矩阵变元的实值标量函数的全微分写成上式，我们就找到了矩阵求导的结果。（已经有人证明，这样的结果是唯一的。即若 $\mathbb{d}f(\pmb{X}) =\mathbb{tr}(\pmb{A}_1\mathbb{d}\pmb{X}) = \mathbb{tr}(\pmb{A}_2\mathbb{d}\pmb{X})$ ，则 $\pmb{A}_1=\pmb{A}_2$ )
+
+    对于向量变元的实值标量函数的全微分，同样可以写成：
+
+    $$\begin{aligned} \mathbb{d}f(\pmb{x}) &=\mathbb{tr}(\frac{\partial f(\pmb{x})}{\partial\pmb{x}^T} \mathbb{d}\pmb{x})\end{aligned} $$
+
+!!! note "实值标量函数$f(\pmb{X})$的微分与迹的关系"
+    对于实值标量函数 $f(\pmb{X})$ ， $\mathbb{tr}(f(\pmb{X})) =f(\pmb{X})$ ， $\mathbb{d}f(\pmb{X})=\mathbb{tr}(\mathbb{d}f(\pmb{X}))$
+
+    所以有
+
+    $$\mathbb{d}f(\pmb{X}) = \mathbb{d}(\mathbb{tr}f(\pmb{X}))=\mathbb{tr}(\mathbb{d}f(\pmb{X})) $$
+
+    如果实值标量函数本身就是某个矩阵函数 $\pmb{F}_{p \times p}(\pmb{X})$ 的迹，如 $\mathbb{tr}{\pmb{F}(\pmb{X})}$ ，则由全微分的线性法，得：
+
+    $$\mathbb{d}(\mathbb{tr}{\pmb{F}_{p\times p}(\pmb{X})}) = \mathbb{d}(\sum_{i=1}^pf_{ii}(\pmb{X})) = \sum_{i=1}^p\mathbb{d}(f_{ii}(\pmb{X})) = \mathbb{tr}(\mathbb{d}F_{p \times p}(\pmb{X})) $$
+
+其实我上面列这么多，就是为了推出方阵与迹的关系：
+
+!!! tip "方阵与迹的关系"
+    $$\mathbb{d}(\mathbb{tr}{\pmb{F}_{p\times p}(\pmb{X})}) = \mathbb{tr}(\mathbb{d}F_{p \times p}(\pmb{X})) $$
+
+    $$\begin{aligned} \mathbb{d}f(\pmb{X}) &=\mathbb{tr}(\frac{\partial f(\pmb{X})}{\partial\pmb{X}^T} \mathbb{d}\pmb{X})\end{aligned}$$
+
+    !!! example "$\frac{\partial \text{tr}(X^2B)}{\partial X} = (XB+BX)^T$"
+        $$
+        \begin{aligned}
+        \text{d}(\text{tr}(X^2B)) &= \text{tr}(\text{d}(X^2B)) \\
+        &= \text{tr}((\text{d}X)XB+X\text{d}(XB)) \\
+        &= \text{tr}((\text{d}X)XB+X(\text{d}X)B) \\
+        &= \text{tr}((\text{d}X)XB)+\text{tr}(X(\text{d}X)B) \\
+        &= \text{tr}(XB(\text{d}X))+\text{tr}(BX(\text{d}X)) \\
+        &= \text{tr}((XB+BX)(\text{d}X)) \\
+        \end{aligned}
+        $$
+        
+        所以：
+
+        $$\frac{\partial \text{tr}(X^2B)}{\partial X^T} = XB+BX$$
+
+        因为对两边施加转置时，迹不变，所以：
+
+        $$\frac{\partial \text{tr}(X^2B)}{\partial X} = (XB+BX)^T$$
+
 !!! note "重要结论"
     $$
     \frac{\partial \text{tr}(X)}{\partial X} = \frac{\partial \text{tr}(X)^T}{\partial X} =\frac{\partial \text{tr}(X)}{\partial X^T} = I
@@ -337,4 +429,8 @@
 
     $$
     \frac{\partial \text{tr}(X^2)}{\partial X} = 2X
+    $$
+    
+    $$
+    \frac{\partial \text{tr}(X^2B)}{\partial X} = (XB+BX)^T
     $$

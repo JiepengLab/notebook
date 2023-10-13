@@ -220,7 +220,7 @@ $$\mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0$$
 
 上面这张图清晰地说明了各种变换的关系。从左到右，变换的自由度(DoF-degree of freedom)越来越多。
 
-### Translation
+### 平移 | Translation
 
 **Translation**: 2D 平移, 2 DoF - $t_x+t_y$
 
@@ -244,7 +244,7 @@ $$\mathbf{x}'=\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end
         - 直线比例保持不变
     - 用齐次表达，可以轻易地求出逆变换，以及链接多个变换。
 
-### Euclidean
+### 欧氏变换 | Euclidean
 
 **Euclidean**: 2D 平移 + 2D 旋转, 3 DoF- $(t_x+t_y)+(\theta)$
 
@@ -287,7 +287,7 @@ $$\mathbf{x}'=\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\
     \end{bmatrix}
     $$        
 
-### Similarity
+### 相似变换 | Similarity
 
 **Similarity**: 2D 平移 + 2D 旋转 + 2D 缩放, 4 DoF - $(t_x+t_y)+(\theta)+(s)$
 
@@ -295,7 +295,7 @@ $$\mathbf{x}'=s\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'
 
 其中$s$ 是**缩放因子**(scale factor)
 
-### Affine
+### 仿射 | Affine
 
 **Affine**: 2D仿射变换, 6 DoF - $(t_x+t_y)+(a_{11}+a_{12}+a_{21}+a_{22})$
 
@@ -305,7 +305,7 @@ $$\mathbf{x}'=\mathbf{A}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\
 
 仿射变换矩阵为 $\begin{bmatrix}\mathbf{A}&\mathbf{t}\end{bmatrix}_{2\times 3}$。
 
-### Projective
+### 投影 | Projective
 
 **Projective**: 投影变换，也被称为**透视变换**(perspective transform)或**单应性变换**(homography)，8 DoF - 下面解释
 
@@ -316,9 +316,11 @@ $$\mathbf{\widetilde{x}}'=\mathbf{\widetilde{H}}\mathbf{\widetilde{x}} \Leftrigh
 !!! note ""
     实际上，可以理解为它是在三维空间下，相机不平移只旋转的一个视角变化，即 change projection plane；
 
-### 2D Transformations on Co-vectors
+### 辅助矢量的变换 | 2D Transformations on Co-vectors
 
-!!! question "记 **co-vector** $\mathbf{\widetilde{l}}=(a,b,c)^T$ 表示2D上的一条线. 它在2D变换$\mathbf{H}$下如何变换？"
+我们之前所列的那些变换其实都是作用在点上的，但是我们也可以把它们作用在**辅助矢量**(co-vectors)上，例如，2D上的一条线可以用一个辅助矢量表示为 $\mathbf{\widetilde{l}}=(a,b,c)^T$，它在2D变换$\mathbf{H}$下如何变换？
+
+!!! question "记 **辅助矢量(co-vector)** $\mathbf{\widetilde{l}}=(a,b,c)^T$ 表示2D上的一条线. 它在2D变换$\mathbf{H}$下如何变换？"
 
     **Answer**: $\mathbf{\widetilde{l}'}=\mathbf{H}^{-T}\mathbf{\widetilde{l}}$
 
@@ -342,13 +344,9 @@ $$\mathbf{\widetilde{x}}'=\mathbf{\widetilde{H}}\mathbf{\widetilde{x}} \Leftrigh
 
     $$\mathbf{\widetilde{l}'}=\mathbf{H}^{-T}\mathbf{\widetilde{l}}$$
 
-因此，作用在co-vector上的投影变换可以用矩阵的转置逆$\mathbf{H}^{-T}$来表示。
+因此，作用在注入2D直线或3D法向的辅助矢量上的投影变换可以用矩阵的转置逆$\mathbf{H}^{-T}$来表示。
 
-???+ question "co-vector是什么？"
-    ![co-vector](images/image-5.png)
-    在投影变换中,2D直线和3D法向量属于covector,因为它们定义了一个线性函数,把点映射到标量。
-
-## 2.1.4 Overview of 2D Transformations
+## 2.1.4 2D坐标变换层次结构
 
 ![2D transformations](images/image-6.png)
 
@@ -360,7 +358,7 @@ $$\mathbf{\widetilde{x}}'=\mathbf{\widetilde{H}}\mathbf{\widetilde{x}} \Leftrigh
 | Affine | 6 | Parallelism | $\begin{bmatrix}\mathbf{A}&\mathbf{t}\end{bmatrix}_{2\times 3}$ |
 | Projective | 8 | Straight lines | $\begin{bmatrix}\mathbf{\widetilde{H}}\end{bmatrix}_{3\times 3}$ |
 
-## 2.1.5 Overview of 3D Transformations
+## 2.1.5 3D坐标变换层次结构
 
 与2D类似，3D变换可以如下表示
 

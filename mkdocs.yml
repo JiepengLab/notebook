@@ -206,14 +206,10 @@ nav:
         - 电路实现与经典组合电路: ./CS/DigitalDesign/Chap02/Chap02_2.md
     - 图像信息处理:
       - ./CS/DIP/index.md
+      - 01-成像与图像的基本属性: ./CS/DIP/dip1.md
     - 数据结构基础:
       - ./CS/FDS/index.md
-      - Note 01-Algorithm Analysis: ./CS/FDS/Lec01.md
+      - 01-Algorithm Analysis: ./CS/FDS/Lec01.md
   - 杂项:
-    - ./杂项/index.md
-    # - 遥感:
-    #   - ./杂项/遥感/index.md
-  # - 导航:
-  #   - ./nav/index.html
-  # - 导航(webvpn):
-  #   - ./nav-webvpn/index.html
+    - ./Mess/index.md
+    - 《数字图像处理编程入门》: ./Mess/DIP-C/index.md
