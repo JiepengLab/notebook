@@ -107,7 +107,7 @@ typedef struct tagBITMAPINFOHEADER{
 
 - **`biSize`**  
   
-说明 BITMAPINFOHEADER(图像信息头) 结构所需要的字数，也就是40
+说明 BITMAPINFOHEADER(图像信息头) 结构所需要的字节数，也就是40
 
 - **`biWidth`**  
 
