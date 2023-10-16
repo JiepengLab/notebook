@@ -162,7 +162,7 @@ nav:
     - 数学建模:
       - ./Fundemental/Mathematical Modeling/index.md
       - 数学建模概论: ./Fundemental/Mathematical Modeling/Lec01.md
-      - 搜索引擎的PageRank模型: ./Fundemental/Mathematical Modeling/Lec02.md
+      - HW01: ./Fundemental/Mathematical Modeling/HW01.md
     # - 离散数学及其应用:
     #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md
     #   - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md

@@ -11,7 +11,8 @@
 * Finiteness
 * Effectiveness
 
-**Note:** program 可以不 finite(***e.g.*** 操作系统)
+!!! note ""
+    程序是可以不 finite 的(***e.g.*** 操作系统)
 
 ## 分析内容
 

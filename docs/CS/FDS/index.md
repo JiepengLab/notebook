@@ -5,6 +5,7 @@
     老师: 朱建科  
     参考:
 
-    * ***Data Structures and Algorithm Analysis in C***(教材)  
-    * 老师上课的 PPT (by cyll)
+    - ***Data Structures and Algorithm Analysis in C***(教材)  
+    - 老师上课的 PPT
+    - 
 
