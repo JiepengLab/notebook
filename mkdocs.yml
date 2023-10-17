@@ -209,7 +209,28 @@ nav:
       - 01-成像与图像的基本属性: ./CS/DIP/dip1.md
     - 数据结构基础:
       - ./CS/FDS/index.md
-      - 01-Algorithm Analysis: ./CS/FDS/Lec01.md
+      - 01-算法/数据结构是什么？: ./CS/FDS/chapter_1_what_is_dsa/what_is_dsa.md
+      - 02-迭代与递归: ./CS/FDS/chapter_2_iteration_and_recursion/iteration_and_recursion.md
+      - 03-复杂度分析: 
+        - 算法效率评估: ./CS/FDS/chapter_3_complexity_analysis/performance_evaluation.md
+        - 时间复杂度: ./CS/FDS/chapter_3_complexity_analysis/time_complexity.md
+        - 空间复杂度: ./CS/FDS/chapter_3_complexity_analysis/space_complexity.md
+        - 小结: ./CS/FDS/chapter_3_complexity_analysis/summary.md
+      - 04-数据结构与数据类型总览:
+        - ./CS/FDS/chapter_4_DS&DT/index.md
+        - 数据结构分类: ./CS/FDS/chapter_4_DS&DT/classification_of_data_structure.md
+        - 基本数据类型: ./CS/FDS/chapter_4_DS&DT/basic_data_types.md
+        - 小结: ./CS/FDS/chapter_4_DS&DT/summary.md
+      - 05-表 | The List ADT: 
+        - 表: ./CS/FDS/chapter_5_array_and_linked_list/list.md
+        - 数组: ./CS/FDS/chapter_5_array_and_linked_list/array.md
+        - 链表: ./CS/FDS/chapter_5_array_and_linked_list/linked_list.md
+        - 小结: ./CS/FDS/chapter_5_array_and_linked_list/summary.md
+      - 06-栈与队列 | The Stack and Queue ADTs:
+        - 栈: ./CS/FDS/chapter_6_stack_and_queue/stack.md
+        - 队列: ./CS/FDS/chapter_6_stack_and_queue/queue.md
+        - 双向队列: ./CS/FDS/chapter_6_stack_and_queue/deque.md
+        - 小结: ./CS/FDS/chapter_6_stack_and_queue/summary.md
   - 杂项:
     - ./Mess/index.md
     - 《数字图像处理编程入门》: ./Mess/DIP-C/index.md
