@@ -30,7 +30,6 @@ $ pip install mkdocs-material
 ```bash
 # 拉取仓库
 $ git clone git@github.com:JiepengLab/notebook.git
-$ git clone https://github.com/Guahao31/2023_DD.git
 # 构建
 $ cd ./notebook
 $ mkdocs serve
