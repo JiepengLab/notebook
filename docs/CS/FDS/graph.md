@@ -10,7 +10,7 @@ counter: True
 
     * 无向图: $(v_i,v_j)=(v_j,v_i)$ 表示同一条边
     * 有向图: $(v_i,v_j)\neq (v_j,v_i)$ 其中 $(v_i,v_j)$ 表示由 $v_i$ (tail) 指向 $v_j$ (head) 的一条边。
-    * 限制：自环是不合法的，同时我们不考虑多重图 
+    * 限制：自环是不合法的，同时我们不考虑多重图
     * 对于 $(v_i,v_j)$ 这条边，我们称 $v_i,v_j$ 是邻接的(adjacent), 称 $(v_i,v_j)$ 附属于(incident) $v_i/v_j$
 * **完全图**: 每一对节点间都存在一条边的图  
 * **子图**: $G'\sub G$ 即 $G'$ 中的点和边都包含在 G 中($V(G')\sube V(G)\quad E(G')\sube E(G)$)  
@@ -44,7 +44,7 @@ $deg(i)=\sum\limits_{j=0}^{n-1}adj\_mat[i][j]+\sum\limits_{j=0}^{n-1}adj\_mat[j]
 
 在无向图中，$v$ 的度数就是 $graph[v]$ 中的节点个数。如果 $G$ 是 有向图，这样只能找到出度，对于入度，我们有两种方法:
 
-* 增加一个链表，将边反向并存入 
+* 增加一个链表，将边反向并存入
 * 使用多重表
 
 ### 邻接多重表列
@@ -54,7 +54,7 @@ $deg(i)=\sum\limits_{j=0}^{n-1}adj\_mat[i][j]+\sum\limits_{j=0}^{n-1}adj\_mat[j]
 * AOV 网络：有向图中，用顶点表示活动，用弧表示活动之间的优先关系
 * 在有向图中，我们称 $i$ 是 $j$ 的**前驱**，如果存在一条从 $i$ 到 $j$ 的路径  
 * 我们称 $i$ 是 $j$ 的**直接前驱**，如果 $<i,j>\in E(G)$. 同时 $j$ 称为 $i$ 的**直接后继**
- 
+
 可实现的 AOV 网络一定是 DAG.  
 
 > **拓扑排序**是对有向无环图的顶点的一种排序，它使得如果 $i$ 是 $j$ 的前驱，那么在拓扑序列中 $i$ 一定出现在 $j$ 的前面。
@@ -69,15 +69,15 @@ void Topsort( Graph G )
     Vertex  V, W;
     Q = CreateQueue( NumVertex );  MakeEmpty( Q );
     for ( each vertex V )
-	if ( Indegree[ V ] == 0 )   Enqueue( V, Q );
+    if ( Indegree[ V ] == 0 )   Enqueue( V, Q );
     while ( !IsEmpty( Q ) ) {
-	V = Dequeue( Q );
-	TopNum[ V ] = ++ Counter; /* assign next */
-	for ( each W adjacent to V )
-	    if ( – – Indegree[ W ] == 0 )  Enqueue( W, Q );
+    V = Dequeue( Q );
+    TopNum[ V ] = ++ Counter; /* assign next */
+    for ( each W adjacent to V )
+        if ( – – Indegree[ W ] == 0 )  Enqueue( W, Q );
     }  /* end-while */
     if ( Counter != NumVertex )
-	Error( “Graph has a cycle” );
+    Error( “Graph has a cycle” );
     DisposeQueue( Q ); /* free memory */
 }
 ```
@@ -88,12 +88,12 @@ void Topsort( Graph G )
 
 ## 最短路
 
-给定有向图 $G=(V,E)$ 以及一个花费函数 $c(e), e\in E(G)$. 从源点到终点的一条路径 $P$ 的长度定义为 $\sum\limits_{e_i\sub P}c(e_i)$ （也称为带权路径长） 
+给定有向图 $G=(V,E)$ 以及一个花费函数 $c(e), e\in E(G)$. 从源点到终点的一条路径 $P$ 的长度定义为 $\sum\limits_{e_i\sub P}c(e_i)$ （也称为带权路径长）
 
 ### 单源最短路径
 
 给定一个赋权图和一个特定顶点 $s$ 作为输入，找出从 $s$ 到 $G$ 中每一个其他顶点的最短带权路径。
-**注意**: 如果这里有负环，那么最短路径定义为 0. 
+**注意**: 如果这里有负环，那么最短路径定义为 0.
 
 #### 无权最短路径
 
@@ -111,11 +111,11 @@ void Unweighted( Table T )
         V = Dequeue( Q );
         T[ V ].Known = true; /* not really necessary */
         for ( each W adjacent to V )
-	if ( T[ W ].Dist == Infinity ) {
-	    T[ W ].Dist = T[ V ].Dist + 1;
-	    T[ W ].Path = V;
-	    Enqueue( W, Q );
-	} /* end-if Dist == Infinity */
+    if ( T[ W ].Dist == Infinity ) {
+        T[ W ].Dist = T[ V ].Dist + 1;
+        T[ W ].Path = V;
+        Enqueue( W, Q );
+    } /* end-if Dist == Infinity */
     } /* end-while */
     DisposeQueue( Q ); /* free memory */
 }
@@ -138,22 +138,22 @@ void Dijkstra( Table T )
     for ( ; ; ) { /* O( |V| ) */
         V = smallest unknown distance vertex;
         if ( V == NotAVertex )
-	break; 
+    break;
         T[ V ].Known = true;
         for ( each W adjacent to V )
-	if ( !T[ W ].Known ) 
-	    if ( T[ V ].Dist + Cvw < T[ W ].Dist ) {
-	    	Decrease( T[ W ].Dist  to
-			 T[ V ].Dist + Cvw );
-		T[ W ].Path = V;
-	    } /* end-if update W */
+    if ( !T[ W ].Known )
+        if ( T[ V ].Dist + Cvw < T[ W ].Dist ) {
+            Decrease( T[ W ].Dist  to
+             T[ V ].Dist + Cvw );
+        T[ W ].Path = V;
+        } /* end-if update W */
     } /* end-for( ; ; ) */
 }
 /* not work for edge with negative cost  */
 ```
 </details>
 
-总的运行时间 $O(|E|+|V|^2)$ 
+总的运行时间 $O(|E|+|V|^2)$
 
 具体实现:
 
@@ -173,12 +173,12 @@ void  WeightedNegative( Table T )
     while ( !IsEmpty( Q ) ) { /* each vertex can dequeue at most |V| times */
         V = Dequeue( Q );
         for ( each W adjacent to V )
-	if ( T[ V ].Dist + Cvw < T[ W ].Dist ) {
-	    T[ W ].Dist = T[ V ].Dist + Cvw;
-	    T[ W ].Path = V;
-	    if ( W is not already in Q )
-	        Enqueue( W, Q );
-	} /* end-if update */
+    if ( T[ V ].Dist + Cvw < T[ W ].Dist ) {
+        T[ W ].Dist = T[ V ].Dist + Cvw;
+        T[ W ].Path = V;
+        if ( W is not already in Q )
+            Enqueue( W, Q );
+    } /* end-if update */
     } /* end-while */
     DisposeQueue( Q ); /* free memory */
 }
@@ -196,9 +196,9 @@ $T=O(|V|+|E|)$ 而且不需要堆
 
 !!! Info
     digraph: 有向图
-    Multigraph: 多重图，即有重边的图   
-    cycle: 圈   
-    underlying graph: 基础图    
-    Adjacency Matrix: 邻接矩阵    
+    Multigraph: 多重图，即有重边的图
+    cycle: 圈
+    underlying graph: 基础图
+    Adjacency Matrix: 邻接矩阵
     Adjacency Lists: 邻接表  
     Adjacency Multilists: 邻接多重表列  

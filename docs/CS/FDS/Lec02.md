@@ -20,7 +20,7 @@ counter: True
     * 找到最大/最小元素 $\Theta(n)$, 删除元素移动数组 $O(n)$
 * 链表：
     * 插入元素到链表开头 $\Theta(1)$
-    * 找到最大/最小元素 $\Theta(n)$, 删除元素 $\Theta(1)$ 
+    * 找到最大/最小元素 $\Theta(n)$, 删除元素 $\Theta(1)$
 * 有序数组：
     * 插入 找到合适的位置 $O(n)$, 移动数组并插入元素 $O(n)$
     * 删除开头/末尾元素 $\Theta(1)$
@@ -49,21 +49,22 @@ counter: True
 对于新的节点，唯一可以放的位置就是下一个空闲位置，否则堆将不再是完全树，但这样可能破坏堆的序，我们一般采用**上浮**的策略。
 <details>
 ``` C
-/* H->Element[ 0 ] is a sentinel */ 
-void  Insert( ElementType  X,  PriorityQueue  H ) 
-{ 
-     int  i; 
+/* H->Element[ 0 ] is a sentinel */
+void  Insert( ElementType  X,  PriorityQueue  H )
+{
+     int  i;
 
      if ( IsFull( H ) ) { 
-	Error( "Priority queue is full" ); 
-	return; 
+    Error( "Priority queue is full" ); 
+    return; 
      } 
 
      for ( i = ++H->Size; H->Elements[ i / 2 ] > X; i /= 2 ) 
-	H->Elements[ i ] = H->Elements[ i / 2 ]; 
+    H->Elements[ i ] = H->Elements[ i / 2 ]; 
 
      H->Elements[ i ] = X; 
 }
+
 ```
 </details>
 注意这里代码实现中，我们没有使用交换操作，因为交换操作的时间成本更高。
@@ -85,15 +86,16 @@ ElementType  DeleteMin( PriorityQueue  H )
     for ( i = 1; i * 2 <= H->Size; i = Child ) {  /* Find smaller child */ 
          Child = i * 2; 
          if (Child != H->Size && H->Elements[Child+1] < H->Elements[Child]) 
-	       Child++;     
+           Child++;     
          if ( LastElement > H->Elements[ Child ] )   /* Percolate one level */ 
-	       H->Elements[ i ] = H->Elements[ Child ]; 
+           H->Elements[ i ] = H->Elements[ Child ]; 
          else     break;   /* find the proper position */
     } 
     H->Elements[ i ] = LastElement; 
     return  MinElement; 
 }
 ```
+
 </details>
 
 ### 其他的堆操作
@@ -120,7 +122,7 @@ d-堆是二叉堆的推广，所有的节点都有 d 个儿子（因此二叉堆
 d-堆比二叉堆浅，因此 Insert 操作改进为 $O(\log_dN)$ 但对于大的 d, DeleteMin 会花费更多时间，因为我们每层都要找出 d 个儿子中的最小者。这样操作的用时就是 $O(d\log_dN)$。而且当 d 不是 2 的幂次时，找出儿子和父亲会花费更多的时间。
 
 !!! Info
-    Priority queue: 优先队列   
+    Priority queue: 优先队列
     Binary heap: 二叉堆  
     堆序: heap order  
     上浮：percolate up  

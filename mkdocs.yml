@@ -232,6 +232,9 @@ nav:
         - 队列: ./CS/FDS/chapter_6_stack_and_queue/queue.md
         - 双向队列: ./CS/FDS/chapter_6_stack_and_queue/deque.md
         - 小结: ./CS/FDS/chapter_6_stack_and_queue/summary.md
+      - 07-树 | The Tree ADT:
+        - 二叉树: ./CS/FDS/chapter_7_tree/binary_tree.md
+        - 二叉树遍历: ./CS/FDS/chapter_7_tree/binary_tree_traversal.md
   - 杂项:
     - ./Mess/index.md
     - 《数字图像处理编程入门》: ./Mess/DIP-C/index.md
