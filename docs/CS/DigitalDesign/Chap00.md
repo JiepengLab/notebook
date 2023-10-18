@@ -12,8 +12,8 @@
 |Operating Systems|Linux, Windows, Android ...|
 |Instruction Set Architecture(ISA/指令集架构)|[X86, ARM, MIPS, PPC, ...](https://blog.csdn.net/aa120515692/article/details/104992919)|
 |Microarchitecture(微架构/计算机组织)|Pipeline, OOE(Out-of-Order Execution), Multiprocessing, ...|
-|**Register(寄存器) Transfers**|Register, Datapath, Control Unit, ...|
-|**Logic Gates**|AND, OR, NOT, NAND, NOR, ...|
+|<u>**Register(寄存器) Transfers**<u/>|Register, Datapath, Control Unit, ...|
+|<u>**Logic Gates**<u/>|AND, OR, NOT, NAND, NOR, ...|
 |Transistor(晶体管) Circuits|BJT,JFET,IGFET, ...|
 
 !!! note ""

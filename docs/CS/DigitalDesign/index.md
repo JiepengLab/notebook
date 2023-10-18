@@ -1,7 +1,7 @@
 # 数字逻辑设计 | Digital Design
 
 !!! warning "注意！"
-    本笔记基于[Isshikih修佬的数逻笔记](https://note.isshikih.top/cour_note/D2QD_DigitalDesign/)，加以符合我个人习惯的改造，仅供学习交流。
+    本笔记基于[Isshikih修佬的数逻笔记](https://note.isshikih.top/cour_note/D2QD_DigitalDesign/)与[Minjoker的补充](https://minjoker.github.io/cs/digital_logic/note0/)，加以符合我个人习惯的改造，仅供学习交流。
 
 !!! info "课程信息"
 
