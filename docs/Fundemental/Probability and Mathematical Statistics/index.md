@@ -1,9 +1,13 @@
-# [大一春夏] 概率论与数理统计
+# 概率论与数理统计
 
-!!! info "课程信息"
-    - **智云链接**：[🔗](https://media.zju.edu.cn/index.php?r=course/live-view&id=37113&tenant=112)
-    - **授课**：吴国桢
-    - **教材**：《概率论与数理统计》，张帼奋，高等教育出版社
+!!! warning "注意！"
+    本笔记基于[Isshikih修佬的概统笔记](https://note.isshikih.top/cour_note/D1CX_ProbabilityAndStatistics/)，加以符合我个人习惯的改造，仅供学习交流。
+
+!!! note "基本信息："
+
+    - **智云链接**：[🔗](https://classroom.zju.edu.cn/coursedetail?course_id=53195&tenant_code=112)
+    - **授课**：赵敏智
+    - **教材**：《概率论与数理统计》第二版，张帼奋，高等教育出版社
     - **辅助教材**：《概率论与数理统计教程 第三版》，茆诗松，高等教育出版社（后简称橙书）
 
 !!! note "Notes"
