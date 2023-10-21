@@ -13,6 +13,10 @@
 
 !!! success "最近五次更新"
 
+
+
+    - [x] [FDS：双向队列]
+
 !!! note "更新中"
     - [ ] [数学建模](./Fundemental/Mathematical%20Modeling)
     - [ ] [概率论与数理统计](./Fundemental/Probability%20and%20Mathematical%20Statistics)
