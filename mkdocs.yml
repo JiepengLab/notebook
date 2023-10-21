@@ -173,7 +173,7 @@ nav:
     #   - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
     #   - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
     #   - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
-  
+    - 概率论与数理统计: ./Fundemental/Probability and Mathematical Statistics/index.md
   - CS: 
     - ./CS/index.md
     - ML-4360:
@@ -181,12 +181,15 @@ nav:
       - Note 01 introduction: ./CS/ML-4360/Lec1/Note_1_introduction.md
       - Note 02 Image Formation: 
         - ./CS/ML-4360/Lec2/index.md
-        - Note 2.1 Primitives and Transformations: ./CS/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
+        - Note 2-1 Primitives and Transformations: ./CS/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
         - Note 2-2 Geometric Image Formation: ./CS/ML-4360/Lec2/Note 2-2 Geometric Image Formation.md
         - Note 2-3 Photometric Image Formation: ./CS/ML-4360/Lec2/Note 2-3 Photometric Image Formation.md
         - Note 2-4 Image Sensing Pipeline: ./CS/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
         - Maths Basic-SVD: ./CS/ML-4360/Lec2/Math Basic SVD.md
         - HW1.1 Pen and Paper: ./CS/ML-4360/Lec2/HW1.1 Pen and Paper.md
+      - Note 03 Structure from Motion:
+        - ./CS/ML-4360/Lec3/index.md
+        - Note 3-1 Preliminaries: ./CS/ML-4360/Lec3/Note 3-1 Preliminaries.md
     - 人工智能引论:
       - ./CS/Introduction-to-AI/index.md
     - 数值分析:
@@ -231,6 +234,7 @@ nav:
         - 栈: ./CS/FDS/chapter_6_stack_and_queue/stack.md
         - 队列: ./CS/FDS/chapter_6_stack_and_queue/queue.md
         - 双向队列: ./CS/FDS/chapter_6_stack_and_queue/deque.md
+        - 环形队列: ./CS/FDS/chapter_6_stack_and_queue/circular_queue.md
         - 小结: ./CS/FDS/chapter_6_stack_and_queue/summary.md
       - 07-树 | The Tree ADT:
         - 二叉树: ./CS/FDS/chapter_7_tree/binary_tree.md
