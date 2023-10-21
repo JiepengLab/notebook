@@ -22,7 +22,7 @@
 
 === "d,e,f 入队"
 
-    ![Alt text](images/1697888018837.jpg)
+    ![Alt text](images/1697898465147.jpg)
 
 !!! note ""
     注意，我们总会浪费一个数组单元。这是为了区分队列为空和队列为满的情况。当front等于rear时，队列为空，当(rear + 1) % maxSize等于front时，队列为满。
