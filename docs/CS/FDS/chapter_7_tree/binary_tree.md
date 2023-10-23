@@ -3,6 +3,9 @@
 !!! warning "注意"
     以下着重讲述常用的二叉树，普通的树结构与二叉树的区别只在于，普通树的节点可以有多个子节点，而二叉树的节点最多只能有两个子节点。其余部分是类似的，因此，本文中关于边、深度、高度、层等概念同样适用于普通树。
 
+    普通树转换为二叉树的方法是：将每个节点的第一个子节点作为其左子节点，其余子节点作为其左子节点的右子节点。这样，普通树就转换为了二叉树。
+    ![Alt text](images/68691fbb4f54baf58acee46db3bd833.png)
+
 「二叉树 binary tree」是一种非线性数据结构，代表着祖先与后代之间的派生关系，体现着“一分为二”的分治逻辑。与链表类似，二叉树的基本单元是节点，每个节点包含：值、左子节点引用、右子节点引用。
 
 === "C"
@@ -127,6 +130,58 @@
 如下图所示，「平衡二叉树 balanced binary tree」中任意节点的左子树和右子树的高度之差的绝对值不超过 1 。
 
 ![平衡二叉树](binary_tree.assets/balanced_binary_tree.png)
+
+### 线索二叉树
+
+「线索二叉树 threaded binary tree」是一种特殊的二叉树，其中每个节点都有一个指向前驱节点的指针和一个指向后继节点的指针。线索二叉树的目的是为了提高遍历效率，因为在普通二叉树中，为了找到一个节点的前驱或后继节点，需要遍历整个二叉树。
+
+线索二叉树分为三类：
+
+![Alt text](images/image.png)
+
+我们先例举中序线索二叉树的方法，所有原本为空的右(孩子)指针改为指向该节点在中序序列中的后继，所有原本为空的左(孩子)指针改为指向该节点的中序序列的前驱。如下图所示。
+
+![Alt text](images/image-1.png)
+
+#### 中序线索二叉树
+
+##### 结构
+
+如果ltag=0，表示指向节点的左孩子。如果ltag=1，则表示lchild为线索，指向节点的直接前驱
+
+如果rtag=0，表示指向节点的右孩子。如果rtag=1，则表示rchild为线索，指向节点的直接后继
+
+![Alt text](images/image-2.png)
+
+??? 如下中序线索二叉树，它的线索二叉树如何表示呢？
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202211131503235.png" width = 20%/> </div>  
+    那么它对应的线索二叉树如下: 
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202211131530456.png" width = 50%/> </div>  
+
+#### 规则
+
+规则: 
+
+* 如果 `Tree->Left` 为空，用一个指向遍历中当前节点的前驱的指针代替它
+* 如果 `Tree->Right` 为空，用一个指向遍历中当前节点的后继的指针代替它 
+* 这里没有空闲的指针，因此一棵线索二叉树需要有一个左儿子指针指向第一个节点的头节点。
+
+``` C
+typedef  struct  ThreadedTreeNode  *PtrTo  ThreadedNode;
+typedef  struct  PtrToThreadedNode  ThreadedTree;
+typedef  struct  ThreadedTreeNode {
+       int           LeftThread;   /* if it is TRUE, then Left */
+       ThreadedTree  Left;      /* is a thread, not a child ptr.   */
+       ElementType   Element;
+       int           RightThread; /* if it is TRUE, then Right */
+       ThreadedTree  Right;    /* is a thread, not a child ptr.   */
+}
+```
+
+
+
+!!! Note
+    在树里面，儿子的次序没有影响。但对于二叉树而言，左儿子和右儿子是不同的。
 
 ## 二叉树的退化
 
