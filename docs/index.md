@@ -13,9 +13,8 @@
 
 !!! success "最近五次更新"
 
-
-
-    - [x] [FDS：双向队列]
+    - [x] [NA: Chapter 6](./CS/NA/Chapter_06.md)
+    - [x] [FDS: 循环队列](./CS/FDS/chapter_6_stack_and_queue/circular_queue.md)
 
 !!! note "更新中"
     - [ ] [数学建模](./Fundemental/Mathematical%20Modeling)

@@ -196,6 +196,8 @@ nav:
       - ./CS/NA/index.md
       - Chapter 1 Mathematical Preliminaries: ./CS/NA/Chapter_01.md
       - Chapter 2 Solutions of Equations in One Variable: ./CS/NA/Chapter_02.md
+      - Chapter 6 Direct Methods for Solving Linear Systems: ./CS/NA/Chapter_06.md
+
     - 人工智能初步:
       - ./CS/AI_Start/index.md
       - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
