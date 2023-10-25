@@ -10,7 +10,7 @@
 
 !!! example "额外链接："
 
-    [xg 的复习笔记（都是概念抄书）](https://blog.csdn.net/a66666_/article/details/105123032)
+    [xg 的复习笔记（都是概念抄书）](https://note.tonycrane.cc/cs/ai/basic/)
 
     [Turing course学习指南: 人工智能引论介绍](https://zju-turing.github.io/TuringCourses/major_basic/ai_basic/)
 

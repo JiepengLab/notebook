@@ -2,19 +2,11 @@
 
 欢迎来到JiepengLab！我会时不时更新一些目前正在学习的笔记！
 
-!!! example "注意"
-    网站仍在建设中，内容尚不完备。
+## 👨‍💻自我介绍
 
-!!! tip "欢迎来到我的导航页↓"
+[timeline(./docs/assets/exp.yaml)]
 
-    [点击前往导航页](./nav)
-
-    [点击前往导航页的webvpn版本](./nav-webvpn)
-
-!!! success "最近五次更新"
-
-    - [x] [NA: Chapter 6](./CS/NA/Chapter_06.md)
-    - [x] [FDS: 循环队列](./CS/FDS/chapter_6_stack_and_queue/circular_queue.md)
+## 📚学习笔记
 
 !!! note "更新中"
     - [ ] [数学建模](./Fundemental/Mathematical%20Modeling)
@@ -26,3 +18,11 @@
     - [ ] [数字逻辑设计](./CS/DigitalDesign/)
     - [ ] [图像信息处理](./CS/DIP/)
     - [ ] [数据结构基础](./CS/FDS/)
+
+## 📝其他
+
+!!! tip "欢迎来到我的导航页↓"
+
+    [点击前往导航页](./nav)
+
+    [点击前往导航页的webvpn版本](./nav-webvpn)

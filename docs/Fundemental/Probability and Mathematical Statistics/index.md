@@ -1,7 +1,7 @@
 # 概率论与数理统计
 
 !!! warning "注意！"
-    本笔记基于[Isshikih修佬的概统笔记](https://note.isshikih.top/cour_note/D1CX_ProbabilityAndStatistics/)，加以符合我个人习惯的改造，仅供学习交流。
+    本笔记基于[Isshikih修佬的概统笔记](https://note.isshikih.top/cour_note/D1CX_ProbabilityAndStatistics/)与[Minjoker的补充](https://minjoker.github.io/math/probability/)，加以符合我个人习惯的改造，仅供学习交流。
 
 !!! note "基本信息："
 
@@ -18,4 +18,4 @@
     - [x] [[5.x] 大数定律及中心极限定理](Chap05.md)
     - [x] [[6.x] 统计量与抽样分布](Chap06.md)
     - [x] [[7.x] 参数估计](Chap07.md)
-    - [x] [[8.x] 假设检验](Chap08.md)
+    - [x] [[8.x] 假设检验](Chap08.md) 

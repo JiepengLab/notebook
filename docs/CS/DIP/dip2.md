@@ -2,33 +2,47 @@
 counter: True  
 ---
 
-# Binary Image and Morphological
+# 二值图像与形态学
+
+!!! note "本章概述"
+    二值图像 | Binary image
+    图像二值化 | Image binarization
+    形态学操作 | Morphological operation
+    - 集合的定义 | Definition of set
+    - 腐蚀 | Erosion
+    - 膨胀 | Dilation
+    - 开运算 | Opening
+    - 闭运算 | Closing
+    应用 | Application
 
 如何从灰度图转为二值图像？
 为什么需要二值图像（实际应用中二值化能把不重要的信息去掉）
 
 ## Binary Image
 
-Pixel value is limited to 0 or 1.
-前景置为 1, 后景置为 0.
-二值图像（Binary Image）中像素（Pixel）的值只有 [0,1] 或者 [0,255]，编程中一般用 [0,255] 来构造二值图像。
+灰度图与二值图像的差别如下图所示：
+
+![Alt text](images/image-9.png)
+
+二值图像（Binary Image）中像素（Pixel）的值只有 {0,1} 或者 {0,255}，编程中我们一般用 {0,255} 来构造二值图像。
+
+二值图像的优缺点：
 
 * 优点：
     * 更小的内存需求
     * 运行速度更快
     * 为二值图像开发的算法往往可以用于灰度级图像
-    * 更便宜
 
 * 缺点：
 
-    * 应用范围毕竟有限；
-    * 更无法推广到三维空间中
+    * 应用范围有限；
+    * 无法推广到三维空间中
     * 表现力欠缺，不能表现物体内部细节
     * 无法控制对比度
 
 ## Image binarization
 
-* 设置一个阈值 Threshold，比阈值小的置为 0, 比阈值大的就置为 255.
+* 设置一个阈值 Threshold，比阈值小的置为 0, 比阈值大的置为 255.
 $\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x,y)\geq Threshold \end{matrix} \right.$
 * 如何选取合适的 threshold?  
 基本思想：将二值化得到的二值图像视为两部分，一部分对应前景（Foreground），另一部分对应背景（Background）。尝试找到一个合适的threshold使得到的前景和背景的内部方差最小，而它们之间的方差则最大。（下面的推导可看出，这二者是等价的）  

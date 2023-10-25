@@ -1,13 +1,21 @@
-# [3.x] 多元随机变量及其分布
+# Chapter 3 多元随机变量及其分布
 
-**联合分布律（Joint Mass Function）**<br />**边际分布律（Marginal Mass Function）**
+## 二维离散型随机变量
 
-- 联合分布律的行/列求和
+### 联合分布律（Joint Mass Function）
+
+- $P(X=x_i,Y=y_j)=p_{ij}\;\;i,j=1,2,...$；
+
+### 边际分布律（Marginal Mass Function）
+
+边界分布律即联合分布律的行/列求和
+
 - $P(X=x_i)=P(X=x_1,\bigcup_{j=1}^{\infty}(Y=y_j))=\sum_{j=1}^{\infty}p_{ij}:=p_{i·}$；
-- $P(
-Y=y_j)=P(\bigcup_{j=1}^{\infty}(X=x_i),Y=y_j)=\sum_{i=1}^{\infty}p_{ij}:=p_{·j}$；
+- $P(Y=y_j)=P(\bigcup_{j=1}^{\infty}(X=x_i),Y=y_j)=\sum_{i=1}^{\infty}p_{ij}:=p_{·j}$；
 
-**条件分布律（Conditional Mass Function）**
+![Alt text](images/image-2.png)
+
+### 条件分布律（Conditional Mass Function）
 
 - $P\{X=x_i|Y=y_j\}=\frac{P(X=x_i,Y=y_j)}{P(Y=y_j)}=\frac{p_{ij}}{p_{·j}}\;\;i,j=1,2,...$；
 - $P\{X<x|Y<y\}=\frac{P\{X<x,Y<y\}}{P\{Y<y\}}$然后根据联合分布律和边际分布律读表计算；

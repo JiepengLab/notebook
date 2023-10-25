@@ -9,4 +9,3 @@
 
 !!! note "List"
     - [Lec 1 数学建模概论](Lec01.md)
-    - [Chap 1 Digital Systems and Information](Note02.md)

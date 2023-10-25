@@ -173,7 +173,11 @@ nav:
     #   - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
     #   - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
     #   - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
-    - 概率论与数理统计: ./Fundemental/Probability and Mathematical Statistics/index.md
+    - 概率论与数理统计: 
+      - ./Fundemental/Probability and Mathematical Statistics/index.md
+      - Chapter 1-概率论的基本概念: ./Fundemental/Probability and Mathematical Statistics/Chap01.md
+      - Chapter 2-随机变量及其概率分布: ./Fundemental/Probability and Mathematical Statistics/Chap02.md
+      - Chapter 3-多维随机变量及其分布: ./Fundemental/Probability and Mathematical Statistics/Chap03.md
   - CS: 
     - ./CS/index.md
     - ML-4360:

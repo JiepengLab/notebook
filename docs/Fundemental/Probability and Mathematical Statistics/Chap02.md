@@ -1,4 +1,14 @@
-# [2.x] 随机变量及其概率分布
+# Chapter 2 随机变量及其概率分布
+
+!!! note "符号速览"
+    - 两点分布：$X\sim B(1,p)$ 或者 $X\sim 0-1(p)$
+    - 二项分布：$X\sim B(n,p)$
+    - 泊松分布：$X\sim P(\lambda)$
+    - 超几何分布：$X\sim H(n,a,N)$
+    - 帕斯卡分布：$X\sim NB(r,p)$
+    - 均匀分布：$X\sim U(a,b)$
+    - 指数分布：$X\sim E(\lambda)$
+    - 正态分布：$X\sim N(\mu,\sigma^2)$
 
 **随机变量**是定义在样本空间$S$上的实值单值函数。<br />常用大写字母$X,Y,Z$来表示**随机变量**，用小写字母$x,y,z$表示其**取值**。
 
@@ -216,6 +226,36 @@ $$
 
 指数分布具有无记忆性，即$P(X>t_0+t | X>t_0)=P(X>t)$。
 
+??? note "指数分布的无记忆性"
+
+    假设 $t_0>0$，$t>0$，
+
+    $$
+    \begin{aligned}
+    P(X>t_0+t \;\; | \;\; X>t_0 ) & = \frac{P(X>t_0+t)}{P(X>t_0)} \cr
+    & = \frac{1-F(t_0+t)}{1-F(t_0)} \cr
+    & = e^{-\lambda t} = P(X>t)
+    \end{aligned}
+    $$
+
+    $$
+    \begin{aligned}
+    P(X\lt t_0+t \;\; | \;\; X>t_0) & = \frac{P(t_0\lt X\lt t_0+t)}{P(X>t_0)} \cr
+    & = \frac{F(t_0+t)-F(t_0)}{1-F(t_0)} \cr
+    & = 1-e^{-\lambda t} = P(X<t)
+    \end{aligned}
+    $$
+
+    ??? example "无记忆性的一个例子"
+
+        假设设备无故障运行的时间 $T$ 服从指数分布。已知设备无故障运行了10个小时，求该设备再无故障至少运行8个小时的概率。
+
+        $$
+        P\lbrace T\geq 18 \; | \; T>10 \rbrace = \frac{P\lbrace T>18\rbrace }{P\lbrace T>10\rbrace} = e^{-8\lambda} = P\lbrace T>8\rbrace
+        $$
+
+        注意到，这一条件概率与无条件下无故障运行8小时的概率没有区别。
+
 ---
 
 ### 正态分布
@@ -259,36 +299,97 @@ $$
 
 ---
 
+#### 正态分布标准化
+
 而对于不是标准正态分布的正态分布，我们可以通过线性变换（标准化）来转换为标准正态分布：
+
+当 $X\sim N(\mu,\sigma^2)$ 时：
+
+$$
+P(X\leq b) = \int_{-\infty}^b \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu) ^2}{2\sigma ^2}} \mathrm{d}x
+$$
+
+做变换：$\frac{x-\mu}{\sigma} = t$
+
+$$
+\begin{aligned}
+P(X\leq b) & = \int_{-\infty}^{\frac{b-\mu}{\sigma}} \frac{1}{\sqrt{2\pi}} e^{-\frac{t ^2}{2}} \mathrm{d}t \cr
+& = \Phi(\frac{b-\mu}{\sigma})
+\end{aligned}
+$$
+
+换言之，当 $X\sim N(\mu,\sigma^2)$ 时，$\frac{X-\mu}{\sigma}\sim N(0,1)$
+
+我们有以下结论：
 
 - 若$X\sim N(\mu,\sigma^2)$，则$P\{a<X<b\}=
 P\{\frac{a-\mu}{\sigma}< \frac{X-\mu}{\sigma} < \frac{b-\mu}{\sigma} \}=\Phi(\frac{b-\mu}{\sigma})-\Phi(\frac{a-\mu}{\sigma})$
-- 特别的：若$X\sim N(\mu,\sigma^2)$，则$P\{|X-\mu|<k\sigma\} = \Phi(k)-\Phi(-k)=2\Phi(k)-1$
+- 特别的：若$X\sim N(\mu,\sigma^2)$，则$P\{|X-\mu|<k\sigma\} = \Phi(k)-\Phi(-k)=2\Phi(k)-1$，这说明在对称轴左右，以$\mu$倍数为区间的概率值，与$\mu$和$\sigma$都无关。
 - $3\sigma$法则
 
 ---
 
 ## 随机变量函数的分布
 
-如果：
+!!! note ""
+    离散型随机变量的函数的分布律很简单，此处不再赘述。
 
-- $X$为连续型随机变量，且其**密度函数**为$f_X
-(x)$；
-- 随机变量$Y=g(X)$；
-- 函数$y=g(x)$为一严格单调（增/减）函数，并且可微；
+### 连续型随机变量的函数的分布
 
-则记$y=g(x)$的反函数为$x=h(y)$，得到$Y$的密度函数为：
+当$Y=g(X)$为连续型随机变量时，我们总是可以通过求出$Y$的分布函数$F_Y(y)$，然后对$F_Y(y)$求导得到$Y$的密度函数$f_Y(y)$。
 
-$$
-f_Y(y)=\begin{cases}
-f_X(h(y))·|h'(y)|\;, & y\in D,\\[1ex]
-0, & y\not\in D
-\end{cases}
-$$
+!!! note "$Y=\sin X$，其中$X\sim U(0,\pi)$，求$f_Y(y)$。"
 
-- 其中$D$为$y=g(x)$的值域。
+    解：
+    
+    $F_Y(y)=P\{Y\leq y\}=P\{\sin X\leq y\}$
+    
+    ![Alt text](images/image-1.png)
+
+    由上图可知，
+    
+    $$
+    \begin{aligned}  
+    P\{\sin X\leq y\}&=P\{0\leq X\leq \arcsin y\}+P\{\pi-\arcsin y\leq X\leq \pi\}\\
+    &=\frac{\arcsin y}{\pi}+\frac{\arcsin y}{\pi}\\
+    &=\frac{2\arcsin y}{\pi}
+    \end{aligned}   
+    $$
+
+    于是，在$y\in(0,1)$时，$F_Y(y)=\frac{2\arcsin y}{\pi}$，$y\not\in(0,1)$时，$F_Y(y)=0$，则$Y$的密度函数为：
+    
+    $$
+    f_Y(y)=\begin{cases}
+    \frac{2}{\pi\sqrt{1-y^2}}, & y\in(0,1) \\[1ex]
+    0, & y\not\in(0,1)
+    \end{cases}
+    $$
+
+$y=g(x)$单调时，我们有如下定理：
+
+!!! note ""
+
+    如果：
+
+    - $X$为连续型随机变量，且其**密度函数**为$f_X
+    (x)$；
+    - 随机变量$Y=g(X)$；
+    - 函数$y=g(x)$为一<u>严格单调（增/减）</u>函数，并且可微；
+
+    则记$y=g(x)$的反函数为$x=h(y)$，得到$Y$的密度函数为：
+
+    $$
+    f_Y(y)=\begin{cases}
+    f_X(h(y))·|h'(y)|\;, & y\in D,\\[1ex]
+    0, & y\not\in D
+    \end{cases}
+    $$
+
+    - 其中$D$为$y=g(x)$的值域。
 
 ---
+
+### 正态分布的线性变换
 
 有关**正态分布**的重要结论：
 
