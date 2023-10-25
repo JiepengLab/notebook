@@ -2,10 +2,6 @@
 
 欢迎来到JiepengLab！我会时不时更新一些目前正在学习的笔记！
 
-## 👨‍💻自我介绍
-
-[timeline(./docs/assets/exp.yaml)]
-
 ## 📚学习笔记
 
 !!! note "更新中"

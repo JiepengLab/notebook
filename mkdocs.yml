@@ -1,3 +1,101 @@
+nav:
+  - 首页:
+    - home: index.md
+    - 正在学习的课程: CurrentStudy.md
+  - 基础课程:
+    - ./Fundemental/index.md
+    - 数学建模:
+      - ./Fundemental/Mathematical Modeling/index.md
+      - 数学建模概论: ./Fundemental/Mathematical Modeling/Lec01.md
+    #  - HW01: ./Fundemental/Mathematical Modeling/HW01.md
+    # - 离散数学及其应用:
+    #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md
+    #   - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md
+    #   - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete Mathematics And Its Applications/Chapter4.md
+    #   - Chapter.5-Induction and Recursion: ./Fundemental/Discrete Mathematics And Its Applications/Chapter5.md
+    #   - Chapter.6-Counting: ./Fundemental/Discrete Mathematics And Its Applications/Chapter6.md
+    #   - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete Mathematics And Its Applications/Chapter8.md
+    #   - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
+    #   - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
+    #   - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
+    - 概率论与数理统计: 
+      - ./Fundemental/Probability and Mathematical Statistics/index.md
+      - Chapter 1-概率论的基本概念: ./Fundemental/Probability and Mathematical Statistics/Chap01.md
+      - Chapter 2-随机变量及其概率分布: ./Fundemental/Probability and Mathematical Statistics/Chap02.md
+      - Chapter 3-多维随机变量及其分布: ./Fundemental/Probability and Mathematical Statistics/Chap03.md
+  - CS: 
+    - ./CS/index.md
+    - ML-4360:
+      - ./CS/ML-4360/index.md
+      - Note 01 introduction: ./CS/ML-4360/Lec1/Note_1_introduction.md
+      - Note 02 Image Formation: 
+        - ./CS/ML-4360/Lec2/index.md
+        - Note 2-1 Primitives and Transformations: ./CS/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
+        - Note 2-2 Geometric Image Formation: ./CS/ML-4360/Lec2/Note 2-2 Geometric Image Formation.md
+        - Note 2-3 Photometric Image Formation: ./CS/ML-4360/Lec2/Note 2-3 Photometric Image Formation.md
+        - Note 2-4 Image Sensing Pipeline: ./CS/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
+        - Maths Basic-SVD: ./CS/ML-4360/Lec2/Math Basic SVD.md
+        - HW1.1 Pen and Paper: ./CS/ML-4360/Lec2/HW1.1 Pen and Paper.md
+      - Note 03 Structure from Motion:
+        - ./CS/ML-4360/Lec3/index.md
+        - Note 3-1 Preliminaries: ./CS/ML-4360/Lec3/Note 3-1 Preliminaries.md
+    - 人工智能引论:
+      - ./CS/Introduction-to-AI/index.md
+      - 知识表达与推理: ./CS/Introduction-to-AI/Chapter02.md
+    - 数值分析:
+      - ./CS/NA/index.md
+      - Chapter 1 Mathematical Preliminaries: ./CS/NA/Chapter_01.md
+      - Chapter 2 Solutions of Equations in One Variable: ./CS/NA/Chapter_02.md
+      - Chapter 6 Direct Methods for Solving Linear Systems: ./CS/NA/Chapter_06.md
+
+    - 人工智能初步:
+      - ./CS/AI_Start/index.md
+      - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
+    - 数字逻辑设计:
+      - ./CS/DigitalDesign/index.md
+      - Chap 00-Introduction: ./CS/DigitalDesign/Chap00.md
+      - Chap 01-Digital Systems and Information: ./CS/DigitalDesign/Chap01.md
+      - Chap 02-Combinational Logic Circuits: 
+        - ./CS/DigitalDesign/Chap02/index.md
+        - 布尔代数与逻辑运算: ./CS/DigitalDesign/Chap02/Chap02_1.md
+        - 电路实现与优化: ./CS/DigitalDesign/Chap02/Chap02_2.md
+        - 逻辑门补充: ./CS/DigitalDesign/Chap02/Chap02_3.md
+    - 图像信息处理:
+      - ./CS/DIP/index.md
+      - 01-成像与图像的基本属性: ./CS/DIP/dip1.md
+    - 数据结构基础:
+      - ./CS/FDS/index.md
+      - 01-算法/数据结构是什么？: ./CS/FDS/chapter_1_what_is_dsa/what_is_dsa.md
+      - 02-迭代与递归: ./CS/FDS/chapter_2_iteration_and_recursion/iteration_and_recursion.md
+      - 03-复杂度分析: 
+        - 算法效率评估: ./CS/FDS/chapter_3_complexity_analysis/performance_evaluation.md
+        - 时间复杂度: ./CS/FDS/chapter_3_complexity_analysis/time_complexity.md
+        - 空间复杂度: ./CS/FDS/chapter_3_complexity_analysis/space_complexity.md
+        - 小结: ./CS/FDS/chapter_3_complexity_analysis/summary.md
+      - 04-数据结构与数据类型总览:
+        - ./CS/FDS/chapter_4_DS&DT/index.md
+        - 数据结构分类: ./CS/FDS/chapter_4_DS&DT/classification_of_data_structure.md
+        - 基本数据类型: ./CS/FDS/chapter_4_DS&DT/basic_data_types.md
+        - 小结: ./CS/FDS/chapter_4_DS&DT/summary.md
+      - 05-表 | The List ADT: 
+        - 表: ./CS/FDS/chapter_5_array_and_linked_list/list.md
+        - 数组: ./CS/FDS/chapter_5_array_and_linked_list/array.md
+        - 链表: ./CS/FDS/chapter_5_array_and_linked_list/linked_list.md
+        - 小结: ./CS/FDS/chapter_5_array_and_linked_list/summary.md
+      - 06-栈与队列 | The Stack and Queue ADTs:
+        - 栈: ./CS/FDS/chapter_6_stack_and_queue/stack.md
+        - 队列: ./CS/FDS/chapter_6_stack_and_queue/queue.md
+        - 双向队列: ./CS/FDS/chapter_6_stack_and_queue/deque.md
+        - 环形队列: ./CS/FDS/chapter_6_stack_and_queue/circular_queue.md
+        - 小结: ./CS/FDS/chapter_6_stack_and_queue/summary.md
+      - 07-树 | The Tree ADT:
+        - 二叉树: ./CS/FDS/chapter_7_tree/binary_tree.md
+        - 二叉树遍历: ./CS/FDS/chapter_7_tree/binary_tree_traversal.md
+  - 杂项:
+    - ./Mess/index.md
+    - 《数字图像处理编程入门》: ./Mess/DIP-C/index.md
+
+
 copyright: Copyright &copy; 2023 Jiepeng Jin
 
 site_name: "Jiepeng's notes"
@@ -153,98 +251,3 @@ extra_javascript:
   - assets/javascripts/titlechange.js
   - assets/javascripts/glightbox.min.js
 
-nav:
-  - 首页:
-    - home: index.md
-    - 正在学习的课程: CurrentStudy.md
-  - 基础课程:
-    - ./Fundemental/index.md
-    - 数学建模:
-      - ./Fundemental/Mathematical Modeling/index.md
-      - 数学建模概论: ./Fundemental/Mathematical Modeling/Lec01.md
-    #  - HW01: ./Fundemental/Mathematical Modeling/HW01.md
-    # - 离散数学及其应用:
-    #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md
-    #   - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md
-    #   - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete Mathematics And Its Applications/Chapter4.md
-    #   - Chapter.5-Induction and Recursion: ./Fundemental/Discrete Mathematics And Its Applications/Chapter5.md
-    #   - Chapter.6-Counting: ./Fundemental/Discrete Mathematics And Its Applications/Chapter6.md
-    #   - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete Mathematics And Its Applications/Chapter8.md
-    #   - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
-    #   - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
-    #   - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
-    - 概率论与数理统计: 
-      - ./Fundemental/Probability and Mathematical Statistics/index.md
-      - Chapter 1-概率论的基本概念: ./Fundemental/Probability and Mathematical Statistics/Chap01.md
-      - Chapter 2-随机变量及其概率分布: ./Fundemental/Probability and Mathematical Statistics/Chap02.md
-      - Chapter 3-多维随机变量及其分布: ./Fundemental/Probability and Mathematical Statistics/Chap03.md
-  - CS: 
-    - ./CS/index.md
-    - ML-4360:
-      - ./CS/ML-4360/index.md
-      - Note 01 introduction: ./CS/ML-4360/Lec1/Note_1_introduction.md
-      - Note 02 Image Formation: 
-        - ./CS/ML-4360/Lec2/index.md
-        - Note 2-1 Primitives and Transformations: ./CS/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
-        - Note 2-2 Geometric Image Formation: ./CS/ML-4360/Lec2/Note 2-2 Geometric Image Formation.md
-        - Note 2-3 Photometric Image Formation: ./CS/ML-4360/Lec2/Note 2-3 Photometric Image Formation.md
-        - Note 2-4 Image Sensing Pipeline: ./CS/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
-        - Maths Basic-SVD: ./CS/ML-4360/Lec2/Math Basic SVD.md
-        - HW1.1 Pen and Paper: ./CS/ML-4360/Lec2/HW1.1 Pen and Paper.md
-      - Note 03 Structure from Motion:
-        - ./CS/ML-4360/Lec3/index.md
-        - Note 3-1 Preliminaries: ./CS/ML-4360/Lec3/Note 3-1 Preliminaries.md
-    - 人工智能引论:
-      - ./CS/Introduction-to-AI/index.md
-    - 数值分析:
-      - ./CS/NA/index.md
-      - Chapter 1 Mathematical Preliminaries: ./CS/NA/Chapter_01.md
-      - Chapter 2 Solutions of Equations in One Variable: ./CS/NA/Chapter_02.md
-      - Chapter 6 Direct Methods for Solving Linear Systems: ./CS/NA/Chapter_06.md
-
-    - 人工智能初步:
-      - ./CS/AI_Start/index.md
-      - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
-    - 数字逻辑设计:
-      - ./CS/DigitalDesign/index.md
-      - Chap 00-Introduction: ./CS/DigitalDesign/Chap00.md
-      - Chap 01-Digital Systems and Information: ./CS/DigitalDesign/Chap01.md
-      - Chap 02-Combinational Logic Circuits: 
-        - ./CS/DigitalDesign/Chap02/index.md
-        - 布尔代数与逻辑运算: ./CS/DigitalDesign/Chap02/Chap02_1.md
-        - 电路实现与优化: ./CS/DigitalDesign/Chap02/Chap02_2.md
-        - 逻辑门补充: ./CS/DigitalDesign/Chap02/Chap02_3.md
-    - 图像信息处理:
-      - ./CS/DIP/index.md
-      - 01-成像与图像的基本属性: ./CS/DIP/dip1.md
-    - 数据结构基础:
-      - ./CS/FDS/index.md
-      - 01-算法/数据结构是什么？: ./CS/FDS/chapter_1_what_is_dsa/what_is_dsa.md
-      - 02-迭代与递归: ./CS/FDS/chapter_2_iteration_and_recursion/iteration_and_recursion.md
-      - 03-复杂度分析: 
-        - 算法效率评估: ./CS/FDS/chapter_3_complexity_analysis/performance_evaluation.md
-        - 时间复杂度: ./CS/FDS/chapter_3_complexity_analysis/time_complexity.md
-        - 空间复杂度: ./CS/FDS/chapter_3_complexity_analysis/space_complexity.md
-        - 小结: ./CS/FDS/chapter_3_complexity_analysis/summary.md
-      - 04-数据结构与数据类型总览:
-        - ./CS/FDS/chapter_4_DS&DT/index.md
-        - 数据结构分类: ./CS/FDS/chapter_4_DS&DT/classification_of_data_structure.md
-        - 基本数据类型: ./CS/FDS/chapter_4_DS&DT/basic_data_types.md
-        - 小结: ./CS/FDS/chapter_4_DS&DT/summary.md
-      - 05-表 | The List ADT: 
-        - 表: ./CS/FDS/chapter_5_array_and_linked_list/list.md
-        - 数组: ./CS/FDS/chapter_5_array_and_linked_list/array.md
-        - 链表: ./CS/FDS/chapter_5_array_and_linked_list/linked_list.md
-        - 小结: ./CS/FDS/chapter_5_array_and_linked_list/summary.md
-      - 06-栈与队列 | The Stack and Queue ADTs:
-        - 栈: ./CS/FDS/chapter_6_stack_and_queue/stack.md
-        - 队列: ./CS/FDS/chapter_6_stack_and_queue/queue.md
-        - 双向队列: ./CS/FDS/chapter_6_stack_and_queue/deque.md
-        - 环形队列: ./CS/FDS/chapter_6_stack_and_queue/circular_queue.md
-        - 小结: ./CS/FDS/chapter_6_stack_and_queue/summary.md
-      - 07-树 | The Tree ADT:
-        - 二叉树: ./CS/FDS/chapter_7_tree/binary_tree.md
-        - 二叉树遍历: ./CS/FDS/chapter_7_tree/binary_tree_traversal.md
-  - 杂项:
-    - ./Mess/index.md
-    - 《数字图像处理编程入门》: ./Mess/DIP-C/index.md
