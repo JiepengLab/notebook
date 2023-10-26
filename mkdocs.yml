@@ -6,7 +6,8 @@ nav:
     - ./Fundemental/index.md
     - 数学建模:
       - ./Fundemental/Mathematical Modeling/index.md
-      - 数学建模概论: ./Fundemental/Mathematical Modeling/Lec01.md
+      - 秘密共享: ./Fundemental/Mathematical Modeling/Secret.md
+      - 搜索引擎的PageRank模型: ./Fundemental/Mathematical Modeling/PageRank.md
     #  - HW01: ./Fundemental/Mathematical Modeling/HW01.md
     # - 离散数学及其应用:
     #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md
@@ -47,7 +48,7 @@ nav:
       - Chapter 1 Mathematical Preliminaries: ./CS/NA/Chapter_01.md
       - Chapter 2 Solutions of Equations in One Variable: ./CS/NA/Chapter_02.md
       - Chapter 6 Direct Methods for Solving Linear Systems: ./CS/NA/Chapter_06.md
-
+      - Chapter 7 Iterative Techniques in Matrix Algebra: ./CS/NA/Chapter_07.md
     - 人工智能初步:
       - ./CS/AI_Start/index.md
       - Note 01-AI数学基础: ./CS/AI_Start/Note01.md

@@ -71,7 +71,7 @@
 
 !!! note ""
     - 全称量词：表示一切的、所有的、凡事、每一个等，符号 $\forall$
-    - 存在量词：表示存在、有一个、某些等，符号 $\exist$
+    - 存在量词：表示存在、有一个、某些等，符号 $\exists$
 
 全称量词的描述性是可以用相应的存在量词的描述形式替换，反之亦然。其实就是双重否定。
 
@@ -85,8 +85,8 @@
 
     - $(\forall x)(A(x)\vee B)\equiv(\forall x)A(x)\vee B$
     - $(\forall x)(A(x)\wedge B)\equiv(\forall x)A(x)\wedge B$
-    - $(\exist x)(A(x)\vee B)\equiv(\exist x)A(x)\vee B$
-    - $(\exist x)(A(x)\wedge B)\equiv(\exist x)A(x)\wedge B$
+    - $(\exists x)(A(x)\vee B)\equiv(\exists x)A(x)\vee B$
+    - $(\exists x)(A(x)\wedge B)\equiv(\exists x)A(x)\wedge B$
 
 - 定理：在约束变元相同的条件下，量词的运算满足分配律
 - 定理：当公式中存在多个量词时，若多个量词都是全称量词或者都是存在量词，则量词位置可以互换；若多个量词中既有全称量词又有存在量词，则量词位置不可以随意互换
@@ -101,7 +101,7 @@
 - 合式公式：由逻辑联结词和原子公式构成的用于陈述事实的复杂语句，又称谓词公式：
     - 命题常项，命题变项，原子谓词公式都是合式公式
     - 通过逻辑联结词联结合式公式得到的也是合式公式
-    - 如果 $A$ 是合式公式，$x$ 是个体变项，则 $(\exist x)A(x), (\forall x)A(x)$ 也是合式公式
+    - 如果 $A$ 是合式公式，$x$ 是个体变项，则 $(\exists x)A(x), (\forall x)A(x)$ 也是合式公式
     - 有限次数地使用上述规则
 - 推理规则（$A(x)$ 是谓词公式，$x$ 和 $y$ 是变元，$a$ 是常量符号）
 
@@ -109,8 +109,8 @@
 
     - 全称量词消去 universal instantiation（UI）：$(\forall x)A(x)\Rightarrow A(y)$
     - 全称量词引入 universal generalization（UG）：$A(y)\Rightarrow(\forall x)A(x)$
-    - 存在量词消去 existential instantiation（EI）：$(\exist x)A(x)\Rightarrow A(a)$
-    - 存在量词引入 existential generalization（EG）：$A(a)\Rightarrow(\exist x)A(x)$
+    - 存在量词消去 existential instantiation（EI）：$(\exists x)A(x)\Rightarrow A(a)$
+    - 存在量词引入 existential generalization（EG）：$A(a)\Rightarrow(\exists x)A(x)$
 
 ## 知识图谱推理
 

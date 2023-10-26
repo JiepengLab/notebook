@@ -1,12 +1,4 @@
-# Lec01 数学建模概论
-
-!!! note "本节概述"
-    简单介绍了数学建模的应用，并举出了一个简单的例子。
-
-## 数学软件
-
-- 综合性: Matlab, Mathematica, Maple
-- 专业性: R, LINGO, CPLEX, Gurobi, COPT（中国）
+# Model 01 秘密共享
 
 ## 数学建模的第一个例子
 

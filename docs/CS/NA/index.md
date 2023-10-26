@@ -7,9 +7,6 @@
     
     - 智云课堂: [🔗](https://classroom.zju.edu.cn/coursedetail?course_id=55711&tenant_code=112)
 
-!!! example "笔记列表"
-    - [Chapter 1 Mathematical Preliminaries](Note_01.md)
-
 !!! note "评分细则"
     评分：Lecture Grade(100) = Lab(36) + inclass-quiz(4) + Reseacher Topics(15) + Homework(5) + Final Exam (40*)
 
