@@ -49,6 +49,7 @@ nav:
       - Chapter 2 Solutions of Equations in One Variable: ./CS/NA/Chapter_02.md
       - Chapter 6 Direct Methods for Solving Linear Systems: ./CS/NA/Chapter_06.md
       - Chapter 7 Iterative Techniques in Matrix Algebra: ./CS/NA/Chapter_07.md
+      - Chapter 9 Approximating Eigenvalues: ./CS/NA/Chapter_09.md
     - 人工智能初步:
       - ./CS/AI_Start/index.md
       - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
