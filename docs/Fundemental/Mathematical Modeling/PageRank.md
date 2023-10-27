@@ -3,15 +3,14 @@
 !!! question "问题背景："
     如何给出一种<u>合理、客观、定量、可操作</u>的网页排序规则，使“重要”的网页排在前面？
 
-### 随机矩阵
+## 随机矩阵
 
 我们先对矩阵的一些概念进行定义：
 
 - 各行（列）元素之和均为1的非负方阵称为**行（列）随机矩阵**
 - 各行和各列元素之和均为1的非负方阵称为**双随机矩阵**
 
-
-任一随机矩阵的模最大特征值为 1 
+任一随机矩阵的模最大特征值为 1
 
 !!! note "证明"
 
@@ -123,7 +122,11 @@ $$\mathbf{x}=\mathbf{P}\mathbf{x}$$
     !!! question "节点没有出度"
         [悬挂网页](#_5)
 
+        ![Alt text](images/image-6.png){:height="40%" width="40%"}
+
     !!! question "这个线性方程组有多个解"
+        若$\overline{\mathbf{P}}$有两个属于特征值$1$的线性无关的特征向量，我们就无法得到唯一的网页重要度向量$\mathbf{x}$。如下图。
+        ![Alt text](images/image-5.png){:height="40%" width="40%"}
 
 ### 悬挂网页
 
@@ -136,7 +139,7 @@ $$\mathbf{x}=\mathbf{P}\mathbf{x}$$
 $$\overline{\mathbf{P}}=\mathbf{P}+\frac{1}{n}\mathbf{1}\mathbf{d}^T$$
 
 !!! note "悬挂网页例子"
-    
+
     === "图"
         
         如下图中，修正的链接矩阵为多少？
@@ -147,16 +150,205 @@ $$\overline{\mathbf{P}}=\mathbf{P}+\frac{1}{n}\mathbf{1}\mathbf{d}^T$$
 
         ![Alt text](images/image-4.png)
 
+### 多解修正
 
-证明唯一性
+若$\overline{\mathbf{P}}$有两个属于特征值$1$的线性无关的特征向量，我们就无法得到唯一的网页重要度向量$\mathbf{x}$。
 
-若 有两个属于特征值 的线性无关的特征向量（
-属于特征值 的特征子空间维数大于 ），用上述
-方法可能得到相互矛盾的网页重要度比较结果
+于是，我们对$\overline{\mathbf{P}}$进行修正，使得$\overline{\mathbf{P}}$成为**完全正矩阵**，即$\overline{\mathbf{P}}$的所有方阵子式的行列式都大于0。
 
-修改P拔成P拔拔![Alt text](images/image-1.png)，成为完全正矩阵
+我们先给出修正的方法：
 
-先证明还是列随机矩阵
+$$\overline{\overline{\mathbf{P}}}=\alpha\overline{\mathbf{P}}+(1-\alpha)\frac{1}{n}\mathbf{1}\mathbf{1}^T$$
 
+其中，$\alpha$为修正系数，$\alpha=0.85$。$\overline{\overline{\mathbf{P}}}$是完全正矩阵与列随机矩阵的结合。
 
-!!! question "节点没有出度->悬挂网页，用链接矩阵"
+!!! note "证明$\overline{\overline{\mathbf{P}}}$是列随机矩阵"
+
+    $\mathbf{1}^T\overline{\overline{\mathbf{P}}}=\alpha\mathbf{1}^T\overline{\mathbf{P}}+(1-\alpha)\mathbf{1}^T\frac{1}{n}\mathbf{1}\mathbf{1}^T=\alpha\mathbf{1}^T+(1-\alpha)\mathbf{1}^T=\mathbf{1}^T$
+
+    所以，$\overline{\overline{\mathbf{P}}}$是列随机矩阵。
+
+注意，我们说的是$\overline{\overline{\mathbf{P}}}$是列随机矩阵，而我们要求的是$\overline{\overline{\mathbf{P}}}\mathbf{x}=\mathbf{x}$，所以这里的$\mathbf{1}^T$并不是$\overline{\overline{\mathbf{P}}}$的特征向量。
+
+!!! note "证明$\overline{\overline{\mathbf{P}}}$关于特征值1的特征向量有且只有一个"
+
+    1. 存在性：$\overline{\overline{\mathbf{P}}}$是列随机矩阵，所以1是$\overline{\overline{\mathbf{P}}}$的特征值，且$\mathbf{1}$是属于特征值1的特征向量。
+    2. 唯一性：用反证法：
+    
+    设$\mathbf{v}=(v_1,v_2,\cdots,v_n)^T, \mathbf{w}=(w_1,w_2,\cdots,w_n)^T$是完全正、列随机矩阵$\overline{\overline{\mathbf{P}}}$的属于特征值1的特征向量，且$\mathbf{v}\neq\mathbf{w}$。令$x_i = -\frac{W}{V}v_i+w_i, i = 1,2,\cdots,n$，其中$W=\sum_{i=1}^nw_i, V=\sum_{i=1}^nv_i\neq 0$，因为$\mathbf{v}$和$\mathbf{w}$线性无关，且
+
+    $$\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}x_j=\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}(-\frac{W}{V}v_j+w_j)=-\frac{W}{V}\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}v_j+\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}w_j=-\frac{W}{V}v_i+w_i=x_i$$
+
+    !!! note ""
+        $\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}v_j=v_i$，是因为$\mathbf{v}=(v_1,v_2,\cdots,v_n)^T$是属于特征值1的特征向量，经计算可得。
+
+    所以有$\sum\limits_{i=1}^nx_i = \sum\limits_{i=1}^n(-\frac{W}{V}v_i+w_i) = -\frac{W}{V}\sum\limits_{i=1}^nv_i+\sum\limits_{i=1}^nw_i = -\frac{W}{V}V+W = 0$，即$\mathbf{x}$是$\overline{\overline{\mathbf{P}}}$的属于特征值1的特征向量，所以$\mathbf{x}$的分量之和为0。
+
+    我们接下来尝试证明：如果$\mathbf{x}$是$\overline{\overline{\mathbf{P}}}$的属于特征值1的特征向量，那么$\mathbf{x}$的分量之和不为零，从而与上面的结论矛盾。这也就证明了属于特征值1的特征向量有且只有一个。
+
+    !!! note ""
+    
+        证明：
+        设$\mathbf{x}$是$\overline{\overline{\mathbf{P}}}$的属于特征值1的特征向量，则$x_i=\sum\limits_{j=1}^n\overline{\overline{p}}_{ij}x_j$
+        
+        如果$\sum\limits_{i=1}^nx_i=0$，则$\mathbf{x}$的分量有正有负，所以
+        
+        $$|x_i|=|\sum\limits_{j=1}^n\overline{\overline{p}}_{ij}x_j|<\sum\limits_{j=1}^n\overline{\overline{p}}_{ij}|x_i|$$
+
+        所以
+
+        $$\sum\limits_{i=1}^n|x_i|<\sum\limits_{i=1}^n\sum\limits_{j=1}^n\overline{\overline{p}}_{ij}|x_j|=\sum\limits_{j=1}^n\sum\limits_{i=1}^n\overline{\overline{p}}_{ij}|x_j|=\sum\limits_{j=1}^n(|x_j|\sum\limits_{i=1}^n\overline{\overline{p}}_{ij})=\sum\limits_{j=1}^n|x_j|$$
+
+        矛盾，所以$\mathbf{x}$的分量之和不为零。
+
+    所以，$\overline{\overline{\mathbf{P}}}$关于特征值1的特征向量有且只有一个。
+
+#### Perron-Frobenius定理
+
+把上述结论一般化，我们有：
+
+!!! note "Perron定理"
+    若矩阵 $\mathbf{A}$是完全正矩阵，则
+    - $\mathbf{A}$的模最大特征值唯一，且为正实数
+    - 该特征值代数重数为1
+    - 存在该特征值的一个特征向量，其分量全为正
+
+!!! note "Perron—Frobenius定理"
+    若矩阵 $\mathbf{A}$是非负不可约（irreducible）矩阵，则
+    - $\mathbf{A}$的模最大特征值为正实数
+    - 该特征值代数重数为1
+    - 存在该特征值的一个特征向量，其分量全为正
+
+    !!! note "不可约矩阵"
+        不可约矩阵当且仅当矩阵对应的有向图是强连通图。
+
+        强连通图是指在有向图$G$中，如果对于每一对$v_i,v_j$，$v_i\neq v_j$，从$v_i$到$v_j$和从$v_j$到$v_i$都存在路径，则称$G$是强连通图。
+
+        ![Alt text](images/image-7.png)
+
+    !!! note "不可约矩阵的代数描述"
+        若干个初等对换矩阵的乘积称为置换矩阵（permutation matrix）
+        - 置换矩阵每行和每列都恰有一个元素为 1，其余元素都为 0
+        - 若存在置换矩阵 $\mathbf{Q}$，使得 $\mathbf{Q}^T\mathbf{A}\mathbf{Q}= \begin{pmatrix}\mathbf{X}&0\\\mathbf{Y}&\mathbf{Z}\end{pmatrix}$，其中 $\mathbf{X}$ 和 $\mathbf{Z}$ 均为方阵，则称 $\mathbf{A}$ 为可约矩阵（reducible matrix），否则 $\mathbf{A}$ 为不可约矩阵
+
+## PageRank中的矩阵求解
+
+整个互联网有相当多且稀疏的网页，所以我们需要一个好的算法来求解网页重要度向量$\mathbf{x}$。
+
+### 幂法
+
+幂法是计算矩阵模最大特征值和对应的特征向量的一种迭代算法
+
+任取初始向量$\mathbf{x}^{(0)}>0$，且$\sum\limits_{i=1}^nx_i^{(0)}=1$，我们通过迭代计算$\mathbf{x}^{(k)}=\overline{\overline{\mathbf{P}}}\mathbf{x}^{(k-1)}$，直到$\mathbf{x}^{(k)}$收敛
+
+!!! note ""
+    $\mathbf{1}^T\mathbf{x}^{(k)}=\mathbf{1}^T\overline{\overline{\mathbf{P}}}\mathbf{x}^{(k-1)}=\mathbf{1}^T\mathbf{x}^{(k-1)}=1$
+
+我们展开$\mathbf{x}^{(k)}=\overline{\overline{\mathbf{P}}}\mathbf{x}^{(k-1)}$
+
+!!! note ""
+
+    $$\overline{\mathbf{P}}=\mathbf{P}+\frac{1}{n}\mathbf{1}\mathbf{d}^T$$
+
+    $$\overline{\overline{\mathbf{P}}}=\alpha\overline{\mathbf{P}}+(1-\alpha)\frac{1}{n}\mathbf{1}\mathbf{1}^T$$
+
+$$\begin{aligned}
+\mathbf{x}^{(k)}&=\overline{\overline{\mathbf{P}}}\mathbf{x}^{(k-1)}\\
+&=\alpha\overline{\mathbf{P}}\mathbf{x}^{(k-1)}+(1-\alpha)\frac{1}{n}\mathbf{1}\mathbf{1}^T\mathbf{x}^{(k-1)}\\
+&=\alpha\overline{\mathbf{P}}\mathbf{x}^{(k-1)}+(1-\alpha)\frac{1}{n}\mathbf{1}\\
+&=\alpha(\mathbf{P}+\frac{1}{n}\mathbf{1}\mathbf{d}^T)\mathbf{x}^{(k-1)}+(1-\alpha)\frac{1}{n}\mathbf{1}\\
+&=\alpha\mathbf{P}\mathbf{x}^{(k-1)}+\alpha\frac{1}{n}\mathbf{1}\mathbf{d}^T\mathbf{x}^{(k-1)}+(1-\alpha)\frac{1}{n}\mathbf{1}\\
+\end{aligned}$$
+
+#### 完全正、列随机矩阵幂法的收敛性
+
+!!! note ""
+    $$\mathbf{1}^T\overline{\overline{\mathbf{P}}}=\mathbf{1}^T$$
+
+    $$\overline{\overline{\mathbf{P}}}=(\overline{\overline{p_{ij}}})_{n\times n}$$
+
+记$\mathbf{V}$为满足$\mathbf{1}^T\mathbf{v}=1$的$n$维列向量$\mathbf{v}=\{v_1,v_2,\cdots,v_n\}$全体组成的集合。记$\|\mathbf{v}\|_1=\sum\limits_{i=1}^n|v_i|$。
+
+对任意的$\mathbf{v}\in\mathbf{V}$，我们取$\mathbf{w}=\overline{\overline{\mathbf{P}}}\mathbf{v}$，因为
+
+$$\mathbf{1}^T\mathbf{w}=\mathbf{1}^T\overline{\overline{\mathbf{P}}}\mathbf{v}=\mathbf{1}^T\mathbf{v}=0$$
+
+所以$\mathbf{w}\in\mathbf{V}$。
+
+我们接下来尝试证明$\|\mathbf{w}\|_1=\|\overline{\overline{\mathbf{P}}}\mathbf{v}\|_1\leq c\|\mathbf{v}\|_1$，其中$c<1$。
+
+1. $\mathbf{w}=0$，显然成立。
+2. $\mathbf{w}\neq0$，记$\mathbf{w}=(w_1,w_2,\cdots,w_n)^T$，$e_i = \text{sgn}(w_i)$，则有
+
+$$\begin{aligned}
+\|\mathbf{w}\|_1&=\sum\limits_{i=1}^n|w_i|\\
+&=\sum\limits_{i=1}^ne_iw_i\\
+&=\sum\limits_{i=1}^n(e_i\sum\limits_{j=1}^n\overline{\overline{p_{ij}}}v_j)\\
+&=\sum\limits_{i=1}^n(\sum\limits_{j=1}^ne_i\overline{\overline{p_{ij}}}v_j)\\
+&=\sum\limits_{j=1}^n(\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}}v_j)\\
+&=\sum\limits_{j=1}^n(v_j\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}})\\
+&\leq\sum\limits_{j=1}^n(|v_j||\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}}|)\\
+\end{aligned}$$
+
+记$c = \max \limits_{1\leq j\leq n}|\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}}|<1$，则有
+
+$$\begin{aligned}
+\|\mathbf{w}\|_1&\leq\sum\limits_{j=1}^n(|v_j||\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}}|)\\
+&\leq\sum\limits_{j=1}^n(|v_j|c)\\
+&=c\sum\limits_{j=1}^n|v_j|\\
+&=c\|\mathbf{v}\|_1\\
+\end{aligned}$$
+
+所以，$\|\mathbf{w}\|_1\leq c\|\mathbf{v}\|_1$，其中$c<1$。
+
+---
+
+记$\mathbf{v}_0=\mathbf{x}^{(0)}-\mathbf{X}\in \mathbf{V}$，我们有
+
+$$\mathbf{1}^T\mathbf{v}_0=\mathbf{1}^T\mathbf{x}^{(0)}-\mathbf{1}^T\mathbf{X}=1-1=0$$
+
+所以$\mathbf{v}_0\in \mathbf{V}$。
+
+由于$\overline{\overline{\mathbf{P}}}\mathbf{X}=\mathbf{X}$，
+
+$$\mathbf{x}^{(k)}=\overline{\overline{\mathbf{P}}}^k\mathbf{x}^{(0)}=\overline{\overline{\mathbf{P}}}^k(\mathbf{X}+\mathbf{v}_0)=\mathbf{X}+\overline{\overline{\mathbf{P}}}^k\mathbf{v}_0$$
+
+由于$\|\overline{\overline{\mathbf{P}}}^k\mathbf{v}_0\|_1\leq c^k\|\mathbf{v}_0\|_1$，所以
+
+$$\|\mathbf{x}^{(k)}-\mathbf{X}\|_1\leq c^k\|\mathbf{v}_0\|_1$$
+
+所以，$\mathbf{x}^{(k)}$收敛到$\mathbf{X}$，得证。
+
+## 随机浏览
+
+按以下模式浏览互联网的网页
+
+- 有时从当前网页的链接中随机打开一个网页
+- 有时键入网址新建一个网页
+- 从任一网页开始，充分长时间后，访问各网页的概率即为网页重要度
+
+经过统计，随机打开网页的次数与键入网址新建网页的次数之比约为$5:1$，这就是$\alpha=0.85$的来源。
+
+## 随机概率
+
+记事件 $\{X_m=j\}$ 为时刻 $m$ 访问网页 $v_j$，则$P\{X_m=i | X_{m-1}=j\}=p_{ij}$
+
+若  $P\{X_m=j\}=x_j$，则$P\{X_{m}=i\}=\sum\limits_{j=1}^nP\{X_m=i | X_{m-1}=j\}P\{X_{m-1}=j\}=\sum\limits_{j=1}^np_{ij}x_j$
+
+记 $\mathbf{x}^{(m)}=(P\{X_m=1\},P\{X_m=2\},\cdots,P\{X_m=n\})^T$，则有$\mathbf{x}^{(m)}=\overline{\overline{\mathbf{P}}}\mathbf{x}^{(m-1)}$
+
+## 随机过程
+
+随机过程是描述随机现象随时间推移而演化的一类数学模型。
+
+在**一族随机变量**$\{X(t),t\in T\}$中$T$为参数集，$t$是参数。$\{X(t),t\in T\}$称为参数为$t$的随机变量。
+
+- $T$为整数集的随机过程称为随机序列
+
+### Markov过程
+
+在已知目前的状态（现在）的条件下，它未来的演变（将来）不依赖于它以往的演变（过去）。
+
+在随机序列$\{X(n),n=0,1,2,\cdots\}$中($X_n$有限或可列)，我们对于任意的$n\geq0$，有
+
+$$P\{X_{n+1}=j | X_n=i,X_{n-1}=i_{n-1},\cdots,X_0=i_0\}=P\{X_{n+1}=j | X_n=i\}$$
