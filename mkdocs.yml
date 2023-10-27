@@ -8,6 +8,8 @@ nav:
       - ./Fundemental/Mathematical Modeling/index.md
       - 秘密共享: ./Fundemental/Mathematical Modeling/Secret.md
       - 搜索引擎的PageRank模型: ./Fundemental/Mathematical Modeling/PageRank.md
+      - Nim游戏: ./Fundemental/Mathematical Modeling/NimGame.md
+      - 伪币辨识: ./Fundemental/Mathematical Modeling/FakeCoin.md
     #  - HW01: ./Fundemental/Mathematical Modeling/HW01.md
     # - 离散数学及其应用:
     #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md

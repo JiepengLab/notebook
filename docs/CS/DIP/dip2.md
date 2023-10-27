@@ -8,11 +8,13 @@ counter: True
     二值图像 | Binary image
     图像二值化 | Image binarization
     形态学操作 | Morphological operation
+
     - 集合的定义 | Definition of set
     - 腐蚀 | Erosion
     - 膨胀 | Dilation
     - 开运算 | Opening
     - 闭运算 | Closing
+
     应用 | Application
 
 如何从灰度图转为二值图像？
