@@ -45,8 +45,11 @@ counter: True
 ## Image binarization
 
 * 设置一个阈值 Threshold，比阈值小的置为 0, 比阈值大的置为 255.
-$\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x,y)\geq Threshold \end{matrix} \right.$
+  
+$$\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x,y)\geq Threshold \end{matrix} \right.$$
+
 * 如何选取合适的 threshold?  
+
 基本思想：将二值化得到的二值图像视为两部分，一部分对应前景（Foreground），另一部分对应背景（Background）。尝试找到一个合适的threshold使得到的前景和背景的内部方差最小，而它们之间的方差则最大。（下面的推导可看出，这二者是等价的）  
 **Otto 大津算法：**
 ![20221014103546](https://s2.loli.net/2022/10/14/xOpPTRqLrV53fD8.png)
@@ -54,6 +57,7 @@ $\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x,
 
     * 简化版推导  
     ![20221014104211](https://s2.loli.net/2022/10/14/dz3G8QF4haZsEcX.png)
+
 * 具体过程  
     * Step 1: 确定原始图像中像素的最大值和最小值；
     * Step 2: 最小值加 1 作为 threshold 对原始图像进行二值化操作；
@@ -66,11 +70,11 @@ $\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x,
 !!! Example
     <div align=center> <img src="https://s2.loli.net/2022/10/14/qoCwgbJQysPjE5H.png" width = 40%/> </div>
 
-大津算法存在问题：全局进行二值化操作不给力，如
-![20221014110519](https://s2.loli.net/2022/10/14/f61lT2OEDsYLcv8.png)
+大津算法存在问题：全局进行二值化操作不给力，如中间这幅图。
 
-解决方法：局部自适应操作
-设定一个局部窗口，在整个图像上滑动该窗口；对于每一窗口位置，确定针对该窗口的threshold。
+![Alt text](images/image-10.png)
+
+我们可以采用局部自适应操作来优化成为右边的图。具体思想：设定一个局部窗口，在整个图像上滑动该窗口；对于每一窗口位置，确定针对该窗口的threshold。
 
 ## Morphology Operation
 
@@ -78,9 +82,9 @@ $\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x,
 
 * 形态学 Morphology  
 1960s 后期提出，研究动植物的结构与形态。形态学一般指生物学中研究动物和植物结构的一个分支
+
 * 数学形态学 Mathematical morphology  
-基础理论：集合论  
-一种简单的非线性代数算子，主要用于二值图像，可扩展到灰度图像。用在噪声过滤、形状简化、细化、分割、物体描述等
+基础理论：集合论。采用一种简单的非线性代数算子，主要用于二值图像，可扩展到灰度图像。用在噪声过滤、形状简化、细化、分割、物体描述等
 
 用数学形态学（也称图像代数）表示以形态为基础对图像进行分析的数学工具  
 
