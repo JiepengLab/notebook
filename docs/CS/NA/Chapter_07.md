@@ -192,9 +192,18 @@ $$\mathbf{x}^{(k+1)}=\mathbf{Tx}^{(k)}+\mathbf{c}$$
 1. $\|\mathbf{x}^{(k)}-\mathbf{x}\|\leq\|\mathbf{T}\|^k\|\mathbf{x}^{(0)}-\mathbf{x}\|$；
 2. $\|\mathbf{x}^{(k)}-\mathbf{x}\|\leq\frac{\|\mathbf{T}\|^k}{1-\|\mathbf{T}\|}\|\mathbf{x}^{(1)}-\mathbf{x}^{(0)}\|$；
 
+通过(2)式，我们可以根据我们要的精度算出迭代次数$k$
+
+!!! note ""
+    $\|\mathbf{x}^{(k)}-\mathbf{x}\|\approx\rho(T)^k\|\mathbf{x}^{(0)}-\mathbf{x}\|$
+
+
 #### 对于严格对角占优矩阵
 
 如果$\mathbf{A}$是严格对角占优的，那么Jacobi迭代法和Gauss-Seidel迭代法都是收敛的。
+
+!!! note ""
+    证明其不存在大于1的特征值
 
 ### 松弛法 | Relaxation Methods
 
