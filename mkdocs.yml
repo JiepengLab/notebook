@@ -68,6 +68,7 @@ nav:
     - 图像信息处理:
       - ./CS/DIP/index.md
       - 01-成像与图像的基本属性: ./CS/DIP/dip1.md
+      - 02-二值图像与形态学: ./CS/DIP/dip2.md
     - 数据结构基础:
       - ./CS/FDS/index.md
       - 01-算法/数据结构是什么？: ./CS/FDS/chapter_1_what_is_dsa/what_is_dsa.md
@@ -99,7 +100,9 @@ nav:
   - 杂项:
     - ./Mess/index.md
     - 《数字图像处理编程入门》: ./Mess/DIP-C/index.md
-    - ESG商赛: ./Mess/ESG/index.md
+    - ESG商赛: 
+      - 论文阅读: ./Mess/ESG/Paper.md
+      - APP: ./Mess/ESG/APP.md
 
 
 copyright: Copyright &copy; 2023 Jiepeng Jin

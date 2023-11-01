@@ -101,29 +101,46 @@ $$\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x
 
 <div align=center> <img src=https://s2.loli.net/2022/10/14/9uCrOWnptm8HbB3.png width = 70%/> </div>
 
-### Dilation
+### 膨胀 | Dilation
 
 A: 二值图像
 B: 二值模板，称为**结构元（structure element）**
-$A\oplus B = \{z| (B)_z \cap A \neq \empty\}$
+$A\oplus B = \{z| (B)_z \cap A \neq \varnothing \}$
 上式表示B进行平移与A的交集不为空
 
-膨胀是将与物体“**接触**”的所有背景点合并到该物体中，使边界向外部扩张的过程。可以用来填补物体中的空洞。
-（其中“接触”的含义由结构元描述）
+膨胀是将与物体“**接触**”的所有背景点合并到该物体中，使边界向外部扩张的过程。可以用来填补物体中的空洞。（其中“接触”的含义由结构元描述）
 
 用行扫描的方式，作为 A 的一部分，希望把前景周围的一圈纳入到前景。
+
 核心判断，交集不为空。 填充 B 的中心
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212241126496.png" width = 50%/> </div>
+一维情况：
 
-选择不同形状的结构元，结果也不同
+=== "第一步"
+    ![Alt text](images/image-11.png)
 
-!!! Example
-    <div align=center> <img src="https://s2.loli.net/2022/10/18/37y4pgCbqtKvxVY.png" width = 60%/> </div>
+=== "第二步"
+    ![Alt text](images/image-12.png)
+
+=== "第三步"
+    ![Alt text](images/image-13.png)
+
+=== "第四步"
+    ![Alt text](images/image-14.png)
+
+二维情况：
+
+!!! example ""
+
+    ![Alt text](images/image-16.png)
+
+    ![Alt text](images/image-17.png)
+
+    显然，选择不同形状的结构元，结果也不同。
 
 可以用来填补 gap.
 
-### Erosion
+### 腐蚀 | Erosion
 
 腐蚀是一种消除边界点，使边界向内部收缩的过程。可以用来消除小且无意义的物体。
 
@@ -132,51 +149,90 @@ B: binary template,  structure element
 $A\ominus B=\{(x,y)|(B)_{xy}\sube A\}$  
 Physical meaning: remove boundary, remove unwanted small objects.
 
-padding 的思想：如果我们想从第一行开始扫描，但是这样有的就超出边界了，我们就把这一行再复制一遍，再从第一行开始扫描。
+一维情况：
+=== "第一步"
+    ![Alt text](images/image-18.png)
+
+=== "第二步"
+    ![Alt text](images/image-19.png)
+
+=== "第三步"
+    ![Alt text](images/image-20.png)
+
+=== "第四步"
+    ![Alt text](images/image-21.png)
+
+=== "第五步"
+    ![Alt text](images/image-26.png)
+
+=== "第六步"
+    ![Alt text](images/image-23.png)
+
+=== "第七步"
+    ![Alt text](images/image-24.png)
+
+=== "第八步"
+    ![Alt text](images/image-25.png)
 
 <div align=center> <img src="https://s2.loli.net/2022/10/18/1dKPRgXu5hSL8ZN.png" width = 60%/> </div>
 
-(这里直接把第一行变成 0, 没有 padding)
-
 !!! Example
-    <div align=center> <img src="https://s2.loli.net/2022/10/18/WQXae4tRCP1jEqz.png" width = 60%/> </div>
+    ![Alt text](images/image-28.png)
 
-    <div align=center> <img src="https://s2.loli.net/2022/10/18/aJeRDWTIuqLgHME.png" width = 60%/> </div> 
+    ![Alt text](images/image-27.png) 
     
     可以用第二张图验证代码是否正确。再利用算法二值化并操作。
 
-可以使用腐蚀消除图像的细节部分，产生滤波器的作用。
+padding 的思想：如果我们想从第一行开始扫描，但是这样有的就超出边界了，我们就把这一行再复制一遍，再从第一行开始扫描。
+
+!!! note "滤波器"
+
+    ![Alt text](images/image-29.png)
 
 !!! Summary "Dilation and Erosion"
-    *膨胀  
-    由B对A膨胀所产生的二值图象D是满足以下条件的点(x,y)的集合：如果B的原点平移到点(x,y)，那么它与A的交集非空。
+
+    * 膨胀  
+    由B对A膨胀所产生的二值图像D是满足以下条件的点(x,y)的集合：如果B的原点平移到点(x,y)，那么它与A的交集非空。
     * 腐蚀  
-    由B对A腐蚀所产生的二值图象E是满足以下条件的点(x,y)的集合：如果B的原点平移到点(x,y)，那么B将完全包含于A中
+    由B对A腐蚀所产生的二值图像E是满足以下条件的点(x,y)的集合：如果B的原点平移到点(x,y)，那么B将完全包含于A中
     * 膨胀与腐蚀是对偶的  
-    $(A\ominus B)^c=\{z|(B_z)\sube A\}^c=\{z|(B_z)\cap A=\empty\}c=\{z|(B_z)\cap A^c \neq \empty\}=A^c\oplus B$  
+    $(A\ominus B)^c=\{z|(B_z)\sube A\}^c=\{z|(B_z)\cap A=\varnothing\}^c=\{z|(B_z)\cap A^c \neq \varnothing\}=A^c\oplus B$  
 
 !!! Example "Application"
 
-    * A - erode(A) 得到边界
-    * p25 与 A 的补集求交
-    ![image.png](https://s2.loli.net/2022/10/18/tVUNQA3CXu16bfM.png)
+    !!! note "A - erode(A) 得到边界"
+        ![Alt text](images/image-30.png)
+
+    !!! note 补洞
+        ![Alt text](images/image-31.png)
 
 ### Open
 
-erosion, then dilation  
+先腐蚀，后膨胀
 $A\circ B=(A\ominus B)\oplus B$
 
 Remove small objects, segment object at thin part, smooth boundary of large object but preserve its original area.
 
-![image.png](https://s2.loli.net/2022/10/18/iNwy4YBxAHIPWs8.png)
-面积基本相同
+!!! note ""
+    ![image.png](https://s2.loli.net/2022/10/18/iNwy4YBxAHIPWs8.png)
+
+    ![Alt text](images/image-34.png)
 
 ### Close
 
-dilation, then erosion
+先膨胀，后腐蚀
 $A \bullet B =(A\oplus B)\ominus B$  
 
 Fill small holes, connect the neighboring objects, smooth boundary while preserving the area at most.
-用来填充物体内细小空洞、连接邻近物体、平滑其边界的同时并不明显改变其面积。
 
-![image.png](https://s2.loli.net/2022/10/18/Ro1nQPuNJi9GBrD.png)
+!!! note ""
+
+    ![image.png](https://s2.loli.net/2022/10/18/Ro1nQPuNJi9GBrD.png)
+
+    ![Alt text](images/image-33.png)
+
+## 总结
+
+![Alt text](images/image-35.png)
+
+![Alt text](images/image-36.png)

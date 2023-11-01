@@ -6,6 +6,10 @@
 
 - $P(X=x_i,Y=y_j)=p_{ij}\;\;i,j=1,2,...$；
 
+亦可使用列表来表示：
+
+![Alt text](images/image-3.png)
+
 ### 边际分布律（Marginal Mass Function）
 
 边界分布律即联合分布律的行/列求和
@@ -13,33 +17,51 @@
 - $P(X=x_i)=P(X=x_1,\bigcup_{j=1}^{\infty}(Y=y_j))=\sum_{j=1}^{\infty}p_{ij}:=p_{i·}$；
 - $P(Y=y_j)=P(\bigcup_{j=1}^{\infty}(X=x_i),Y=y_j)=\sum_{i=1}^{\infty}p_{ij}:=p_{·j}$；
 
-![Alt text](images/image-2.png)
+![Alt text](images/image-4.png)
 
 ### 条件分布律（Conditional Mass Function）
 
 - $P\{X=x_i|Y=y_j\}=\frac{P(X=x_i,Y=y_j)}{P(Y=y_j)}=\frac{p_{ij}}{p_{·j}}\;\;i,j=1,2,...$；
 - $P\{X<x|Y<y\}=\frac{P\{X<x,Y<y\}}{P\{Y<y\}}$然后根据联合分布律和边际分布律读表计算；
 
+### 分布函数
+
+#### 联合分布函数
 
 $F(x,y)=P\{X\leq x,Y\leq y\}$为$(X,Y)$的**联合概率分布函数**，简称**联合分布函数（Joint Distribution Function）**，其具有如下性质：
 
 1. **固定**其中一个变量，则该二元函数关于另外一个变量单调**不减**；
 2. $0\leq F(x,y)\leq 1$，且$F(x,-\infty)=F(-\infty,y)=F(-\infty,-\infty)=0\;,\;F(+\infty,+\infty)=1$；
+
 3. $F(x,y)$关于$x$和$y$**分别**右连续（离散）；
-4. $x_1<x_2\;,\;y_1<y_2$时，有：
 
-$P\{x_1<X\leq x_2\;,\;y_1<Y\leq y_2\}=F(x_2,y_2)-F(x_1,y_2)-F(x_2,y_1)+F(x_1,y_1)\geq0$
+4. $x_1<x_2\;,\;y_1<y_2$时，有：$P\{x_1<X\leq x_2\;,\;y_1<Y\leq y_2\}=F(x_2,y_2)-F(x_1,y_2)-F(x_2,y_1)+F(x_1,y_1)\geq0$ 这可以由几何意义简单推出。
 
-- Tips：考虑几何意义！
+![Alt text](images/image-5.png){: width="40%"}
 
-**边际分布函数（Marginal Distribution Function）**<br />$F_X(x)=P\{X\leq x\}=P\{X\leq x ,Y<+\infty\}=F(x,+\infty)=\int_{-\infty}^{+\infty}f(x,y)dy$为$X$关于联合分布函数$F(x,y)$的**边际分布函数**。
+#### 边际分布函数
+
+$X$关于联合分布函数$F(x,y)$的**边际分布函数**定义为：
+
+$$F_X(x)=P\{X\leq x\}=P\{X\leq x ,Y<+\infty\}=F(x,+\infty)$$
 
 - 对$y$来说同理
 
-**条件分布函数（Conditional Distribution Function）**<br />$F_{Y|X}(y|x_i)=P\{Y\leq y | X = x_i\}=\lim_{\delta\rarr0^+}P\{Y\leq y|x<X\leq x+\delta \}$为$X=x_i$条件下$Y$的**条件概率分布函数**。
+#### 条件分布函数
 
+$X=x_i$条件下$Y$的**条件概率分布函数**为：
 
-设二元随机变量$(X,Y)$的联合分布函数为$F(x,y)$，若存在二元函数$f(x,y)\geq0$，则对于任意的实数$x$，$y$有$F(x,y)=\int_{-\infty}^x\int_{-\infty}^yf(u,v)\mathrm{d}u\mathrm{d}v$，则称$(X,Y)$为**二元连续型随即变量（Bivariate Continuous Random Variable）**，称$f(x,y)$为$(X,Y)$的**联合概率密度函数（Joint Probability Density Function）**，简称为**联合密度函数**。 其具有以下性质：
+$$F_{Y|X}(y|x_i)=P\{Y\leq y | X = x_i\}$$
+
+## 二维连续型随机变量
+
+### 联合分布
+
+设二元随机变量$(X,Y)$的联合分布函数为$F(x,y)$，若存在二元函数$f(x,y)\geq0$，则对于任意的实数$x$，$y$有
+
+$$F(x,y)=\int_{-\infty}^x\int_{-\infty}^yf(u,v)\mathrm{d}u\mathrm{d}v$$
+
+则称$(X,Y)$为**二元连续型随机变量（Bivariate Continuous Random Variable）**，称$f(x,y)$为$(X,Y)$的**联合概率密度函数（Joint Probability Density Function）**，简称为**联合密度函数**。 其具有以下性质：
 
 1. $f(x,y)\geq 0$；
 2. $F(x,y)=\int_{-\infty}^x\int_{-\infty}^yf(u,v)\mathrm{d}u\mathrm{d}v=F(+\infty,+\infty)=1$；
@@ -49,10 +71,18 @@ $P\{x_1<X\leq x_2\;,\;y_1<Y\leq y_2\}=F(x_2,y_2)-F(x_1,y_2)-F(x_2,y_1)+F(x_1,y_1
 \partial x\partial y
 }=f(x,y)$；
 4. $(X,Y)$落入$xOy$平面任意区域$D$的概率为：$P\{(X,Y)\in D\}=\iint \limits_{D} f(x,y)\mathrm{d}x\mathrm{d}y$；
-   - 由于其几何意义为落在以$D$为底，以曲面$z=f(x,y)$为顶面的柱体体积，所以当$D$面积为$0$时概率为$0$：
+   - 由于其几何意义为落在以$D$为底，以曲面$z=f(x,y)$为顶面的立体体积，所以当$D$面积为$0$时概率为$0$：
    - `eg`：$P(X=1,Y=1)=0$，$P(X+Y=1)=0$，$P(X^2+Y^2=1)=0$；
 
-（二元）**边际概率密度函数（Marginal Probability Density Function）**，简称**边际密度函数**。<br />$F_X(x)=\int_{-\infty}^{+\infty}f(x,y)dy$
+### 边际分布
+
+二位连续型随机变量$(X,Y)$中单个随机变量$X$的密度函数为$X$的**边际概率密度函数（Marginal Probability Density Function）**，简称**边际密度函数**。由于
+
+$$\begin{aligned}
+F_X(x)&=P\{X\leq x\}=P\{X\leq x,Y<+\infty\}\\
+&=\int_{-\infty}^x\int_{-\infty}^{+\infty}f(x,y)\mathrm{d}y\mathrm{d}x\\
+&=\int_{-\infty}^x[\int_{-\infty}^{+\infty}f(x,y)\mathrm{d}y]\mathrm{d}x
+\end{aligned}$$
 
 - 在给定$\{X=x\}$的条件下，$Y$的条件概率密度函数（Conditional Prob-ability Density Function）称为条件密度函数，为$f_{Y|X}(y|x)=\int^y_{-\infty}\frac{f(x,v)}{f_X(x)}\mathrm{d}v\;,\;\;f_X(x)\not= 0$；
 - $Y$同理。
