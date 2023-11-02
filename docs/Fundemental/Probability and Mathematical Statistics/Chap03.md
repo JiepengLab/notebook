@@ -173,7 +173,7 @@ $$f(x,y)=\frac{1}{2\pi\sigma_1\sigma_
 - 二维正态分布的两个边际分布都是**对应参数的一维正态分布**，与$\rho$无关。
 
 !!! note "二维正态分布的两个边际分布"
-      
+
       $$\begin{aligned}
       f_X(x)&=\int_{-\infty}^{+\infty}f(x,y)\mathrm{d}y\\
       &=\frac{1}{\sqrt{2\pi}\sigma_1}\exp\{-\frac{(x-\mu_1)^2}{2\sigma_1^2}\}\\

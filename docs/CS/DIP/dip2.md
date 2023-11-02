@@ -51,12 +51,33 @@ $$\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x
 * 如何选取合适的 threshold?  
 
 基本思想：将二值化得到的二值图像视为两部分，一部分对应前景（Foreground），另一部分对应背景（Background）。尝试找到一个合适的threshold使得到的前景和背景的内部方差最小，而它们之间的方差则最大。（下面的推导可看出，这二者是等价的）  
-**Otto 大津算法：**
-![20221014103546](https://s2.loli.net/2022/10/14/xOpPTRqLrV53fD8.png)
+
+**Otto 大津算法推导**
+
+$$
+\begin{aligned}
+&\sigma_{within}^{2}(T) =\frac{N_{Fgrd}(T)}N\sigma_{Fgrd}^{2}(T)+\frac{N_{Bgrd}(T)}N\sigma_{Bgrd}^{2}(T)  \\
+&\sigma_{between}^{2}(T) =\sigma^2-\sigma_{within}^2(T)  \\
+&=\left(\frac{1}{N}\sum_{x,y}(f^2[x,y]-\mu^2)\right)-\frac{N_{Fgrd}}{N}\left(\frac{1}{N_{Fgrd}}\sum_{x,y\in Fgrd}(f^2[x,y]-\mu_{Fgrd}^2)\right) \\
+&-\frac{N_{Bgrd}}{N}\left(\frac{1}{N_{Bgrd}}\sum_{x,y\in Bgrd}(f^2[x,y]-\mu_{Bgrd}^2)\right) \\
+&=-\mu^{2}+\frac{N_{Fgrd}}{N}\mu_{Fgrd}^{2}+\frac{N_{Bgrd}}{N}\mu_{Bgrd}^{2} \\
+&=\frac{N_{Fgrd}}N(\mu_{Fgrd}-\mu)^{2}+\frac{N_{Bgrd}}N(\mu_{Bgrd}-\mu)^{2} \\
+&\rightarrow\frac{N_{Fgrd}(T)\cdot N_{Bgrd}(T)}{N^{2}}(\mu_{Fgrd}(T)-\mu_{Bgrd}(T))^{2}
+\end{aligned}
+$$
+
 ($N$ 是像素总个数，$N_{Fgrd}$ 是给定 T 的情况下属于前景的像素个数)
 
-    * 简化版推导  
-    ![20221014104211](https://s2.loli.net/2022/10/14/dz3G8QF4haZsEcX.png)
+!!! note "简化版推导"  
+    $$
+    \begin{aligned}
+    W_{f}& =\frac{N_{Fgrd}}{N},W_{b}=\frac{N_{Bgrd}}{N},W_{f}+W_{b}=1  \\
+    &\mu =W_{f}\times\mu_{Fgrd}+W_{b}\times\mu_{Bgrd}  \\
+    \sigma_{between}& =W_{f}(\mu_{Fgrd}-\mu)^{2}+W_{b}(\mu_{Bgrd}-\mu)^{2}  \\
+    &\begin{aligned}=W_f(\mu_{Fgrd}-W_f\times\mu_{Fgrd}-W_b\times\mu_{Bgrd})^2+W_b(\mu_{Bgrd}-W_f\times\mu_{Fgrd}-W_b\times\mu_{Bgrd})^2\end{aligned}\\
+    &\rightarrow W_{b}W_{f}(\mu_{f}-\mu_{b})^{2}
+    \end{aligned}
+    $$
 
 * 具体过程  
     * Step 1: 确定原始图像中像素的最大值和最小值；
@@ -65,7 +86,7 @@ $$\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x
     * Step 4: 回到 Step 2 直到达到像素最大值；
     * Step 5：比较找到最大外部和最小内部协方差对应的 threshold.
 
-我们可以前述 thresholding 策略推广到彩色图像，同时考虑 rgb 三个通道，我们就可以针对特定的色彩进行 thresholding 操作，
+我们可以将前述 thresholding 策略推广到彩色图像，同时考虑 rgb 三个通道，我们就可以针对特定的色彩进行 thresholding 操作，
 
 !!! Example
     <div align=center> <img src="https://s2.loli.net/2022/10/14/qoCwgbJQysPjE5H.png" width = 40%/> </div>
@@ -81,10 +102,12 @@ $$\left\{\begin{matrix}I(x,y)=0\ if\ I(x,y)\leq Threshold \\ I(x,y)=255\ if\ I(x
 ### Morphology
 
 * 形态学 Morphology  
-1960s 后期提出，研究动植物的结构与形态。形态学一般指生物学中研究动物和植物结构的一个分支
+
+    1960s 后期提出，研究动植物的结构与形态。形态学一般指生物学中研究动物和植物结构的一个分支
 
 * 数学形态学 Mathematical morphology  
-基础理论：集合论。采用一种简单的非线性代数算子，主要用于二值图像，可扩展到灰度图像。用在噪声过滤、形状简化、细化、分割、物体描述等
+
+    基础理论：集合论。采用一种简单的非线性代数算子，主要用于二值图像，可扩展到灰度图像。用在噪声过滤、形状简化、细化、分割、物体描述等
 
 用数学形态学（也称图像代数）表示以形态为基础对图像进行分析的数学工具  
 
