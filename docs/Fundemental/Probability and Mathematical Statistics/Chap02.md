@@ -17,7 +17,7 @@
 
 ## 离散型随机变量
 
-**离散型随机变量(discrete random variable)**<br />如果随机变量取有限个或可列个值，则此随机变量为**离散型随机变量**，而若其可能取值为$\{x_i\}$，则称$P\{X=x_k\}=p_k\;,\;k=1,2,...$为$X$的**概率分布律(probability mass function)**，也可以用列表的方式表达。<br />因为样本空间$S=\{X=x_1,X=x_2,\,...\,,X=x_n\,...\,\}$中各样本点两两不相容，所以：<br />$1=P(S)=\sum\limits_{i=1}^{+\infty}P(X=x_i)=\sum\limits_{i=1}^{+\infty}{p_i}$
+**离散型随机变量(discrete random variable)**<br />如果随机变量取有限个或可列个值，则此随机变量为**离散型随机变量**，而若其可能取值为$\{x_i\}$，则称$P\{X=x_k\}=p_k\;,\;k=1,2,...$为$X$的**概率分布律(probability mass function)**，也可以用列表的方式表达。<br />因为样本空间$S=\{X=x_1,X=x_2,\,...\,,X=x_n\,...\,\}$中各样本点两两不相容，所以：<br />$1=P(S)=\sum\limits_{i=1}^{+\infty}P\{X=x_i\}=\sum\limits_{i=1}^{+\infty}{p_i}$
 
 ---
 
@@ -59,7 +59,7 @@ $$
 如果随机变量$X$的概率分布律为：
 
 $$
-P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!}\;,\;\;\;k=0,1,2,...
+P\{X=k\}=\frac{e^{-\lambda}\lambda^k}{k!}\;,\;\;\;k=0,1,2,...
 $$
 
 其中$\lambda > 0$，则称$X$服从**参数为**$\lambda$**的泊松分布(Poisson distribution)**，记做$X \sim P(\lambda)$
