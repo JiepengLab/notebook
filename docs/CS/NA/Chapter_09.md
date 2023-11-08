@@ -60,3 +60,23 @@ $$\mathbf{u}^{(k-1)}=\frac{\mathbf{x}^{(k-1)}}{\|\mathbf{x}^{(k-1)}\|_\infty},\q
 ### 收敛速度
 
 因为$\mathbf{x}^{(k)}=\lambda_1^k\sum\limits_{j=1}\limits^n\beta_j(\frac{\lambda_j}{\lambda_1})^k\mathbf{v}_j$，假设$\lambda_1>\lambda_2\geq\cdots\geq\lambda_n$，且$|\lambda_2|\geq |\lambda_n|$，则我们的目标就是让$\frac{\lambda_2}{\lambda_1}$尽可能小，这样收敛速度更快。
+
+
+![Alt text](images/image-31.png)
+
+记$\mathbf{B}=\mathbf{A}-p\mathbf{I}$，其中$p=\frac{\lambda_2+\lambda_n}{2}$，则$\mathbf{B}$的特征值为$\lambda_1-p,\lambda_2-p,\cdots,\lambda_n-p$，因为$|\frac{\lambda_2-p}{\lambda_1-p}|<|\frac{\lambda_2}{\lambda_1}|$，所以此时$\mathbf{B}$的收敛速度更快。
+
+但是我们并不知道$\lambda_2$和$\lambda_n$，所以这不一定是一个好的选择。
+
+### 反幂法 | Inverse Power Method
+
+反幂法一般是用来确定$\mathbf{A}$中与特定数$q$最接近的特征值，即$\lambda_i\approx q$。
+此时对任意的$j\neq i$，有
+
+$$|\lambda_i-q|\ll|\lambda_j-q|$$
+
+所以此时$|\mathbf{A}^{-1}-q\mathbf{I}|$的主特征值凸显出来了。可以更快地收敛到$\lambda_i$。
+
+其伪代码为：
+
+![Alt text](images/image-32.png)

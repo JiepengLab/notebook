@@ -1,50 +1,47 @@
 # Chap 5 Digital Hardware Implementation
 
-!!! warning "注意"
-    本章节在补天中完成，内容可能比较简略。
-
----
-
-- [ ] TODO: Finish this.
-
----
-
-## 可重编程技术
-
-**可重编程技术(programmable implementation technologies)**
+## 可重编程技术 | Programmable implementation technologies
 
 直接更改电路来修改电路功能被称为硬编程，而可重变成技术让我们能够不更改硬件布线的情况下，实现**逻辑功能的重新编辑**。
 
 !!! example "FPGA"
+
     [现场可编程逻辑门阵列(Field Programmable Gate Array)FPGA](https://zh.wikipedia.org/zh-cn/%E7%8E%B0%E5%9C%BA%E5%8F%AF%E7%BC%96%E7%A8%8B%E9%80%BB%E8%BE%91%E9%97%A8%E9%98%B5%E5%88%97)
+
     - [查找表(lookup table)LUT](https://zh.m.wikipedia.org/zh-hans/%E6%9F%A5%E6%89%BE%E8%A1%A8)
 
 **编程技术(programming technologies)** 在硬件层面有三种实现手段：
 
-- 控制连接来实现（不是可重编程）；
-    - Mask programing
-    - Fuse
-    - Anti-fuse
-- 控制门级电路电压；
+1. 控制连接来实现（不是可重编程）；
+    - 掩码编程 | Mask programing
+    - 熔丝 | Fuse 
+    - 反熔丝 | Anti-fuse
+    ![Alt text](images/e905e997c02a63e8fc4feff82f9200b3.png)
+2. 控制门级电路电压；
     - Single-bit storage element
     - Stored charge on a floating gate
         - Erasable
         - Electrically erasable
         - Flash (as in Flash Memory) 
-- 使用查找表(LUT)；
+3. 使用查找表(Look Up Table - LUT)；
     - Storage elements for the function
         - 比如使用一个 `MUX`，并将输入端接内存，通过修改内存的值来修改 `MUX` 的行为，进而实现函数重编程
+        ![Alt text](images/image-10.png)
 
 课程中介绍的可重编程的器件主要有如下四种：
 
-- 只读内存 Read Only Memory (ROM) 
-- 可编程阵列逻辑 Programmable Array Logic (PAL^Ⓡ^)
+- [只读内存 Read Only Memory (ROM)](#rom-read-only-memory)
+- 可编程阵列逻辑 Programmable Array Logic (PAL^®^)
 - 可编程逻辑阵列 Programmable Logic Array (PLA)
 - Complex Programmable Logic Device (CPLD) or Field-Programmable Gate Array(FPGA)
 
 前三者都只能重写一次，如下是它们的重写内容：
 
-![](img/51.png)
+![Alt text](images/image-11.png)
+
+- PROM是不改变项的内容，只缩短相加的项数；
+- PAL是不改变项数，可以改变项的内容；
+- PLA是项数可以改变，也可以改变项的内容；
 
 ---
 
@@ -54,7 +51,7 @@
 ### 逻辑符号介绍
 
 !!! example "Buffer"
-    ![](img/52.png)
+    ![Alt text](images/image-12.png)
     > 简化表示一个变量的自身和其非；
 
 !!! example "Wire connecting"
@@ -80,7 +77,7 @@
 
 ---
 
-### ROM
+### ROM | Read Only Memory
 
 ROM 的基本结构如下：
 
@@ -90,7 +87,7 @@ ROM 的基本结构如下：
 
 $$
 \begin{aligned}
-    ROM\;\;size\;\;&=\;\;address\;\;width\;\;\times\;\;word\;\;width&\\
+    \text{ROM\;\;size}\;\;&=\;\;\text{address\;\;width}\;\;\times\;\;\text{word\;\;width}&\\
                    &=\;\;2^2\;\;\times\;\;4\;\;=\;\;16\;\;bit&
 \end{aligned}
 $$
@@ -100,27 +97,52 @@ $$
 
     ![](img/58.png)
 
+#### 题目例子
+
+!!! question "计算三位输入的平方"
+
+我们先写出真值表：
+
+![Alt text](images/image-13.png)
+
+可以发现，要六位输出才能实现，其中 $B_0=A_0$ ， $B_1$ 为常量 $1$，我们现在要找到一个可重编程的ROM，来实现这个功能。
+
+![Alt text](images/image-14.png)
+
+其中，ROM的内部结构可用真值表判断哪里需要进行重编程，
+通过下图表示：
+
+![Alt text](images/image-15.png){width=50%}
+
+
 ---
 
-### PAL
+### PAL | Programmable Array Logic
 
-![](img/59.png)
+PAL 的基本结构如下：
 
-可重编程输入组合来得到固定输出。
+![Alt text](images/image-16.png)
 
-其具有一个缺陷是，因为表达函数的方法不是通过 SOM 或者 POM 的形式，所以不一定能够完备表达函数。
+可以看到，与ROM不同的是，PAL形成项的地方是可编程的，而ROM是不可编程的。所以PAL可以改变项的内容，但是不能改变项的数量与连接方式。
+
+其具有一个缺陷是，因为表达函数的方法不是通过 SOM 或者 POM 的形式，所以不一定能够完备表达函数（项数不够）。
 
 在此基础上的一个改进是，通过将一个既有的 PAL 输出当作输入，输入到另外一个函数中，来弥补项不足的问题。
 
-???+ example "eg"
-    ![](img/60.png)
+???+ example "弥补项的方法"
+    ![Alt text](images/image-17.png)
 
+!!! note "Have a try"
 
+    下图实现了怎样的逻辑？
+    ![Alt text](images/image-18.png)
 ---
 
-### PLA 
+### PLA | Programmable Logic Array
 
-![](img/61.png)
+PLA 的基本结构如下：
+
+![Alt text](images/image-19.png)
 
 与 PAL 的区别在于，在输出的时候也能对输出组合进行重编程。
 

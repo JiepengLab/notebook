@@ -53,6 +53,7 @@ nav:
       - Chapter 6 Direct Methods for Solving Linear Systems: ./CS/NA/Chapter_06.md
       - Chapter 7 Iterative Techniques in Matrix Algebra: ./CS/NA/Chapter_07.md
       - Chapter 9 Approximating Eigenvalues: ./CS/NA/Chapter_09.md
+      - Chapter 3 Interpolation and Polynomial Approximation: ./CS/NA/Chapter_03.md
     - 人工智能初步:
       - ./CS/AI_Start/index.md
       - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
@@ -65,6 +66,12 @@ nav:
         - 布尔代数与逻辑运算: ./CS/DigitalDesign/Chap02/Chap02_1.md
         - 电路实现与优化: ./CS/DigitalDesign/Chap02/Chap02_2.md
         - 逻辑门补充: ./CS/DigitalDesign/Chap02/Chap02_3.md
+      - Chap 03-Combinational Logic Design: 
+        - ./CS/DigitalDesign/Chap03/index.md
+        - 技术实现和逻辑设计: ./CS/DigitalDesign/Chap03/Chap03_1.md
+        - 组合功能模块: ./CS/DigitalDesign/Chap03/Chap03_2.md
+        - 算术功能: ./CS/DigitalDesign/Chap03/Chap03_3.md
+      - Chap 05-Digital Hardware Implementation: ./CS/DigitalDesign/Chap05.md
     - 图像信息处理:
       - ./CS/DIP/index.md
       - 01-成像与图像的基本属性: ./CS/DIP/dip1.md
