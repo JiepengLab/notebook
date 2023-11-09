@@ -9,7 +9,11 @@ nav:
       - 秘密共享: ./Fundemental/Mathematical Modeling/Secret.md
       - 搜索引擎的PageRank模型: ./Fundemental/Mathematical Modeling/PageRank.md
       - Nim游戏: ./Fundemental/Mathematical Modeling/NimGame.md
-      - 伪币辨识: ./Fundemental/Mathematical Modeling/FakeCoin.md
+      - 组合群式 - 伪币辨识: ./Fundemental/Mathematical Modeling/FakeCoin.md
+      - 概率群式 - 疾病检测: ./Fundemental/Mathematical Modeling/Disease.md
+      - 概率论 - MontyHall: ./Fundemental/Mathematical Modeling/MontyHall.md
+      - 期望 - 赠券收集: ./Fundemental/Mathematical Modeling/Coupon.md
+      - 随机过程-赌徒破产 & Pascal: ./Fundemental/Mathematical Modeling/Gambler.md
     #  - HW01: ./Fundemental/Mathematical Modeling/HW01.md
     # - 离散数学及其应用:
     #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md
