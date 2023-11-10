@@ -6,14 +6,26 @@ nav:
     - ./Fundemental/index.md
     - 数学建模:
       - ./Fundemental/Mathematical Modeling/index.md
-      - 秘密共享: ./Fundemental/Mathematical Modeling/Secret.md
-      - 搜索引擎的PageRank模型: ./Fundemental/Mathematical Modeling/PageRank.md
-      - Nim游戏: ./Fundemental/Mathematical Modeling/NimGame.md
-      - 组合群式 - 伪币辨识: ./Fundemental/Mathematical Modeling/FakeCoin.md
-      - 概率群式 - 疾病检测: ./Fundemental/Mathematical Modeling/Disease.md
-      - 概率论 - MontyHall: ./Fundemental/Mathematical Modeling/MontyHall.md
-      - 期望 - 赠券收集: ./Fundemental/Mathematical Modeling/Coupon.md
-      - 随机过程-赌徒破产 & Pascal: ./Fundemental/Mathematical Modeling/Gambler.md
+      - 01 秘密共享: ./Fundemental/Mathematical Modeling/Secret.md
+      - 02 搜索引擎的PageRank模型: ./Fundemental/Mathematical Modeling/PageRank.md
+      - 03 Nim游戏: ./Fundemental/Mathematical Modeling/NimGame.md
+      - 04 组合群式 - 伪币辨识: ./Fundemental/Mathematical Modeling/FakeCoin.md
+      - 05 随机模型:
+        - 概率群式 - 疾病检测: ./Fundemental/Mathematical Modeling/Disease.md
+        - 概率论 - MontyHall: ./Fundemental/Mathematical Modeling/MontyHall.md
+        - 期望 - 赠券收集: ./Fundemental/Mathematical Modeling/Coupon.md
+        - 随机过程 - 赌徒破产 & Pascal: ./Fundemental/Mathematical Modeling/Gambler.md
+      - 06 秘书问题: ./Fundemental/Mathematical Modeling/Secretary.md
+      - 07 安全观演: ./Fundemental/Mathematical Modeling/Show.md
+      - 08 差分方程模型:
+        - 蛛网模型: ./Fundemental/Mathematical Modeling/Spider.md
+        - 种群增长模型: ./Fundemental/Mathematical Modeling/Population.md
+      - 09 常微分方程模型: 
+        - 追逐问题: ./Fundemental/Mathematical Modeling/Chase.md
+        - 最速降线问题: ./Fundemental/Mathematical Modeling/Brachistochrone.md
+      - 10 生物数学模型:
+        - 种群数量变化模型: ./Fundemental/Mathematical Modeling/PopulationChange.md
+        - 传染病模型: ./Fundemental/Mathematical Modeling/InfectiousDisease.md
     #  - HW01: ./Fundemental/Mathematical Modeling/HW01.md
     # - 离散数学及其应用:
     #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md
