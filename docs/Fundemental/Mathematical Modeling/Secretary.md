@@ -344,7 +344,7 @@ $$
 \end{aligned}
 $$
 
-因为$$，所以
+所以
 
 $$
 \begin{aligned}
