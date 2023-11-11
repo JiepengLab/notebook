@@ -18,6 +18,7 @@
         ![Alt text](images/image-32.png)
 
 记舞台中心为 $O$ 。以 $O$ 为圆心，半径为 $L$ 的圆为 $C$，记第 $i$ 个到达的观众为 $A_i$ ，所选位置为 $P_i$ 。以 $P_i$ 为圆心，$r$ 为半径的圆为 $C_i$，我们有
+
 - $d_i = |OP_i|\geq L$
 - $P_i$ 不在圆 $C$ 内，也不在圆 $C_1, C_2 \cdots C_{i-1}$内
 - $d_1\leq d_2\leq \cdots \leq d_n$，否则若 $d_i > d_{i+1}$，则 $A_i$  到达时可选择 $d_{i+1}$ ，矛盾
@@ -30,7 +31,7 @@
 
 $$
 \begin{aligned}
-    \pi \cdot d_n^2 
+    \pi \cdot d_n^2
     &\leq \pi L^2 + (n-1)\cdot \pi  r^2\\
     \Rightarrow d_n
     &\leq \sqrt{L^2 + (n-1) r^2}
@@ -49,10 +50,10 @@ $$
 
 $$
 \begin{aligned}
-    \pi \cdot (d_n + \frac{r}{2})^2 
+    \pi \cdot (d_n + \frac{r}{2})^2
     &\geq n \cdot \pi \cdot (\frac{r}{2})^2\\
     \Rightarrow d_n
-    &\geq (\frac{\sqrt{n}}{2} - \frac{1}{2}) \cdot r 
+    &\geq (\frac{\sqrt{n}}{2} - \frac{1}{2}) \cdot r
 \end{aligned}
 $$
 
@@ -96,13 +97,13 @@ $n$ 条线段在点 $C$ 将周角分为 $n$ 个角 $\angle P_{\sigma(i)}O\angle 
 $$\sin \angle P_{\sigma(i)}O\angle P_{\sigma(i+1)} \geq \frac{\rho}{2}(\frac{1}{d_{\sigma(i)}}+\frac{1}{d_{\sigma(i+1)}})$$
 
 !!! note ""
-    否则，不妨设$d_{\sigma(i)} \leq d_{\sigma(i+1)}$，则 
+    否则，不妨设$d_{\sigma(i)} \leq d_{\sigma(i+1)}$，则
 
     $$d_{\sigma(i)}\sin \angle P_{\sigma(i)}O\angle P_{\sigma(i+1)} < d_{\sigma(i)}\frac{\rho}{2}(\frac{1}{d_{\sigma(i)}}+\frac{1}{d_{\sigma(i+1)}})\leq d_{\sigma(i)}\frac{\rho}{2}\frac{2}{d_{\sigma(i)}}=\rho$$
 
     将产生遮挡。
 
-所以 
+所以
 
 $$
 \begin{aligned}
