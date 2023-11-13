@@ -143,8 +143,8 @@ theme:
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      # primary: brown
-      # accent: black
+      primary: black
+      accent:  indigo
       toggle:
         icon: material/brightness-4
         name: 切换至日间模式
@@ -152,7 +152,7 @@ theme:
     - media: "(prefers-color-scheme: light)"
       scheme: default
       # primary: brown
-      # accent: black
+      accent: purple
       toggle:
         icon: material/brightness-7
         name: 切换至夜间模式

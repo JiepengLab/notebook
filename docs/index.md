@@ -17,8 +17,6 @@
 
 ## 📝其他
 
-!!! tip "欢迎来到我的导航页↓"
+??? tip "[欢迎来到我的导航页](./nav)"
 
-    [点击前往导航页](./nav)
-
-    <iframe src="./nav/index.html" frameborder="0" width="80%" height="1000px"></iframe>
+    <iframe src="./nav/index.html" frameborder="0" width="100%" height="1000px"></iframe>
