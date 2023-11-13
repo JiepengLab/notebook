@@ -2,13 +2,43 @@
 counter: True  
 ---
 
-# 图像灰度变换 | Image grayscale transform
+# 3 图像灰度变换 | Image grayscale transform
 
-## Visibility enhancement: a logarithmic operation
+## 灰度感知 | Grayscale perception
 
-可视化增强：以对数操作为例
+根据韦伯定理，我们有
 
-为了增强图像的可视信息，对图像中的像素进行基于对数的操作
+$$\dfrac{\Delta I}{I}\approx K_{Weber}\approx 1\%\to 2\%$$
+
+$$\frac{I_max}{I_min}=(1+K_{Weber})^255 \approx 13 \to 156$$
+
+另外人们发现感知能力是服从$\log(I)$ 的，这称作**Fechner’s Law·**。
+
+## 可视化增强 | Visibility enhancement
+
+### $\gamma$ 校正 | $\gamma$ correction
+
+我们可以用 $\gamma$ 来近似表示这个关系，即
+
+![Alt text](images/image-44.png){: width=50%}
+
+用 $\gamma$ 来增强可视化效果，称作 $\gamma$ 校正。
+
+![Alt text](images/image-45.png)
+
+!!! note "图像通过gamma校正进行操作"
+
+    ![Alt text](images/image-46.png)
+
+    > 姑且可以认为这样操作与调整曝光时间的效果是一样的
+
+!!! note "不同$\gamma$的渐变效果"
+
+    ![Alt text](images/image-47.png)
+
+### 对数操作 | logarithmic operation
+
+为了增强图像的可视信息，我们对图像中的像素进行基于对数的操作，这更加符合人眼的感知。
 
 $$L_d=\dfrac{\log(L_w+1)}{\log(L_{max}+1)}$$
 
@@ -16,7 +46,7 @@ $$L_d=\dfrac{\log(L_w+1)}{\log(L_{max}+1)}$$
 
 这个映射能够确保不管场景的动态范围是怎么样的，其最大值都能映射到1（白），其他的值能够比较平滑地变化。
 
-## Grayscale image and histogram
+## 灰度图像及其直方图 | Grayscale image and histogram
 
 ### Grayscale image
 
@@ -49,7 +79,7 @@ $$\sum\limits_{k=0}^{L-1}P(r_k)=1$$
 !!! Example
     ![Alt text](images/image-39.png)
 
-## Color image and histogram
+## 彩色图像及其直方图 | Color image and histogram
 
 ### Color histogram
 
@@ -57,7 +87,7 @@ $$\sum\limits_{k=0}^{L-1}P(r_k)=1$$
 
 ![Alt text](images/image-40.png)
 
-## Characteristics of histogram
+## 直方图的特性 | Characteristics of histogram
 
 直方图  
 
@@ -81,109 +111,180 @@ $$\sum\limits_{k=0}^{L-1}P(r_k)=1$$
 
     直方图把结构信息丢失，只知道颜色分布，不知道结构。  
 
-## Histogram equalization and fitting
+## 直方图变换 | Histogram transform
 
-### Histogram equalization
+### 变换例子
 
-直方图均衡化：将原图像的非均匀分布的直方图通过变换函数T修正为均分布的直方图，然后按均衡直方图修正原图像。
+#### 直方图均衡化 | Histogram equalization
 
-找到变换函数T，确定如下对应关系：
+直方图均衡化：将原图像的非均匀分布的直方图通过变换函数 $T$ 修正为均分布的直方图，然后按均衡直方图修正原图像。
+
+图像均衡化处理后，图像的直方图是平直的，即各灰度级具有相同的出现频数：
+
+![Alt text](images/image-48.png)
+
+所以我们就是要找到变换函数 $T$ ，确定如下对应关系：
+
 $s=T(r)$
+
 从而确保输入图像中的每一个灰度r都能转换为新图像中的一个对应的灰度s。
 
-直方图均衡化——寻找T（连续灰度变化）  
+##### 变换函数 $T$ - 连续灰度变化
+
 假设：  
 
-* 令 r和 s 分别代表变化前后图像的灰度级，并且 $0\leq r,s \leq 1$ 。
-* P(r) 和 P(s) 分别为变化前后各级灰度的概率密度函数（r和s值已归一化，最大灰度值为1）
+* 令 $r$ 和 $s$ 分别代表变化前后图像的灰度级，并且 $0\leq r,s \leq 1$ 。
+* $P(r)$ 和 $P(s)$ 分别为变化前后各级灰度的概率密度函数（$r$ 和 $s$ 值已归一化，最大灰度值为 $1$ ）
 
 规定：  
 
-* 在$0\leq r \leq$中，T(r)是单调递增函数，并且$0\leq T(r)\leq 1$。
-* 反变换$r = T-1(s)$也为单调递增函数。
+* 在$0\leq r \leq 1$中，$T(r)$ 是单调递增函数，并且 $0\leq T(r)\leq 1$。
+* 反变换 $r = T^{-1}(s)$ 也为单调递增函数。
 
-考虑到灰度变换不影响像素的位置分布，也不会增减像素数目。所以有：$\int_{0}^rP(r)dr =\int_{0}^sP(s)ds=\int_{0}^s1ds=s=T(r)$ (为什么 Ps = 1, 因为是概率密度)  
+考虑到灰度变换不影响像素的位置分布，也不会增减像素数目。所以有：
+
+$$\int_{0}^rP(r)dr =\int_{0}^sP(s)ds=\int_{0}^s1ds=s=T(r)$$
+
+!!! question "为什么 $P(s)= 1$ ？ "
+    因为这里 $P(s)$ 是概率密度函数，因为 $s$ 是均匀分布的，所以 $P(s)= 1$ 。
+
 因此 $s=T(r)=\int_{0}^rP(r)dr$  
-即转换函数 T 在变量 r 处的函数值 s，是原直方图中灰度等级为 [0,r] 以内的直方图曲线所覆盖的面积。
+即转换函数 $T$ 在变量 $r$ 处的函数值 $s$，是原直方图中灰度等级为 $[0,r]$ 以内的直方图曲线所覆盖的面积。
 
-**Discrete:**  
-设一幅图像的像素总数为 n，分 L 个灰度级，$n_k$为第 k 个灰度级出现的像素数，则第 k 个灰度级出现的概率为：$P(r_k)=\dfrac{n_k}{n}\quad (0\leq r_k\leq 1,k=0,1,2,...L-1)$  
-**离散**灰度直方图均衡化的转换公式为：  
-$s_k=T(r_k)=\sum\limits_{i=0}^kP(r_i)=\sum\limits_{i=0}^k\dfrac{n_i}{n}=\dfrac{1}{n}\sum\limits_{i=0}^k n_i$  
+##### 变换函数 $T$ - 离散灰度变化
+
+设一幅图像的像素总数为 $n$ ，分 $L$ 个灰度级，$n_k$ 为第 $k$ 个灰度级出现的像素数，则第 $k$ 个灰度级出现的概率为：
+
+$$P(r_k)=\dfrac{n_k}{n}\quad (0\leq r_k\leq 1, k=0, 1,2,...L-1)$$
+
+**离散**灰度直方图均衡化的转换公式为：
+
+$$s_k=T(r_k)=\sum\limits_{i=0}^kP(r_i)=\sum\limits_{i=0}^k\dfrac{n_i}{n}=\dfrac{1}{n}\sum\limits_{i=0}^k n_i$$  
+
 对于原直方图中的任意一个灰度级 $r_k$，只需将灰度级为 $[0,r_k]$ 以内的所有像素个数的和除以图像的像素总数，就可以得到转换之后的对应灰度级 $s_k$
 
 !!! Example
-    设图像有64*64=4096个像素，有8个灰度级，灰度分布:
+    设图像有 $64*64=4096$ 个像素，有8个灰度级，灰度分布为:
+
     ![](http://cdn.hobbitqia.cc/202210311842933.png)
+
     1. 计算 $s_k$(利用前缀和)
-    2. 把计算的 $s_k$ 就近安排到8个灰度级中（得到 $s_k$ 舍入）
-    ![](http://cdn.hobbitqia.cc/202210311849380.png)
-    注意这里 34 灰度级被合并，灰度级总数减少，意味着灰度级之间的差异增大，对比度增强。
+    2. 把计算的 $s_k$ 就近安排到8个灰度级中
+
+    ![Alt text](images/image-50.png)
+
+    通过直方图，可以看出，灰度分布比之前更加均匀了。
+
     ![](http://cdn.hobbitqia.cc/202210311852689.png)
 
 !!! Question
-    *按照均衡化的要求，在均衡化后的结果直方图中，各灰度级发生的概率应该是相同的，如右上图所示连续灰度级均衡化结果那样。但是，如刚刚中离散灰度级均衡化后，各灰度级出现的概率并不完全一样。为什么？
+    按照均衡化的要求，在均衡化后的结果直方图中，各灰度级发生的概率应该是相同的，如右上图所示连续灰度级均衡化结果那样。但是，如刚刚中离散灰度级均衡化后，各灰度级出现的概率并不完全一样。为什么？
+
     * 步骤2中，所得的 $s_k$ 不可能正好等于8级灰度值中的某一级，因此需要就近归入某一个灰度级中。这样，相邻的多个 $s_k$ 就可能落入同一个灰度级，需要在步骤3时将处于同一个灰度级的像素个数累加。因此，离散灰度直方图均衡化操作以后，每个灰度级处的概率密度（或像素个数）并不完全一样。
 
  直方图均衡化实质上是减少图像的灰度级以换取对比度的加大。在均衡过程中，原来的直方图上出现概率较小的灰度级被归入很少几个甚至一个灰度级中，故得不到增强。若这些灰度级所构成的图象细节比较重要，则需采用局部区域直方图均衡化处理。
 
-### Histogram fitting
+!!! note "Matlab实现"
+    ```matlab
+    I = imread('pic.tif');
+    J = histeq(I);
+    imshow(I);
+    imshow(J);
+    ```
+
+#### 直方图匹配 | Histogram fitting
 
 * 所谓直方图匹配，就是修改一幅图像的直方图，使得它与另一幅图像的直方图匹配或具有一种预先规定的函数形状。  
 * 直方图匹配的目标，是突出我们感兴趣的灰度范围，使图像质量改善。  
 * 利用直方图均衡化操作，可以实现直方图匹配过程。
 
-![](http://cdn.hobbitqia.cc/202210311901959.png)
+![Alt text](images/image-55.png)
 
 具体过程：  
 
 * Base on the equation $s=T(r)=\int_0^rP(r)dr$ map the gray level r in the resulted histogram to be s.  
-* Base on the equation $v=T(z)=\int_0^zP(z)dz$ map the gray level z in the resulted histogram to be v.  
+
+    ![Alt text](images/image-52.png)
+
+* Base on the equation $v=T(z)=\int_0^zP(z)dz$ map the gray level z in the resulted histogram to be v.
+
+    ![Alt text](images/image-53.png)
+
 * 由$v = G(z)$得到 $z =G^{-1}(v)$。由于s和v有相同的分布，逐一取$v = s$，求出与r对应的$z =G^{-1}(s)$。
 
+    ![Alt text](images/image-54.png)
+
 方法简述：
-在步骤1和2中，分别计算获得两张表（参见直方图均衡化中的算例），从中选取一对vk、sj，使vk = sj，并从两张表中查出对应的zk、rj。这样，原始图像中灰度级为rj的所有像素都映射成灰度级zk，最终得到所期望的图像。
+
+在步骤 1 和 2 中，分别计算获得两张表（参见直方图均衡化中的算例），从中选取一对 $v_k$ 、$s_j$ ，使 $v_k = s_j$，并从两张表中查出对应的$z_k$、$r_j$。这样，原始图像中灰度级为 $r_j$ 的所有像素都映射成灰度级 $z_k$ ，最终得到所期望的图像。
 
 直方图（灰度）变换用以确定变换前后两个直方图灰度级之间对应关系的变换函数。经过直方图变换以后，原图像中的任何一个灰度值都唯一对应一个新的灰度值，从而构成一幅新图像。  
+
 直方图均衡化、直方图匹配都属于直方图变换操作。
 
-### Histogram transform—image enhancement
-
-**图像增强**
+#### 图像增强 | Image enhancement
 
 * 采用一系列技术去改善图像的视觉效果，或将图像转换成一种更适合于人或机器进行分析处理的形式。
 * 图像增强并不以图像保真为准则，而是有选择地突出某些对人或机器分析有意义的信息，抑制无用信息，提高图像的使用价值。
 * 根据任务目标突出图像中感兴趣的信息，消除干扰，改善图像的视觉效果或增强便于机器识别的信息。
 
-* Luminance adjustment
+    !!! Example "Luminance adjustment"
 
-    ??? Example
         ![](http://cdn.hobbitqia.cc/202210311920581.png)
 
-* Contrast adjustment
+    !!! Example "Contrast adjustment"
 
-    ??? Example
         ![](http://cdn.hobbitqia.cc/202210311920136.png)
 
-* Color quantization
+    !!! Example "Color quantization"
 
-    ??? Example
         ![](http://cdn.hobbitqia.cc/202211011330860.png)
+
+## 变换分类
 
 根据变换函数类型的不同，直方图灰度变换可以分为线性变换和非线性变换两大类。
 
-### Linear grayscale transform
+### 线性变换 | Linear grayscale transform
+
+直方图灰度的线性变换函数可以表示为
+
+$$s=T(r)=kx+b$$
+
+!!! note ""
+    - $r$ 为输入点的灰度值
+    - $s$ 为相应输出点的灰度值
+    - $k$、$b$为常数。$k<1$时表示灰度值被抑制，$b$为图像的抬升
 
 ![](http://cdn.hobbitqia.cc/202211011337017.png)
 
 !!! Example
     ![](http://cdn.hobbitqia.cc/202211011338501.png)
 
-Contrast stretching 拉伸
+#### 拉伸 | Contrast stretching
+
+![Alt text](images/image-57.png){: width=50%}
+
 输入图像f(x,y)灰度范围为[a,b]
 输出图像g(x,y)灰度范围为[c,d]
 
-有的时候 分段拉伸
+!!! note "拉伸例子"
+    ![Alt text](images/image-58.png)
+
+    ![Alt text](images/image-59.png)
+
+#### 分段拉伸
+
+![Alt text](images/image-61.png)
+
 利用分段直方图变换，可以将感兴趣的灰度范围线性扩展，同时相对抑制不感兴趣的灰度区域。
 
-### 　Nonlinear histogram transform
+### 非线性变换 | 　Nonlinear histogram transform
+
+我们有对数变换(Logarithmic transform)和指数变换(Exponential transform)
+
+![Alt text](images/image-62.png)
+
+![Alt text](images/image-63.png)
+
+!!! note "例子"
+    ![Alt text](images/image-64.png)

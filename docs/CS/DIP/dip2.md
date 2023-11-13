@@ -2,7 +2,7 @@
 counter: True  
 ---
 
-# 二值图像与形态学
+# 2 二值图像与形态学
 
 !!! note "本章概述"
     二值图像 | Binary image
