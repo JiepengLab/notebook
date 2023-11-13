@@ -6,5 +6,33 @@ body {
     /* font-family: "LXGW WenKai TC", sans-serif; */
     /* Screen version */
     /* font-family: "LXGW WenKai Screen", sans-serif; */
-
+    
   }
+h1 ~ p {
+  text-indent: 30px;
+}
+
+img{
+  border-radius: 10px;
+}
+
+p:has(img){
+  /* width: 80%; */
+  text-indent: 0px
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
