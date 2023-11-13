@@ -16,6 +16,10 @@ img{
   border-radius: 10px;
 }
 
+div p[class^=""]{
+  text-indent: 20px;
+}
+
 p:has(img){
   /* width: 80%; */
   text-indent: 0px
@@ -35,4 +39,38 @@ a:hover {
 
 a:active {
   text-decoration: underline;
+}
+
+strong {
+  text-shadow: 0.7px 0px;
+  /* text-shadow: 0 0 1px #ffffff; */
+  
+}
+
+#animation {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: relative;
+  animation-name: example;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  border-radius: 5px;
+  animation-direction: alternate;
+  animation-timing-function: ease;
+  resize: both;
+  overflow: auto;;
+  max-width: 100px;
+}
+
+#animation:hover {
+  animation-play-state: paused;
+}
+
+@keyframes example {
+  0%   {background-color:red; left:0%; top:0px;}
+  25%  {background-color:yellow; left:85%; top:0px;}
+  50%  {background-color:blue; left:0%; top:0px;}
+  75%  {background-color:green; left:85%; top:0px;}
+  100% {background-color:red; left:0px; top:0px;}
 }

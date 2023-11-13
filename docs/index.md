@@ -20,3 +20,6 @@
 ??? tip "[欢迎来到我的导航页](./nav)"
 
     <iframe src="./nav/index.html" frameborder="0" width="100%" height="1000px"></iframe>
+
+!!! note "你发现了一个框框，你可以改变它的大小！"
+    <div id = "animation"></div>
