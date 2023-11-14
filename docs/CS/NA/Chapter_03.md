@@ -80,7 +80,82 @@ $$f(x)-P_n(x)=\frac{f^{(n+1)}(\xi(x))}{(n+1)!}\prod\limits_{i=0}^n(x-x_i)$$
 因为这里的$f^{(n+1)}(\xi(x))$是不知道的，所以我们经常用$f^{(n+1)}(x)$的上界来估计余项。
 
 !!! note ""
-    分析余项可知，对于小于等于$n$次的多项式$f$，经过$n$次拉格朗日插值得到的余项为0，得到的多项式就是$f$本身
+    分析余项可知，对于小于等于 $n$ 次的多项式 $f$ ，经过$n$次拉格朗日插值得到的余项为0，得到的多项式就是 $f$ 本身
 
     !!! note ""
         这里限制了$f$为多项式
+
+#### 例子 1
+
+假设为 $x\in [0,1]$ 的函数 $f(x)=e^x$ 做一个表格。设表中每一项精确的位数是 $d\geq 8$，相邻 $x$ 值之差即步长为 $h$。为使线性插值（即一次Lagrange插值）的误差不超过 $10^{-6}$，$h$应该是多少？
+
+***解：***
+
+假设 $[0, 1]$ 被分成 $n$ 个等距的子区间 $[x_0, x_1], [x_1, x_2], \cdots, [x_{n-1} , x_n]$，$x$ 在区间 $[x_k, x_{k+1}]$ 中。则误差估计为
+
+$$
+\begin{aligned}
+|f(x)-P_1(x)| &= |\frac{f''(\xi(x))}{2!}(x-x_k)(x-x_{k+1})| \\
+&\leq |\frac{e^\xi}{2}(x-kh)(x-(k+1)h)| \\
+&\leq \frac{e}{2}\cdot \frac{h^2}{4} \\
+&\leq 10^{-6}
+\end{aligned}
+$$
+
+所以 $h\leq 1.72\times 10^{-3}$。我们不妨取 $h=10^{-3}$，则 $n=1000$。
+
+#### 例子 2
+
+![Alt text](images/image-37.png)
+
+!!! note ""
+
+    给三个点，我们有两种方法来线性插值。往往，**内插(Intrapolation)** 会比 **外插(Extrapolation)** 更加准确。
+
+![Alt text](images/image-38.png)
+
+!!! note ""
+
+    高次的拉格朗日插值一般会比低次的插值更加准确，但是这不一定总成立。
+
+### Neville 迭代插值法
+
+<!-- Let  f  be a function defined at x0, x1, …, xn, and suppose that m1, …, mk are k distinct integers with 0  mi  n for each i.  The Lagrange polynomial that agrees with f(x) at the k points 
+denoted by
+ -->
+
+**记号说明：**设 $f$ 在 $x_0,x_1,\cdots,x_n$ 上有定义，$m_1,m_2,\cdots,m_k$ 是 $k$ 个不同的整数，$0\leq m_i\leq n$，$i=1,2,\cdots,k$。记在这 $k$ 个点上与 $f(x)$ 相同的拉格朗日多项式为 $P_{m_1,m_2,\cdots,m_k}(x)$。
+
+<!-- :  Let  f  be defined at x0, x1, …, xk, and let xi and xj be two distinct numbers in this set.  Then -->
+
+<!-- describes the k-th Lagrange polynomial that interpolates f at the k+1 points x0, x1, …, xk .
+ -->
+
+**定理：** 设 $f$ 在 $x_0,x_1,\cdots,x_n$ 上有定义，让 $x_i$ 和 $x_j$ 是这个集合中的两个不同的数。则
+
+$$P(x)=\frac{(x-x_j)P_{0,1,...,j-1,j+1,...,k}(x)-(x-x_i)P_{0,1,...,i-1,i+1,...,k}(x)}{(x_i-x_j)}$$
+
+描述了对 $f$ 在 $x_0,x_1,\cdots,x_k$ 这 $k+1$个点 上的 $k$ 次插值多项式。
+
+<!-- Proof:  For any 0  r  k and r  i and j, the two interpolating polynomials on the numerator are equal to f(xr) at xr , so P(xr) = f(xr).
+ -->
+
+ <!-- The first polynomials on the numerator equals f(xi) at xi , while the second term is zero, so P(xi) = f(xi).  Similarly P(xj) = f(xj). 
+ -->
+
+<!-- The k-th Lagrange polynomial that interpolates f at the k+1 points x0, x1, …, xk is unique.
+ -->
+
+**证明：**
+
+对于任意 $0\leq r\leq k$，$r\neq i$ 和 $r\neq j$，分子上的两个插值多项式在 $x_r$ 处都等于 $f(x_r)$，所以 $P(x_r)=f(x_r)$。
+
+分子上的第一个多项式在 $x_i$ 处等于 $f(x_i)$，而第二个多项式在 $x_i$ 处为0，所以 $P(x_i)=f(x_i)$。同理 $P(x_j)=f(x_j)$。
+
+所以 $P(x)$ 在 $x_0,x_1,\cdots,x_k$ 上与 $f(x)$ 相同，因为 $P(x)$ 是 $k$ 次多项式，所以 $P(x)=P_{0,1,\cdots,k}(x)$。
+
+#### 伪代码
+
+![Alt text](images/image-39.png)
+
+## 3.2 Divided Differences | 差分

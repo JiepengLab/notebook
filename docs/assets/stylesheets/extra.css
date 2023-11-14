@@ -14,6 +14,7 @@ h1 ~ p {
 
 img{
   border-radius: 10px;
+  /* border-style: solid 2px #000000; */
 }
 
 div p[class^=""]{
