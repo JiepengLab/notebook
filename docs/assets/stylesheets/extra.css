@@ -23,7 +23,8 @@ div p[class^=""]{
 
 p:has(img){
   /* width: 80%; */
-  text-indent: 0px
+  text-indent: 0px;
+  text-align: center;
 }
 
 a:link {

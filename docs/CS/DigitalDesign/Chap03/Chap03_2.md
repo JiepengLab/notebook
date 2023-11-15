@@ -118,13 +118,12 @@
 
     ![Alt text](images/image-19.png)
 
-
 !!! note ""
     使用独热码的时候，因为别的输入都是未知的，如果别的量作`X`来方便优化，那此时就无法判断得出唯一输出。
 
 #### 优先编码器
 
-优先编码器（Priority Encoder）可以解决上述问题。它不要求输入是 one-hot 的。
+优先编码器（Priority Encoder）可以解决上述问题。
 
 优先编码器能够实现优先级函数，它不要求输入是 one-hot 的，而是总是关注有效输入中优先级最高的那一个。即比如当优先级最高的那一位是 `1` 时，其它所有优先级不如它的位置的值都是我们不关心的内容了。
 
@@ -142,7 +141,6 @@
 
     ![Alt text](images/image-22.png)
 
-
 ---
 
 ### 多路选择器
@@ -151,12 +149,10 @@
 
 MUX 和译码器一样，都可以表达任意组合逻辑。这是因为 MUX 的实现内部就存在一个译码器，我们只需要将 MUX 的控制端（也就是译码器）用作输入，将组合逻辑的真值表写入 MUX 的选项端进行选择，就可以表达任何组合逻辑。
 
-
 通常，一个 $2^n-to-1$ MUX 的组成为：
 
 - 一个 $n-to-2^n$ 译码器（MUX 利用了译码器每次只有一个输出为 `1` 的特性，从而实现选择功能）；
 - $2^n \times 2$ AND-OR；
-
 
 !!! example ""
 
@@ -230,8 +226,6 @@ $O_0$=$\overline{A}\overline{B}$，$O_1$=$\overline{A}B$，$O_2$=$A\overline{B}$
 $CD-00: O_0$, $CD-01: O_1$, $CD-10: O_2$, $CD-11: O_3$
 
 $\therefore F = O_0\overline{C}\overline{D} + O_1\overline{C}D + O_2C\overline{D} + O_3CD=\overline{A}\overline{B}\overline{C}\overline{D} + \overline{A}B\overline{C}D + A\overline{B}C\overline{D} + ABCD$
-
-
 
 ---
 
