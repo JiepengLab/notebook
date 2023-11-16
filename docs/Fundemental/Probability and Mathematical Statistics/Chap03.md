@@ -26,6 +26,13 @@
 
 ### 分布函数
 
+!!! note ""
+
+      - 联合分布函数 $F(x,y) = P(X \leq x, Y \leq y)$ 是二元函数
+      - 边际分布函数 $F_X(x) = P(X \leq x) = lim_{y \rarr +\infty}F(x,y)$ 是关于 $x$ 的一元函数
+      - 条件分布函数 $F_{X \mid Y}(x \mid y) = P(X \leq x \mid Y=y)$ 是关于 $x$ 的一元函数
+      - $\lim_{\epsilon \rarr 0^+}P(X\leq x\mid y<Y\leq y+\epsilon)$ 也记为 $P(X \leq x \mid Y=y)$，请特别注意这个记号所带来的两种理解
+
 #### 联合分布函数
 
 $F(x,y)=P\{X\leq x,Y\leq y\}$为$(X,Y)$的**联合概率分布函数**，简称**联合分布函数（Joint Distribution Function）**，其具有如下性质：
@@ -54,6 +61,8 @@ $X=x_i$条件下$Y$的**条件概率分布函数**为：
 $$F_{Y|X}(y|x_i)=P\{Y\leq y | X = x_i\}$$
 
 ## 二维连续型随机变量
+
+
 
 ### 联合分布
 
@@ -104,8 +113,7 @@ $$F_{Y|X}(y|x)=\lim\limits_{\delta\rightarrow 0^+}P\{Y\leq y|x<X\leq x+\delta\}$
 
       设$(X,Y)$为二元随机变量，对给定的$x$，若极限：
 
-      $$\lim\limits_{\delta\rightarrow 0^+}P\{Y\leq y|x-\delta<X\leq x+\delta\}
-      =\lim\limits_{\delta\rightarrow 0^+}P\{Y\leq y|x-\delta<X\leq x+\delta\}
+      $$\lim\limits_{\delta\rightarrow 0^+} P \{Y\leq y|x-\delta<X\leq x+\delta \}=\lim\limits_{\delta\rightarrow 0^+}P\{Y\leq y|x-\delta<X\leq x+\delta\}
       $$
 
       对任意的$y$都存在，则称$Y$在$X=x$的条件下服从**条件分布函数**
@@ -126,9 +134,6 @@ $$\begin{aligned}
 &=\frac{\partial F(x,y)}{\partial x}\\
 &=\frac{\partial}{\partial x}\int_{-\infty}^x[\int_{-\infty}^{y}f(u,v)\mathrm{d}v]\mathrm{d}u\\
 &=\int_{-\infty}^yf(x,v)\mathrm{d}v\\
-\end{aligned}$$
-
-$$\begin{aligned}
 \lim\limits_{\delta\rightarrow 0^+}\frac{F_X(x+\delta)-F_X(x)}{\delta}
 &=f_X(x)\\
 \end{aligned}$$
@@ -174,21 +179,23 @@ $$f(x,y)=\frac{1}{2\pi\sigma_1\sigma_
 
 !!! note "二维正态分布的两个边际分布"
 
-      $$\begin{aligned}
-      f_X(x)&=\int_{-\infty}^{+\infty}f(x,y)\mathrm{d}y\\
-      &=\frac{1}{\sqrt{2\pi}\sigma_1}\exp\{-\frac{(x-\mu_1)^2}{2\sigma_1^2}\}\\
-      f_Y(y)&=\int_{-\infty}^{+\infty}f(x,y)\mathrm{d}x\\
-      &=\frac{1}{\sqrt{2\pi}\sigma_2}\exp\{-\frac{(y-\mu_2)^2}{2\sigma_2^2}\}\\
-      \end{aligned}$$
+    $$
+    \begin{aligned}
+    f_X(x)&=\int_{-\infty}^{+\infty}f(x,y)\mathrm{d}y\\
+    &=\frac{1}{\sqrt{2\pi}\sigma_1}\exp\{-\frac{(x-\mu_1)^2}{2\sigma_1^2}\}\\
+    f_Y(y)&=\int_{-\infty}^{+\infty}f(x,y)\mathrm{d}x\\
+    &=\frac{1}{\sqrt{2\pi}\sigma_2}\exp\{-\frac{(y-\mu_2)^2}{2\sigma_2^2}\}\\
+    \end{aligned}
+    $$
 
 !!! note "二维正态分布的两个条件分布"
 
-      $$\begin{aligned}
-      f_{Y|X}(y|x)&=\frac{f(x,y)}{f_X(x)}\\
-      &=\frac{1}{\sqrt{2\pi}\sqrt{1-\rho^2}\sigma_2}\exp\{-\frac{1}{2(1-\rho^2)\sigma_2^2}[y-(\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1))]^2\}\\
-      f_{X|Y}(x|y)&=\frac{f(x,y)}{f_Y(y)}\\
-      &=\frac{1}{\sqrt{2\pi}\sqrt{1-\rho^2}\sigma_1}\exp\{-\frac{1}{2(1-\rho^2)\sigma_1^2}[x-(\mu_1+\rho\frac{\sigma_1}{\sigma_2}(y-\mu_2))]^2\}\\
-      \end{aligned}$$
+    $$\begin{aligned}
+    f_{Y|X}(y|x)&=\frac{f(x,y)}{f_X(x)}\\
+    &=\frac{1}{\sqrt{2\pi}\sqrt{1-\rho^2}\sigma_2}\exp\{-\frac{1}{2(1-\rho^2)\sigma_2^2}[y-(\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1))]^2\}\\
+    f_{X|Y}(x|y)&=\frac{f(x,y)}{f_Y(y)}\\
+    &=\frac{1}{\sqrt{2\pi}\sqrt{1-\rho^2}\sigma_1}\exp\{-\frac{1}{2(1-\rho^2)\sigma_1^2}[x-(\mu_1+\rho\frac{\sigma_1}{\sigma_2}(y-\mu_2))]^2\}\\
+    \end{aligned}$$
 
 ## 随机变量的独立性
 
