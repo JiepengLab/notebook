@@ -1,6 +1,7 @@
 # 人工智能引论
 
 !!! note "基本信息："
+    - 授课：杨易，朱霖潮
     - 智云课堂：[🔗](https://classroom.zju.edu.cn/coursedetail?course_id=56046&tenant_code=112)
     - 笔记：[📙](/docs/cs/Introduction-to-AI/index.md)
     - 课本：[📘](https://ebook.hep.com.cn/index.html#/reader?bookId=1146692759717937152)

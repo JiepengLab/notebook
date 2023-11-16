@@ -42,6 +42,7 @@ nav:
       - Chapter 1-概率论的基本概念: ./Fundemental/Probability and Mathematical Statistics/Chap01.md
       - Chapter 2-随机变量及其概率分布: ./Fundemental/Probability and Mathematical Statistics/Chap02.md
       - Chapter 3-多维随机变量及其分布: ./Fundemental/Probability and Mathematical Statistics/Chap03.md
+    - 大学物理（乙）II: ./Fundemental/Physics-II/index.md
   - CS: 
     - ./CS/index.md
     - ML-4360:
