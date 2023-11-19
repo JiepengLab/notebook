@@ -27,11 +27,11 @@ counter: True
 <details>
 ``` C
 void SetUnion ( DisjSet S, SetType Rt1, SetType Rt2 )
-{    
-    S [ Rt2 ] = Rt1 ;     
+{
+    S [ Rt2 ] = Rt1 ;
 }
 SetType Find ( ElementType X, DisjSet S )
-{   
+{
     for ( ; S[X] > 0; X = S[X] );
     return  X ;
 }
@@ -54,7 +54,7 @@ SetType Find ( ElementType X, DisjSet S )
 
 * 按大小求并  
 即每次合并时，我们改变较小的树
-设 $T$ 是按大小合并的 $N$ 个节点的树，那么 $height(T)\leq\lfloor \log_2N\rfloor +1$ (可用归纳法证明)   
+设 $T$ 是按大小合并的 $N$ 个节点的树，那么 $height(T)\leq\lfloor \log_2N\rfloor +1$ (可用归纳法证明)
 因此对于 $N$ 个 `Union` 操作 $M$ 个 `Find` 操作，所用时间为 $O(N+M\log_2N)$
 * 按高度求并  
 即每次合并时，我们改变较矮的树
@@ -68,8 +68,8 @@ SetType  Find ( ElementType  X, DisjSet  S )
     for ( root = X; S[ root ] > 0; root = S[ root ] )
         ;  /* find the root */
     for ( trail = X; trail != root; trail = lead ) {
-       lead = S[ trail ] ;   
-       S[ trail ] = root ;   
+       lead = S[ trail ] ;
+       S[ trail ] = root ;
     }  /* collapsing */
     return  root ;
 }
@@ -91,8 +91,8 @@ A(i-1,A(i,j-1))\ & i\geq 2\ and\ j\geq 2 \end{matrix}\right.
 \end{align*}
 $$
 
-!!! Info 
-    并查集: the disjoint set   
+!!! Info
+    并查集: the disjoint set
     等价关系: equivalence relations  
     按大小求并: union by size  
     路径压缩: path compression  
