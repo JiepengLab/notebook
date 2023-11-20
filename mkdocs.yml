@@ -1,6 +1,7 @@
 nav:
   - 首页:
     - home: index.md
+    - 朋友们！: ./Friends.md
     - 正在学习的课程: CurrentStudy.md
   - 基础课程:
     - ./Fundemental/index.md
@@ -148,15 +149,15 @@ theme:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
-      accent:  indigo
+      accent:  teal
       toggle:
         icon: material/brightness-4
         name: 切换至日间模式
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      # primary: brown
-      accent: purple
+      # primary: teal
+      accent: cyan
       toggle:
         icon: material/brightness-7
         name: 切换至夜间模式
