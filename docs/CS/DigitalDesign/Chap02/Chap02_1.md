@@ -148,7 +148,7 @@ $XY+\overline{X}Z+YZ=XY+\overline{X}Z+(X+\overline{X})YZ$，那后面就很简�
 
 由于本质上相等的布尔表达式实际上有很多种写法，而且随着变量越来越复杂，他们之间的比较会很困难。所以我们需要定义一种形式，使得所有相同的表达式都能比较方便的“化简”为同一个形式，同时也能辨别出两个表达式是不同的。
 
-这就引入了 **标准形式(Standard Forms)**，包括 SOP 和 POS；以及 **规范形式(Canonical Forms)**，分别为 **最小项之和(Sum of Minterms)SOM** 和 **最大项之积(Product of Maxterms)POM**。
+这就引入了 **标准形式(Standard Forms)**，包括 SOP 和 POS；以及 **规范形式(Canonical Forms)**，分别为 **最小项之和(Sum of Minterms, SOM)** 和 **最大项之积(Product of Maxterms, POM)**。
 
 为了方便描述，在继续之前，我们先给出这样一张 🌰 真值表。
 
@@ -353,7 +353,7 @@ $$
             & = (X+Y+Z)(X+\overline{Y}+Z)(\overline{X}+Y+\overline{Z})(\overline{X}+\overline{Y}+\overline{Z})
         \end{array}
         $$
-        于是我们发现一件很有意思的事情，$F$ 的 SOM 的下标与 $\overline{F}$ 的 POM 的下标是一样的；当然对于 $F$ 的 POM 和 $\overline{F}$ 的 SOM 也是一样的。这又双印证了对称性。
+        于是我们发现一件很有意思的事情，$F$ 的 SOM 的下标与 $\overline{F}$ 的 POM 的下标是一样的；当然对于 $F$ 的 POM 和 $\overline{F}$ 的 SOM 也是一样的。这又印证了对称性。
 
 ### 标准形式-SOP/POS
 

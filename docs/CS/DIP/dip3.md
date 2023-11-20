@@ -1,7 +1,3 @@
----
-counter: True  
----
-
 # 3 图像灰度变换 | Image grayscale transform
 
 ## 灰度感知 | Grayscale perception
@@ -182,7 +178,7 @@ $$s_k=T(r_k)=\sum\limits_{i=0}^kP(r_i)=\sum\limits_{i=0}^k\dfrac{n_i}{n}=\dfrac{
 !!! Example
     设图像有 $64*64=4096$ 个像素，有8个灰度级，灰度分布为:
 
-    ![](http://cdn.hobbitqia.cc/202210311842933.png)
+    ![Alt text](images/image-79.png)
 
     1. 计算 $s_k$(利用前缀和)
     2. 把计算的 $s_k$ 就近安排到8个灰度级中
@@ -191,7 +187,7 @@ $$s_k=T(r_k)=\sum\limits_{i=0}^kP(r_i)=\sum\limits_{i=0}^k\dfrac{n_i}{n}=\dfrac{
 
     通过直方图，可以看出，灰度分布比之前更加均匀了。
 
-    ![](http://cdn.hobbitqia.cc/202210311852689.png)
+    ![Alt text](images/image-80.png)
 
 !!! Question
     按照均衡化的要求，在均衡化后的结果直方图中，各灰度级发生的概率应该是相同的，如右上图所示连续灰度级均衡化结果那样。但是，如刚刚中离散灰度级均衡化后，各灰度级出现的概率并不完全一样。为什么？
@@ -246,15 +242,15 @@ $$s_k=T(r_k)=\sum\limits_{i=0}^kP(r_i)=\sum\limits_{i=0}^k\dfrac{n_i}{n}=\dfrac{
 
     !!! Example "Luminance adjustment"
 
-        ![](http://cdn.hobbitqia.cc/202210311920581.png)
+        ![Alt text](images/image-81.png)
 
     !!! Example "Contrast adjustment"
 
-        ![](http://cdn.hobbitqia.cc/202210311920136.png)
+        ![Alt text](images/image-82.png)
 
     !!! Example "Color quantization"
 
-        ![](http://cdn.hobbitqia.cc/202211011330860.png)
+        ![Alt text](images/image-83.png)
 
 ## 变换分类
 
@@ -271,10 +267,10 @@ $$s=T(r)=kx+b$$
     - $s$ 为相应输出点的灰度值
     - $k$、$b$为常数。$k<1$时表示灰度值被抑制，$b$为图像的抬升
 
-![](http://cdn.hobbitqia.cc/202211011337017.png)
+![Alt text](images/image-84.png)
 
 !!! Example
-    ![](http://cdn.hobbitqia.cc/202211011338501.png)
+    ![Alt text](images/image-85.png)
 
 #### 拉伸 | Contrast stretching
 

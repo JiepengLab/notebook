@@ -9,7 +9,7 @@
 
 时序电路主要分为两类（主要分类依据是输入信号的时间和内部状态改变的时间）：**同步时序电路(synchronous sequential circuit)** 和 **异步时序电路(asynchronous sequential circuit)**。
 
->  The behavior of a synchronous sequential circuit can be defined from the knowledge of its signals at discrete instants of time. The behavior of an asynchronous sequential circuit depends upon the inputs at any instant of time and the order in continuous time in which the inputs change.
+> The behavior of a synchronous sequential circuit can be defined from the knowledge of its signals at discrete instants of time. The behavior of an asynchronous sequential circuit depends upon the inputs at any instant of time and the order in continuous time in which the inputs change.
 
 一般来说，异步电路的设计相对困难（行为与门的传播延迟和输入信号变化的时间序列密切相关），但仍然十分必要，比如触发器就是以一部锁存器为模块设计的；而同步电路的使用更加广泛，通常这些“离散的时刻”都是由 **时钟发生器(clock generator)** 这种时序器件产生周期性的 **时钟脉冲(clock pulse)** 序列来实现的（这种电路一般被称为 **钟控时序电路(clocked sequential circuit)**，由于设计相对容易，鲁棒性强，所以被广泛应用）。
 
@@ -183,7 +183,6 @@ $$
 |`11`|`0`|`00`|`1`|
 |`11`|`1`|`10`|`0`|
 
-
 !!! note "Mealy model circuit & Moore model circuit"
     如果输出既依赖于当前状态，也依赖于输入的时序电路，则称为 **米勒型电路(Mealy model circuit)**；而如果输出只依赖于当前状态，则称为 **摩尔型电路(Moore model circuit)**。
 
@@ -281,7 +280,7 @@ $$
 
 !!! note "Generic State Diagram Template"
     ![](img/90.png)
-    
+
     首先解释一下这个“范式”：
 
     > 具体解释状态机有哪些内容，以及各个部分之间的逻辑。关于各个部分出现的位置，请参考 Template。
@@ -292,7 +291,7 @@ $$
 
     ---
 
-    「输入条件」是由输入变量形成的一个布尔方程，在整个状态机中，输入是变化的“因变量”，换句话来说，无论是状态转移还是输出，都取决于输入条件。而导致特定行为的输入条件则被分类为 **转移条件(Transition Condition)TC** 和 **输出条件(Output Condition)OC**。
+    「输入条件」是由输入变量形成的一个布尔方程，在整个状态机中，输入是变化的“因变量”，换句话来说，无论是状态转移还是输出，都取决于输入条件。而导致特定行为的输入条件则被分类为 **转移条件(Transition Condition, TC)** 和 **输出条件(Output Condition, OC)**。
 
     ---
 
@@ -300,7 +299,7 @@ $$
 
     ---
 
-    「输出行为」在状态机中有四种触发方法（即四种 OC）：**Moore**、**不依赖转移(Transition-condition Independent)TCI** Mealy、**依赖转移(Transition-condition Dependent)TCD** Mealy 和 **依赖转移和输出条件(Transition and Output-condition Dependent)TOCD** Mealy。根据字面意思来看：
+    「输出行为」在状态机中有四种触发方法（即四种 OC）：**Moore**、**不依赖转移(Transition-condition Independent, TCI)** Mealy、**依赖转移(Transition-condition Dependent, TCD)** Mealy 和 **依赖转移和输出条件(Transition and Output-condition Dependent, TOCD)** Mealy。根据字面意思来看：
         
     - Moore 只与状态有关，所以在图中从状态节点引出；
     - TCI Mealy 与状态和输出条件有关，所以在图中从状态节点引出写在 OC 后面（`OC`/`TCI OA`）；
@@ -414,10 +413,3 @@ $$
     一般从一个 FF 的输出出发到 FF 的输入结束。
 
 - [ ] 我觉得这里应该是需要有例题的，但是我现在还没做题，所以做了再写。
-
-
-
-
-
-
-

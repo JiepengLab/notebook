@@ -6,16 +6,16 @@ counter: True
 
 ## 前置知识
 
-> 一个**关系** R 定义在集合 S 上, 表示为对于每一对 $(a,b),a,b\in S$, $aRb$ 要么为真要么为假. 如果 $aRb$ 为真，那么我们称 $a$ 和 $b$ 有关系。
+一个**关系** $R$ 定义在集合 $S$ 上, 表示为对于每一对 $(a,b),a,b\in S$, $a\;R\;b$ 要么为真要么为假. 如果 $a\;R\; b$ 为真，那么我们称 $a$ 和 $b$ 有关系。
 
-> **等价关系**是满足自反性($\forall a\in S, aRa$)，对称性($aRb\Leftrightarrow bRa$)，传递性($aRb, bRc \Rightarrow aRc$)的关系，一般用 ~ 表示等价关系。
+**等价关系**是满足自反性 (symmetric, $\forall a\in S, a\;R\;a$)，对称性(reflexive, $a\;R\;b\Leftrightarrow b\;R\;a$)，传递性(transive, $a\;R\;b, b\;R\;c \Rightarrow a\;R\;c$)的关系，一般用 ~ 表示等价关系。
 
-> S 中的两个元素 $x$ $y$ 在同一个等价类中当且仅当 $a$ ~ $b$
+$S$ 中的两个元素 $x$ $y$ 在同一个等价类中当且仅当 $a$ ~ $b$
 
 ## 动态等价性问题
 
 * 集合的元素: $1,2,3\ldots,N$
-* 集合: $S_1,S_2,\ldots$ 且 $S_i\cap S_j=\empty$ (若 $i\neq j$), 即集合之间不相交
+* 集合: $S_1,S_2,\ldots$ 且 $S_i\cap S_j=\varnothing$ (若 $i\neq j$), 即集合之间不相交
 * 操作:
     * `Find(i)` 返回给定元素的所在的集合（等价类）
     * `Union(i,j)` 求并运算，将含有 a 和 b 的两个等价类合并为一个等价类  

@@ -432,7 +432,7 @@ RGB颜色模型构成的颜色空间是CIE原色空间的一个真子集。
 
 RGB颜色模型通常用于彩色阴极射线管和彩色光栅图形显示器（计算机和电视机采用）。
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212200916284.png" width = 30%/></div>
+![Alt text](images/image-87.png){width=30%}
 
 #### CMY Color Model
 
@@ -446,7 +446,7 @@ RGB颜色模型通常用于彩色阴极射线管和彩色光栅图形显示器�
 
 CMY是subtractive color, RGB是additive color
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212200922855.png" width = 35%/></div>
+![Alt text](images/image-88.png){width=35%}
 
 CMY空间与RGB空间互补，也就是用白色减去RGB空间中的某一颜色值就等于同样颜色在CMY空间中的值
 
@@ -473,7 +473,7 @@ HIS可以描绘为一个圆锥体
 
 在圆锥体顶面中心，V=1，S=0，H无定义，代表白色。
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212200929318.png" width = 35%/></div>
+![Alt text](images/image-89.png){width=35%}
 
 - 符合人类视觉系统
 - 当采用RGB（或者CMY）颜色模型时，改变某一颜色的属性，比如改变色调就必须同时改变R、G、B（或者C、M、Y）三个坐标；而采用HSV颜色模型时只需改变H坐标。也就是说，HSV颜色模型中的三个坐标是独立的。
@@ -504,7 +504,8 @@ L*a*b*颜色空间是在1976年制定的，它是CIE XYZ颜色模型的改进型
 采用YUV颜色空间的重要性是它的亮度信号Y和色度信号U、V是分离的。如果只有Y信号分量而没有U、V分量，那么这样表示的图就是黑白灰度图。彩色电视采用YUV空间正是为了用亮度信号Y解决彩色电视机与黑白电视机的兼容问题，使黑白电视机也能接收彩色信号。
 
 根据美国国家电视制式委员会，NTSC制式的标准，当白光的亮度用Y来表示时，它和红、绿、蓝三色光的关系可用如下式的方程描述：
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212200942506.png" width = 35%/></div>
+
+![Alt text](images/image-86.png){ width=35% }
 
 ## Image Processing Data Structure
 

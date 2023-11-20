@@ -14,7 +14,7 @@
 
 1. 控制连接来实现（不是可重编程）；
     - 掩码编程 | Mask programing
-    - 熔丝 | Fuse 
+    - 熔丝 | Fuse
     - 反熔丝 | Anti-fuse
     ![Alt text](images/e905e997c02a63e8fc4feff82f9200b3.png)
 2. 控制门级电路电压；
@@ -22,7 +22,7 @@
     - Stored charge on a floating gate
         - Erasable
         - Electrically erasable
-        - Flash (as in Flash Memory) 
+        - Flash (as in Flash Memory)
 3. 使用查找表(Look Up Table - LUT)；
     - Storage elements for the function
         - 比如使用一个 `MUX`，并将输入端接内存，通过修改内存的值来修改 `MUX` 的行为，进而实现函数重编程
@@ -114,7 +114,6 @@ $$
 
 ![Alt text](images/image-15.png){width=50%}
 
-
 ---
 
 ### PAL | Programmable Array Logic
@@ -181,8 +180,6 @@ PLA 的基本结构如下：
 `LUT` 的基本结构如下：
 
 ![](img/64.png)
-
-
 
 `FPGA` 的基本结构如下：
 
@@ -253,4 +250,3 @@ CLB 是 `FPGA` 中的基础逻辑单元。
     4. `PAL`s
     5. `PLA`s
     6. `LUT`s
-
