@@ -3,7 +3,7 @@
 欢迎来到JiepengLab！我是浙江大学22级混合班的学生，主修计算机科学与技术，辅修竺可桢学院工程教育高级班。我会时不时更新一些目前正在学习的笔记！
 
 !!! note ""
-    你知道吗？长按能放一个巨~大的烟花噢🎇🎇🎇！
+    你知道吗？在电脑端，长按能放一个巨~大的烟花噢🎇🎇🎇！
 
 ## 📚学习笔记
 
@@ -11,7 +11,6 @@
     - [ ] [数学建模](./Fundemental/Mathematical%20Modeling)
     - [ ] [概率论与数理统计](./Fundemental/Probability%20and%20Mathematical%20Statistics)
     - [ ] [ML-4360](./CS/ML-4360/)
-    - [ ] [人工智能引论](./CS/Introduction-to-AI/)
     - [ ] [数值分析](./CS/NA/)
     - [ ] [人工智能初步](./CS/AI_Start/)
     - [ ] [数字逻辑设计](./CS/DigitalDesign/)

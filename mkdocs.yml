@@ -60,10 +60,10 @@ nav:
       - Note 03 Structure from Motion:
         - ./CS/ML-4360/Lec3/index.md
         - Note 3-1 Preliminaries: ./CS/ML-4360/Lec3/Note 3-1 Preliminaries.md
-    - 人工智能引论:
-      - ./CS/Introduction-to-AI/index.md
-      - 知识表达与推理: ./CS/Introduction-to-AI/Chapter02.md
-      - 搜索探寻与问题求解: ./CS/Introduction-to-AI/Chapter03.md
+    # - 人工智能引论:
+    #   - ./CS/Introduction-to-AI/index.md
+    #   - 知识表达与推理: ./CS/Introduction-to-AI/Chapter02.md
+    #   - 搜索探寻与问题求解: ./CS/Introduction-to-AI/Chapter03.md
     - 数值分析:
       - ./CS/NA/index.md
       - Chapter 1 Mathematical Preliminaries: ./CS/NA/Chapter_01.md

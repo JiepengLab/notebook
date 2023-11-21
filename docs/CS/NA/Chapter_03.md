@@ -50,7 +50,7 @@ $$P_n(x)=\sum\limits_{i=0}^nL_{n,i}(x)y_i$$
 由于$R_n(x)$的次数不超过$n$，$n$次多项式不可能有 $n+1$ 个解，所以$R_n(x)=0$，即$P_n(x)=Q_n(x)$，与假设矛盾。
 
 !!! note ""
-    
+
     如果 对 $n$ 个点 运用 超过$n$ 次的拉格朗日插值多项式，那么得到的多项式就不唯一了。
 
     例如 $P(x)=L_n\left(x\right)+p(x)\prod\limits_{i=0}^n\left(x-x_i\right)$
@@ -59,9 +59,10 @@ $$P_n(x)=\sum\limits_{i=0}^nL_{n,i}(x)y_i$$
 
 假定$a\leq x_0<x_1<\cdots<x_n\leq b$，$f\in C[a,b]$，$P_n(x)$是$f(x)$在$x_0,x_1,\cdots,x_n$上的拉格朗日插值多项式，则对任意$x\in[a,b]$，存在$\xi(x)\in(a,b)$，使得
 
-$$f(x)-P_n(x)=\frac{f^{(n+1)}(\xi(x))}{(n+1)!}\prod\limits_{i=0}^n(x-x_i)$$ 
+$$f(x)-P_n(x)=\frac{f^{(n+1)}(\xi(x))}{(n+1)!}\prod\limits_{i=0}^n(x-x_i)$$
 
 !!! note "证明"
+
     记$R_n(x)=f(x)-P_n(x)$，则$R_n(x)$是一个次数不超过$n$的多项式，且$R_n(x_i)=0$，$i=0,1,\cdots,n$。所以$R_n(x)$可记作$C(x)\prod\limits_{i=0}^n(x-x_i)$
 
     固定一个点$x$ ($x\neq x_i$) 时，记$g(t)=R_n(t)-C(x)\prod\limits_{i=0}^n(t-x_i)$，则$g(x)=0$，$g(x_i)=0$，$i=0,1,\cdots,n$，所以$g(t)$存在$n+2$个不同的零点
@@ -80,6 +81,7 @@ $$f(x)-P_n(x)=\frac{f^{(n+1)}(\xi(x))}{(n+1)!}\prod\limits_{i=0}^n(x-x_i)$$
 因为这里的$f^{(n+1)}(\xi(x))$是不知道的，所以我们经常用$f^{(n+1)}(x)$的上界来估计余项。
 
 !!! note ""
+
     分析余项可知，对于小于等于 $n$ 次的多项式 $f$ ，经过$n$次拉格朗日插值得到的余项为0，得到的多项式就是 $f$ 本身
 
     !!! note ""
@@ -120,31 +122,13 @@ $$
 
 ### Neville 迭代插值法
 
-<!-- Let  f  be a function defined at x0, x1, …, xn, and suppose that m1, …, mk are k distinct integers with 0  mi  n for each i.  The Lagrange polynomial that agrees with f(x) at the k points 
-denoted by
- -->
-
-**记号说明：**设 $f$ 在 $x_0,x_1,\cdots,x_n$ 上有定义，$m_1,m_2,\cdots,m_k$ 是 $k$ 个不同的整数，$0\leq m_i\leq n$，$i=1,2,\cdots,k$。记在这 $k$ 个点上与 $f(x)$ 相同的拉格朗日多项式为 $P_{m_1,m_2,\cdots,m_k}(x)$。
-
-<!-- :  Let  f  be defined at x0, x1, …, xk, and let xi and xj be two distinct numbers in this set.  Then -->
-
-<!-- describes the k-th Lagrange polynomial that interpolates f at the k+1 points x0, x1, …, xk .
- -->
+**记号说明：** 设 $f$ 在 $x_0,x_1,\cdots,x_n$ 上有定义，$m_1,m_2,\cdots,m_k$ 是 $k$ 个不同的整数，$0\leq m_i\leq n$，$i=1,2,\cdots,k$。记在这 $k$ 个点上与 $f(x)$ 相同的拉格朗日多项式为 $P_{m_1,m_2,\cdots,m_k}(x)$。
 
 **定理：** 设 $f$ 在 $x_0,x_1,\cdots,x_n$ 上有定义，让 $x_i$ 和 $x_j$ 是这个集合中的两个不同的数。则
 
 $$P(x)=\frac{(x-x_j)P_{0,1,...,j-1,j+1,...,k}(x)-(x-x_i)P_{0,1,...,i-1,i+1,...,k}(x)}{(x_i-x_j)}$$
 
 描述了对 $f$ 在 $x_0,x_1,\cdots,x_k$ 这 $k+1$个点 上的 $k$ 次插值多项式。
-
-<!-- Proof:  For any 0  r  k and r  i and j, the two interpolating polynomials on the numerator are equal to f(xr) at xr , so P(xr) = f(xr).
- -->
-
- <!-- The first polynomials on the numerator equals f(xi) at xi , while the second term is zero, so P(xi) = f(xi).  Similarly P(xj) = f(xj). 
- -->
-
-<!-- The k-th Lagrange polynomial that interpolates f at the k+1 points x0, x1, …, xk is unique.
- -->
 
 **证明：**
 
