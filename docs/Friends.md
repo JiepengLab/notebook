@@ -1,12 +1,12 @@
-# 我的朋友们！
+# 我的好朋友们！
 
-!!! summary "🔗 友链"
+!!! summary "🔗 ACEE的朋友们！"
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
                 ![Alt text](images/friends/xymm.jpg)
         </div>
-        <a href="https://csfufu.life/" title="xymm's Notebook" target="_blank">
+        <a href="https://xymmsnotebook.gitbook.io/noteofxymm/" title="xymm's Notebook" target="_blank">
             <div class="flink-item-name">xymm's Notebook</div>
             <div class="flink-item-desc">\xymm/\xymm/\xymm/</div>
         </a>
@@ -21,6 +21,8 @@
             <div class="flink-item-desc">\pygg/\pygg/\pygg/</div>
         </a>
     </div>
+
+!!! summary "🔗 计院的朋友们！"
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
