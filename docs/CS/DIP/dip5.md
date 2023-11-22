@@ -2,16 +2,14 @@
 
 !!! abstract "Abstract"
 
-    * Continuous 1D convolution  
-    * Properties of convolution  
-    * Discrete 1D convolution  
-    * Spatial domain filtering  
+    * Continuous 1D convolution
+    * Properties of convolution
+    * Discrete 1D convolution 
+    * Spatial domain filtering
 
-## 1D Convolution
+## 一维卷积 | 1D Convolution
 
-### Definition
-
-一维卷积
+### 连续卷积 | Continuous 1D convolution
 
 两个一维连续函数 $f(x)$ 和 $h(x)$ 的卷积 $g(x)$ 为  
 
@@ -19,71 +17,97 @@ $$g(x)=f(x)*h(x)=\int_{-\infty}^{\infty}f(t)h(x-t)dt$$
 
 它表示两个函数的卷积可以转化成乘积的积分来计算。通常将 $f(x)$ 称为输入函数，将 $h(x)$ 称为卷积函数。  
 
-### Computing process
+#### Computing process
 
 已知两个函数，要求计算它们的卷积在任意点x处的值。
 
 * 将卷积函数 $h(t)$ 反折  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211121545929.png" width = 50%/> </div>
+![Alt text](images/image-91.png){width="50%"}
 
 * 将反折后的卷积函数向右移动距离 $x$
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211121546738.png" width = 50%/> </div>
+![Alt text](images/image-92.png){width="50%"}
 
-* 计算 f 和 h 在任意 t 的乘积，并积分
+* 计算 $f$ 和 $h$ 在任意 $t$ 的乘积，并积分
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211121547501.png" width = 50%/> </div>
+![Alt text](images/image-93.png){width="50%"}
 
-对每一个 $x$ 值重复上述计算过程，就得到了输出曲线 $g(x)$
-当 $x$ 变化时，反折的函数被平移通过静止不动的输入函数, $g(x)$ 值取决于这两个函数的重叠部分的累积。
+- 对每一个 $x$ 值重复上述计算过程，就得到了输出曲线 $g(x)$
+- 当 $x$ 变化时，反折的函数被平移通过静止不动的输入函数, $g(x)$ 值取决于这两个函数的重叠部分的累积。
 
-### Property
+记卷积的运算符号为 $*$，则卷积的定义为：
+
+$$g(x)=f(x)*h(x)=\int_{-\infty}^{\infty}f(t)h(x-t)dt$$
+
+#### Property
 
 * **Exchangeable**: $f(x)*g(x)=g(x)*f(x)$  
 * **Distributive**: $f*(g+h)=f*g+f*h$  
 * **Associative**: $f*(g*h)=(f*g)*h$  
 
-### Discrete 1D convolution
+### 离散卷积 | Discrete 1D convolution
 
 对于离散序列，其卷积可用与连续函数相类似的方法求得。此时自变量变为下标，面积则由求和代替。
-对于两个长度均为 M 的序列 $f(x)$ 和 $h(x)$，其卷积为: $h(x)=f(x)*h(x)=\dfrac{1}{M}=\sum\limits_{t=0}^{M-1}f(t)h(x-t)$
+对于两个长度均为 M 的序列 $f(x)$ 和 $h(x)$，其卷积为: 
+
+$$g(x)=f(x)*h(x)=\dfrac{1}{M}=\sum\limits_{t=0}^{M-1}f(t)h(x-t)$$
 
 有效范围：覆盖了所有 $h(t)$ 的点。
 
 ***e.g.***  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211121558881.png" width = 60%/> </div>
+![Alt text](images/image-94.png){width="60%"}
 
-<u>**卷积实质上是对图像像素的加权求和**</u>  
+如果要对边界的点进行卷积，可以将序列进行扩展（padding）。
 
-## Spatial filtering
+!!! note ""
+
+    **卷积实质上是对图像像素的加权求和**。
+
+## 空间滤波 | Spatial filtering
 
 ### Concept
 
-滤波器是一个大小为 $M\times N$ 的窗口，窗口中的元素与原图像的处于窗口内的像素进行某种运算，结果作为新图像的一个像素。当窗口滑过原图像并完成上述运算之后，就能够得到一幅新图像。（本质就是刚刚的卷积）
+滤波器是一个大小为 $M\times N$ 的窗口，窗口中的元素与原图像的处于窗口内的像素进行某种运算，结果作为新图像的一个像素。当窗口滑过原图像并完成上述运算之后，就能够得到一幅新图像。（本质就是刚刚提到的卷积）
 
-滤波器的别名：滤波器、掩模、核、模板，窗口
+**滤波器(Filter)** 的别名：掩模(mask)、核(kernel)、模(template)、窗口(window)
 
 滤波器子图像中的值是系数值，而不是像素值，它代表了影响新像素产生的权重。
 
-卷积和形态学中有类似的问题：边界如何处理，可以扩展行列，也可以直接将中心从第二行开始。
+边界如何处理？可以扩展行列，也可以直接将中心从第二行开始。
 
 ### Procedure
 
 在待处理图像中逐点移动掩模，在每一点 $(x,y)$ 处，滤波器在该点的响应通过实现定义的关系来计算。对于线性空间滤波，其响应由滤波器系数与滤波掩模扫过区域的对应像素值的乘积之和给出。
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211121602847.png" width = 55%/> </div>
+![Alt text](images/image-97.png){width="60%"}
 
-### Principle of filtering——Response
+### Response
 
-响应值: $R=w(-1,-1)f(x-1,y-1)+w(-1,0)f(x-1, y)+\ldots +w(0,0)f(x,y)+\ldots+w(1,0)f(x+1,y)+w(1,1)f(x+1,y)$  
-这实质上是一种卷积操作，卷积表示为: $h(x)=f(x)*h(x)=\dfrac{1}{M}=\sum\limits_{t=0}^{M-1}f(t)h(x-t)$  
+响应值: 
+
+$$
+\begin{align*}
+R=&w(-1,-1)f(x-1,y-1)+w(-1,0)f(x-1, y)\\
+&+\ldots+w(0,0)f(x,y)+\ldots\\
+&+w(1,0)f(x+1,y)+w(1,1)f(x+1,y)
+\end{align*}
+$$
+
+这实质上是一种卷积操作，
+
+!!! note "卷积 Recall "
+
+    $$h(x)=f(x)*h(x)=\dfrac{1}{M}=\sum\limits_{t=0}^{M-1}f(t)h(x-t)$$  
 
 通常，掩模的长宽都为奇数。假设分别为 $2a+1$ 和 $2b+1$. 当窗口中心处于像素 $(x,y)$ 处时，新的像素值为：
-对图像 $f$ 中所有像素都与掩模进行运算之后，最终产生一幅新图像 $g$.  
-$g(x,y)=\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)f(x+s,y+t)$  
-即 $R=w_1z_1+w_2z_2+\cdots+w_{mn}z_{mn}=\sum\limits_{i=1}^m w_iz_i$
+
+$$g(x,y)=\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)f(x+s,y+t)$$  
+
+对图像 $f$ 中所有像素都与掩模进行运算之后，最终产生一幅新图像 $g$，即 
+
+$$R=w_1z_1+w_2z_2+\cdots+w_{mn}z_{mn}=\sum\limits_{i=1}^m w_iz_i$$
 
 图像在传输过程中，由于传输信道、采样系统质量较差，或受各种干扰的影响，而造成图像毛糙，此时，就需对图像进行平滑处理。平滑可以抑制高频成分，但也使图像变得模糊。
 
@@ -91,37 +115,49 @@ $g(x,y)=\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)f(x+s,y+t)$
 
 **平滑空间滤波器**（也叫低通滤波，因为平滑的部分一般是低频的）用于模糊处理和减少噪声。模糊处理经常用于预处理，例如，在提取大的目标之前去除图像中一些琐碎的细节，桥接直线或曲线的缝隙。 可以去掉噪声，但会使图模糊，一般用于预处理。
 
-#### Linear smoothing filter
+#### 均值滤波器 | Linear smoothing filter
 
 **平滑线性空间滤波器**的输出是包含在滤波掩模邻域内像素的简单平均值。因此，这些滤波器也称为**均值滤波器**。
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211190921760.png" width = 25%/> </div>
 
 均值滤波器的主要应用是去除图像中的不相干细节，即那些与滤波掩模尺寸相比更小的像素区域。  
 
 * 简单平均，表示窗口中每一个像素对响应的贡献是一样的  
+
+    ![Alt text](images/image-98.png){width="25%"}
+
 * 加权平均，表示窗口中的像素对相应的贡献有大小之分。  
-两个3×3平滑（均值）滤波器掩模，每个掩模前边的乘数等于它的系数值的和，以计算平均值  
 
-    ??? Example
-        <div align=center> <img src="http://cdn.hobbitqia.cc/202211190925995.png" width = 25%/> </div>
+    两个3×3平滑（均值）滤波器掩模，每个掩模前边的乘数等于它的系数值的和，以计算平均值  
 
+    ![Alt text](images/image-99.png){width="25%"}
+
+    !!! example ""
         这样中间像素能更多地被保留，类似于一个高斯函数。
 
-$g(x,y)=\dfrac{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^bw(s,t)f(x+s,y+t)}{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)}$ 其中，滤波器大小为 $(2a+1) \times (2b+1)$，$w$ 为滤波器，$f$ 为输入图像，$g$ 为输出图像。
+##### General equation
+
+$$g(x,y)=\dfrac{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^bw(s,t)f(x+s,y+t)}{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)}$$ 
+
+其中，滤波器大小为 $(2a+1) \times (2b+1)$，$w$ 为滤波器，$f$ 为输入图像，$g$ 为输出图像。
+
+##### Explanation
 
 滤波掩模的大小与图像的平滑效果有直接的关系。当掩模比较小时，可以观察到在整幅图像中有轻微的模糊，当掩模大小增加，模糊程度也随之增加。 卷积核越大，图越模糊，保留的细节越少（类似照相机的光圈）  
 
-为了对感兴趣物体得到一个粗略的描述而模糊一幅图像，这样，那些较小物体的强度与背景混合在一起了，较大物体变得像“斑点”而易于检测。掩模的大小由那些即将融入背景中去的物件尺寸来决定。
+为了得到感兴趣的物体的 brief description，我们常用均值滤波器来模糊它。这样，那些较小物体与背景混合在一起了，较大物体变得像“斑点”而易于检测。因此，我们选取的掩模大小应由那些即将融入背景的物件尺寸来决定。
 
-#### Statistical sorting filter
+![Alt text](images/image-100.png)
 
-**统计滤波器**是一种非线性的空间滤波器，它的响应是基于窗口内图像区域中像素值的排序，由统计排序结果决定的值代替中心像素的值。(每次都要排序，因此计算速度比线性滤波慢)
-统计滤波器中最常见的例子就是**中值滤波器**。
+#### 统计滤波器 | Statistical sorting filter
+
+**统计滤波器**是一种非线性的空间滤波器，它的响应是基于窗口内图像区域中像素值的排序结果，中心像素的值由统计排序结果决定。(由于每次都要排序，其计算速度比线性滤波慢)
+
+统计滤波器中最常见的例子是**中值滤波器**。
 
 * 用像素邻域内灰度的中值代替该像素的值。
 * 提供了优秀的去噪能力，比小尺寸的线性平滑滤波器的模糊程度明显要低。
-* 对处理脉冲噪声（也称为椒盐噪声）非常有效，因为这种噪声是以黑白点叠加在图像上的。
+* 对处理脉冲噪声（pulse noise / pepper noise）非常有效，因为这种噪声是以黑白点叠加在图像上的。
 
 为了对一幅图像上的某个点作中值滤波处理。必须先将掩模内欲求的像素及其邻域的像素值排序，确定出中值，并将中值赋予该像素点。
 

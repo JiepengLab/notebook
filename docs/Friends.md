@@ -14,6 +14,16 @@
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
+            ![Alt text](images/friends/pygg.jpg)
+        </div>
+        <a href="http://47.96.29.144/" title="晚栀的信安笔记和碎碎念" target="_blank">
+            <div class="flink-item-name">晚栀的信安笔记和碎碎念</div>
+            <div class="flink-item-desc">\pygg/\pygg/\pygg/</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
             ![Alt text](images/friends/fufu.jpg)
         </div>
         <a href="https://csfufu.life/" title="fufu酱のNoteBook" target="_blank">
