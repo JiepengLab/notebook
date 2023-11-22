@@ -30,10 +30,13 @@
 
 课程中介绍的可重编程的器件主要有如下四种：
 
-- [只读内存 Read Only Memory (ROM)](#rom-read-only-memory)
-- 可编程阵列逻辑 Programmable Array Logic (PAL^®^)
-- 可编程逻辑阵列 Programmable Logic Array (PLA)
-- Complex Programmable Logic Device (CPLD) or Field-Programmable Gate Array(FPGA)
+*1.* [只读内存 Read Only Memory (ROM)](#rom-read-only-memory)
+
+*2.* [可编程阵列逻辑 Programmable Array Logic (PAL^®^)](#pal-programmable-array-logic)
+
+*3.* [可编程逻辑阵列 Programmable Logic Array (PLA)](#pla-programmable-logic-array)
+
+*4.* [Complex Programmable Logic Device (CPLD) or Field-Programmable Gate Array(FPGA)](#lookup-tables)
 
 前三者都只能重写一次，如下是它们的重写内容：
 
@@ -51,7 +54,7 @@
 ### 逻辑符号介绍
 
 !!! example "Buffer"
-    ![Alt text](images/image-12.png)
+    ![Alt text](images/image-12.png){width=20%}
     > 简化表示一个变量的自身和其非；
 
 !!! example "Wire connecting"
@@ -87,8 +90,8 @@ ROM 的基本结构如下：
 
 $$
 \begin{aligned}
-    \text{ROM\;\;size}\;\;&=\;\;\text{address\;\;width}\;\;\times\;\;\text{word\;\;width}&\\
-                   &=\;\;2^2\;\;\times\;\;4\;\;=\;\;16\;\;bit&
+    \text{ROM  size}  &=  \text{address  width}  \times  \text{word  width}&\\
+                   &=  2^2  \times  4  =  16  bit&
 \end{aligned}
 $$
 
@@ -229,7 +232,7 @@ CLB 是 `FPGA` 中的基础逻辑单元。
 ??? example "eg for `FPGA`"
     通过 `FPGA` 实现 $f=x_1x_2+\overline{x_2x_3}$：
 
-    分解问题：$f_1 = x_1x_2,\;\;f_2=\overline{x_2x_3},\;\;f=f_1+f_2$。
+    分解问题：$f_1 = x_1x_2,  f_2=\overline{x_2x_3},  f=f_1+f_2$。
 
     ![](img/69.png)
 
