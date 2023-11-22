@@ -1,6 +1,6 @@
 # 我的好朋友们！
 
-!!! summary "🔗 ACEE的朋友们！"
+!!! summary "🔗 ACEE专属！"
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
@@ -22,7 +22,7 @@
         </a>
     </div>
 
-!!! summary "🔗 计院的朋友们！"
+!!! summary "🔗 我的好朋友们！"
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
