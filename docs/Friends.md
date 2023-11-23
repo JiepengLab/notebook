@@ -32,6 +32,16 @@
         </a>
     </div>
 
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/yzgg.jpg)
+        </div>
+        <a href="https://sqrtyz.github.io/" title="Sqrtyz" target="_blank">
+            <div class="flink-item-name">Sqrtyz's Blog</div>
+            <div class="flink-item-desc">\yzgg/\yzgg/\yzgg/</div>
+        </a>
+    </div>
+
 !!! summary "🔗 我的好朋友们！"
 
     <div class="flink-list-item">

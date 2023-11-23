@@ -294,7 +294,16 @@ $$
 
     该图像中的细节明显比原始图像中的更清晰。
 
-### 双边滤波 | Bilateral Filtering
+#### 双边滤波 | Bilateral Filtering
+
+!!! note ""
+
+    之前我们讨论的锐化滤波器总会带来一些噪声，而双边滤波器可以在锐化的同时去除噪声。
+
+    ![Alt text](images/image-109.png)
+
+    而且，可以看到，双边滤波器下的细节保留的更好。
+
 
 保边滤波(edge-preserving)的一种
 
