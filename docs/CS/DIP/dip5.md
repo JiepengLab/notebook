@@ -67,7 +67,9 @@ $$g(x)=f(x)*h(x)=\dfrac{1}{M}=\sum\limits_{t=0}^{M-1}f(t)h(x-t)$$
 
 ## 空间滤波 | Spatial filtering
 
-### Concept
+**图像滤波 (Image Filter)**，即在尽量保留图像细节特征的条件下对目标图像的噪声进行抑制，是图像预处理中不可缺少的操作，其处理效果的好坏将直接影响到后续图像处理和分析的有效性和可靠性。
+
+### 滤波器 | Filter
 
 滤波器是一个大小为 $M\times N$ 的窗口，窗口中的元素与原图像的处于窗口内的像素进行某种运算，结果作为新图像的一个像素。当窗口滑过原图像并完成上述运算之后，就能够得到一幅新图像。（本质就是刚刚提到的卷积）
 
@@ -85,7 +87,7 @@ $$g(x)=f(x)*h(x)=\dfrac{1}{M}=\sum\limits_{t=0}^{M-1}f(t)h(x-t)$$
 
 ### Response
 
-响应值: 
+响应值:
 
 $$
 \begin{align*}
@@ -111,16 +113,15 @@ $$R=w_1z_1+w_2z_2+\cdots+w_{mn}z_{mn}=\sum\limits_{i=1}^m w_iz_i$$
 
 图像在传输过程中，由于传输信道、采样系统质量较差，或受各种干扰的影响，而造成图像毛糙，此时，就需对图像进行平滑处理。平滑可以抑制高频成分，但也使图像变得模糊。
 
-### Spatial filtering for smoothing
+### 平滑空间滤波器总述
 
 **平滑空间滤波器**（也叫低通滤波，因为平滑的部分一般是低频的）用于模糊处理和减少噪声。模糊处理经常用于预处理，例如，在提取大的目标之前去除图像中一些琐碎的细节，桥接直线或曲线的缝隙。 可以去掉噪声，但会使图模糊，一般用于预处理。
 
-#### 均值滤波器 | Linear smoothing filter
+### 均值滤波器 | Linear smoothing filter
 
-**平滑线性空间滤波器**的输出是包含在滤波掩模邻域内像素的简单平均值。因此，这些滤波器也称为**均值滤波器**。
+**平滑线性空间滤波器(Linear smoothing filter)** 的输出是包含在滤波掩模邻域内像素的简单平均值。因此，这些滤波器也称为**均值滤波器**。
 
-
-均值滤波器的主要应用是去除图像中的不相干细节，即那些与滤波掩模尺寸相比更小的像素区域。  
+均值滤波主要用于细微的细节去除，即去除比遮罩窗口还小的不需要的区域。
 
 * 简单平均，表示窗口中每一个像素对响应的贡献是一样的  
 
@@ -135,13 +136,13 @@ $$R=w_1z_1+w_2z_2+\cdots+w_{mn}z_{mn}=\sum\limits_{i=1}^m w_iz_i$$
     !!! example ""
         这样中间像素能更多地被保留，类似于一个高斯函数。
 
-##### General equation
+#### General equation
 
 $$g(x,y)=\dfrac{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^bw(s,t)f(x+s,y+t)}{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)}$$ 
 
 其中，滤波器大小为 $(2a+1) \times (2b+1)$，$w$ 为滤波器，$f$ 为输入图像，$g$ 为输出图像。
 
-##### Explanation
+#### Explanation
 
 滤波掩模的大小与图像的平滑效果有直接的关系。当掩模比较小时，可以观察到在整幅图像中有轻微的模糊，当掩模大小增加，模糊程度也随之增加。 卷积核越大，图越模糊，保留的细节越少（类似照相机的光圈）  
 
@@ -149,9 +150,9 @@ $$g(x,y)=\dfrac{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^bw(s,t)f(x+s,y+t)}{\sum\l
 
 ![Alt text](images/image-100.png)
 
-#### 统计滤波器 | Statistical sorting filter
+### 统计滤波器 | Statistical sorting filter
 
-**统计滤波器**是一种非线性的空间滤波器，它的响应是基于窗口内图像区域中像素值的排序结果，中心像素的值由统计排序结果决定。(由于每次都要排序，其计算速度比线性滤波慢)
+与均值滤波 (空间线性滤波) 相比，**统计滤波**是一种非线性的空间滤波，其效果基于窗口内像素值的排序结果，中心像素的值由统计排序结果决定。(由于每次都要排序，其计算速度比线性滤波慢)
 
 统计滤波器中最常见的例子是**中值滤波器**。
 
@@ -163,15 +164,20 @@ $$g(x,y)=\dfrac{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^bw(s,t)f(x+s,y+t)}{\sum\l
 
 常用 $n\times n$ 的中值滤波器去除那些相对于其邻域像素更亮或更暗，并且其区域小于 $n^2/2$（滤波器区域的一半）的孤立像素集。
 
-### Sharpening spatial filter
+### 锐化滤波器 | Sharpening spatial filter
+
+!!! note ""
+
+    锐化处理的主要目的是突出灰度的过渡部分。补偿轮廓，增强图像的边缘及灰度跳变的部分，使图像变得清晰，增强图像中的细节或锐化模糊部分。
 
 为了突出图像中的细节或者增强被模糊了的细节，我们引入微分算子。
 
-
-微分算子是实现锐化的工具，其响应程度与图像在该点处的突变程度有关。微分算子增强了边缘和其他突变（如噪声）并削弱了灰度变化缓慢的区域。
+微分算子是实现锐化的工具，其响应程度与图像在该点处的突变程度有关。微分算子增强了边缘和其他突变（如噪声），  削弱了灰度变化缓慢的区域。
 
 * 基于二阶微分的图像增强——**拉普拉斯算子**
 * 基于一阶微分的图像增强——**梯度法**
+
+#### 差分算子 | Differential operator
 
 对于一个整数值函数 $f(x)$ 来说，我们使用差分来表示微分算子：
 
@@ -179,9 +185,14 @@ $$\dfrac{\partial f}{\partial x}=f(x+1)-f(x)$$
 
 类似的，我们可以把二阶微分写成这样：
 
-$$\dfrac{\partial^2 f}{\partial x^2}=f(x+1)+f(x-1)-2f(x)$$
+$$
+\begin{align*}
+\dfrac{\partial^2 f}{\partial x^2}&=f(x+1)-f(x)-(f(x)-f(x-1))
+\\&=f(x+1)-2f(x)+f(x-1)
+\end{align*}
+$$
 
-#### gradient based operator
+#### 梯度算子 | gradient based operator 
 
 对于一个二元函数 $f(x,y)$ 来说，我们首先定义一个二维的向量：
 
@@ -189,7 +200,7 @@ $$
 \nabla f=\left[\dfrac{G_x}{G_y}\right]=\left[\dfrac{\dfrac{\partial f}{\partial x}}{\dfrac{\partial f}{\partial y}}\right]
 $$
 
-它的幅值(Magnitude)被表示为：
+它的 **幅值(Magnitude)** 被表示为：
 
 $$
 \nabla f = (G_x^2+G_y^2)^{\frac{1}{2}}=\left[(\dfrac{\partial f}{\partial x})^2 + (\dfrac{\partial f}{\partial y})^2\right]^{\frac{1}{2}}
@@ -199,9 +210,32 @@ $$
 
 $$\nabla f\approx |G_x|+|G_y|$$
 
-另一种计算方法: Robert 交叉梯度算子
+!!! note ""
 
-#### Laplacian operator
+    另一种计算方法: **Robert 交叉梯度算子**
+
+    设我们有原始图像如下（$z_i$ is the pixel value）：
+
+    ![Alt text](images/image-101.png){width="25%"}
+
+    则在 Robert 交叉梯度算子 中，我们记
+
+    $$G_x=z_9-z_5, G_y=z_8-z_6$$
+
+    我们有
+
+    $$
+    \begin{align*}
+    \nabla f &= (G_x^2+G_y^2)^{\frac{1}{2}}=[(z_9-z_5)^2+(z_8-z_6)^2]^{\frac{1}{2}}
+    \\
+    &\approx  |G_x|+|G_y|
+    = |z_9-z_5|+|z_8-z_6|
+    \end{align*}
+    $$
+
+#### 拉普拉斯算子 | Laplacian operator
+
+可以证明，最简单的各向同性导数算子是拉普拉斯算子 (Rosenfeld and Kak [1982])。因为任何阶导数都是线性运算，所以拉普拉斯算子是线性算子。
 
 对函数 $f(x, y)$，拉普拉斯算子定义如下(和梯度不同，拉普拉斯算子是一个标量)
 
@@ -215,42 +249,52 @@ $$
     \nabla^2 f(x,y)=f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)
     $$
 
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202211191000941.png" width = 25%/> </div>
+    ![Alt text](images/image-102.png){width="25%"}
 
-    相当于用这个卷积核对图像做卷积（这个卷积核是各向同性的，*rotation-invariant*）
+    相当于用卷积核对图像做卷积（这个卷积核是各向同性，旋转不变的(*rotation-invariant*)）
 
 * 对角线上的元素也可以考虑进来设计掩膜：  
 
     $$
     \begin{align*}
-    \nabla^2 f(x,y) & =f(x-1,y-1)+f(x,y-1)+f(x+1,y-1)+f(x-1,y)
-    f(x+1,y)+f(x-1,y+1)+f(x,y+1)+f(x+1,y+1)-8f(x,y) \\
-    & = \sum\limits_{i=-1}^1\sum\limits_{j=-1}^1 f(x+i,y+j)-9f(x,y)
+    \nabla^2 f(x,y)  =&f(x-1,y-1)+f(x,y-1)+f(x+1,y-1)+\\&f(x-1,y)-8f(x,y)+
+    f(x+1,y)+\\&f(x-1,y+1)+f(x,y+1)+f(x+1,y+1) \\
+    =& \sum\limits_{i=-1}^1\sum\limits_{j=-1}^1 f(x+i,y+j)-9f(x,y)
     \end{align*}
     $$
 
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202211251702521.png" width = 25%/> </div>
+    ![Alt text](images/image-103.png){width="25%"}
 
-* 反过来  
+* 当拉普拉斯滤波后的图像与其它图像合并时（相加或相减），则必须考虑符号上的差别。
 
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202211251703385.png" width = 45%/> </div>
+    ![Alt text](images/image-104.png){width="70%"}
 
-    当拉普拉斯滤波后的图像与其它图像合并时（相加或相减），则必须考虑符号上的差别。
+#### 应用
 
-**Application**
-将原始图像和拉普拉斯图像叠加在一起的简单方法可以保护拉普拉斯锐化处理的效果，同时又能复原背景信息。
+用拉普拉斯算子对图像进行增强：
 
 $$
 g(x,y)=\left\{\begin{matrix}f(x,y)-\nabla^2f(x,y), If\ the\ center\ of\ the\ mask\ is\ negative \\
  f(x,y)+\nabla^2f(x,y), If\ the\ center\ of\ the\ mask\ is\ positive \end{matrix} \right.
 $$
 
-<details>
-<summary> Laplacian Example </summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211251707431.png" width = 90%/> </div>
-</details>
+由于拉普拉斯算子是一种导数算子，它的使用会突出显示图像中的强度不连续性，而不强调具有缓慢变化的强度级别的区域，这将倾向于生成具有灰色边缘线和其他不连续性的图像。
 
-### Bilateral Filtering
+所以将原始图像和拉普拉斯图像叠加(Fuse)在一起，可以在保护锐化效果的同时，又能“恢复”背景信息。
+
+![Alt text](images/image-105.png)
+
+!!! note ""
+
+    ![Alt text](images/image-106.png)
+
+    ![Alt text](images/image-107.png)
+
+    ![Alt text](images/image-108.png)
+
+    该图像中的细节明显比原始图像中的更清晰。
+
+### 双边滤波 | Bilateral Filtering
 
 保边滤波(edge-preserving)的一种
 

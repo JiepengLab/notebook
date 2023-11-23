@@ -130,6 +130,9 @@ $$P(x)=\frac{(x-x_j)P_{0,1,...,j-1,j+1,...,k}(x)-(x-x_i)P_{0,1,...,i-1,i+1,...,k
 
 描述了对 $f$ 在 $x_0,x_1,\cdots,x_k$ 这 $k+1$个点 上的 $k$ 次插值多项式。
 
+!!! example "五个点"
+    ![Alt text](images/image-40.png)
+
 **证明：**
 
 对于任意 $0\leq r\leq k$，$r\neq i$ 和 $r\neq j$，分子上的两个插值多项式在 $x_r$ 处都等于 $f(x_r)$，所以 $P(x_r)=f(x_r)$。
@@ -141,5 +144,7 @@ $$P(x)=\frac{(x-x_j)P_{0,1,...,j-1,j+1,...,k}(x)-(x-x_i)P_{0,1,...,i-1,i+1,...,k
 #### 伪代码
 
 ![Alt text](images/image-39.png)
+
+
 
 ## 3.2 Divided Differences | 差分

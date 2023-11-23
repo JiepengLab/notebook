@@ -5,7 +5,6 @@
 !!! note "目前正在学习"
 
     - [ ] [ML-4360](./ML-4360/index.md)
-    - [ ] [人工智能引论](./Introduction-to-AI/index.md)
     - [ ] [数值分析](./NA/index.md)
     - [ ] [人工智能初步](./AI_Start/index.md)
     - [ ] [数字逻辑设计](./DigitalDesign/index.md)
