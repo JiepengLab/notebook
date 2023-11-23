@@ -28,7 +28,7 @@
         </div>
         <a href="https://1kilometre.github.io" title="Kimi's Blog" target="_blank">
             <div class="flink-item-name">Kimi's Blog</div>
-            <div class="flink-item-desc">\kmjj/柠檬森林好看捏☺️</div>
+            <div class="flink-item-desc">\kmjj/好喜欢柠檬森林！</div>
         </a>
     </div>
 
@@ -54,7 +54,7 @@
         </a>
     </div>
 
-    <div class="flink-list-item">
+    <!-- <div class="flink-list-item">
         <div class="flink-item-icon">
             ![Alt text](images/friends/Sol.jpg)
         </div>
@@ -62,7 +62,7 @@
             <div class="flink-item-name">Sol发电站</div>
             <div class="flink-item-desc">Sol佬！</div>
         </a>
-    </div>
+    </div> -->
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
