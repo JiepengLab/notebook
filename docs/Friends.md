@@ -22,6 +22,16 @@
         </a>
     </div>
 
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/kmjj.jpg)
+        </div>
+        <a href="https://1kilometre.github.io" title="Kimi's Blog" target="_blank">
+            <div class="flink-item-name">Kimi's Blog</div>
+            <div class="flink-item-desc">\kmjj/柠檬森林好看捏☺️</div>
+        </a>
+    </div>
+
 !!! summary "🔗 我的好朋友们！"
 
     <div class="flink-list-item">
@@ -31,5 +41,35 @@
         <a href="https://csfufu.life/" title="fufu酱のNoteBook" target="_blank">
             <div class="flink-item-name">fufu酱のNoteBook</div>
             <div class="flink-item-desc">csgg浇浇我🥺</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/xuan.jpg)
+        </div>
+        <a href="https://xuan-insr.github.io/" title="咸鱼暄的代码空间" target="_blank">
+            <div class="flink-item-name">咸鱼暄的代码空间</div>
+            <div class="flink-item-desc">暄暄姐姐！</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/Sol.jpg)
+        </div>
+        <a href="https://projectdimlight.github.io/#/" title="Sol发电站" target="_blank">
+            <div class="flink-item-name">Sol发电站</div>
+            <div class="flink-item-desc">Sol佬！</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/hualing.jpg)
+        </div>
+        <a href="https://hzeroyuke.github.io/my_blog/" title="华零的blog" target="_blank">
+            <div class="flink-item-name">华零的blog</div>
+            <div class="flink-item-desc">华零gg！</div>
         </a>
     </div>
