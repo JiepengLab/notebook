@@ -64,10 +64,10 @@
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
-            ![Alt text](images/friends/qhgg.jpg)
+            ![Alt text](https://cirnoware.github.io/assets/Head_Portrait.jpg)
         </div>
         <a href="https://cirnoware.github.io/" title="qhgg" target="_blank">
-            <div class="flink-item-name">QH's Notebook</div>
+            <div class="flink-item-name">Cirnoware's Blog</div>
             <div class="flink-item-desc">\qhgg/\qhgg/\qhgg/</div>
         </a>
     </div>
@@ -89,6 +89,16 @@
         <a href="https://chenxukwok.github.io/" title="cxgg" target="_blank">
             <div class="flink-item-name">南宸's blog</div>
             <div class="flink-item-desc">多读书，多看报，少玩电脑，多睡觉</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/rtjj.jpg)
+        </div>
+        <a href="https://lrrrt.github.io/" title="rtjj" target="_blank">
+            <div class="flink-item-name">RT's blog</div>
+            <div class="flink-item-desc">\rtjj/\rtjj/\rtjj/</div>
         </a>
     </div>
 
