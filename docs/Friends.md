@@ -57,7 +57,7 @@
             ![Alt text](images/friends/yzjj.jpg)
         </div>
         <a href="http://wyzabc.github.io/" title="yzjj" target="_blank">
-            <div class="flink-item-name">Paracosm</div>
+            <div class="flink-item-name">wyzworld</div>
             <div class="flink-item-desc">你所浪费的今天, 是昨天已死之人苦苦哀求的明天......</div>
         </a>
     </div>
