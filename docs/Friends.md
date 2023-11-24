@@ -92,6 +92,16 @@
         </a>
     </div>
 
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/kjgg.jpg)
+        </div>
+        <a href="https://hovnysilence.github.io/" title="kjgg" target="_blank">
+            <div class="flink-item-name">白茫茫的一片</div>
+            <div class="flink-item-desc">催kjgg快修网站</div>
+        </a>
+    </div>
+
 !!! summary "🔗 我的好朋友们！"
 
     <div class="flink-list-item">
