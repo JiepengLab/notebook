@@ -8,7 +8,7 @@
         </div>
         <a href="https://xymmsnotebook.gitbook.io/noteofxymm/" title="xymm's Notebook" target="_blank">
             <div class="flink-item-name">xymm's Notebook</div>
-            <div class="flink-item-desc">\xymm/\xymm/\xymm/</div>
+            <div class="flink-item-desc">Can You Hear the Music ~</div>
         </a>
     </div>
 
@@ -18,7 +18,7 @@
         </div>
         <a href="http://47.96.29.144/" title="晚栀的信安笔记和碎碎念" target="_blank">
             <div class="flink-item-name">晚栀的信安笔记和碎碎念</div>
-            <div class="flink-item-desc">\pygg/\pygg/\pygg/</div>
+            <div class="flink-item-desc">人间好梦寄青山~</div>
         </a>
     </div>
 
@@ -28,7 +28,7 @@
         </div>
         <a href="https://1kilometre.github.io" title="Kimi's Blog" target="_blank">
             <div class="flink-item-name">Kimi's Blog</div>
-            <div class="flink-item-desc">\kmjj/好喜欢柠檬森林！</div>
+            <div class="flink-item-desc">好喜欢柠檬森林！</div>
         </a>
     </div>
 
@@ -38,7 +38,57 @@
         </div>
         <a href="https://sqrtyz.github.io/" title="Sqrtyz" target="_blank">
             <div class="flink-item-name">Sqrtyz's Blog</div>
-            <div class="flink-item-desc">\yzgg/\yzgg/\yzgg/</div>
+            <div class="flink-item-desc">求知没有尽头！</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/zjgg.jpg)
+        </div>
+        <a href="https://tsumgo.github.io/" title="Zjgg" target="_blank">
+            <div class="flink-item-name">Tsum's Blog</div>
+            <div class="flink-item-desc">青青子衿，悠悠我心~</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/yzjj.jpg)
+        </div>
+        <a href="http://wyzabc.github.io/" title="yzjj" target="_blank">
+            <div class="flink-item-name">Paracosm</div>
+            <div class="flink-item-desc">你所浪费的今天, 是昨天已死之人苦苦哀求的明天......</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/qhgg.jpg)
+        </div>
+        <a href="https://cirnoware.github.io/" title="qhgg" target="_blank">
+            <div class="flink-item-name">QH's Notebook</div>
+            <div class="flink-item-desc">\qhgg/\qhgg/\qhgg/</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/ycgg.jpg)
+        </div>
+        <a href="https://cyc-987.github.io/" title="ycgg" target="_blank">
+            <div class="flink-item-name">cyc's notebook</div>
+            <div class="flink-item-desc">花生瓜子八宝粥，编程建模GPT</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/cxgg.jpg)
+        </div>
+        <a href="https://chenxukwok.github.io/" title="cxgg" target="_blank">
+            <div class="flink-item-name">南宸's blog</div>
+            <div class="flink-item-desc">多读书，多看报，少玩电脑，多睡觉</div>
         </a>
     </div>
 
