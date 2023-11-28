@@ -4,9 +4,9 @@
 
 根据韦伯定理，我们有
 
-$$\dfrac{\Delta I}{I}\approx K_{Weber}\approx 1\%\to 2\%$$
+$$\dfrac{\Delta I}{I}\approx K_{Weber}\approx 1\%\sim 2\%$$
 
-$$\frac{I_max}{I_min}=(1+K_{Weber})^255 \approx 13 \to 156$$
+$$\frac{I_{max}}{I_{min}}=(1+K_{Weber})^{255} \approx 13 \sim 156$$
 
 另外人们发现感知能力是服从$\log(I)$ 的，这称作**Fechner’s Law**。
 

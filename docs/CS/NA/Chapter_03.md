@@ -145,6 +145,230 @@ $$P(x)=\frac{(x-x_j)P_{0,1,...,j-1,j+1,...,k}(x)-(x-x_i)P_{0,1,...,i-1,i+1,...,k
 
 ![Alt text](images/image-39.png)
 
+## 3.2 Divided Differences | 差商
 
+### Newton's Interpolatory Divided-Difference formula | 差商型 Newton 插值多项式
 
-## 3.2 Divided Differences | 差分
+设 $P_n(x)$ 是函数 $f$ 在点 $x_0, x_1,\cdots,x_n$ 上的拉格朗日多项式，$f$ 关于 $x_0,x_1,\cdots,x_n$ 的差商被用于将 $P_n(x)$ 表示为：
+
+$$P_n(x)=f[x_0]+f[x_0,x_1](x-x_0)+\cdots+f[x_0,x_1,\cdots,x_n](x-x_0)(x-x_1)\cdots(x-x_{n-1})$$
+
+其中 $f[x_0,x_1,\cdots,x_n]$ 是 $f$ 关于 $x_0,x_1,\cdots,x_n$ 的差商，通过代值可以得到
+
+$$f[x_0]=f(x_0), f[x_0,x_1]=\frac{f(x_1)-f(x_2)}{x_1-x_0}, f[x_0,x_1,x_2]=\frac{f[x_1,x_2]-f[x_0,x_1]}{x_2-x_0}, \cdots$$
+
+$$f[x_0,x_1,\cdots,x_n]=\frac{f[x_1,x_2,\cdots,x_n]-f[x_0,x_1,\cdots,x_{n-1}]}{x_n-x_0}$$
+
+我们记 $f[x_0], f[x_0,x_1],\cdots,f[x_0,x_1,\cdots,x_n]$ 为 $f$ 关于 $x_0,x_1,\cdots,x_n$ 的 $0$ 阶差商，$1$ 阶差商，$\cdots$，$n$ 阶差商。
+
+!!! note "六个点的三阶差商计算的例子"
+    ![Alt text](images/image-41.png)
+
+同时，我们称
+
+$$P_n(x)=f[x_0]+f[x_0,x_1](x-x_0)+\cdots+f[x_0,x_1,\cdots,x_n](x-x_0)(x-x_1)\cdots(x-x_{n-1})$$
+
+为**差商型 Newton 插值多项式**(Newton's Interpolatory Divided-Difference formula)。
+
+#### 伪代码
+
+![Alt text](images/image-42.png)
+
+#### 差商和导数的关系
+
+##### 一阶差分
+
+将中值定理应用到 $f$ 在 $[x_0,x_1]$ 上，得到
+
+$$f[x_0,x_1]=\frac{f(x_1)-f(x_0)}{x_1-x_0}=f'(\xi)$$
+
+##### $n$ 阶差分
+
+设 $f\in C^n[a,b]$ 且 $x_0,x_1,\cdots,x_n\in[a,b]$，则存在 $\xi\in(a,b)$，使得
+
+$$f[x_0,x_1,\cdots,x_n]=\frac{f^{(n)}(\xi)}{n!}$$
+
+***证明：***
+
+设 $g(t)=f(t)-P_n(t)$，则 $g(x_i)=0$，$i=0,1,\cdots,n$。所以 $g(t)$ 在 $[x_0,x_n]$ 上有 $n+1$ 个零点，根据推广的 Rolle 定理，存在 $\xi\in(a,b)$，使得 $g^{(n)}(\xi)=0$，即
+
+$$f^{(n)}(\xi)-P_n^{(n)}(\xi)=0$$
+
+所以 $P_n^{(n)}(\xi)=f^{(n)}(\xi)$，因为
+
+$$P_n^{(n)}(\xi)=n!f[x_0,x_1,\cdots,x_n]$$
+
+所以
+
+$$f[x_0,x_1,\cdots,x_n]=\frac{f^{(n)}(\xi)}{n!}$$
+
+!!! note "PPT上采用的证明方法"
+    ![Alt text](images/image-43.png)
+
+#### 差分记号引入
+
+如果每个点都连续等步长排列，记步长为$h$，令$x_i=x_0+ih$，则
+
+引入**向前差分(forward difference)**记号：
+
+$$\begin{aligned}
+\Delta f(x_i)&=f(x_{i+1})-f(x_i)\\
+\Delta^2 f(x_i)&=\Delta f(x_{i+1})-\Delta f(x_i)\\
+\Delta^3 f(x_i)&=\Delta^2 f(x_{i+1})-\Delta^2 f(x_i)\\
+\cdots
+\end{aligned}$$
+
+引入**向后差分(backward difference)**记号：
+
+$$\begin{aligned}
+\nabla f(x_i)&=f(x_i)-f(x_{i-1})\\
+\nabla^2 f(x_i)&=\nabla f(x_i)-\nabla f(x_{i-1})\\
+\nabla^3 f(x_i)&=\nabla^2 f(x_i)-\nabla^2 f(x_{i-1})\\
+\cdots
+\end{aligned}$$
+
+引入**中心差分(central difference)**记号：
+
+$$\delta^k f_i = \delta^{k-1}f_{i+\frac{1}{2}}-\delta^{k-1}f_{i-\frac{1}{2}}$$
+
+其中
+
+$$f_{i\pm\frac{1}{2}}=f(x_i\pm\frac{h}{2})$$
+
+#### 等距下的向前差商公式
+
+在等距情况下，向前差商的公式可表示为：
+
+$$\begin{aligned}
+P_n(x_s)=P_n(x_0+sh)&=f[x_0]+f[x_0,x_1]sh+\cdots+f[x_0,x_1,\cdots,x_n]s(s-1)\cdots(s-n+1)h^n\\
+&=\sum\limits_{k=0}^n\begin{pmatrix}s\\k\end{pmatrix}k!h^kf[x_0,x_1,\cdots,x_k]
+\end{aligned}$$
+
+!!! note ""
+    这里的 $\begin{pmatrix}s\\k\end{pmatrix}$ 是组合数，即 $\frac{s(s-1)\cdots(s-k+1)}{k!}$
+
+#### 等距下的向前差分公式
+
+由向前差分的记号可知道
+
+$$
+\begin{aligned}
+f[x_{0},x_{1}]& =\frac{f(x_{1})-f(x_{0})}{x_{1}-x_{0}}=\frac{1}{h}\Delta f(x_{0})  \\
+f[x_{0},x_{1},x_{2}]& =\frac{1}{2h}\left[\frac{\Delta f(x_{1})-\Delta f(x_{0})}{h}\right]=\frac{1}{2h^{2}}\Delta^{2}f(x_{0}), 
+\end{aligned}
+$$
+
+由此可推广得出
+
+$$f[x_{0},x_{1},\ldots,x_{k}]=\frac{1}{k!h^{k}}\Delta^{k}f(x_{0}).$$
+
+所以
+
+$$P_n(x_s)=\sum\limits_{k=0}^n\begin{pmatrix}s\\k\end{pmatrix}\Delta^{k}f(x_{0})$$
+
+此即为向前差分的公式
+
+#### 等距下的向后差商公式
+
+重排插值节点再计算，此时：
+
+$$\begin{aligned}P_n(x)=&f[x_n]+f[x_n,x_{n-1}](x-x_n)+f[x_n,x_{n-1},x_{n-2}](x-x_n)(x-x_{n-1})\\&+\cdots+f[x_n,\ldots,x_0](x-x_n)(x-x_{n-1})\cdots(x-x_1).\end{aligned}$$
+
+在等距情况下，记 $x_s=x_n+sh=x_i+(s+n-i)h$，有
+
+$$
+\begin{aligned}
+P_{n}(x_s) =&P_{n}(x_{n}+sh)  \\
+=&f[x_{n}]+shf[x_{n},x_{n-1}]+s(s+1)h^{2}f[x_{n},x_{n-1},x_{n-2}]+\cdots  \\
+&+s(s+1)\cdots(s+n-1)h^nf[x_n,\ldots,x_0]\\
+=&\sum\limits_{k=0}^n(-1)^k\begin{pmatrix}-s\\k\end{pmatrix}k!h^kf[x_n,x_{n-1},\cdots,x_{n-k}]
+\end{aligned}
+$$
+
+!!! note ""
+    这里的 $\begin{pmatrix}-s\\k\end{pmatrix}$ 是组合数，即 $\frac{-s(-s-1)\cdots(-s-k+1)}{k!}=(-1)^k \cdot \frac{s(s+1)\cdots(s+k-1)}{k!}$
+
+#### 等距下的向后差分公式
+
+由向后差分的记号可知道
+
+$$\begin{aligned}
+f[x_n,x_{n-1}]&=\frac1h\nabla f(x_n),\\
+f[x_n,x_{n-1},x_{n-2}]&=\frac1{2h^2}\nabla^2f(x_n),\\\end{aligned}$$
+
+由此可推广得出
+
+$$
+\begin{aligned}
+f[x_n,x_{n-1},\ldots,x_{n-k}]&=\frac1{k!h^k}\nabla^kf(x_n).\end{aligned}$$
+
+所以
+
+$$P_n(x_s)=\sum\limits_{k=0}^n(-1)^k\begin{pmatrix}-s\\k\end{pmatrix}\nabla^kf(x_n)$$
+
+## 3.3 Hermite Interpolation | Hermite 插值
+
+Hermite 插值的目标是找到一个插值多项式
+
+### Osculating polynomials | 密切多项式
+
+在 $x_0,x_1,\cdots,x_n$ 上逼近 $f\in C^m[a,b]$ 的**密切多项式(osculating polynomial)** 是具有以下性质的多项式 $P_n(x)$：
+
+1. $P_n(x)$ 在 $x_0,x_1,\cdots,x_n$ 上与 $f(x)$ 相同
+2. 对每个 $x_i$，$P_n(x)$ 和 $f(x)$ 在 $x_i$ 处的前 $m_i$ 阶导数相同
+3. 因此，我们可以得到 $\sum\limits_{i=0}^n(m_i+1)=\sum\limits_{i=0}^nm_i+(n+1)$ 个条件，于是 $P_n(x)$ 是一个次数至多为 $\sum\limits_{i=0}^nm_i+n$ 的多项式
+
+我们给出密切多项式的定义：
+
+**定义：** 设 $x_0,x_1,\cdots,x_n$ 是 $[a,b]$ 上的 $n+1$ 个不同的点，$m_0,m_1,\cdots,m_n$ 是 $n+1$ 个非负整数，假设$ f\in C^m[a,b]$，其中 $m=\max\limits_{0\leq i\leq n}m_i$。逼近 $f$ 的**密切多项式** $P_n(x)$ 是使得下式成立的**最小次数**的多项式：
+
+$$\frac{d^k}{dx^k}P_n(x_i)=\frac{d^k}{dx^k}f(x_i),\quad k=0,1,\cdots,m_i,\quad i=0,1,\cdots,n$$
+
+!!! note ""
+
+    1. 当 $n=0$ 时，逼近 $f$ 的密切多项式是 $f$ 在 $x_0$ 处的 $m_0$ 阶 Taylor 多项式。
+    2. 当 $m_i=0$ 时，密切多项式就是对 $f$ 在 $x_0,x_1,\cdots,x_n$ 上插值的 $n$ 次拉格朗日插值多项式。
+
+### Hermite 插值多项式
+
+对密切多项式 $m_i=1$ 的情况，我们定义其为 Hermite 多项式。也就是说，多项式 $P(n)$ 和它的一阶导数 $P'(n)$ 在 $x_i$ 处与 $f$ 和 $f'$ 相同。
+
+#### 特殊例子
+
+假设 $x_0\neq x_1 \neq x_2$，给定 $f(x_0),f(x_1),f(x_2),f'(x_1)$，找到多项式使得$P(x_i)=f(x_i)$，$P'(x_1)=f'(x_1)$。
+
+首先，其次数为3次，我们猜想其形式为
+
+$$P(x)=\sum\limits_{i=0}^2f(x_i)h_i(x)+f'(x_1)\hat{h}_1(x)$$
+
+其中$h_i(x_j)=\delta_i(x_j),h'_i(x_1)=0,\hat{h}_1(x_i)=0,\hat{h}'_1(x_1)=1$。
+
+根据这个猜想，我们试图构造出$h_i(x)$和$\hat{h}_1(x)$。
+
+首先，我们可以用拉格朗日同样的方法构造出$h_i(x)$，使得$h_i(x_j)=\delta_i(x_j)$，$h'_i(x_1)=0$，$i=0,1,2$。
+
+对于$h_0(x)$，有根$x_1,x_2$，所以
+
+$$h_0(x)=A(x-x_1)(x-x_2)$$
+
+又因为$h'_0(x_0)=1$，所以
+
+$$h_0(x)=\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}=L_{2,0}(x)$$
+
+类似地，我们可以得到
+
+$$h_1(x)=\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}=L_{2,1}(x)$$
+
+$$h_2(x)=\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}=L_{2,2}(x)$$
+
+然后，我们构造$\hat{h}_1(x)$，使得$\hat{h}_1(x_i)=0$，$\hat{h}'_1(x_1)=1$。对于$\hat{h}_1(x)$，有根$x_0,x_1,x_2$，所以
+
+$$\hat{h}_1(x)=B(x-x_0)(x-x_1)(x-x_2)$$
+
+又因为$\hat{h}'_1(x_1)=1$，所以可以通过计算得到 $B$ 的值。此处略。
+
+#### 一般情况
+
+假设 $x_0,x_1,\cdots,x_n$ 是 $[a,b]$ 上的 $n+1$ 个不同的点，$m_0,m_1,\cdots,m_n$ 是 $n+1$ 个非负整数。如果$ f\in C^1[a,b]$。则与 $f$ 和 $f'$ 在 $x_i$ 处相同的 Hermite 多项式 $P_n(x)$ 是次数不超过 $2n+1$ 的多项式，由下式给出
+
+$$H_{2n+1}(x)=\sum\limits_{i=0}^nf(x_i)h_i(x)+\sum\limits_{i=0}^nf'(x_i)\hat{h}_i(x)$$

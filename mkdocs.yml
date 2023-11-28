@@ -133,6 +133,8 @@ nav:
     - ESG商赛: 
       - 论文阅读: ./Mess/ESG/Paper.md
       - APP: ./Mess/ESG/APP.md
+    - 马原:
+      - 马原展示: ./Mess/Marxism/index.md
 
 
 copyright: Copyright &copy; 2023 Jiepeng Jin

@@ -48,7 +48,7 @@ $$
 $$
 
 $$
-\left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} \cos\theta & 0 & x_0 \\ 0 & 1 & y_0 \\ 0 & 0 & 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
+\left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} \cos\theta & -\sin\theta & x_0 \\ \sin\theta & \cos\theta & y_0 \\ 0 & 0 & 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
 $$
 
 !!! Example
@@ -101,8 +101,8 @@ $$
 剪切变换可以仅是 x 坐标或仅是 y 坐标坐标受剪切，也可以是两个坐标同时受剪切，其变换矩阵分别为：
 
 $$
-\left( \begin{matrix} 1 &  0  \\ d_x & 1 \end{matrix} \right)
-\left( \begin{matrix} 1 &  d_y  \\ 0 & 1 \end{matrix} \right)
+\left( \begin{matrix} 1 &  0  \\ d_x & 1 \end{matrix} \right);
+\left( \begin{matrix} 1 &  d_y  \\ 0 & 1 \end{matrix} \right);
 \left( \begin{matrix} 1 &  d_y  \\ d_x & 1 \end{matrix} \right)  
 $$
 
@@ -121,9 +121,6 @@ $$
 \left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} s_x & 0 & 0 \\ 0 & s_y & 0 \\ 0 & 0 & 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
 $$
 
-$$
-\left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
-$$
 
 当 $S_x = 1$，且 $S_y = -1$ 时实现绕x轴的镜像变换
 
@@ -230,6 +227,7 @@ Morph 变形指景物的形体变化，它是使一幅图像逐步变化到另�
 对于灰度图像，可以直接用等比或等差级数定义步长，使颜色从原图变到目标图。
 
 **如何选择关键帧：**  
+
 选择两幅结构相似、大小相同的画面作为起始和结束关键帧，这样才能比较容易地实现自然、连续的中间变形过程。（否则效果很差）
 
 ### 模型转换的 Morph | Morph based on segment

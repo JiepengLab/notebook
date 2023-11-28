@@ -164,8 +164,11 @@ $A\oplus B = \{z| (B)_z \cap A \neq \varnothing \}$
 腐蚀是一种消除边界点，使边界向内部收缩的过程。可以用来消除小且无意义的物体。
 
 A: Binary image  
+
 B: binary template,  structure element  
-$A\ominus B=\{(x,y)|(B)_{xy}\sube A\}$  
+
+$$A\ominus B=\{(x,y)|(B)_{xy}\subseteq A\}$$  
+
 Physical meaning: remove boundary, remove unwanted small objects.
 
 一维情况：

@@ -350,8 +350,8 @@ $$V = C_{in} \oplus C_{out}$$
 
         算术移位：移位后把原符号位再赋给首位
 
-    !!! note ""
-        除此，还有循环移位（barrel shifter）
+        !!! note ""
+            除此，移位的方法还有循环移位（barrel shifter）
 
     - 任意常数的乘除的一种实现思路是，拆分成与若干个 $2^n$ 的乘除
-- 零扩展（zero fill）与符号位扩展（extension）
+- （移位时）零扩展（zero fill）与符号位扩展（extension）

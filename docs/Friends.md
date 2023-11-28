@@ -1,6 +1,6 @@
 # 友链🔗
 
-!!! summary "🔗 ACEE专属！"
+???+ summary "🔗 ACEE专属！"
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
@@ -111,8 +111,46 @@
             <div class="flink-item-desc">催kjgg快修网站</div>
         </a>
     </div>
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/young.jpg)
+        </div>
+        <a href="https://yangmei-zju.github.io/YoungNotes/" title="young" target="_blank">
+            <div class="flink-item-name">YoungNotes</div>
+            <div class="flink-item-desc">\ymjj/\ymjj/\ymjj/</div>
+        </a>
+    </div> 
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/paradox.jpg)
+        </div>
+        <a href="https://zju-paradox.top/" title="paradox" target="_blank">
+            <div class="flink-item-name">Paradox's Website</div>
+            <div class="flink-item-desc">工高的电院前辈！</div>
+        </a>
+    </div>
 
-!!! summary "🔗 我的好朋友们！"
+     <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/gax.jpg)
+        </div>
+        <a href="https://gax-c.github.io/" title="gax" target="_blank">
+            <div class="flink-item-name">gax's Website</div>
+            <div class="flink-item-desc">工高的信安前辈！</div>
+        </a>
+    </div>
+
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](images/friends/lhmd.gif)
+        </div>
+        <a href="https://lhmd.top/" title="lhmd" target="_blank">
+            <div class="flink-item-name">罹魂梦蝶の空間</div>
+            <div class="flink-item-desc">工高的软工前辈！</div>
+        </a>
+    </div> 
+
+???+ summary "🔗 我的好朋友们！"
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
