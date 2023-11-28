@@ -17,5 +17,6 @@
 
 !!! success "作业进度"
     我的课程作业放在[我的Github](https://github.com/JiepengLab/ML-4360)上。
+
     - [x] [Exercise 1 - Image Formation](https://github.com/JiepengLab/ML-4360/tree/master/Exercise/ex_01_image_formation)
 

@@ -44,22 +44,8 @@ nav:
       - Chapter 2-随机变量及其概率分布: ./Fundemental/Probability and Mathematical Statistics/Chap02.md
       - Chapter 3-多维随机变量及其分布: ./Fundemental/Probability and Mathematical Statistics/Chap03.md
     - 大学物理（乙）II: ./Fundemental/Physics-II/index.md
-  - CS: 
+  - 校内CS课程: 
     - ./CS/index.md
-    - ML-4360:
-      - ./CS/ML-4360/index.md
-      - Note 01 introduction: ./CS/ML-4360/Lec1/Note_1_introduction.md
-      - Note 02 Image Formation: 
-        - ./CS/ML-4360/Lec2/index.md
-        - Note 2-1 Primitives and Transformations: ./CS/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
-        - Note 2-2 Geometric Image Formation: ./CS/ML-4360/Lec2/Note 2-2 Geometric Image Formation.md
-        - Note 2-3 Photometric Image Formation: ./CS/ML-4360/Lec2/Note 2-3 Photometric Image Formation.md
-        - Note 2-4 Image Sensing Pipeline: ./CS/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
-        - Maths Basic-SVD: ./CS/ML-4360/Lec2/Math Basic SVD.md
-        - HW1.1 Pen and Paper: ./CS/ML-4360/Lec2/HW1.1 Pen and Paper.md
-      - Note 03 Structure from Motion:
-        - ./CS/ML-4360/Lec3/index.md
-        - Note 3-1 Preliminaries: ./CS/ML-4360/Lec3/Note 3-1 Preliminaries.md
     # - 人工智能引论:
     #   - ./CS/Introduction-to-AI/index.md
     #   - 知识表达与推理: ./CS/Introduction-to-AI/Chapter02.md
@@ -72,6 +58,7 @@ nav:
       - Chapter 7 Iterative Techniques in Matrix Algebra: ./CS/NA/Chapter_07.md
       - Chapter 9 Approximating Eigenvalues: ./CS/NA/Chapter_09.md
       - Chapter 3 Interpolation and Polynomial Approximation: ./CS/NA/Chapter_03.md
+      - Chapter 8 Approximation Theory: ./CS/NA/Chapter_08.md
     - 人工智能初步:
       - ./CS/AI_Start/index.md
       - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
@@ -127,6 +114,25 @@ nav:
         - 二叉树遍历: ./CS/FDS/chapter_7_tree/binary_tree_traversal.md
       # - 08-堆 | The Heap ADT: 
       - 09-并查集 | The Disjoint Set ADT: ./CS/FDS/set.md
+  - 校外CS课程: 
+    - ./CS_Online/index.md
+    - ML-4360:
+      - ./CS_Online/ML-4360/index.md
+      - Note 01 introduction: ./CS_Online/ML-4360/Lec1/Note_1_introduction.md
+      - Note 02 Image Formation: 
+        - ./CS_Online/ML-4360/Lec2/index.md
+        - Note 2-1 Primitives and Transformations: ./CS_Online/ML-4360/Lec2/Note 2-1 Primitives and Transformations.md
+        - Note 2-2 Geometric Image Formation: ./CS_Online/ML-4360/Lec2/Note 2-2 Geometric Image Formation.md
+        - Note 2-3 Photometric Image Formation: ./CS_Online/ML-4360/Lec2/Note 2-3 Photometric Image Formation.md
+        - Note 2-4 Image Sensing Pipeline: ./CS_Online/ML-4360/Lec2/Note 2-4 Image Sensing Pipeline.md
+        - Maths Basic-SVD: ./CS_Online/ML-4360/Lec2/Math Basic SVD.md
+        - HW1.1 Pen and Paper: ./CS_Online/ML-4360/Lec2/HW1.1 Pen and Paper.md
+      - Note 03 Structure from Motion:
+        - ./CS_Online/ML-4360/Lec3/index.md
+        - Note 3-1 Preliminaries: ./CS_Online/ML-4360/Lec3/Note 3-1 Preliminaries.md
+    - 李宏毅《机器学习》:
+      - ./CS_Online/ML_Lhy/index.md
+      - 学习计划: ./CS_Online/ML_Lhy/Plan.md
   - 杂项:
     - ./Mess/index.md
     - 《数字图像处理编程入门》: ./Mess/DIP-C/index.md

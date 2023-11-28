@@ -343,32 +343,273 @@ $$P(x)=\sum\limits_{i=0}^2f(x_i)h_i(x)+f'(x_1)\hat{h}_1(x)$$
 
 其中$h_i(x_j)=\delta_i(x_j),h'_i(x_1)=0,\hat{h}_1(x_i)=0,\hat{h}'_1(x_1)=1$。
 
-根据这个猜想，我们试图构造出$h_i(x)$和$\hat{h}_1(x)$。
+根据这个猜想，我们试图构造出 $h_i(x)$ 和 $\hat{h}_1(x)$ 。
 
-首先，我们可以用拉格朗日同样的方法构造出$h_i(x)$，使得$h_i(x_j)=\delta_i(x_j)$，$h'_i(x_1)=0$，$i=0,1,2$。
+首先，我们可以用拉格朗日同样的方法构造出三次多项式$h_i(x)$，使得$h_i(x_j)=\delta_i(x_j)$，$h'_i(x_1)=0$，$i=0,1,2$。
 
-对于$h_0(x)$，有根$x_1,x_2$，所以
+对于$h_0(x)$，有根$x_1,x_2$，且因为 $h'_0(x_1)=0$ 所以 $x_1$ 是 $h_0(x)$ 的二重根，所以其形式为
 
-$$h_0(x)=A(x-x_1)(x-x_2)$$
+$$h_0(x)=C_0(x-x_1)^2(x-x_2)$$
 
 又因为$h'_0(x_0)=1$，所以
 
-$$h_0(x)=\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}=L_{2,0}(x)$$
+$$h_0(x)=\frac{(x-x_1)^2(x-x_2)}{(x_0-x_1)^2(x_0-x_2)}$$
 
 类似地，我们可以得到
 
-$$h_1(x)=\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}=L_{2,1}(x)$$
+$$h_2(x)=\frac{(x-x_0)(x-x_1)^2}{(x_2-x_0)(x_2-x_1)^2}$$
 
-$$h_2(x)=\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}=L_{2,2}(x)$$
+对于$h_1(x)$，有根$x_0,x_2$，都是单根。所以其形式为
+
+$$h_1(x)=(Ax+B)(x-x_0)(x-x_2)$$
+
+通过计算 $h_1(x_1)=1$，$h'_1(x_1)=0$，可以得到 $A$ 和 $B$ 的值。此处略。
 
 然后，我们构造$\hat{h}_1(x)$，使得$\hat{h}_1(x_i)=0$，$\hat{h}'_1(x_1)=1$。对于$\hat{h}_1(x)$，有根$x_0,x_1,x_2$，所以
 
-$$\hat{h}_1(x)=B(x-x_0)(x-x_1)(x-x_2)$$
+$$\hat{h}_1(x)=C(x-x_0)(x-x_1)(x-x_2)$$
 
-又因为$\hat{h}'_1(x_1)=1$，所以可以通过计算得到 $B$ 的值。此处略。
+又因为$\hat{h}'_1(x_1)=1$，所以可以通过计算得到 $C$ 的值。此处略。
 
 #### 一般情况
 
-假设 $x_0,x_1,\cdots,x_n$ 是 $[a,b]$ 上的 $n+1$ 个不同的点，$m_0,m_1,\cdots,m_n$ 是 $n+1$ 个非负整数。如果$ f\in C^1[a,b]$。则与 $f$ 和 $f'$ 在 $x_i$ 处相同的 Hermite 多项式 $P_n(x)$ 是次数不超过 $2n+1$ 的多项式，由下式给出
+如果已知 $f(x_0),f(x_1),\cdots,f(x_n)$ 和 $f'(x_0),f'(x_1),\cdots,f'(x_n)$，则可以构造出 Hermite 插值多项式
 
 $$H_{2n+1}(x)=\sum\limits_{i=0}^nf(x_i)h_i(x)+\sum\limits_{i=0}^nf'(x_i)\hat{h}_i(x)$$
+
+其中$(2n+1)$阶多项式$h_i(x_j)=\delta_i(x_j),h'_i(x_j)=0,\hat{h}_i(x_j)=0,\hat{h}'_i(x_j)=\delta_i(x_j)$。
+
+对于$h_i(x)$，有根$x_0,x_1,\cdots,x_{i-1},x_{i+1},\cdots,x_n$，且因为 $h'_i(x_j)=0(j\neq i)$ 所以 $x_j$ 是 $h_i(x)$ 的 $2$ 重根，所以其形式为
+
+$$
+\begin{aligned}
+h_i(x)&=(A'x+B')(x-x_0)^2(x-x_1)^2\cdots(x-x_{i-1})^2(x-x_{i+1})^2\cdots(x-x_n)^2\\
+&=(Ax+B)L_{n,i}^2(x)
+\end{aligned}
+$$
+
+!!! note ""
+    这里的常系数改变是因为引入 $L_{n,i}(x)$ 的话，它相较前面的有额外系数
+
+    $$L_{n,i}(x)=\prod\limits_{j=0,j\neq i}^n\frac{x-x_j}{x_i-x_j}$$
+
+因为$h_i(x_i)=1$，$h'_i(x_i)=0$，所以
+
+$$h_i(x)=\left(1-2(x-x_i)L'_{n,i}(x_i)\right)\left(L_{n,i}(x)\right)^2$$
+
+对于$\hat{h}_i(x)$，有根$x_0,x_1,\cdots,x_n$，且因为 $\hat{h}'_i(x_j)=0(j\neq i)$，$\hat{h}'_i(x_i)=1$ 所以 $x_i$ 是 $\hat{h}_i(x)$ 的 $1$ 重根，其余的都是 $2$ 重根，所以其形式为
+
+$$\hat{h}_i(x)=C_i(x-x_i)\left(L_{n,i}(x)\right)^2$$
+
+因为$\hat{h}'_i(x_i)=1$，所以
+
+$$\hat{h}_i(x)=\left(x-x_i\right)\left(L_{n,i}(x)\right)^2$$
+
+#### 余项
+
+如果 $a=x_0<x_1<\cdots<x_n=b$，$f\in C^{2n}[a,b]$，余项为
+
+$$f(x)-P_n(x)=\frac{f^{(2n+2)}(\xi(x))}{(2n+2)!}\prod\limits_{i=0}^n(x-x_i)^2$$
+
+## 3.4 Cubic Spline I           nterpolation | 三次样条插值
+
+### Piecewise-polynomial approximation | 分段多项式逼近
+
+最简单的分段多项式逼近是分段线性逼近，即在每个子区间上用一个一次多项式逼近函数 $f$。但是，分段线性逼近的函数不光滑，所以我们希望用更高次的多项式来逼近 $f$。
+
+![Alt text](images/image-45.png){width=50%}
+
+一个可替代的方法是使用 Hermite 插值多项式。例如，如果 $f$ 和 $f'$ 的值在每一个点 $x_i$ 处都已知，那么我们可以在每个子区间上使用一个三次多项式来逼近 $f$。这样的逼近是光滑的，但是为了将该多项式应用于一般插值，需要知道所有的 $f'$ 的值，这是不现实的。
+
+由此，我们引入了三次样条插值。
+
+### Cubic spline interpolation | 三次样条插值
+
+!!! note ""
+    三次样条的构造不假设插值函数的导数值与原函数的导数值相等，即使在插值点处也如此。
+
+给定在 $[a,b]$ 上的 $n+1$ 个点 $x_0,x_1,\cdots,x_n$，$a=x_0<x_1<\cdots<x_n=b$，以及 $f$。三次样条插值是一个函数 $S(x)$，满足以下条件：
+
+1. $S(x)$ 在每个子区间 $[x_i,x_{i+1}]$ 上是一个三次多项式，$i=0,1,\cdots,n-1$
+2. $S(x_i)=f(x_i)$，$i=0,1,\cdots,n$
+3. $S_{i+1}(x_{i+1})=S_i(x_{i+1})$，$i=0,1,\cdots,n-2$
+4. $S'_{i+1}(x_{i+1})=S'_i(x_{i+1})$，$i=0,1,\cdots,n-2$
+5. $S''_{i+1}(x_{i+1})=S''_i(x_{i+1})$，$i=0,1,\cdots,n-2$
+6. 下列的边界条件之一成立：
+    1. $S''(x_0)=S''(x_n)=0$，称为**自由或自然边界(free or natural boundary)**
+    2. $S'(x_0)=f'(x_0)$，$S'(x_n)=f'(x_n)$，称为**固支边界(clamped boundary)**
+    3. 其他边界条件（上面两个条件其实已经足以满足目的了）
+
+我们介绍一种构造三次样条插值的方法：
+
+#### Method of Bending Moments
+
+记 $h_j=x_j-x_{j-1}$，在 $x\in[x_{j-1},x_j]$ 上，$S(x)=S_j(x)$，$S'(x)=S'_j(x)$，$S''(x)=S''_j(x)$。
+
+因为 $S(x)$ 是一个三次多项式，所以 $S''_j(x)$ 是一个一次多项式，由端点值决定，假设 $S''_j(x_{j-1})=M_{j-1}$，$S''_j(x_j)=M_j$。那么对于 $x\in[x_{j-1},x_j]$，有
+
+$$S''_j(x)=M_{j-1}\frac{x_j-x}{h_j}+M_j\frac{x-x_{j-1}}{h_j}$$
+
+积分得到
+
+$$S'_j(x)=-M_{j-1}\frac{(x_j-x)^2}{2h_j}+M_j\frac{(x-x_{j-1})^2}{2h_j}+A_j$$
+
+再积分得到
+
+$$S_j(x)=M_{j-1}\frac{(x_j-x)^3}{6h_j}+M_j\frac{(x-x_{j-1})^3}{6h_j}+A_jx+B_j$$
+
+$A_j$ 和 $B_j$ 是常数，可以通过 $S_j(x_{j-1})=y_{j-1}$ 和 $S_j(x_j)=y_{j}$ 得到。
+
+$$\begin{aligned}
+\begin{cases}
+S_j(x_{j-1})=y_{j-1}\\
+S_j(x_j)=y_{j}
+\end{cases}
+&\Rightarrow
+\begin{cases}
+M_{j-1}\frac{h_j^2}{6}+A_jx_{j-1}+B_j=y_{j-1}\\
+M_j\frac{h_j^2}{6}+A_jx_j+B_j=y_{j}
+\end{cases}\\
+&\Rightarrow
+\begin{cases}
+A_j=\frac{y_j-y_{j-1}}{h_j}-\frac{M_j-M_{j-1}}{6}h_j\\
+B_j=\frac{y_{j-1}x_j-y_jx_{j-1}}{h_j}-\frac{M_{j-1}x_j-M_jx_{j-1}}{6}h_j
+\end{cases}\\
+\end{aligned}$$
+
+所以
+
+$$
+\begin{aligned}
+A_jx+B_j&=\frac{y_j-y_{j-1}}{h_j}x+\frac{y_{j-1}x_j-y_jx_{j-1}}{h_j}-\frac{M_j-M_{j-1}}{6}h_jx-\frac{M_{j-1}x_j-M_jx_{j-1}}{6}h_j\\
+&=(y_{j-1}-\frac{M_{j-1}}{6}h_j^2)\frac{x_j-x}{h_j}+(y_j-\frac{M_j}{6}h_j^2)\frac{x-x_{j-1}}{h_j}
+\end{aligned}
+$$
+
+所以，我们的目的就是求出 $M_j$，$j=0,1,\cdots,n$。
+
+因为 $S'$ 是连续的，所以
+
+在 $[x_{j-1},x_j]$ 上，$S'_j(x)=-M_{j-1}\frac{(x_j-x)^2}{2h_j}+M_j\frac{(x-x_{j-1})^2}{2h_j}+f[x_{j-1},x_j]-\frac{M_j-M_{j-1}}{6}h_j$
+
+在 $[x_j,x_{j+1}]$ 上，$S'_{j+1}(x)=-M_{j}\frac{(x_{j+1}-x)^2}{2h_{j+1}}+M_{j+1}\frac{(x-x_{j})^2}{2h_{j+1}}+f[x_j,x_{j+1}]-\frac{M_{j+1}-M_{j}}{6}h_{j+1}$
+
+有 $S'_{j+1}(x_j)=S'_j(x_j)$，所以我们可以得到 $M_{j-1}, M_j, M_{j+1}$ 之间的关系：
+
+记 $\lambda_j=\frac{h_{j+1}}{h_j+h_{j+1}}$，$\mu_j=\frac{h_{j}}{h_j+h_{j+1}}$，$g_j=\frac{6}{h_j+h_{j+1}}(f[x_j,x_{j+1}]-f[x_{j-1},x_j])$，则
+
+$$
+\mu_jM_{j-1}+2M_j+\lambda_jM_{j+1}=g_j
+$$
+
+其中 $j=1,2,\cdots,n-1$。
+
+$$
+\begin{bmatrix}
+\mu_1 & 2 & \lambda_1 &  & & \\
+& \mu_2 & 2 & \lambda_2 &  & \\
+& & \ddots & \ddots & \ddots & \\
+& & & \mu_{n-1} & 2 & \lambda_{n-1} \\
+\end{bmatrix}
+\begin{bmatrix}
+M_0\\
+M_1\\
+\vdots\\
+M_n\\
+\end{bmatrix}=
+\begin{bmatrix}
+g_1\\
+g_2\\
+\vdots\\
+g_{n-1}\\
+\end{bmatrix}
+$$
+
+我们有 $n+1$ 个未知数，$n-1$个方程 → 由边界条件增加两个方程
+
+#### Clamped boundary | 固支边界
+
+此时我们知道 $S'(x_0)=f'(x_0)$，$S'(x_n)=f'(x_n)$，所以
+
+在 $[x_0,x_1]$ 上，$S'_1(x)=-M_0\frac{(x_1-x)^2}{2h_1}+M_1\frac{(x-x_0)^2}{2h_1}+f[x_0,x_1]-\frac{M_1-M_0}{6}h_1$
+
+在 $[x_{n-1},x_n]$ 上，$S'_n(x)=-M_{n-1}\frac{(x_n-x)^2}{2h_n}+M_n\frac{(x-x_{n-1})^2}{2h_n}+f[x_{n-1},x_n]-\frac{M_n-M_{n-1}}{6}h_n$
+
+所以我们额外有两个方程：
+
+$$
+\begin{cases}
+f'(x_0)=-M_0\frac{h_1}{2}+f[x_0,x_1]-\frac{M_1-M_0}{6}h_1\\
+f'(x_n)=M_{n }\frac{h_n}{2}+f[x_{n-1},x_n]-\frac{M_n-M_{n-1}}{6}h_n
+\end{cases}
+\Rightarrow
+\begin{cases}
+2M_0+M_1=\frac{6}{h_1}(f[x_0,x_1]-f'(x_0))\triangleq g_0\\
+M_{n-1}+2M_n=\frac{6}{h_n}(f'(x_n)-f[x_{n-1},x_n]) \triangleq g_n
+\end{cases}
+$$
+
+所以我们可以得到
+
+$$
+\begin{bmatrix}
+2 & 1 &  & & &\\
+\mu_1 & 2 & \lambda_1 &  & &\\
+& \ddots & \ddots & \ddots & &\\
+& & \mu_{n-1} & 2 & \lambda_{n-1} &\\
+& & &   & 1  & 2
+\end{bmatrix}
+\begin{bmatrix}
+M_0\\
+M_1\\
+\vdots\\
+M_n\\
+\end{bmatrix}=
+\begin{bmatrix}
+g_0\\
+g_1\\
+\vdots\\
+g_n
+\end{bmatrix}
+$$
+
+#### Natural boundary | 自由边界
+
+!!! note ""
+    如果 $S''(x_0)=y''_0=M_0$，$S''(x_n)=y''_n=M_n$，则
+
+    $$ \lambda_0 = 0, g_0 = 2y''_0, \mu_n = 0, g_n = 2y''_n $$
+
+    如果 $S''(x_0)=S''(x_n)=0$，则称为**自由边界(free boundary)**，此时 $g_0=g_n=0$。
+
+$$
+\begin{bmatrix}
+2 & 0 & 0 & & &\\
+\mu_1 & 2 & \lambda_1 &   \\
+ & \ddots & \ddots & \ddots & \\
+ & & \mu_{n-1} & 2 & \lambda_{n-1} \\
+ & &   0& 0  & 2
+\end{bmatrix}_{(n+1)\times (n+1)}
+\begin{bmatrix}
+M_0\\
+M_1\\
+\vdots\\
+M_{n-1}\\
+M_n\\
+\end{bmatrix}_{(n+1)\times 1}=
+\begin{bmatrix}
+g_0\\
+g_1\\
+\vdots\\
+g_{n-1}\\
+g_n
+\end{bmatrix}_{(n+1)\times 1}
+$$
+
+自由边界的情况下，有 $S''(x_0)=S''(x_n)=0$。
+
+### Properties of cubic splines | 三次样条的性质
+
+- 只要系数矩阵严格对角占优（实际上是确保可逆），三次样条就可以由其边界条件唯一确定。
+- 如果 $\frac{\max h_i}{\min h_i}$ 有界，那么 $S(x)$ 是收敛的。
+- 增加点可以更贴近原函数。
