@@ -6,7 +6,7 @@
     <style>
         canvas {
             position: fixed;
-            width: 150%;
+            width: 100%;
             height: 100%;
             right: 0%;
             bottom: 0%;
