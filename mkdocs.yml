@@ -282,6 +282,7 @@ markdown_extensions:
 extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/glightbox.min.css
+  - assets/stylesheets/galaxy.css
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
   - https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
 # - https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.1.0/style.css
@@ -298,4 +299,5 @@ extra_javascript:
   - assets/javascripts/titlechange.js
   - assets/javascripts/glightbox.min.js
   - assets/javascripts/click.js
+  - assets/javascripts/galaxy.js
 
