@@ -1,27 +1,27 @@
 body {
-    font-family: "LXGW WenKai", sans-serif;
-    /* Lite version */
-    /* font-family: "LXGW WenKai Lite", sans-serif; */
-    /* TC version */
-    /* font-family: "LXGW WenKai TC", sans-serif; */
-    /* Screen version */
-    /* font-family: "LXGW WenKai Screen", sans-serif; */
-    
-  }
-h1 ~ p {
+  font-family: "LXGW WenKai", sans-serif;
+  /* Lite version */
+  /* font-family: "LXGW WenKai Lite", sans-serif; */
+  /* TC version */
+  /* font-family: "LXGW WenKai TC", sans-serif; */
+  /* Screen version */
+  /* font-family: "LXGW WenKai Screen", sans-serif; */
+}
+
+h1~p {
   text-indent: 30px;
 }
 
-img{
+img {
   border-radius: 10px;
   /* border-style: solid 2px #000000; */
 }
 
-div p[class^=""]{
+div p[class^=""] {
   text-indent: 20px;
 }
 
-p:has(img){
+p:has(img) {
   /* width: 80%; */
   text-indent: 0px;
   text-align: center;
@@ -46,7 +46,7 @@ a:active {
 strong {
   text-shadow: 0.7px 0px;
   /* text-shadow: 0 0 1px #ffffff; */
-  
+
 }
 
 /* 
@@ -85,12 +85,15 @@ strong {
   padding: 10px 10px 0;
   text-align: center;
 }
+
 .flink-list a {
   color: #4a4a4a;
 }
+
 [data-md-color-scheme="slate"] .flink-list a {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
+
 .flink-list-item {
   position: relative;
   float: left;
@@ -103,8 +106,9 @@ strong {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   transition: 0.25s;
-  
+
 }
+
 .flink-item-icon {
   float: left;
   overflow: hidden;
@@ -113,20 +117,24 @@ strong {
   height: 60px;
   border-radius: 35px;
 }
+
 .flink-item-name {
   padding: 19px 10px 0 0;
   height: 40px;
   font-weight: bold;
   font-size: 1.3em;
 }
+
 .flink-item-desc {
   padding: 13px 10px 16px 0;
   height: 50px;
   font-size: 0.93em;
 }
+
 .flink-list-item:hover {
-  background-color: rgba(128,118,105,.1);
+  background-color: rgba(128, 118, 105, .1);
 }
+
 .flink-list-item {
   width: calc(50% - 15px) !important;
 }
@@ -136,21 +144,25 @@ strong {
     width: calc(100% - 15px) !important;
   }
 }
+
 @media screen and (max-width: 1219px) {
   .flink-list-item {
     width: calc(50% - 15px) !important;
   }
 }
+
 @media screen and (max-width: 1027px) {
   .flink-list-item {
     width: calc(100% - 15px) !important;
   }
 }
+
 @media screen and (max-width: 959px) {
   .flink-list-item {
     width: calc(50% - 15px) !important;
   }
 }
+
 @media screen and (max-width: 692px) {
   .flink-list-item {
     width: calc(100% - 15px) !important;
