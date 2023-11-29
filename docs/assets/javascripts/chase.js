@@ -15,10 +15,10 @@ let y = 0
 let index = 0
 
 window.addEventListener('mousemove', function (xyz) {
-    imgx = window.pageXOffset + xyz.x - img.offsetLeft - img.clientWidth / 2
-    imgy = window.pageYOffset + xyz.y - img.offsetTop - img.clientHeight / 2
-    img.style.left = window.pageXOffset + imgl + "px"
-    img.style.top = window.pageYOffset + imgt + "px"
+    imgx = window.scrollX + xyz.x - img.offsetLeft - img.clientWidth / 2 + 30
+    imgy = window.scrollY + xyz.y - img.offsetTop - img.clientHeight / 2
+    img.style.left = window.scrollX + imgl + "px"
+    img.style.top = window.scrollY + imgt + "px"
     // 套入公式，定义图片的旋转角度
     deg = 360 * Math.atan(imgy / imgx) / (2 * Math.PI)
     // 每当鼠标移动的时候重置index
