@@ -35,3 +35,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+    <style>
+        .img{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            background-image: url('./images/logo.png');
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img"></div>
+</body>
+    <script src="./assets/javascripts/chase.js">
+    </script>
+</html> 
