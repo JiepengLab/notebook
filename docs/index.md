@@ -38,10 +38,10 @@
 <head>
     <style>
         .img{
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             position: absolute;
-            background-image: url('./images/logo.png');
+            background-image: url('./images/chase.gif');
             background-size: cover;
         }
     </style>

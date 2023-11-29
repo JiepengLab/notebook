@@ -15,7 +15,7 @@ let y = 0
 let index = 0
 
 window.addEventListener('mousemove', function (xyz) {
-    imgx = window.scrollX + xyz.x - img.offsetLeft - img.clientWidth / 2 + 30
+    imgx = window.scrollX + xyz.x - img.offsetLeft - img.clientWidth / 2 + 40
     imgy = window.scrollY + xyz.y - img.offsetTop - img.clientHeight / 2
     img.style.left = window.scrollX + imgl + "px"
     img.style.top = window.scrollY + imgt + "px"
