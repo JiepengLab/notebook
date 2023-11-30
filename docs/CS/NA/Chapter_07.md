@@ -499,6 +499,14 @@ $$
 
 #### $K(\mathbf{A})$ 的性质
 
+我们记非奇异矩阵 $A$ 相对于范数 $\|\cdot\|$ 的条件数为：
+
+$$
+K(\mathbf{A})=\|\mathbf{A}\|\|\mathbf{A}^{-1}\|
+$$
+
+当 $K(\mathbf{A})$ 很大时，$\mathbf{A}$ 是病态的，当 $K(\mathbf{A})$ 接近于 $1$ 时，$\mathbf{A}$ 是良态的。
+
 1. $K(\mathbf{A})_p\geq 1$ 对所有的自然范数 $\|\cdot\|_p$ 成立；
 2. 如果 $\mathbf{A}$ 是对称的，那么 $K(\mathbf{A})_2=\frac{|\lambda_{max}|}{|\lambda_{min}|}$，其中 $\lambda_{max}$ 和 $\lambda_{min}$ 分别是 $\mathbf{A}$ 的最大和最小特征值；
 3. $K(a\mathbf{A})=K(\mathbf{A})$，其中 $a$ 是一个非零常数；

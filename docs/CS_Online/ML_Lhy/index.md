@@ -1,5 +1,8 @@
 # 机器学习-李宏毅
 
+!!! warning ""
+    笔记基于[zyddd915的笔记](https://www.cnblogs.com/zyddd915/p/16268762.html)制作，感谢！
+
 !!! note "课程信息"
     Lecture: 机器学习
     授课: 李宏毅

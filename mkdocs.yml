@@ -133,6 +133,7 @@ nav:
     - 李宏毅《机器学习》:
       - ./CS_Online/ML_Lhy/index.md
       - 学习计划: ./CS_Online/ML_Lhy/Plan.md
+      - Introduction of Machine / Deep Learning: ./CS_Online/ML_Lhy/Lec01.md
   - 杂项:
     - ./Mess/index.md
     - 《数字图像处理编程入门》: ./Mess/DIP-C/index.md
