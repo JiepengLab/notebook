@@ -262,3 +262,114 @@ a_k = \frac{\langle \phi_{k},f\rangle}{\langle \phi_{k}, \phi_{k}\rangle}
 $$
 
 来计算。
+
+我们可以构造出一系列的正交多项式。用下面定义的多项式函数集 $\{\phi_{0}(x), \phi_{1}(x), \cdots, \phi_{n}(x)\}$ 关于权函数 $w(x)$ 是正交的：
+
+$$\phi_{0}(x)=1, \quad \phi_{1}(x)=x-B_{1}, \quad \phi_{k}(x)=(x-B_{k}) \phi_{k-1}(x)-C_{k} \phi_{k-2}(x), \quad k=2,3, \cdots$$
+
+其中 $B_k$ 和 $C_k$ 是常数，可以通过
+
+$$
+B_{k}=\frac{\langle x \phi_{k-1}, \phi_{k-1}\rangle}{\langle \phi_{k-1}, \phi_{k-1}\rangle}, \quad C_{k}=\frac{\langle x\phi_{k-1}, \phi_{k-2}\rangle}{\langle \phi_{k-2}, \phi_{k-2}\rangle}
+$$
+
+来计算。
+
+!!! note "题目例子"
+
+    ![Alt text](images/image-47.png)
+
+    里面各项已经在之前的图片中计算过了。
+
+#### 伪代码
+
+![Alt text](images/image-48.png)
+
+其中误差的计算推导如下：
+
+![Alt text](images/image-49.png)
+
+### 8.3 Chebyshev Polynomials and Economization of Power Series | 切比雪夫多项式与幂级数的缩减
+
+#### Target 1
+
+上文我们知道了误差的计算方式，现在我们试图找到一个 $n$ 阶多项式 $P_n$ 来逼近函数，使得误差 $\|P_n-f\|$ 最小。
+
+若 $P(x_0)-f(x_0)=\pm \|P_n-f\|$ ，则定义点 $x_0$ 为 **Deviation point**
+
+我们的多项式 $P_n$ 有如下性质：
+
+- 如果 $f\in C[a,b]$，且 $f$ 不是 $n$ 阶多项式，则存在唯一的多项式 $P_n$ 使得 $||P_n-f||_\infty$ 最小
+- $P_n(x)$ 存在，且必须有正负偏差点，否则肯定还有更好的逼近函数
+- **（切比雪夫定理）**$P_n(x)$ 最小化 $||P_n-f||_\infty$ $\Leftrightarrow$ $P_n(x)$ 至少有 $n+2$ 个正负偏差点。也就是说，存在一组点 $a \leq t_1 < \cdots < t_{n+2} \leq b$，使得
+
+    $$P_n(t_k) - f(t_k) = \pm (-1)^k ||P_n-f||_\infty$$
+
+    这组点 $\{t_k\}$ 被称为**切比雪夫交替序列(Chebyshev alternating sequence)**。
+
+![Alt text](images/image-50.png){width=80%}
+
+#### Target 2.0
+
+决定插值点 $\{x_0, \cdots, x_n\}$ 使得 $P_n(x)$ 最小化余项。余项为：
+
+$$|P_n(x)-f(x)|=|R_n(x)|=\left|\frac{f^{(n+1)}(\xi)}{(n+1)!}\prod_{i=0}^n(x-x_i)\right|$$
+
+#### Target 2.1
+
+找到插值点 $\{x_1, \cdots, x_n\}$ 使得 $||w_n||_\infty$ 在 $[-1,1]$上最小化，其中 $w_n(x)=\prod\limits_{i=1}^n(x-x_i)$
+
+注意到
+
+$$w_n(x)=x^n-P_{n-1}(x)$$
+
+!!! note ""
+    这里的 $P_{n-1}(x)$ 是 $n-1$ 阶多项式，和上文的 $P_n(x)$ 不是一个东西，此语境下没有关联。
+
+#### Target 3.0
+
+问题转化为找到 $x_1, \cdots, x_n$ 使得 $||x^n-P_{n-1}(x)||_\infty$ 在 $[-1,1]$上最小化。
+
+从切比雪夫定理我们知道，$P_{n-1}(x)$ 相对于 $x_n$ 有 $n+1$ 个偏差点，也就是说，$w_n(x)$ 在 $n+1$ 个点上交替取得最大值和最小值。
+
+#### Chebyshev Polynomials | 切比雪夫多项式
+
+为了实现上面的目标，我们先想到三角函数。$cos(n\theta)$ 在 $[-1,1]$ 上有 $n+1$ 个交替的最大值和最小值，但是 $cos(n\theta)$ 不是多项式。
+又由于 $cos(n\theta)$ 可以表示为 $\sum\limits_{k=0}^{n} a_k (\cos\theta)^k$，这就是我们想要的多项式形式。
+
+令 $x=\cos\theta$，则 $x \in [-1,1]$，所以我们可以把 $cos(n\theta)$ 写成 $T_n(x)$ 的形式，$T_n(x)$ 称为**切比雪夫多项式(Chebyshev polynomial)**。
+
+$$
+T_{n}(x)=\cos (n \cdot \arccos x)
+$$
+
+切比雪夫多项式的性质：
+
+- 当 $x=\cos\frac{k\pi}{n}$ 时，$T_n(x)$ 取到极值 $(-1)^k$
+
+我们也可以用递推公式来定义切比雪夫多项式：
+
+$$
+\begin{aligned}
+T_{0}(x)&=1\\
+T_{1}(x)&=x\\
+T_{n}(x)&=2 x T_{n-1}(x)-T_{n-2}(x), \quad n=2,3, \cdots
+\end{aligned}
+$$
+
+可以得出性质：
+
+- 最高阶项的系数为 $2^{n-1}$
+- 在$[0,1]$上，$T_0(x), T_1(x), \cdots, T_n(x)$ 关于权函数 $\frac{1}{\sqrt{1-x^2}}$ 正交
+
+通过计算得出
+
+$$\langle T_{n}, T_{m}\rangle= \int _{-1}^{1} \frac{T_{n}(x) T_{m}(x)}{\sqrt{1-x^{2}}} d x=\left\{\begin{array}{ll}{\pi} & {n=m=0} \\ {\frac{\pi}{2}} & {n=m \neq 0} \\ {0} & {n \neq m}\end{array}\right.$$
+
+回到 Target 3.0，我们可以把 $w_n$ 写成 $T_n(x)$ 的形式：
+
+$$
+w_{n}(x)=x^{n}-P_{n-1}(x)=T_{n}(x)/2^{n-1}
+$$
+
+称之为**首一切比雪夫多项式(The monic Chebyshev polynomial)**。
