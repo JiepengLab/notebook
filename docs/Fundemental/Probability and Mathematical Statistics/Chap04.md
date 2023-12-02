@@ -1,32 +1,93 @@
-# [4.x] 随机变量的数字特征
+# Chapter 4 随机变量的数字特征
 
-设**离散**随机变量$X$的概率分布率为$P\{X=x_i\}=p_i,\;\;i=1,2,...$，若级数$\sum_{i=1}^{+\infty}=|x_i|p_i<+\infty$（绝对收敛），则称级数$\sum_{i=1}^{+\infty}x_ip_i$为$X$的**数学期望（Mathematical Expectation）**或**均值（Mean）**，简称为期望，记$E(X)=\sum_{i=1}^{+\infty}x_ip_i$。<br />如果$\sum_{i=1}^{+\infty}=|x_i|p_i=+\infty$则称随机变量$X$的数学期望不存在。
+## 数学期望
 
-设**连续**随机变量$X$的密度函数为$f(x)$，若$\int^{+\infty}_{-\infty}|x|f(x)\mathrm{d} x<+\infty$，则称积分$\int^{+\infty}_{-\infty}xf(x)\mathrm{d} x$为$X$的**数学期望**或**均值，**简称为期望，记$E(X)=\int^{+\infty}_{-\infty}xf(x)\mathrm{d} x$。<br />如果$\int^{+\infty}_{-\infty}|x|f(x)\mathrm{d} x=+\infty$则称随机变量$X$的数学期望不存在。
+### 离散型随机变量的数学期望
 
-**泊松分布**的数学**期望**<br />设随机变量$X$服从泊松分布$P(\lambda)\;(\lambda>0)$，则：<br />$E(X)=\sum_{k=0}^{+\infty}k・ P\{X=k\}=\sum_{k=0}^{+\infty}k・\frac{\lambda^{k}}{k!}e^{-\lambda}=\lambda\sum_{k=1}^{+\infty}\frac{\lambda^{k-1}}{(k-1)!}e^{-\lambda}=\lambda$
+设**离散**随机变量 $X$ 的概率分布率为 $P\{X=x_i\}=p_i,\;\;i=1,2,...$，若级数$\sum_{i=1}^{+\infty}=|x_i|p_i<+\infty$（绝对收敛），则称级数$\sum_{i=1}^{+\infty}x_ip_i$为$X$的**数学期望（Mathematical Expectation）**或**均值（Mean）**，简称为期望，记 $E(X)=\sum_{i=1}^{+\infty}x_ip_i$。
+
+如果 $\sum_{i=1}^{+\infty}=|x_i|p_i=+\infty$ 则称随机变量 $X$ 的数学期望不存在。
+
+#### 二项分布的数学期望
+
+设随机变量 $X$ 服从二项分布 $B(n,p)\;(n\in \mathbb{N}^*,\;0<p<1)$，则：
+
+$$\begin{aligned}E(X)&=\sum_{k=0}^{n}k\cdot  P\{X=k\}\\&=\sum_{k=0}^{n}k\cdot C_n^kp^k(1-p)^{n-k}\\&=np\sum_{k=1}^{n}C_{n-1}^{k-1}p^{k-1}(1-p)^{n-k}=np\end{aligned}$$
+
+#### 泊松分布的数学期望
+
+设随机变量$X$服从泊松分布$P(\lambda)\;(\lambda>0)$，则：
+
+$$E(X)=\sum_{k=0}^{+\infty}k\cdot  P\{X=k\}=\sum_{k=0}^{+\infty}k\cdot \frac{\lambda^{k}}{k!}e^{-\lambda}=\lambda e^{-\lambda}\sum_{k=1}^{+\infty}\frac{\lambda^{k-1}}{(k-1)!}=\lambda$$
+
 由此式可知，已知泊松分布的数学期望可以确定泊松分布。
 
-**指数分布**的数学**期望**<br />设随机变量$X$服从指数分布$E(\lambda)\;(\lambda>0)$，则：<br />$E(X)=\int_{-\infty}^{+\infty}xf(x)\mathrm{d}x=\int_{0}^{+\infty}x\lambda e^{-\lambda x}\mathrm{d}x=-\int_{0}^{+\infty}x\mathrm{d}e^{-\lambda x}\\=-(xe^{-\lambda x})\big|_{0}^{+\infty}+\int_{0}^{+\infty}e^{-\lambda x}\mathrm{d}x=\frac{1}{\lambda}$
+### 连续型随机变量的数学期望
+
+设**连续**随机变量$X$的密度函数为$f(x)$，若$\int^{+\infty}_{-\infty}|x|f(x)\mathrm{d} x<+\infty$，则称积分$\int^{+\infty}_{-\infty}xf(x)\mathrm{d} x$为$X$的**数学期望**或**均值**，简称为期望，记$E(X)=\int^{+\infty}_{-\infty}xf(x)\mathrm{d} x$。
+
+如果$\int^{+\infty}_{-\infty}|x|f(x)\mathrm{d} x=+\infty$则称随机变量$X$的数学期望不存在。
+
+#### 均匀分布的数学期望
+
+设随机变量$X$服从均匀分布$U(a,b)\;(a<b)$，则：
+
+$$E(X)=\int^{+\infty}_{-\infty}xf(x)\mathrm{d} x=\int^{+\infty}_{-\infty}x\frac{1}{b-a}\mathrm{d} x=\frac{1}{b-a}\int^{+\infty}_{-\infty}x\mathrm{d} x=\frac{1}{b-a}\cdot \frac{x^2}{2}\big|_{a}^{b}=\frac{a+b}{2}$$
+
+#### 指数分布的数学期望
+
+设随机变量$X$服从指数分布$E(\lambda)\;(\lambda>0)$，则：
+
+$$\begin{aligned}E(X)=\int_{-\infty}^{+\infty}xf(x)\mathrm{d}x=\int_{0}^{+\infty}x\lambda e^{-\lambda x}\mathrm{d}x=-\int_{0}^{+\infty}x\mathrm{d}e^{-\lambda x}\\=-(xe^{-\lambda x})\big|_{0}^{+\infty}+\int_{0}^{+\infty}e^{-\lambda x}\mathrm{d}x=\frac{1}{\lambda}\end{aligned}$$
+
 由此式可知，已知指数分布的数学期望可以确定指数分布。
 
-**标准正态分布**的数学**期望**<br />设随机变量$X$服从标准正态分布$N(0,1)$，注意到其的密度函数：$\varphi(x)=\frac{1}{\sqrt{2\pi}}e^{-x^2/2},\;x\in \R$为偶函数，那么$x\varphi(x)$是奇函数，所以$E(x)=0$
+#### 标准正态分布的数学期望
 
-对于随机变量函数，只需要将定义中$x_i$换为$g(x_i)$即可，当然需要保证期望存在。<br />而除了定义计算，也有一些性质可以简化计算。
+设随机变量$X$服从标准正态分布$N(0,1)$，注意到其的密度函数：$\varphi(x)=\frac{1}{\sqrt{2\pi}}e^{-x^2/2},\;x\in \mathbb{R}$为偶函数，那么$x\varphi(x)$是奇函数，所以$E(x)=0$
 
-**数学期望的性质**：
+### 随机变量函数的数学期望
 
-1. 若$C$是常数，则$E(C) = C$；
-2. 设$X$是随机变量，$C$是常数，则$E(C・X)=C・E(X)$；
-3. 设$X,Y$是两个随机变量，则$E(X+Y)=E(X)+E(Y)$；
-   - 这一性质可以推广到任意有限个随机变量线性组合的情况：$E(\sum^n_i{c_i・X_i})=\sum^n_i c_i・E(X_i)$；
+对于随机变量函数，在保证期望存在的情况下，只需要将定义中$x_i$换为$g(x_i)$即可，但我们不需要计算 $g(x_i)$ 的概率分布率：
 
-- 上述三条合并起来就是$E(aX+bY+c)=aE(X)+bE(Y)+c$；
+离散型： $Z = g(X)$，则 $E(Z) = E[g(X)] = \sum_{i=1}^{+\infty}g(x_i)p_i$
 
-4. 设$X,Y$是相互独立的随机变量，则$E(X・Y)=E(X)・E(Y)$，但**逆命题不成立**；
-   - 这一性质可以推广到任意有限个随机变量：$E(\prod_i^nX_i)=\prod_i^nE(X_i)$；
+连续型： $Z = g(X)$，则 $E(Z) = E[g(X)] = \int g(x)f(x)\mathrm{d}x$
+
+!!! note ""
+
+    这里的 $p_{ij}$ 和 $f(x,y)$ 都是 $X,Y$ 本来的联合分布率，而不是 $Z$ 的联合分布率。
+
+二元离散型： $Z = h(X,Y)$，则 $E(Z) = E[h(X,Y)] = \sum_{i=1}^{+\infty}\sum_{j=1}^{+\infty}h(x_i,y_j)p_{ij}$
+
+二元连续型： $Z = h(X,Y)$，则 $E(Z) = E[h(X,Y)] = \int \int h(x,y)f(x,y)\mathrm{d}x\mathrm{d}y$
+
+!!! note ""
+
+    这里的 $p_{ij}$ 和 $f(x,y)$ 都是 $X,Y$ 本来的联合分布率，而不是 $Z$ 的联合分布率。
+
+### 数学期望的性质
+
+除了使用定义计算，还有一些性质可以简化计算。
+
+1.若$C$是常数，则$E(C) = C$；
+2.设$X$是随机变量，$C$是常数，则$E(C\cdot X)=C\cdot E(X)$；
+3.设$X,Y$是两个随机变量，则$E(X+Y)=E(X)+E(Y)$；
+    - 这一性质可以推广到任意有限个随机变量线性组合的情况：$E(\sum^n_i{c_i\cdot X_i})=\sum^n_i c_i\cdot E(X_i)$；
+
+!!! note ""
+    上述三条合并起来就是$E(aX+bY+c)=aE(X)+bE(Y)+c$；
+
+4.设$X,Y$是相互独立的随机变量，则$E(X\cdot Y)=E(X)\cdot E(Y)$，但**逆命题不成立**；
+
+!!! note ""
+    这一性质可以推广到任意有限个独立的随机变量：
+    
+    $$E(\prod_i^nX_i)=\prod_i^nE(X_i)$$
 
 ---
+
+## 方差
 
 设$X$为随机变量，若$E\{[X-E(X)]^2\}$存在，则称其为$X$的**方差**，记作$Var(X)$或$D(X)$，即$Var(X)=E\{[X-E(X)]^2\}$。<br />记$\delta(X)=\sqrt{(Var(X))}$为$X$的**标准差**或**均方差**。
 
@@ -52,7 +113,7 @@
 **方差的性质**：
 
 1. 若$C$是常数，则$Var(C) = 0$；
-2. 设$X$是随机变量，$C$是常数，则$Var(C・X)=C^2・Var(X)$；
+2. 设$X$是随机变量，$C$是常数，则$Var(C\cdot X)=C^2\cdot Var(X)$；
 3. 设$X,Y$是两个随机变量，则$Var(X\pm Y)=Var(X)+Var(Y)\pm2E\{[X-E(X)][Y-E(Y)]\}\\=Var(X)+Var(Y)\pm 2Cov(X,Y)$；
    1. 特别的，如果$X,Y$相互独立，则$Var(X\pm Y)=Var(X)+Var(Y)$；
    2. 进一步的，如果$X_i\;(i=1,2,...,n)$彼此独立，则$Var(c_1X_1\pm c_2X_2\pm...\pm c_nX_n)=c_1^2Var(X_1)+c_2^2Var(X_2)+...+c_n^2Var(X_n)$
@@ -66,6 +127,8 @@
 
 ---
 
+## 协方差与相关系数
+
 随机变量$X,Y$的**协方差**$Cov(X,Y)=E\{[X-E(X)][Y-E(Y)]\}=E(XY)-E(X)E(Y)$
 
 随机变量$X,Y$的**相关系数**$\rho _{_{XY}}=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}$
@@ -74,10 +137,10 @@
 
 1. $Cov(X,Y)=Cov(Y,X)$；
 2. $Cov(X,Y)=E(XY)-E(X)E(Y)$；
-3. $Cov(aX,bY)=abCov(X,Y)\;,\;\;a,b\in\R$；
+3. $Cov(aX,bY)=abCov(X,Y)\;,\;\;a,b\in\mathbb{R}$；
 4. $Cov(X+Y,Z)=Cov(X,Z)+Cov(Y,Z)$；
 5. $Cov(X,X)=Var(X)$；
-6. $Cov(c,Y)=E(cY)-E(c)E(Y)=0\;,\;\;c\in\R$；
+6. $Cov(c,Y)=E(cY)-E(c)E(Y)=0\;,\;\;c\in\mathbb{R}$；
 7. $Cov(X+Y,X-Y)=Cov(X,X)-Cov(Y,Y)=Var(X)-Var(Y)$；
 8. $Cov(X^*,Y^*)=Cov(\frac{X-E(X)}{\sqrt{Var(X)}},\frac{Y-E(Y)}{\sqrt{Var(Y)}})=\frac{Cov(X,Y)}{\sqrt{Var(X)}\sqrt{Var(Y)}}=\rho_{_{XY}}$；
 9. $Cov(aX+bY,cX+dY)=acVar(X)+bdVar(Y)+(ad+bc)Cov(X,Y)$；
@@ -86,7 +149,7 @@
 **相关系数的性质**
 
 1. $|\rho_{_{XY}}|\leq 1$；
-2. $|\rho_{_{XY}}|=1 \;\;\; \Leftrightarrow \;\;\; \exists a,b\in \R,\;s.t.\;P(Y=a+bX)=1|$；
+2. $|\rho_{_{XY}}|=1 \;\;\; \Leftrightarrow \;\;\; \exists a,b\in \mathbb{R},\;s.t.\;P(Y=a+bX)=1|$；
    1. $\rho_{_{XY}}=1$时，$b>0$；
    2. $\rho_{_{XY}}=-1$时，$b<0$；
 
@@ -104,12 +167,14 @@
    3. $Var(X\pm Y)=Var(X)+Var(Y)$；
     - 于是有结论：
 
-$X,Y\text{互相独立} \;\; \Rightarrow \;\; X,Y\text{不相关}\\
+$X,Y\text{互相独立} \;\; \mathbb{R}ightarrow \;\; X,Y\text{不相关}\\
 X,Y\text{不独立}\;\;\Leftarrow \;\;X,Y\text{相关}$
 
 ---
 
-**多元随机变量的数字特征**<br />设$n$元随机变量$X=(X_1,X_2,...,X_n)^T$，若每一个分量的数学期望都存在，则称$E(X)=(E(X_1),E(X_2),...,E(X_n))^T$为$n$**元随机变量**$X$**的数学期望（向量）**。
+## 多元随机变量的数字特征
+
+设$n$元随机变量$X=(X_1,X_2,...,X_n)^T$，若每一个分量的数学期望都存在，则称$E(X)=(E(X_1),E(X_2),...,E(X_n))^T$为$n$**元随机变量**$X$**的数学期望（向量）**。
 
 设$n$维随机变量$\vec{X}=(X_1,X_2,...,X_n)^T$，$Cov(X_i,X_j)\;\;(i,j=1,2,...,n)$都存在，则：<br />$\begin{bmatrix}
 Var(X_1) & Cov(X_1,X_2) & ... & Cov(X_1,X_n)\\

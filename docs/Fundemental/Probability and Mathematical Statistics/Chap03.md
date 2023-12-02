@@ -276,7 +276,15 @@ $$
 
 指数分布是特殊的 $\Gamma$ 分布，$E(\lambda)=\Gamma (1,\lambda)$。
 
+---
+
+5.均匀分布的卷积：设 $X\sim U(a_1,b_1)$，$Y\sim U(a_2,b_2)$，若 $X$ 与 $Y$ 独立，则
+
+$$
+X+Y\sim U([a_1,a_2]\times[b_1,b_2]) \quad \text{长方形区域}
+$$
+
 ### M=max(X, Y), N=min(X, Y) 的分布
 
-- $F_{max}(z)=P(M\leq z)=P(X\leq z,Y\leq z)\xlongequal{\text{X,Y独立}}P(X\leq z)P(Y\leq z)=F_X(z)F_Y(z)$；
-- $F_{min}(z)=P(N\leq z)=1-P(N>z)=1-P(X>z,Y>z)\xlongequal{\text{X,Y独立}}1-P(X>z)P(Y>z)=1-(1-F_X(z))(1-F_Y(z))$；
+- $$\begin{aligned}F_{max}(z)=P(M\leq z)=&P(X\leq z,Y\leq z)\\\xlongequal{\text{X,Y独立}}&P(X\leq z)P(Y\leq z)=F_X(z)F_Y(z)\end{aligned}$$
+- $$\begin{aligned}F_{min}(z)=P(N\leq z)=1-P(N>z)=&1-P(X>z,Y>z)\\\xlongequal{\text{X,Y独立}}&1-P(X>z)P(Y>z)\\=&1-(1-F_X(z))(1-F_Y(z))\end{aligned}$$；
