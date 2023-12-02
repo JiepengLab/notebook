@@ -15,7 +15,7 @@
 边界分布律即联合分布律的行/列求和
 
 - $P(X=x_i)=P(X=x_1,\bigcup_{j=1}^{\infty}(Y=y_j))=\sum_{j=1}^{\infty}p_{ij}:=p_{i·}$；
-- $P(Y=y_j)=P(\bigcup_{j=1}^{\infty}(X=x_i),Y=y_j)=\sum_{i=1}^{\infty}p_{ij}:=p_{·j}$；
+- $P(Y=y_j)=P(\bigcup_{i=1}^{\infty}(X=x_i),Y=y_j)=\sum_{i=1}^{\infty}p_{ij}:=p_{·j}$；
 
 ![Alt text](images/image-4.png)
 
@@ -209,8 +209,10 @@ $$P\{X\in D_1,Y\in D_2\}=P\{X\in D_1\}·P\{Y\in D_2\}$$
 
 - 若 $(X,Y)$ 是离散型随机变量，则 $X,Y$ 相互独立等价于 $p_{ij} = p_{i\cdot}p_{\cdot j}$ 对一切 $i,j$ 都成立
 - 若 $(X,Y)$ 是连续型随机变量，则 $X,Y$ 相互独立等价于 $f(x,y) = f_X(x)f_Y(y)$ 总是成立，平面上“面积”为零的集合除外（可以在不连续点上不相等）
+- 对于二维正态随机变量$(X,Y)$，$X$ 与 $Y$ 相互独立的充要条件是参数 $\rho = 0$.
 
 $n$ 维随机变量独立性相关定理：
+
 - 设 $(X_1,X_2,\cdots ,X_m)$ 与 $(Y_1,Y_2,\cdots ,Y_n)$ 相互独立，则 $X_i(i=1,2,\cdots ,m)$ 与 $Y_j(j=1,2,\cdots ,n)$ 相互独立
 - 设 $(X_1,X_2,\cdots ,X_m)$ 与 $(Y_1,Y_2,\cdots ,Y_n)$ 相互独立，若 $h(x_1,x_2,\cdots ,x_m)$ 与 $g(y_1,y_2,\cdots ,y_n)$ 是连续函数，则 $h(X_1,X_2,\cdots ,X_m)$ 与 $g(Y_1,Y_2,\cdots ,Y_n)$ 相互独立
 
@@ -220,19 +222,61 @@ $n$ 维随机变量独立性相关定理：
 
 ### 卷积公式
 
-当$X$和$Y$相互独立时，$Z=X+Y$的条件下：
+这里讨论连续型，离散型只需把积分符号换成求和符号即可，当$X$和$Y$相互独立时，$Z=X+Y$的条件下：
 
 1. $$\begin{aligned}
    F_Z(z) &= \iint \limits_{x+y\leq z}f(x,y)\mathrm{d}x\mathrm{d}y\\
-   &=\int_{-\infty}^{+\infty}[\int_{-\infty}^{z-x}f(x,u-x)\mathrm{d}y]\mathrm{d}x\\
+   &=\int_{-\infty}^{+\infty}[\int_{-\infty}^{z-x}f(x,y)\mathrm{d}y]\mathrm{d}x \quad u=x+y\\
    &= \int_{-\infty}^{+\infty}[\int_{-\infty}^{z}f(x,u-x)\mathrm{d}u]\mathrm{d}x\\
    &=\int_{-\infty}^{z}[\int_{-\infty}^{+\infty}f(x,u-x)\mathrm{d}x]\mathrm{d}u\\
    &=\int_{-\infty}^{z}f_Z(u)\mathrm{d}y
    \end{aligned}$$
 
-2. 其密度函数公式称为**卷积公式**：$f_X*f_Y=\int_{-\infty}^{+\infty}f_X(x)f_Y(z-x)\mathrm{d}x=\int_{-\infty}^{+\infty}f_X(z-y)f_Y(y)\mathrm{d}y$；
+2. 其密度函数公式：
+    - $f_Z(z)=\int_{-\infty}^{+\infty}f(z-y,y)\mathrm{d}y=\int_{-\infty} ^ {+\infty}f(x,z-x)\mathrm{d}x$（$x$，$y$是对称的）
+    - 当 $X$ 和 $Y$ 相互独立时，$Z$ 的密度函数公式也称为**卷积公式**：$f_X*f_Y=\int_{-\infty}^{+\infty}f_X(z-y)f_Y(y)\mathrm{d}y=\int_{-\infty} ^ {+\infty}f_X(x)f_Y(z-x)\mathrm{d}x$
 
-### $M=max(X,Y), N=min(X,Y)$的分布
+#### 常见分布的卷积
+
+分布的卷积问题，也即是分布的可加性问题。
+
+---
+
+1.二项分布的可加性：设 $X\sim B(n,p)$，$Y\sim B(m,p)$，$0<p<1$，$m$，$n$ 均为正整数，若 $X$ 与 $Y$ 独立，则
+
+$$
+X+Y\sim B(m+n,p)
+$$
+
+二项分布的可加性有助于理解二项分布与两点分布的可加性。
+
+---
+
+2.泊松分布的可加性：设 $X\sim P({\lambda}_1)$，$Y\sim P({\lambda}_2)$，${\lambda}_i>0$，$i=1,2$，若 $X$ 与 $Y$ 独立，则
+
+$$
+X+Y\sim P({\lambda}_1+{\lambda}_2)
+$$
+
+---
+
+3.正态分布的可加性：设 $X\sim N({\mu}_1,{\sigma}_1^2)$，$Y\sim N({\mu}_2,{\sigma}_2^2)$，$-\infty <{\mu}_i<+\infty$，${\sigma}_i>0$，$i=1,2$，若 $X$ 与 $Y$ 独立，则
+
+$$
+aX+bY+c\sim N(a{\mu}_1+b{\mu}_2+c,a{\sigma}_1^2+b{\sigma}_2 ^ 2)
+$$
+
+---
+
+4.$\Gamma$ 分布的可加性：设 $X\sim \Gamma ({\alpha}_1,\beta)$，$Y\sim \Gamma ({\alpha}_2,\beta)$，${\alpha}_i>0$，$i=1,2$，$\beta >0$ 均为正整数，若 $X$ 与 $Y$ 独立，则
+
+$$
+X+Y\sim \Gamma ({\alpha}_1+{\alpha}_2,\beta)
+$$
+
+指数分布是特殊的 $\Gamma$ 分布，$E(\lambda)=\Gamma (1,\lambda)$。
+
+### M=max(X, Y), N=min(X, Y) 的分布
 
 - $F_{max}(z)=P(M\leq z)=P(X\leq z,Y\leq z)\xlongequal{\text{X,Y独立}}P(X\leq z)P(Y\leq z)=F_X(z)F_Y(z)$；
 - $F_{min}(z)=P(N\leq z)=1-P(N>z)=1-P(X>z,Y>z)\xlongequal{\text{X,Y独立}}1-P(X>z)P(Y>z)=1-(1-F_X(z))(1-F_Y(z))$；

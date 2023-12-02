@@ -291,7 +291,9 @@ $$
 
 ### 8.3 Chebyshev Polynomials and Economization of Power Series | 切比雪夫多项式与幂级数的缩减
 
-#### Target 1
+#### Chebyshev Polynomials | 切比雪夫多项式
+
+##### Target 1
 
 上文我们知道了误差的计算方式，现在我们试图找到一个 $n$ 阶多项式 $P_n$ 来逼近函数，使得误差 $\|P_n-f\|$ 最小。
 
@@ -309,13 +311,13 @@ $$
 
 ![Alt text](images/image-50.png){width=80%}
 
-#### Target 2.0
+##### Target 2.0
 
 决定插值点 $\{x_0, \cdots, x_n\}$ 使得 $P_n(x)$ 最小化余项。余项为：
 
 $$|P_n(x)-f(x)|=|R_n(x)|=\left|\frac{f^{(n+1)}(\xi)}{(n+1)!}\prod_{i=0}^n(x-x_i)\right|$$
 
-#### Target 2.1
+##### Target 2.1
 
 找到插值点 $\{x_1, \cdots, x_n\}$ 使得 $||w_n||_\infty$ 在 $[-1,1]$上最小化，其中 $w_n(x)=\prod\limits_{i=1}^n(x-x_i)$
 
@@ -326,13 +328,13 @@ $$w_n(x)=x^n-P_{n-1}(x)$$
 !!! note ""
     这里的 $P_{n-1}(x)$ 是 $n-1$ 阶多项式，和上文的 $P_n(x)$ 不是一个东西，此语境下没有关联。
 
-#### Target 3.0
+##### Target 3.0
 
 问题转化为找到 $x_1, \cdots, x_n$ 使得 $||x^n-P_{n-1}(x)||_\infty$ 在 $[-1,1]$上最小化。
 
 从切比雪夫定理我们知道，$P_{n-1}(x)$ 相对于 $x_n$ 有 $n+1$ 个偏差点，也就是说，$w_n(x)$ 在 $n+1$ 个点上交替取得最大值和最小值。
 
-#### Chebyshev Polynomials | 切比雪夫多项式
+##### 引入Chebyshev Polynomials
 
 为了实现上面的目标，我们先想到三角函数。$cos(n\theta)$ 在 $[-1,1]$ 上有 $n+1$ 个交替的最大值和最小值，但是 $cos(n\theta)$ 不是多项式。
 又由于 $cos(n\theta)$ 可以表示为 $\sum\limits_{k=0}^{n} a_k (\cos\theta)^k$，这就是我们想要的多项式形式。
@@ -366,10 +368,61 @@ $$
 
 $$\langle T_{n}, T_{m}\rangle= \int _{-1}^{1} \frac{T_{n}(x) T_{m}(x)}{\sqrt{1-x^{2}}} d x=\left\{\begin{array}{ll}{\pi} & {n=m=0} \\ {\frac{\pi}{2}} & {n=m \neq 0} \\ {0} & {n \neq m}\end{array}\right.$$
 
-回到 Target 3.0，我们可以把 $w_n$ 写成 $T_n(x)$ 的形式：
+##### 回到 Target 3.0
+
+我们可以把 $w_n$ 写成 $T_n(x)$ 的形式：
 
 $$
-w_{n}(x)=x^{n}-P_{n-1}(x)=T_{n}(x)/2^{n-1}
+w_{n}(x)=x^{n}-P_{n-1}(x)=\frac{T_{n}(x)}{2^{n-1}}
 $$
 
 称之为**首一切比雪夫多项式(The monic Chebyshev polynomial)**。
+
+可以证明，首一切比雪夫多项式是所有首一多项式中，最小化 $||w_n||_\infty$ 的多项式。
+
+##### 回到 Target 2.1
+
+我们将 $w_n$ 写成 $T_n(x)$ 的形式：
+
+$$
+\min_{w_n\in \tilde\Pi_n} \|w_{n}\|_{\infty}=\big\|\frac{T_{n}(x)}{2^{n-1}}\big\|_{\infty}=\frac{1}{2^{n-1}}
+$$
+
+!!! note ""
+    这里的 $\tilde\Pi_n$ 是所有首一多项式的集合。
+
+所以，我们取的插值点即为 $T_n(x)$ 的 $n$ 个零点
+
+##### 回到 Target 2.0
+
+在 $[-1,1] 上选取的插值点为 $T_n(x)$ 的 $n$ 个零点，能够使得余项最小，其上确界为
+
+$$
+\max _{x \in[-1,1]}\left|f(x)-P_{n}(x)\right| \leq \frac{1}{2^{n}(n+1) !} \max _{x \in[-1,1]}\left|f^{(n+1)}(x)\right|
+$$
+
+使用线性变换 $x=\frac{b-a}{2} t+\frac{b+a}{2}$，我们可以将其推广到闭区间 $[a,b]$ 上。
+
+##### 例题
+
+![Alt text](images/image-51.png)
+
+#### Economization of Power Series | 幂级数的缩减
+
+考虑到，用一个 $n$ 阶多项式 $P_n(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0$ 来逼近一个任意的 $n$ 阶多项式 $P_n(x)$，我们可以通过去掉 $P_n(x)$ 中的 含 $a_n x^n$ 项的 $n$ 阶多项式 $Q_n(x)$ 来逼近 $P_n(x)$，那么
+
+$$
+\begin{aligned}
+\max _{x \in[-1,1]}\left|f(x)-P_{n-1}(x)\right| &\leq \max _{x \in[-1,1]}\left|f(x)-P_{n}(x)\right|+\max _{x \in[-1,1]}\left|Q_{n}(x)\right|+\max _{x \in[-1,1]}\left|P_{n}(x)-P_{n-1}(x)-Q_{n}(x)\right|\\
+&\leq \max _{x \in[-1,1]}\left|f(x)-P_{n}(x)\right|+\max _{x \in[-1,1]}\left|Q_{n}(x)\right|
+\end{aligned}
+$$
+
+为了使得精确度的损失最小， $Q_n(x)$ 必须为 $$a_n \cdot \frac{T_n(x)}{2^{n-1}}$$
+
+##### 例题
+
+![Alt text](images/image-52.png)
+
+!!! note ""
+    降两阶就都要做两次。

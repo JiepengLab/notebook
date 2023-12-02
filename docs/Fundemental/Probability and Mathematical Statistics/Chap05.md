@@ -7,7 +7,6 @@
 - 这种收敛不是数学意义上的一般收敛，而是概率意义下的一种收敛
 - 其含义是：$Y_n$对$c$的绝对偏差不小于任何一个给定量的可能性随$n$的增大而越来越小；或者绝对偏差$|Y_n-c|$小于任何一个给定量的可能性随$n$的增大时而越来越接近于$1$
 
-
 依概率收敛有如下重要**性质**：<br />若：
 
 1. $\left\{
@@ -25,14 +24,11 @@ Y_n\xrightarrow{P} b
 
 该性质即依概率收敛可以在双目运算符中进行下放。
 
-
 **马尔可夫(Markov)不等式**<br />若随机变量$Y$的$k$阶（原点）矩存在（$k\geq1$），则$\forall \varepsilon > 0$，有：<br />$P \{ |Y| \geq \varepsilon \}\leq \frac{E(|Y|^k)}{\varepsilon^k}\;\; or \;\; P\{|Y| < \varepsilon \} \geq 1 - \frac{E(|Y|^k)}{\varepsilon^k}$
 特别地，当$Y$取非负值的随机变量且它的$k$阶矩存在时，有：$P\{Y\geq \varepsilon\} \leq \frac{E(Y^k)}{\varepsilon^k}$
 
-
 **切比雪夫(Chebyshev)不等式**是马尔可夫不等式的推论<br />若随机变量$X$的数学期望和方差存在，分别记$E(X)=\mu\;,\; Var(X) = \sigma^2$，则$\forall \varepsilon > 0$，有：<br />$P\{ |X-\mu|\geq \varepsilon \} \leq \frac{\sigma^2}{\varepsilon^2}\;\;or\;\;P\{ |X-\mu|< \varepsilon \} \geq1- \frac{\sigma^2}{\varepsilon^2}$
-可以记忆为$P\{ \sigma^2\geq \varepsilon^2 \} \leq \frac{\sigma^2}{\varepsilon^2}\;\;or\;\;P\{ \sigma^2< \varepsilon^2 \} \geq1- \frac{\sigma^2}{\varepsilon^2}$ 
-
+可以记忆为$P\{ \sigma^2\geq \varepsilon^2 \} \leq \frac{\sigma^2}{\varepsilon^2}\;\;or\;\;P\{ \sigma^2< \varepsilon^2 \} \geq1- \frac{\sigma^2}{\varepsilon^2}$
 
 ## 大数定理
 
@@ -49,20 +45,15 @@ Y_n\xrightarrow{P} b
 
 - 接下来给出的大数定律的区别体现在**条件**上：有些是相互独立的随机变量，有些是相依的随机变量，有些是同分布的随机变量，有些是不同分布的随机变量。
 
-
 **伯努利(Bernoulli)大数定律**<br />设$n_A$表示$n$重贝努力实验中事件$A$发生的次数，并记$P(A)=p$，则$\forall \varepsilon > 0$，有：<br />$\lim_{n\to+\infty}P\{|\frac{n_A}{n}-p|\geq \varepsilon\}=0$
 
-
 **辛钦(Khinchin)大数定律**<br />_*即使随机变量的方差不存在，期望存在即可_<br />设$\{X_i,i\geq 1\}$为独立同分布的随机变量序列，且数学期望为$\mu$，则$\forall\varepsilon>0$，有：<br />$\lim_{n\to+\infty}P\{|\frac{1}{n}\sum_{i=1}^{n}X_i-\mu|\geq \varepsilon\}=0\;\;\;or\;\;\;\frac{1}{n}\sum_{i=1}^{n}X_i\xrightarrow{P}\mu\;\;,\;\;n\to+\infty$
-
 
 辛钦大数定律有如下**推论**：<br />设$\{X_i,i\geq 1\}$为独立同分布的随机变量序列，若$h(x)$为连续函数，且$E(|h(X_1)|)<+\infty$，则$\forall\varepsilon>0$，有：<br />$\lim_{n\to+\infty}P\{|\frac{1}{n}\sum^{n}_{i=1}h(X_i)-a|\geq\varepsilon\}=0\;\;\;or\;\;\;\frac{1}{n}\sum_{i=1}^{n}h(X_i)\xrightarrow{P}a\;\;,\;\;n\to+\infty
 \\
 where\;\;\;a=E(|h(X_1)|)$
 
-
 ---
-
 
 ## 中心极限定理
 
@@ -121,7 +112,7 @@ $$
     \frac{\sigma}{\sqrt{n}}
 \end{aligned}}
 \overset{\text{approximately}}{\sim} N(0,1)\;\;,\;\;\text{where }n\text{ is big enough}
-$$ 
+$$
 
 ### 二项分布的正态近似
 
