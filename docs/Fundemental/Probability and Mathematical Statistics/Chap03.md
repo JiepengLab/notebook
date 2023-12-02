@@ -260,10 +260,10 @@ $$
 
 ---
 
-3.正态分布的可加性：设 $X\sim N({\mu}_1,{\sigma}_1^2)$，$Y\sim N({\mu}_2,{\sigma}_2^2)$，$-\infty <{\mu}_i<+\infty$，${\sigma}_i>0$，$i=1,2$，若 $X$ 与 $Y$ 独立，则
+3.正态分布的卷积：设 $X\sim N({\mu}_1,{\sigma}_1^2)$，$Y\sim N({\mu}_2,{\sigma}_2^2)$，$-\infty <{\mu}_i<+\infty$，${\sigma}_i>0$，$i=1,2$，若 $X$ 与 $Y$ 独立，则
 
 $$
-aX+bY+c\sim N(a{\mu}_1+b{\mu}_2+c,a{\sigma}_1^2+b{\sigma}_2 ^ 2)
+aX+bY+c\sim N(a{\mu}_1+b{\mu}_2+c,a^2{\sigma}_1^2+b^2{\sigma}_2 ^ 2)
 $$
 
 ---

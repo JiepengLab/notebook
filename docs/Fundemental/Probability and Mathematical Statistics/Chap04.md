@@ -89,39 +89,79 @@ $$\begin{aligned}E(X)=\int_{-\infty}^{+\infty}xf(x)\mathrm{d}x=\int_{0}^{+\infty
 
 ## 方差
 
-设$X$为随机变量，若$E\{[X-E(X)]^2\}$存在，则称其为$X$的**方差**，记作$Var(X)$或$D(X)$，即$Var(X)=E\{[X-E(X)]^2\}$。<br />记$\delta(X)=\sqrt{(Var(X))}$为$X$的**标准差**或**均方差**。
+设$X$为随机变量，若$E\{[X-E(X)]^2\}$存在，则称其为$X$的**方差**，记作$Var(X)$或$D(X)$，即
 
-数学期望存在是方差存在的必要但不充分存在。
+$$Var(X)=E\{[X-E(X)]^2\}$$
 
-方差刻画了$X$取值的分散程度：
+记 $\delta(X)=\sqrt{(Var(X))}$ 为$X$的**标准差**或**均方差**。
+
+- 数学期望存在是方差存在的必要但不充分存在。
+
+方差刻画了$X$取值的**分散程度**：
 
 - 若$X$取值集中，则$Var(X)$较小；
 - 若$X$取值分散，则$Var(X)$较大；
 
-而其计算方法可以利用期望的性质，记$g(X)=(X-E(X))^2$，然后计算$E(g(X))$。<br />具体的：
+而其计算方法可以利用期望的性质，记 $g(X)=(X-E(X))^2$ ，然后计算 $E(g(X))$ 。具体的，有：
 
-- 离散型：$Var(X)=E\{[X-E(X)]^2\}=\sum_{i=1}^{+\infty}[x_i-E(X)]^2p_i$；
+- 离散型：$Var(X)=E\{[X-E(X)]^2\}=\sum\limits_{i=1}^{\infty}[x_i-E(X)]^2p_i$；
 - 连续型：$Var(X)=E\{[X-E(X)]^2\}=\int_{-\infty}^{+\infty}[x-E(X)]^2f(x)\mathrm dx$；
 - 而利用期望的性质，可以得到$Var(X)=E(X^2)-E^2(X)$；
 
-**泊松分布**的**方差**<br />$\because E(X^2)=E(X(X-1)+X)=E(X(X-1))+E(X)=\sum_{k=0}^{\infty}k(k-1)\frac{\lambda^ke^{-\lambda}}{k!}+\lambda=\lambda^2+\lambda\\
-\therefore Var(X)=E(X^2)+E^2(X)=\lambda$
+### 均匀分布的方差
 
-**指数分布**的**方差**<br />$\because E(X^2)=\int_{-\infty}^{+\infty}x^2f(x)\mathrm dx=\int_0^{+\infty}x^2\lambda e^{-\lambda x}\mathrm d x=-x^2e^{-\lambda x}\big|^{+\infty}_0+\int^{+\infty}_{0}2xe^{-\lambda x}\mathrm dx=\frac{2}{\lambda^2}\\
-\therefore Var(X)=E(X^2)-E^2(X)=\frac{1}{\lambda^2}$
+设随机变量$X$服从均匀分布$U(a,b)\;(a<b)$，则：
 
-**方差的性质**：
+$$\begin{aligned}
+&\because E(X)=\frac{a+b}{2}\\
+&\therefore Var(X)=E(X^2)-E^2(X)=\int_{-\infty}^{+\infty}x^2f(x)\mathrm dx-\frac{(a+b)^2}{4}=\int_{-\infty}^{+\infty}x^2\frac{1}{b-a}\mathrm dx-\frac{(a+b)^2}{4}\\
+&=\frac{1}{b-a}\int_{-\infty}^{+\infty}x^2\mathrm dx-\frac{(a+b)^2}{4}=\frac{1}{b-a}\cdot \frac{x^3}{3}\big|_{a}^{b}-\frac{(a+b)^2}{4}=\frac{(b-a)^2}{12}
+\end{aligned}$$
 
-1. 若$C$是常数，则$Var(C) = 0$；
-2. 设$X$是随机变量，$C$是常数，则$Var(C\cdot X)=C^2\cdot Var(X)$；
-3. 设$X,Y$是两个随机变量，则$Var(X\pm Y)=Var(X)+Var(Y)\pm2E\{[X-E(X)][Y-E(Y)]\}\\=Var(X)+Var(Y)\pm 2Cov(X,Y)$；
-   1. 特别的，如果$X,Y$相互独立，则$Var(X\pm Y)=Var(X)+Var(Y)$；
-   2. 进一步的，如果$X_i\;(i=1,2,...,n)$彼此独立，则$Var(c_1X_1\pm c_2X_2\pm...\pm c_nX_n)=c_1^2Var(X_1)+c_2^2Var(X_2)+...+c_n^2Var(X_n)$
+### 泊松分布的方差
 
-- 上述三条合并起来就是$Var(aX+bY+c)=a^2Var(X)+b^2Var(Y)$；
+设随机变量$X$服从泊松分布$P(\lambda)\;(\lambda>0)$，则：
 
-4. $Var(X)\leq E((X-c)^2)$，并且当且仅当$E(X)=c$时等号成立；
-5. $Var(X)=0 \;\;\;\;\;\Leftrightarrow \;\;\;\;\;P(X=c)=1 \;\;\;and\;\;\;c=E(X)$；
+$$\begin{aligned}
+&\because E(X^2)=E(X(X-1)+X)=E(X(X-1))+E(X)=\sum_{k=0}^{\infty}k(k-1)\frac{\lambda^ke^{-\lambda}}{k!}+\lambda=\lambda^2+\lambda\\
+&\therefore Var(X)=E(X^2)-E^2(X)=\lambda^2+\lambda-\lambda^2=\lambda
+\end{aligned}$$
+
+### 指数分布的方差
+
+设随机变量$X$服从指数分布$E(\lambda)\;(\lambda>0)$，则：
+
+$$\begin{aligned}
+&\because E(X^2)=\int_{-\infty}^{+\infty}x^2f(x)\mathrm dx=\int_0^{+\infty}x^2\lambda e^{-\lambda x}\mathrm d x=-x^2e^{-\lambda x}\big|^{+\infty}_0+\int^{+\infty}_{0}2xe^{-\lambda x}\mathrm dx=\frac{2}{\lambda^2}\\
+&\therefore Var(X)=E(X^2)-E^2(X)=\frac{2}{\lambda^2}-\frac{1}{\lambda^2}=\frac{1}{\lambda^2}
+\end{aligned}$$
+
+### 方差的性质：
+
+1. 若 $C$ 是常数，则 $Var(C) = 0$ ；
+2. 设 $X$ 是随机变量， $C$ 是常数，则 $Var(C\cdot X)=C^2\cdot Var(X)$ ；
+3. 设 $X,Y$ 是两个随机变量，则
+
+$$
+\begin{aligned}
+Var(X\pm Y)&=Var(X)+Var(Y)\pm2E\{[X-E(X)][Y-E(Y)]\}\\&=Var(X)+Var(Y)\pm 2Cov(X,Y)
+\end{aligned}
+$$
+
+!!! note ""
+
+    1. 特别的，如果$X,Y$相互独立，则
+    
+        $$Var(X\pm Y)=Var(X)+Var(Y)$$
+    
+    2. 进一步的，如果$X_i\;(i=1,2,...,n)$彼此独立，则
+    
+    $$Var(c_1X_1\pm c_2X_2\pm...\pm c_nX_n)=c_1^2Var(X_1)+c_2^2Var(X_2)+...+c_n^2Var(X_n)$$
+
+- 综合上述三条，若 $X,Y$独立，则有$Var(aX+bY+c)=a^2Var(X)+b^2Var(Y)$；
+
+1. $Var(X)\leq E((X-c)^2)$，并且当且仅当$E(X)=c$时等号成立；
+2. $Var(X)=0 \Leftrightarrow P(X=c)=1 \;\;\;\text{and}\;\;\;c=E(X)$；
 
 **变异系数**又叫“**标准差率**”，是衡量资料中各观测值变异程度的另外一个数字特征。<br />**变异系数**$Cv(X)=\frac{\sqrt{Var(X)}}{E(X)}$同样描述离散程度，它可以消除单位或平均数不同对两个或多个资料变异程度比较的影响。
 
