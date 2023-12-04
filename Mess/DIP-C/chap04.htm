@@ -1,0 +1,1020 @@
+
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link rel=Edit-Time-Data href="./chap04.files/editdata.mso">
+<link rel=OLE-Object-Data href="./chap04.files/oledata.mso">
+<title>第4章 图象的半影调和抖动技术</title>
+<style><!--
+.Normal
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:0pt;
+	line-height:normal;
+	font-size:10.5pt;
+	font-family:"Times New Roman";}
+.a
+	{text-align:center;
+	text-indent:0pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+-->
+</style>
+</head>
+<body lang=ZH-CN link=blue vlink=purple class="Normal" bgcolor="#FFFFFF">
+<div style='layout-grid:15.6pt'> 
+  <h1><a name="_Toc486331877"></a><a name="_Toc486332877"></a><a
+name="_Toc486338986"></a><a name="_Toc454810851"></a><a name="_Toc454856625"><span><span>第<span
+lang=EN-US>4</span></span></span></a><span><span><span style='font-family:黑体;"Times New Roman"'>章</span> 
+    </span></span><span><span><span
+style='font-family:黑体;"Times New Roman"'>图象的半影调和抖动技术</span></span></span></h1>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在介绍本章内容之前，先提出一个问题？普通的黑白针式打印机能打出灰度图来吗？如果说能，从针式打印机的打印原理来分析，似乎是不可能的。因为针打是靠撞针击打色带在纸上形成黑点的，不可能打出灰色的点来；如果说不能，可是我们的确见过用针式打印机打印出来的灰色图象。到底是怎么回事呢？</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>你再仔细看看那些打印出来的所谓的灰色图象，最好用放大镜看。你会发现，原来这些灰色图象都是由一些黑点组成的，黑点多一些，图象就暗一些；黑点少一些，图案就亮一些。下面这几张图就很能说明这一点。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=259 height=56
+src="./chap04.files/image001.gif" v:shapes="_x0000_i1025"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>4.1 </span></b><b><span
+style='font-family:宋体;"Times New Roman"'>用黑白两种颜色打印出灰度效果</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>4.1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中最左边的是原图，是一幅真正的灰度图，另外三张图都是黑白二值图。容易看出，最左的那幅和原图最接近。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>由二值图象显示出灰度效果的方法，就是我们今天要讲的半影调</span><span lang=EN-US>(halftone)</span><span
+style='font-family:宋体;"Times New Roman"'>技术，它的一个主要用途就是在只有二值输出的打印机上打印图象。我们介绍两种方法：图案法和抖动法。</span></p>
+  <h2> <span
+lang=EN-US>4.1</span> <span lang=EN-US> </span><a name="_Toc486331878"></a><a
+name="_Toc486332878"></a><a name="_Toc486338987"></a><a name="_Toc454810852"></a><a
+name="_Toc454856626"><span><span>图案法</span></span></a></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>图案法</span><span lang=EN-US>(patterning)</span><span
+style='font-family:宋体;"Times New Roman"'>是指灰度可以用一定比例的黑白点组成的区域表示，从而达到整体图象的灰度感。黑白点的位置选择称为图案化。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在具体介绍图案法之前，先介绍一下分辨率的概念。计算机显示器，打印机，扫描仪等设备的一个重要指标就是分辨率，单位是</span><span
+lang=EN-US>dpi(dot per inch)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，即每英寸点数，点数越多，分辨率就越高，图象就越清晰。让我们来计算一下，计算机显示器的分辨率有多高。设显示器为</span><span
+lang=EN-US>15</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>英寸</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>指对角线长度</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，最多显示</span><span lang=EN-US>1280</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>1024</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个点。因为宽高比为</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>：</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>，所以宽有</span><span lang=EN-US>12</span><span
+style='font-family:宋体;"Times New Roman"'>英寸，高有</span><span lang=EN-US>9</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>英寸，则该显示器的水平分辨率为</span><span
+lang=EN-US>106dpi</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，垂直分辨率为</span><span lang=EN-US>113.8dpi</span><span
+style='font-family:宋体;"Times New Roman"'>。一般的激光打印机的分辨率有</span><span lang=EN-US>300dpi</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>300dpi</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>600dpi</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>600dpi</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>720dpi</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>720dpi</span><span
+style='font-family:宋体;"Times New Roman"'>。所以打出来的图象要比计算机显示出来的清晰的多。扫描仪的分辨率要高一些，数码相机的分辨率更高。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>言归正传，前面讲了，图案化使用图案来表示象素的灰度，那么我们来做一道计算题。假设有一幅</span><span
+lang=EN-US>240</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>180</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8bit</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的灰度图，当用分辨率为</span><span
+lang=EN-US>300dpi</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>300dpi</span><span
+style='font-family:宋体;"Times New Roman"'>的激光打印机将其打印到</span><span lang=EN-US>12.8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>9.6</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>英寸的纸上时，每个象素的图案有多大？</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这道题很简单，这张纸最多可以打</span><span lang=EN-US>(300</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>12.8) </span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>(300</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>9.6)=3840</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>×</span><span
+lang=EN-US>2880</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个点，所以每个象素可以用</span><span lang=EN-US>(3840/240)</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>(2880/180)=16</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个点大小的图案来表示，即一个象素</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个点。如果这</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的方块中一个黑点也没有，就可以表示灰度</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>；有一个黑点，就表示灰度</span><span lang=EN-US>255</span><span
+style='font-family:宋体;"Times New Roman"'>；依次类推，当都是黑点时，表示灰度</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>。这样，</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>16</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的方块可以表示</span><span lang=EN-US>257</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度，比要求的</span><span lang=EN-US>8bit</span><span
+style='font-family:宋体;"Times New Roman"'>共</span><span lang=EN-US>256</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>级灰度还多了一个。所以上面的那幅图的灰度级别完全能够打印出来。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这里有一个图案构成的问题，即黑点打在哪里？比如说，只有一个黑点时，我们可以打在正中央，也可以打</span><span
+lang=EN-US>16</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>的左上角。图案可以是规则的，也可以是不规则的。一般情况下，有规则的图案比随即图案能够避免点的丛集，但有时会导致图象中有明显的线条。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>如图</span><span lang=EN-US>4.1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中，</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>的图案可以表示</span><span lang=EN-US>5</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度，当图象中有一片灰度为的</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>的区域时，如图</span><span lang=EN-US>4.2</span><span
+style='font-family:宋体;"Times New Roman"'>所示，有明显的水平和垂直线条。</span></p>
+  <div align=center> 
+    <table border=0 cellspacing=0 cellpadding=0>
+      <tr> 
+        <td width=276 valign=bottom class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  lang=EN-US> <img width=316 height=89
+  src="./chap04.files/image002.gif" v:shapes="_x0000_i1027"> </span></b></p>
+          <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>4.2&nbsp;&nbsp;&nbsp;&nbsp; 
+            2</b><b><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>×</span><span
+  lang=EN-US>2</span></b><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的图案</span><span
+  lang=EN-US></span></b></p>
+        </td>
+        <td width=276 valign=bottom class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  lang=EN-US> <img width=162 height=98
+  src="./chap04.files/image003.gif" v:shapes="_x0000_i1028"> </span></b></p>
+          <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>4.3&nbsp;&nbsp;&nbsp;&nbsp; 
+            </b><b><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>规则图案导致线条</span><span
+  lang=EN-US></span></b></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>如果想存储</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度的图案，就需要</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>16</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的二值点阵，占用的空间还是相当可观的。有一个更好的办法是：只存储一个整数矩阵，称为标准图案，其中的每个值从</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>到</span><span lang=EN-US>255</span><span
+style='font-family:宋体;"Times New Roman"'>。图象的实际灰度和阵列中的每个值比较，当该值大于等于灰度时，对应点打一黑点。下面举一个</span><span
+lang=EN-US>25</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级灰度的例子加以说明。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=285 height=124
+src="./chap04.files/image005.jpg" v:shapes="_x0000_i1029"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>4.4&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>标准图案举例</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>4.4</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中，左边为标准图案，右边为灰度为</span><span
+lang=EN-US>15</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的图案，共有</span><span lang=EN-US>10</span><span
+style='font-family:宋体;"Times New Roman"'>个黑点，</span><span lang=EN-US>15</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个白点。其实道理很简单，灰度为</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>时全是黑点，灰度每增加</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>，减少一个黑点。要注意的是，</span><span lang=EN-US>5</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>5</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的图案可以表示</span><span
+lang=EN-US>26</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>种灰度，当灰度是</span><span lang=EN-US>25</span><span
+style='font-family:宋体;"Times New Roman"'>才是全白点，而不是灰度为</span><span lang=EN-US>24</span><span
+style='font-family:宋体;"Times New Roman"'>时。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面介绍一种设计标准图案的算法，是由</span><span lang=EN-US>Limb</span><span
+style='font-family:宋体;"Times New Roman"'>在</span><span lang=EN-US>1969</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>年提出的。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>先以一个</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的矩阵开始：设</span><span lang=EN-US>M<sub>1</sub>=<sub> 
+    <img width=49 height=48
+src="./chap04.files/image007.gif" v:shapes="_x0000_i1030"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，通过递归关系有</span><span
+lang=EN-US>M<sub>n+1</sub>=<sub> <img width=181 height=51
+src="./chap04.files/image009.gif" v:shapes="_x0000_i1031"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，其中</span><span
+lang=EN-US>M<sub>n</sub></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>和</span><span
+lang=EN-US>U<sub>n</sub></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>均为</span><span
+lang=EN-US>2<sup>n</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>×</span><span
+lang=EN-US>2<sup>n</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的方阵，</span><span
+lang=EN-US>U<sub>n</sub></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的所有元素都是</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。根据这个算法，可以得到</span><span lang=EN-US>M<sub>2</sub>=<sub> 
+    <img width=120 height=96
+src="./chap04.files/image011.gif" v:shapes="_x0000_i1032"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，为</span><span
+lang=EN-US>16</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级灰度的标准图案。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>M<sub>3</sub>(8</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>×</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>阵</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>比较特殊，称为</span><span lang=EN-US>Bayer</span><span
+style='font-family:宋体;"Times New Roman"'>抖动表。</span><span lang=EN-US>M<sub>4</sub></span><span
+style='font-family:宋体;"Times New Roman"'>是一个</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>16</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的矩阵。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>根据上面的算法，如果利用</span><span lang=EN-US>M<sub>3</sub></span><span
+style='font-family:宋体;"Times New Roman"'>一个象素要用</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的图案表示，则一幅</span><span
+lang=EN-US>N</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>N</span><span
+style='font-family:宋体;"Times New Roman"'>的图将变成</span><span lang=EN-US>8N</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8N</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>大小。如果利用</span><span
+lang=EN-US>M<sub>4</sub></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，就更不得了，变成</span><span
+lang=EN-US>16N</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>16N</span><span
+style='font-family:宋体;"Times New Roman"'>了。能不能在保持原图大小的情况下利用图案化技术呢？一种很自然的想法是：如果用</span><span
+lang=EN-US>M<sub>2</sub></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>阵，则将原图中每</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>个点中取一点，即重新采样，然后再应用图案化技术，就能够保持原图大小。实际上，这种方法并不可行。首先，你不知道这</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>个点中找哪一点比较合适，另外，</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的间隔实在太大了，生成的图象和原图肯定相差很大，就象图</span><span
+lang=EN-US>4.1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>最右边的那幅图一样。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们可以采用这样的做法：假设原图是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度，利用</span><span lang=EN-US>Bayer</span><span
+style='font-family:宋体;"Times New Roman"'>抖动表，做如下处理</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US>if (g[y][x]&gt;&gt;2) &gt; bayer[y&amp;7][x&amp;7] then </span><span
+style='font-family:宋体;"Times New Roman"'>打一白点</span><span lang=EN-US> else </span><span
+style='font-family:宋体;"Times New Roman"'>打一黑点</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>其中，</span><span lang=EN-US>x,y</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>代表原图的象素坐标，</span><span
+lang=EN-US>g[y][x]</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>代表该点灰度。首先将灰度右移两位，变成</span><span
+lang=EN-US>64</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级，然后将</span><span lang=EN-US>x</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>y</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>做模</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>运算，找到</span><span lang=EN-US>Bayer</span><span
+style='font-family:宋体;"Times New Roman"'>表中的对应点，两者做比较，根据上面给出的判据做处理。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们可以看到，模</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>运算使得原图分成了一个个</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的小块，每个小块和</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>的</span><span lang=EN-US>Bayer</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>表相对应。小块中的每个点都参与了比较，这样就避免了上面提到的选点和块划分过大的问题。模</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>运算实质上是引入了随机成分，这就是我们下面要讲到的抖动技术。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>4.5</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>就是利用了这个算法，使用</span><span
+lang=EN-US>M<sub>3</sub>(Bayer</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>抖动表</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>阵得到的；图</span><span lang=EN-US>6</span><span
+style='font-family:宋体;"Times New Roman"'>是使用</span><span lang=EN-US>M<sub>4</sub></span><span
+style='font-family:宋体;"Times New Roman"'>阵得到的，可见两者的差别并不是很大，所以一般用</span><span lang=EN-US>Bayer</span><span
+style='font-family:宋体;"Times New Roman"'>表就可以了。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=409 height=259
+src="./chap04.files/image012.gif" v:shapes="_x0000_i1033"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>4.5&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>利用</span><span lang=EN-US>M3</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>抖动生成的图</span><span lang=EN-US></span></b></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+lang=EN-US> <img width=409 height=259
+src="./chap04.files/image013.gif" v:shapes="_x0000_i1034"> </span></b></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>4.6&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>利用</span><span lang=EN-US>M4</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>抖动生成的图</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面是算法的源程序，是针对</span><span lang=EN-US>Bayer</span><span
+style='font-family:宋体;"Times New Roman"'>表的。因为它是个常用的表，我们不再利用</span><span lang=EN-US>Limb</span><span
+style='font-family:宋体;"Times New Roman"'>公式，而是直接给出。针对</span><span lang=EN-US>M<sub>4</sub></span><span
+style='font-family:宋体;"Times New Roman"'>阵的算法是类似的，不同的地方在于，要用</span><span lang=EN-US>Limb</span><span
+style='font-family:宋体;"Times New Roman"'>公式得到</span><span lang=EN-US>M<sub>4</sub></span><span
+style='font-family:宋体;"Times New Roman"'>阵，灰度也不用右移</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>位。要注意的是，为了处理的方便，我们的结果图仍采用</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种灰度。</span></p>
+  <p style='line-height:18.0pt'>BYTE BayerPattern[8][8]={&nbsp; 0,32,8,40,2,34,10,42,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>48,16,56,24,50,18,58,26,</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    12,44,4,36,14,46,6,38,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    60,28,52,20,62,30,54,22,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    3,35,11,43,1,33,9,41,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    51,19,59,27,49,17,57,25,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    15,47,7,39,13,45,5,37,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    63,31,55,23,61,29,53,21};</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL LimbPatternM3(HWND hWnd)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    OffBits,BufSize</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp; lpImgData;</p>
+  <p style='line-height:18.0pt'>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpPtr;</p>
+  <p style='line-height:18.0pt'>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hTempImgData;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp; lpTempImgData;</p>
+  <p style='line-height:18.0pt'>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpTempPtr;</p>
+  <p style='line-height:18.0pt'>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hDc;</p>
+  <p style='line-height:18.0pt'>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hf;</p>
+  <p style='line-height:18.0pt'>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x,y;</p>
+  <p style='line-height:18.0pt'>unsigned char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>BufSize=OffBits+bi.biHeight*LineBytes;//</span><span
+style='font-family:宋体;"Times New Roman"'>要开的缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error 
+    Message&quot;,MB_OK|</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>return FALSE;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'>lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>拷贝头信息和位图数据</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>memcpy(lpTempImgData,lpImgData,BufSize);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>for(y=0;y&lt;bi.biHeight;y++){</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//lpPtr<span
+style='font-family:宋体;"Times New Roman"'>为指向原图位图数据的指针</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpPtr=(char 
+    *)lpImgData+(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//lpTempPtr<span
+style='font-family:宋体;"Times New Roman"'>为指向新图位图数据的指针</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempPtr=(char 
+    *)lpTempImgData+(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for(x=0;x&lt;bi.biWidth;x++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num=(unsigned char)*lpPtr++;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if ( (num&gt;&gt;2) &gt; BayerPattern[y&amp;7][x&amp;7]) //<span
+style='font-family:宋体;"Times New Roman"'>右移两位后做比较</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *(lpTempPtr++)=(unsigned char)255; 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>打白点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else *(lpTempPtr++)=(unsigned char)0; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>打黑点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(hBitmap!=NULL)</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>DeleteObject(hBitmap);</p>
+  <p style='line-height:18.0pt'>hDc=GetDC(hWnd);&nbsp;&nbsp;&nbsp; </p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>形成新的位图</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hf=_lcreat(&quot;c:\\limbm3.bmp&quot;,0);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); </span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lclose(hf);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>释放内存和资源</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>ReleaseDC(hWnd,hDc);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>LocalUnlock(hTempImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>LocalFree(hTempImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>GlobalUnlock(hImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>return TRUE;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span><span
+lang=EN-US style='font-size:9.0pt;'></span></p>
+  <h2> <span
+lang=EN-US>4.2</span> <span lang=EN-US> </span><a name="_Toc486331879"></a><a
+name="_Toc486332879"></a><a name="_Toc486338988"></a><a name="_Toc454810853"></a><a
+name="_Toc454856627"><span><span>抖动法</span></span></a></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>让我们考虑更坏的情况：即使使用了图案化技术，仍然得不到要求的灰度级别。举例说明：假设有一幅</span><span
+lang=EN-US>600</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>450</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8bit</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的灰度图，当用分辨率为</span><span
+lang=EN-US>300dpi</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>300dpi</span><span
+style='font-family:宋体;"Times New Roman"'>的激光打印机将其打印到</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>6</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>英寸的纸上时，每个象素可以用</span><span
+lang=EN-US>(2400/600)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>×</span><span
+lang=EN-US>(1800/450)=4</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>×</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个点大小的图案来表示，最多能表示</span><span
+lang=EN-US>17</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级灰度，无法满足</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度的要求。可有两种解决方案：</span><span lang=EN-US>(1)</span><span
+style='font-family:宋体;"Times New Roman"'>减小图象尺寸，由</span><span lang=EN-US>600</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>450</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>变为</span><span
+lang=EN-US>150</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>113</span><span
+style='font-family:宋体;"Times New Roman"'>；</span><span lang=EN-US>(2)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>降低图象灰度级，由</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级变成</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>级。这两种方案都不理想。这时，我们就可以采用“抖动法”</span><span lang=EN-US>(dithering)</span><span
+style='font-family:宋体;"Times New Roman"'>的技术来解决这个问题。其实刚才给出的算法就是一种抖动算法，称为规则抖动</span><span lang=EN-US>(regular 
+    dithering)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。规则抖动的优点是算法简单；缺点是图案化有时很明显，这是因为取模运算虽然引入了随机成分，但还是有规律的。另外，点之间进行比较时，只要比标准图案上点的值大就打白点，这种做法并不理想，因为，如果当标准图案点的灰度值本身就很小，而图象中点的灰度只比它大一点儿时，图象中的点更接近黑色，而不是白色。一种更好的方法是将这个误差传播到邻近的象素。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面介绍的</span><span lang=EN-US>Floyd-Steinberg</span><span
+style='font-family:宋体;"Times New Roman"'>算法就采用了这种方案。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>假设灰度级别的范围从</span><span lang=EN-US>b(black)</span><span
+style='font-family:宋体;"Times New Roman"'>到</span><span lang=EN-US>w(white)</span><span
+style='font-family:宋体;"Times New Roman"'>，中间值</span><span lang=EN-US>t</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>为</span><span
+lang=EN-US>(b+w)/2</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，对应</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级灰度，</span><span lang=EN-US>b=0,w=255,t=127.5</span><span
+style='font-family:宋体;"Times New Roman"'>。设原图中象素的灰度为</span><span lang=EN-US>g</span><span
+style='font-family:宋体;"Times New Roman"'>，误差值为</span><span lang=EN-US>e</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，则新图中对应象素的值用如下的方法得到：</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if g &gt; t then</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>打白点</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>e=g-w</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>else </span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>打黑点</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>e=g-b</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>3/8 </span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US> e </span><span
+style='font-family:宋体;"Times New Roman"'>加到右边的象素</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>3/8 </span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US> e </span><span
+style='font-family:宋体;"Times New Roman"'>加到下边的象素</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>1/4 </span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US> e </span><span
+style='font-family:宋体;"Times New Roman"'>加到右下方的象素</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>算法的意思很明白：以</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度为例，假设一个点的灰度为</span><span lang=EN-US>130</span><span
+style='font-family:宋体;"Times New Roman"'>，在灰度图中应该是一个灰点。由于一般图象中灰度是连续变化的，相邻象素的灰度值很可能与本象素非常接近，所以该点及周围应该是一片灰色区域。在新图中，</span><span
+lang=EN-US>130</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>大于</span><span lang=EN-US>128</span><span
+style='font-family:宋体;"Times New Roman"'>，所以打了白点，但</span><span lang=EN-US>130</span><span
+style='font-family:宋体;"Times New Roman"'>离真正的白点</span><span lang=EN-US>255</span><span
+style='font-family:宋体;"Times New Roman"'>还差的比较远，误差</span><span lang=EN-US>e=130-255=-125</span><span
+style='font-family:宋体;"Times New Roman"'>比较大。，将</span><span lang=EN-US>3/8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>(-125)</span><span
+style='font-family:宋体;"Times New Roman"'>加到相邻象素后，使得相邻象素的值接近</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>而打黑点。下一次，</span><span lang=EN-US>e</span><span
+style='font-family:宋体;"Times New Roman"'>又变成正的，使得相邻象素的相邻象素打白点，这样一白一黑一白，表现出来刚好就是灰色。如果不传递误差，就是一片白色了。再举个例子，如果一个点的灰度为</span><span
+lang=EN-US>250</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，在灰度图中应该是一个白点，该点及周围应该是一片白色区域。在新图中，虽然</span><span
+lang=EN-US>e=-5</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>也是负的，但其值很小，对相邻象素的影响不大，所以还是能够打出一片白色区域来。这样就验证了算法的正确性。其它的情况你可以自己推敲。图</span><span
+lang=EN-US>4.7</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是利用</span><span lang=EN-US>Floyd-Steinberg</span><span
+style='font-family:宋体;"Times New Roman"'>算法抖动生成的图。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=409 height=259
+src="./chap04.files/image014.gif" v:shapes="_x0000_i1035"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>4.7&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>利用</span><span lang=EN-US>Floyd-Steinberg</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>算法抖动生成的图</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面我们给出</span><span lang=EN-US>Floyd-Steinberg</span><span
+style='font-family:宋体;"Times New Roman"'>算法的源代码。有一点要说明，我们原来介绍的程序都是先开一个</span><span lang=EN-US>char</span><span
+style='font-family:宋体;"Times New Roman"'>类型的缓冲区，用来存储新图数据，但在这个算法中，因为</span><span lang=EN-US>e</span><span
+style='font-family:宋体;"Times New Roman"'>有可能是负数，为了防止得到的值超出</span><span lang=EN-US>char</span><span
+style='font-family:宋体;"Times New Roman"'>能表示的范围，我们使用了一个</span><span lang=EN-US>int</span><span
+style='font-family:宋体;"Times New Roman"'>类型的缓冲区存储新值。另外，当按从左到右，从上到下的顺序处理象素时，处理过的象素以后不会再用到了，所以用这个</span><span
+lang=EN-US>int</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>类型的缓冲区存储新值是可行的。全部象素处理完后，再将这些值拷贝到</span><span
+lang=EN-US>char</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>类型的缓冲区去。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL Steinberg(HWND hWnd)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    OffBits,BufSize,IntBufSize;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER lpImgData;</p>
+  <p style='line-height:18.0pt'>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hTempImgData;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER lpTempImgData;</p>
+  <p style='line-height:18.0pt'>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    lpPtr;</p>
+  <p style='line-height:18.0pt'>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    lpTempPtr;</p>
+  <p style='line-height:18.0pt'>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hDc;</p>
+  <p style='line-height:18.0pt'>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hf;</p>
+  <p style='line-height:18.0pt'>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x,y;</p>
+  <p style='line-height:18.0pt'>unsigned char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num;</p>
+  <p style='line-height:18.0pt'>float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e,f;</p>
+  <p style='line-height:18.0pt'>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hIntBuf;</p>
+  <p style='line-height:18.0pt'>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *lpIntBuf,*lpIntPtr;</p>
+  <p style='line-height:18.0pt'>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tempnum;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//OffBits</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为</span><span
+lang=EN-US>BITMAPINFOHEADER</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>结构长度加调色板的大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>BufSize=OffBits+bi.biHeight*LineBytes;//</span><span
+style='font-family:宋体;"Times New Roman"'>要开的缓冲区的大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error Message&quot;,MB_OK|</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>IntBufSize=(DWORD)bi.biHeight*LineBytes*sizeof(int); if((hIntBuf=LocalAlloc(LHND,IntBufSize))==NULL) 
+    //int </span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>类型的缓冲区</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error 
+    Message&quot;,MB_OK|</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>LocalFree(hTempImgData);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>lpIntBuf=(int *)LocalLock(hIntBuf);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>拷贝头信息</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>memcpy(lpTempImgData,lpImgData,OffBits);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将图象数据拷贝到</span><span lang=EN-US>int</span><span
+style='font-family:宋体;"Times New Roman"'>类型的缓冲区中</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>for(y=0;y&lt;bi.biHeight;y++){</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>lpPtr=(char *)lpImgData+(BufSize-LineBytes-y*LineBytes);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>lpIntPtr=(int *)lpIntBuf+(bi.biHeight-1-y)*LineBytes;</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>for(x=0;x&lt;bi.biWidth;x++)</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpIntPtr++)=(unsigned char)*(lpPtr++);</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>for(y=0;y&lt;bi.biHeight;y++){</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>for(x=0;x&lt;bi.biWidth;x++){</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>lpIntPtr=(int *)lpIntBuf+(bi.biHeight-1-y)*LineBytes+x;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num=(unsigned char)*lpIntPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if ( num &gt; 128 ){ //128<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>是中值</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*lpIntPtr=255; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>打白点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>e=(float)(num-255.0); //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>计算误差</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:
+18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>else{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*lpIntPtr=0; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>打黑点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>e=(float)num; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>计算误差</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(x&lt;bi.biWidth-1){ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>注意判断边界</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>f=(float)*(lpIntPtr+1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>f+=(float)( (3.0/8.0) * e);</p>
+  <p style='line-height:
+18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *(lpIntPtr+1)=(int)f; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>向左传播</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:
+18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(y&lt;bi.biHeight-1){ 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>注意判断边界</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>f=(float)*(lpIntPtr-LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>f+=(float)( (3.0/8.0) * e);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpIntPtr-LineBytes)=(int)f; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>向下传播</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>f=(float)*(lpIntPtr-LineBytes+1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>f+=(float)( (1.0/4.0) * e);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpIntPtr-LineBytes+1)=(int)f; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>向右下传播</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>从</span><span lang=EN-US>int</span><span
+style='font-family:宋体;"Times New Roman"'>类型的缓冲区拷贝到</span><span lang=EN-US>char</span><span
+style='font-family:宋体;"Times New Roman"'>类型的缓冲区</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>for(y=0;y&lt;bi.biHeight;y++){</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>lpTempPtr=(char *)lpTempImgData+(BufSize-LineBytes-y*LineBytes);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>lpIntPtr=(int *)lpIntBuf+(bi.biHeight-1-y)*LineBytes;</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>for(x=0;x&lt;bi.biWidth;x++){</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>tempnum=*(lpIntPtr++);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(tempnum&gt;255) tempnum=255;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else if (tempnum&lt;0) tempnum=0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpTempPtr++)=(unsigned char)tempnum;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(hBitmap!=NULL)</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>DeleteObject(hBitmap);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hDc=GetDC(hWnd);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>产生新的位图</span><span lang=EN-US> </span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hf=_lcreat(&quot;c:\\steinberg.bmp&quot;,0);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); </span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lclose(hf);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>释放内存和资源</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>ReleaseDC(hWnd,hDc);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>GlobalUnlock(hImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>LocalUnlock(hTempImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>LocalFree(hTempImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>LocalUnlock(hIntBuf);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>LocalFree(hIntBuf);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>return TRUE;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>要注意的是，误差传播有时会引起流水效应，即误差不断向下，向右累加传播。解决的办法是：奇数行从左到右传播，偶数行从右到左传播。</span></p>
+  <h2> <span
+lang=EN-US>4.3</span> <span lang=EN-US> </span><a name="_Toc486331880"></a><a
+name="_Toc486332880"></a><a name="_Toc486338989"></a><a name="_Toc454810854"></a><a
+name="_Toc454856628"><span><span>将<span lang=EN-US>bmp</span></span></span></a><span><span><span style='font-family:黑体;'>文件转换为</span><span lang=EN-US>txt</span></span></span><span><span><span style='font-family:黑体;'>文件</span></span></span></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在讲图案化技术时，我突然想到了一个非常有趣的应用，那就是</span><span lang=EN-US>bmp2txt</span><span
+style='font-family:宋体;"Times New Roman"'>。如果你喜欢上</span><span lang=EN-US>BBS(</span><span
+style='font-family:宋体;"Times New Roman"'>电子公告牌系统</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，你可能想做一个花哨的签名档。瞧，这是我好朋友</span><span lang=EN-US>Casper</span><span
+style='font-family:宋体;"Times New Roman"'>的签名档</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>见图</span><span
+lang=EN-US>4.8)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，胖乎乎的，是不是特别可爱？</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=360 height=289
+src="./chap04.files/image016.jpg" v:shapes="_x0000_i1036"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>4.8&nbsp;&nbsp;&nbsp;&nbsp; Casper</b><b><span
+style='font-family:宋体;"Times New Roman"'>的签名档</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>你仔细观察一下，就会发现，这是一幅全部由字符组成的图，因为在</span><span lang=EN-US>BBS</span><span
+style='font-family:宋体;"Times New Roman"'>中只能出现文本的东西。那么，这幅图是怎么做出来的呢？难道是自己一个字符一个字符拼出来的。当然不是了，有一种叫</span><span
+lang=EN-US>bmp2txt</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的应用程序</span><span
+lang=EN-US>(2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的发音和“</span><span lang=EN-US>to</span><span
+style='font-family:宋体;"Times New Roman"'>”一样，所以如此命名</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，能把位图文件转换成和图案很相似的字符文本。是不是觉得很神奇？其实原理很简单，用到了和图案化技术类似的思想：首先将位图分成同样大小的小块，求出每一块灰度的平均值，然后和每个字符的灰度做比较，找出最接近的那个字符，来代表这一小块图象。那么，怎么确定字符的灰度呢？做下面的实验就明白了。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>打开记事本</span><span lang=EN-US>(notepad)</span><span
+style='font-family:宋体;"Times New Roman"'>，输入字符“</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>”，选定该字符，使其反色。按</span><span lang=EN-US>Alt+PrintScreen</span><span
+style='font-family:宋体;"Times New Roman"'>键拷贝窗口屏幕。打开画笔</span><span lang=EN-US>(paintbrush)</span><span
+style='font-family:宋体;"Times New Roman"'>，粘贴；然后把图放到最大</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，打开“查看”→“缩放”</span> <span style='font-family:宋体;"Times New Roman"'>→“显示网格”菜单，如图</span><span lang=EN-US>4.9</span><span
+style='font-family:宋体;"Times New Roman"'>所示：</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=231 height=226
+src="./chap04.files/image018.jpg" v:shapes="_x0000_i1037"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>4.9&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>字符“</span><span lang=EN-US>1</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>”的灰度</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>数数字符“</span><span lang=EN-US>1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>”用了几个点？是</span><span
+lang=EN-US>22</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个。我想你已经明白了，字符的灰度和它所占的黑色点数有关，点越少，灰度值越大，空格字符的灰度最大，为全白，因为它一个黑点也没有；而字符“</span><span
+lang=EN-US>W</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>”的灰度值就比较低了。每个字符的面积是</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>16(</span><span
+style='font-family:宋体;"Times New Roman"'>宽×高</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，所以一个字符的灰度值可以用如下的公式计算</span><span
+lang=EN-US>(1-</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所占的黑点数</span><span lang=EN-US>/(8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>16))</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>255</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。下面是可显示的字符，及对应的灰度，共有</span><span
+lang=EN-US>95</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个。这可是我辛辛苦苦整理出来的呦！</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>static char ch[95]={</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>' ',</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>'`','1','2','3','4','5','6','7','8','9','0','-','=','\\',</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>'q','w','e','r','t','y','u','i','o','p','[',']',</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>'a','s','d','f','g','h','j','k','l',';','\'',</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>'z','x','c','v','b','n','m',',','.','/',</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>'~','!','@','#','$','%','^','&amp;','*','(',')','_','+','|',</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>'Q','W','E','R','T','Y','U','I','O','P','{','}',</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>'A','S','D','F','G','H','J','K','L',':','&quot;',</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>'Z','X','C','V','B','N','M','&lt;','&gt;','?'</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };</p>
+  <p style='line-height:18.0pt'>static int&nbsp; gr[95]= {</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;0,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;7,22,28,31,31,27,32,22,38,32,40, 6,12,20,38,32,26,20,24,40,</p>
+  <p style='line-height:18.0pt'><span>&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;29,24,28,38,32,32,26,22,34,24,44,33,32,32,24,16, 6,22,26,22,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;26,34,29,35,10, 6,20,14,22,47,42,34,40,10,35,21,22,22,16,14,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;26,40,39,29,38,22,28,36,22,36,30,22,22,36,26,36,25,34,38,24,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;36,22,12,12,26,30,30,34,39,42,41,18,18,22</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;};</p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面的这段程序实现了</span><span lang=EN-US>bmp2txt</span><span
+style='font-family:宋体;"Times New Roman"'>的功能，结果存到文件</span><span lang=EN-US>bmp2txt.txt</span><span
+style='font-family:宋体;"Times New Roman"'>中。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL Bmp2Txt(HWND hWnd)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp; lpImgData;</p>
+  <p style='line-height:18.0pt'>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpPtr;</p>
+  <p style='line-height:18.0pt'>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hf;</p>
+  <p style='line-height:18.0pt'>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    i, j, k,h,tint,grayindex;</p>
+  <p style='line-height:18.0pt'>char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tchar;</p>
+  <p style='line-height:18.0pt'>int&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TransHeight, TransWidth;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>先用起泡排序，将灰度值按从小到大排列，同时调整对应的字符位置</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>for(i=0;i&lt;94;i++)</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>for(j=i+1;j&lt;95;j++){</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>if(gr[i]&gt;gr[j]){</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>tchar=ch[i],tint=gr[i];</p>
+  <p style='line-height:
+18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>ch[i]=ch[j],gr[i]=gr[j];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>ch[j]=tchar,gr[j]=tint;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//OffBits</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为</span><span
+lang=EN-US>BITMAPINFOHEADER</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>结构长度加调色板的大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>BufSize=OffBits+bi.biHeight*LineBytes;//</span><span
+style='font-family:宋体;"Times New Roman"'>要开的缓冲区的大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>TransWidth = bi.biWidth/8; //</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>每行字符的个数</span></p>
+  <p style='line-height:18.0pt'>TransHeight = bi.biHeight/16;&nbsp; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>共有多少行字符</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hf=_lcreat(&quot;c:\\bmp2txt.txt&quot;,0);</span></p>
+  <p style='line-height:18.0pt'>for(i=0;i&lt;TransHeight;i++){ </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for(j=0;j&lt;TransWidth;j++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>grayindex=0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(k=0;k&lt;16;k++)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(h=0;h&lt;8;h++){ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>求出</span><span lang=EN-US>8*16</span><span
+style='font-family:宋体;"Times New Roman"'>小块中各象素灰度之和</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char*)lpImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>BufSize-LineBytes-(i*16+k)*LineBytes+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>j*8+h;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>grayindex+=(unsigned char)*lpPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>grayindex/=16*8; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>除以整个面积</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>grayindex=gr[94]*grayindex/255;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>k=0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>while(gr[k+1]&lt;grayindex)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>k++;&nbsp; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>寻找灰度最接近的字符</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>_lwrite(hf,(char *)&amp;ch[k],sizeof(char));&nbsp;&nbsp; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将该字符写入文件中</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>tchar=(char)13;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(char 
+    *)&amp;tchar,sizeof(char)); </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>tchar=(char)10;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(char 
+    *)&amp;tchar,sizeof(char));&nbsp; //<span
+style='font-family:宋体;"Times New Roman"'>每行加一个回车换行符</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lclose(hf);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>GlobalUnlock(hImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>return TRUE;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>上面的程序中，只考虑了</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>小块的平均灰度，而没有考虑小块内部象素的灰度分布。更精确的方法是将图象</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>小块和字符</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>16</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>小块每两个对应点之间相减，做平方误差计算，找出有最小平方误差的那个字符，来代表这一小块图象。显然，计算量要比刚才的大得多。这里我们就不给出程序了，有兴趣的读者可以自己实现。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>其实利用图案化技术，还可以实现更有趣的应用，如图</span><span lang=EN-US>4.10</span><span
+style='font-family:宋体;"Times New Roman"'>，你仔细看看，贝多芬的头像是由许多个音乐符号组成的！</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=383 height=383
+src="./chap04.files/image020.gif" v:shapes="_x0000_i1026"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>4.10&nbsp;&nbsp; </b><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>贝多芬的头像</span><span
+lang=EN-US></span></b></p>
+</div>
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+USC does not screen or control the content herein and does not take responsibility for any inaccurate, offensive, infringing, or objectionable content, all of which is the sole responsibility of the author or the users who post content on this website.
+</div>
+</body>
+</html>

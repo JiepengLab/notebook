@@ -1,0 +1,2381 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/DIP/dip4/">
+      
+      
+        <link rel="prev" href="../dip3/">
+      
+      
+        <link rel="next" href="../dip5/">
+      
+      
+      <link rel="icon" href="../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>04-几何变换 - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-geometric-transform" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04-几何变换
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Fundemental/" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Friends/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朋友们！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CurrentStudy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正在学习的课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Fundemental/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            基础课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/Mathematical%20Modeling/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数学建模
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/Probability%20and%20Mathematical%20Statistics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Fundemental/Physics-II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大学物理（乙）II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            校内CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../NA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数值分析
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../AI_Start/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    人工智能初步
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../DigitalDesign/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数字逻辑设计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    图像信息处理
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            图像信息处理
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-成像与图像的基本属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-二值图像与形态学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-图像灰度变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    04-几何变换
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    04-几何变换
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-geometric-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单变换 | Simple geometric transform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简单变换 | Simple geometric transform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Translation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rotation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scale
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shear" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shear
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combination" class="md-nav__link">
+    <span class="md-ellipsis">
+      组合变换 | Combination
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      插值 | Interpolation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="插值 | Interpolation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nearest-neighbor" class="md-nav__link">
+    <span class="md-ellipsis">
+      最近邻插值  | Nearest neighbor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linear-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性插值 | Linear interpolation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rbf-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      RBF interpolation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp-and-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp and Morph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Warp and Morph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Morph
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-morph-based-on-segment" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型转换的 Morph | Morph based on segment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-morph-based-on-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      视点变换的Morph | Morph based on grid
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用 | Application
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="应用 | Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lambertian-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      光照模型 | Lambertian model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-卷积和滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../FDS/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数据结构基础
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS_Online/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            校外CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML-4360/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML_Lhy/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    李宏毅《机器学习》
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Mess/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            杂项
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Mess/DIP-C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    《数字图像处理编程入门》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/ESG/Paper/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ESG商赛
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/Marxism/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    马原
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-geometric-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单变换 | Simple geometric transform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简单变换 | Simple geometric transform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Translation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rotation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scale
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shear" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shear
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combination" class="md-nav__link">
+    <span class="md-ellipsis">
+      组合变换 | Combination
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      插值 | Interpolation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="插值 | Interpolation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nearest-neighbor" class="md-nav__link">
+    <span class="md-ellipsis">
+      最近邻插值  | Nearest neighbor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linear-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性插值 | Linear interpolation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rbf-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      RBF interpolation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp-and-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp and Morph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Warp and Morph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Morph
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-morph-based-on-segment" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型转换的 Morph | Morph based on segment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-morph-based-on-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      视点变换的Morph | Morph based on grid
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用 | Application
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="应用 | Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lambertian-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      光照模型 | Lambertian model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="4-geometric-transform">4 几何变换 | Geometric transform<a class="headerlink" href="#4-geometric-transform" title="点击此处可置顶内容">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<ul>
+<li>Simple geometric transform  </li>
+<li>Interpolation  </li>
+<li>Warp and morph  </li>
+<li>Application</li>
+</ul>
+</div>
+<p>图像几何变换又称为图像空间变换，它将一副图像中的坐标位置映射到另一幅图像中的新坐标位置。我们学习几何变换就是确定这种空间映射关系，以及映射过程中的变化参数。图像的几何变换改变了像素的空间位置，建立一种原图像像素与变换后图像像素之间的映射关系。我们将一幅图像中的坐标位置映射到另一幅图像中的新坐标位置，关键就是要确定这种空间映射关系，以及映射过程中的变换参数。</p>
+<p>几何变换不改变图像的像素值，只是在图像平面上进行像素的重新安排。一个几何变换需要两部分运算：首先是空问变换所需的运算，如平移、旋转和镜像等，需要用它来表示输出图像与输入图像之间的〈像素〉映射关系：此外，还需要使用插值算法，因为按照这种变换关系进行计算，输出图像的像素可能被映射到输入图像的非整数坐标上。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><img alt="Alt text" src="../images/image-73.png" />{}</p>
+</div>
+<p><span class="arithmatex">\(f(x,y)\)</span> 表示输入图像， <span class="arithmatex">\(g(x,y)\)</span> 表示输出图像。函数 <span class="arithmatex">\(a(x,y)\)</span> 和 <span class="arithmatex">\(b(x,y)\)</span> 唯一地描述了空间变换：</p>
+<div class="arithmatex">\[g(x,y)=f(x',y')=f[a(x,y),b(x,y)]\]</div>
+<p>几何变换根据难易程度通常可以归结为两类：  </p>
+<ul>
+<li><strong>简单变换</strong>——变换过程（各个像素变换前后的位置）以及变换参数可知时的变换，如图像的<em>平移、镜像、转置、旋转、缩放、错切变换</em>等。</li>
+<li><strong>一般变换</strong>——变换过程不是一目了然，变换参数难以测量时的变换。通常情况下，对图像畸变进行校正时，需要用到较为复杂的变换公式。  </li>
+</ul>
+<h2 id="simple-geometric-transform">简单变换 | Simple geometric transform<a class="headerlink" href="#simple-geometric-transform" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="translation">Translation<a class="headerlink" href="#translation" title="点击此处可置顶内容">&para;</a></h3>
+<p>将图像沿水平和竖直方向移动，从而产生新图像的过程。</p>
+<div class="arithmatex">\[
+\left\{ \begin{matrix} x^{'}=x+x_0 \\ y^{'}=y+y_0 \end{matrix} \right.
+\]</div>
+<div class="arithmatex">\[
+\left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} 1 &amp; 0 &amp; x_0 \\ 0 &amp; 1 &amp; y_0 \\ 0 &amp; 0 &amp; 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
+\]</div>
+<p>平移后的景物与原图像相同，但“画布”一定是扩大了，否则就会丢失信息。</p>
+<h3 id="rotation">Rotation<a class="headerlink" href="#rotation" title="点击此处可置顶内容">&para;</a></h3>
+<p>绕原点旋转 <span class="arithmatex">\(\theta\)</span> 角，得到新图像的过程  </p>
+<div class="arithmatex">\[  
+\left\{ \begin{matrix} x^{'}=x\cos\theta - y\sin\theta\\ y^{'}=x\sin\theta + y\cos\theta \end{matrix} \right.
+\]</div>
+<div class="arithmatex">\[
+\left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} \cos\theta &amp; -\sin\theta &amp; x_0 \\ \sin\theta &amp; \cos\theta &amp; y_0 \\ 0 &amp; 0 &amp; 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
+\]</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><img alt="Alt text" src="../images/image-72.png" width="50%" /></p>
+<p>需要注意的是，在进行变换的过程中会产生浮点数坐标，但是数字图像是以离散型整数存储数据的。</p>
+<p>也就是说，旋转后，新图像中将有许多“孔”。对此，我们将进行“插值”来填充。插值的内容详见<a href="#interpolation">插值 | Interpolation</a>。</p>
+</div>
+<h3 id="scale">Scale<a class="headerlink" href="#scale" title="点击此处可置顶内容">&para;</a></h3>
+<p>图像的缩放指的是将图像的尺寸变小或变大的过程，也就是减少或增加原图像数据的像素个数。简单来说，就是通过增加或删除像素点来改变图像的尺寸。也就是说，将图像与系数相乘以生成新图像。</p>
+<div class="admonition note">
+<p><img alt="Alt text" src="../images/image-70.png" />
+<img alt="Alt text" src="../images/image-71.png" /></p>
+</div>
+<p>可以表示为：</p>
+<div class="arithmatex">\[
+\left\{ \begin{matrix} x^{'}=cx\\ y^{'}=dy \end{matrix} \right.
+\]</div>
+<p>或者用矩阵表示为</p>
+<div class="arithmatex">\[
+\left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} c &amp;  0 &amp; 0 \\ 0 &amp; d &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
+\]</div>
+<div class="admonition note">
+<ul>
+<li>沿 <span class="arithmatex">\(x\)</span> 轴方向缩放 <span class="arithmatex">\(c\)</span> 倍（<span class="arithmatex">\(c&gt;1\)</span>时为放大，<span class="arithmatex">\(0&lt;c&lt;1\)</span>时为缩小）；沿 <span class="arithmatex">\(y\)</span> 轴方向缩放 <span class="arithmatex">\(d\)</span> 倍（ <span class="arithmatex">\(d&gt;1\)</span> 时为放大，<span class="arithmatex">\(0&lt;d&lt;1\)</span> 时为缩小）。</li>
+<li>当 <span class="arithmatex">\(c=d\)</span> 时，图像等比缩放；否则为非等比缩放，导致图像变形。</li>
+<li>缩小——按一定间隔选取某些行和列的像素构成缩小后的新图像；</li>
+<li>放大——新图像出现空行和空列，可采用插值的方法加以填补，但存在“马赛克”现象。</li>
+</ul>
+</div>
+<h3 id="shear">Shear<a class="headerlink" href="#shear" title="点击此处可置顶内容">&para;</a></h3>
+<p>剪切变换是仿射变换的一种原始变换。它指的是类似于四边形不稳定性那种性质，方形变平行四边形，任意一边都可以被拉长的过程。</p>
+<div class="admonition note">
+<p><img alt="Alt text" src="../images/image-69.png" width="55%" /></p>
+</div>
+<p>假设剪切变换的参数为 <span class="arithmatex">\(d_x\)</span> 或者 <span class="arithmatex">\(d_y\)</span>，那么可以用数学公式表现为  </p>
+<ul>
+<li><strong>Shear on x-axis:</strong> <span class="arithmatex">\(\left\{ \begin{matrix} a(x,y)=x+d_xy\\ b(x,y)=y \end{matrix} \right.\)</span></li>
+<li><strong>Shear on y-axis:</strong> <span class="arithmatex">\(\left\{ \begin{matrix} a(x,y)=x\\ b(x,y)=y+d_yx \end{matrix} \right.\)</span></li>
+</ul>
+<p>剪切变换可以仅是 x 坐标或仅是 y 坐标坐标受剪切，也可以是两个坐标同时受剪切，其变换矩阵分别为：</p>
+<div class="arithmatex">\[
+\left( \begin{matrix} 1 &amp;  0  \\ d_x &amp; 1 \end{matrix} \right);
+\left( \begin{matrix} 1 &amp;  d_y  \\ 0 &amp; 1 \end{matrix} \right);
+\left( \begin{matrix} 1 &amp;  d_y  \\ d_x &amp; 1 \end{matrix} \right)  
+\]</div>
+<h3 id="mirror">Mirror<a class="headerlink" href="#mirror" title="点击此处可置顶内容">&para;</a></h3>
+<p>图像的镜像变换分为两种：水平镜像和垂直镜像。</p>
+<div class="admonition note">
+<p><img alt="Alt text" src="../images/image-68.png" width="50%" /></p>
+</div>
+<p>绕 <span class="arithmatex">\(x\)</span> 轴或 <span class="arithmatex">\(y\)</span> 轴翻转，从而产生与原图像对称的新图像的过程: <span class="arithmatex">\(\left\{ \begin{matrix} x^{'}=x \\ y^{'}=-y \end{matrix} \right.\)</span></p>
+<p>绕 <span class="arithmatex">\(x\)</span> 轴或 <span class="arithmatex">\(y\)</span> 轴翻转，从而产生与原图像对称的新图像的过程: <span class="arithmatex">\(\left\{ \begin{matrix} x^{'}=-x \\ y^{'}=y \end{matrix} \right.\)</span></p>
+<div class="arithmatex">\[
+\left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} s_x &amp; 0 &amp; 0 \\ 0 &amp; s_y &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
+\]</div>
+<p>当 <span class="arithmatex">\(S_x = 1\)</span>，且 <span class="arithmatex">\(S_y = -1\)</span> 时实现绕x轴的镜像变换</p>
+<p>当 <span class="arithmatex">\(S_x = -1\)</span>，且 <span class="arithmatex">\(S_y = 1\)</span> 时实现绕y轴的镜像变换</p>
+<h2 id="combination">组合变换 | Combination<a class="headerlink" href="#combination" title="点击此处可置顶内容">&para;</a></h2>
+<p>图像的组合变换是各项简单几何变换的混合操作。</p>
+<div class="arithmatex">\[
+\left[ \begin{matrix} x^{'}\\ y^{'}\\ 1 \end{matrix} \right]=\left[ \begin{matrix} a &amp;  b &amp; c \\ d &amp; e &amp; f \\ g &amp; h &amp; 1 \end{matrix} \right] \left[ \begin{matrix} x\\ y\\ 1 \end{matrix} \right]
+\]</div>
+<p>变换矩阵是由构成组合变换的各种简单变换的变换矩阵按<strong>从左至右</strong>的顺序逐次相乘以后得到的结果。变换矩阵相乘时的顺序是不可以任意改变的</p>
+<h2 id="interpolation">插值 | Interpolation<a class="headerlink" href="#interpolation" title="点击此处可置顶内容">&para;</a></h2>
+<p>数学的数值分析领域中，内插或称插值 (Interpolation) 是一种通过已知的、离散的数据点，在范围内推求新数据点的过程或方法。</p>
+<p>插值是几何变换最常用的工具，利用已知像素值，采用不同的插值方法，可以模拟出未知像素的像素值。</p>
+<h3 id="nearest-neighbor">最近邻插值  | Nearest neighbor<a class="headerlink" href="#nearest-neighbor" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>最近邻插值</strong>：输出像素的灰度值等于离它所映射到的位置最近的输入像素的灰度值。</p>
+<div class="admonition note">
+<p class="admonition-title">计算过程：</p>
+<p>为了计算几何变换后新图像中某一点P’处的像素值，可以首先计算该几何变换的逆变换，计算出P’所对应的原图像中的位置P。通常情况下，P的位置不可能正好处在原图像的某一个像素位置上（即P点的坐标通常都不会正好是整数）。寻找与P点最接近的像素Q，把Q点的像素值作为新图像中P’点的像素值。</p>
+<p><img alt="Alt text" src="../images/image-74.png" /></p>
+</div>
+<p>最近邻插值法有局限性。当图像中包含明显的几何结构时，结果不能保持一致性和平滑性。例如：</p>
+<p><img alt="Alt text" src="../images/image-90.png" width="50%" /></p>
+<h3 id="linear-interpolation">线性插值 | Linear interpolation<a class="headerlink" href="#linear-interpolation" title="点击此处可置顶内容">&para;</a></h3>
+<p>对于一维的线性插值，假设在 <span class="arithmatex">\(x_1\)</span> 和 <span class="arithmatex">\(x_2\)</span> 处的灰度值分别为 <span class="arithmatex">\(g_1\)</span> 和 <span class="arithmatex">\(g_2\)</span> ，那么 <span class="arithmatex">\(x_3\)</span> 处的灰度值 <span class="arithmatex">\(g_3\)</span> 为：  </p>
+<div class="arithmatex">\[g_3=\dfrac{g_2-g_1}{x_2-x_1}(x_3-x_1)+g_1\]</div>
+<p>但我们图像是二维的（行列），因此需要二维插值。  </p>
+<p>在二维情况下，称之为 “双线性插值”。</p>
+<div class="admonition question">
+<p>已知图像的正方形网格上四个点A、B、C、D的灰度，求P点的灰度。</p>
+</div>
+<p><img alt="Alt text" src="../images/image-75.png" width="40%" /></p>
+<ol>
+<li>定义双线性方程 <span class="arithmatex">\(g(x,y)=ax+by+cxy+d\)</span></li>
+<li>分别将A、B、C、D四点的位置和灰度代入方程，得到方程组。</li>
+<li>解方程组，解出<span class="arithmatex">\(a\)</span>、<span class="arithmatex">\(b\)</span>、<span class="arithmatex">\(c\)</span>、<span class="arithmatex">\(d\)</span>四个系数。</li>
+<li>将P点的位置代入方程，得到 P 点的灰度。</li>
+</ol>
+<p>在实现时，我们可以同样可以用 1 维的线性插值来实现双线性插值。只要先进行每行的插值，再进行每列的插值，我们就可以对整个图像进行插值运算。这样子也可以并行计算.</p>
+<p>例如，对上图中。我们可以通过多次 1 维的线性插值来进行双线性插值：首先将 A、 B 连线进行插值计算求出 R 点灰度值，再将 C、 D 两点连线进行插值计算求出 Q 点灰度值，最后将 Q、 R 连线进行插值计算求出 P 点灰度值。</p>
+<h3 id="rbf-interpolation">RBF interpolation<a class="headerlink" href="#rbf-interpolation" title="点击此处可置顶内容">&para;</a></h3>
+<p><span class="arithmatex">\(G(x)=\sum_{i=1}^n w_iG(c_i)\)</span> where <span class="arithmatex">\(w_i=\dfrac{\phi(|x-c_i|)}{\sum_{i=1}^n\phi(|x-c_i|}\)</span>  </p>
+<p>其中 <span class="arithmatex">\(x\)</span> 可以是一个标量，也可以是一个向量，也就是说既可以是一维插值，也可以是二维、多维插值，取决于 <span class="arithmatex">\(x\)</span> 的维度。</p>
+<p>用鼠标拖，离鼠标越近，受影响越小  </p>
+<p><img alt="Alt text" src="../images/image-76.png" width="40%" /></p>
+<p>常用的核函数：</p>
+<ul>
+<li>Gaussian: <span class="arithmatex">\(\phi(r)=exp\{-\dfrac{e^2}{2\sigma^2}\}\)</span>  </li>
+<li>Multiquadrics: <span class="arithmatex">\(\phi(r)=\sqrt{1+\dfrac{r^2}{\sigma^2}}\)</span>  </li>
+<li>Linear: <span class="arithmatex">\(\phi(r)=r\)</span>  </li>
+<li>Cubic: <span class="arithmatex">\(\phi(r)=r^3\)</span></li>
+<li>Thinplate: <span class="arithmatex">\(\phi(r)=r^2\ln(r+1)\)</span></li>
+</ul>
+<h2 id="warp-and-morph">Warp and Morph<a class="headerlink" href="#warp-and-morph" title="点击此处可置顶内容">&para;</a></h2>
+<p>Warp: 只改变像素的位置  </p>
+<p>Morph: 不仅改变位置，还要改变颜色  </p>
+<h3 id="image-morph">Image Morph<a class="headerlink" href="#image-morph" title="点击此处可置顶内容">&para;</a></h3>
+<p>这里讨论的 Morph 变形不同于一般的几何变换(Warp)</p>
+<p>Morph 变形指景物的形体变化，它是使一幅图像逐步变化到另一幅图像的处理方法。这是一种较复杂的二维图像处理，需要对各像素点的<strong>颜色、位置</strong>作变换。</p>
+<p>变形的起始图像和结束图像分别为两幅关键帧（起始帧和结束帧），从起始形状变化到结束形状的关键在于自动地生成中间形状，也即自动生成中间帧。</p>
+<p><img alt="Alt text" src="../images/image-77.png" width="50%" /></p>
+<p>大小相同的两幅图的转换作静态变换。从一幅图a逐渐变化成第二幅图b</p>
+<ul>
+<li>原理：让图a中每个像素的颜色，逐渐变成图b相同位置像素的颜色。</li>
+<li>
+<p>方法：根据变换的快慢，设置相应的步长，将图a每一点的RGB逐渐变成图b相同位置像素的RGB。可以选择等比或等差的方式，或其它方式让：<span class="arithmatex">\(r^a\rightarrow r^b\)</span>，如：</p>
+<ul>
+<li><span class="arithmatex">\(r_{i,j}=r_{begin}+i*\dfrac{r_{end}-r_{begin}}{n}\)</span></li>
+<li><span class="arithmatex">\(g_{i,j}=g_{begin}+i*\dfrac{g_{end}-g_{begin}}{n}\)</span></li>
+<li><span class="arithmatex">\(b_{i,j}=b_{begin}+i*\dfrac{b_{end}-b_{begin}}{n}\)</span></li>
+</ul>
+</li>
+<li>
+<p>对于彩色图像，RGB三色同时从原图变到目标图像。可以分别变化，也可考虑RGB的相对比例关系同时变化。</p>
+</li>
+</ul>
+<p>对于灰度图像，可以直接用等比或等差级数定义步长，使颜色从原图变到目标图。</p>
+<p><strong>如何选择关键帧：</strong>  </p>
+<p>选择两幅结构相似、大小相同的画面作为起始和结束关键帧，这样才能比较容易地实现自然、连续的中间变形过程。（否则效果很差）</p>
+<h3 id="morph-morph-based-on-segment">模型转换的 Morph | Morph based on segment<a class="headerlink" href="#morph-morph-based-on-segment" title="点击此处可置顶内容">&para;</a></h3>
+<p>以点为中心控制像素的移动。利用 RBF 的思路，移动线段。距离控制点越近，移动幅度越相似。</p>
+<p>在起始和结束画面上确定和勾画出各部分（主要轮廓）的结构对应关系，也即从起始画面上的一个点变到结束画面上的另一个对应点的位置，这是变形运算所需要的参数。根据需要，对应点的位置可以任意移动。调整起始帧的对应点位置，可以模拟摄像中的镜头渐变效果。</p>
+<p>在各点像素坐标变化的同时，每个像素的颜色RGB也一起从原图像改变为目标图像。</p>
+<p>这时可以采用不同的插值策略计算像素中间值（空间，颜色）</p>
+<div class="admonition note">
+<p class="admonition-title">线段的Morph</p>
+<p><img alt="Alt text" src="../images/image-66.png" width="30%" /></p>
+</div>
+<h3 id="morph-morph-based-on-grid">视点变换的Morph | Morph based on grid<a class="headerlink" href="#morph-morph-based-on-grid" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>视点变换</strong>就是求在视点移动后原始图像变换生成的新视图。</p>
+<ul>
+<li>在用相机拍摄物体时，保持物体的位置不动，而将相机移离物体，这就相当于<strong>视点变换</strong>；</li>
+<li>如果我们保持相机固定位置，将物体移离相机，这就相当于<strong>模型转换</strong>。</li>
+</ul>
+<p>视点变形要求对物体有三维坐标知识。</p>
+<div class="admonition note">
+<p class="admonition-title">Fish eye effect</p>
+<p><img alt="Alt text" src="../images/image-67.png" width="40%" /></p>
+</div>
+<h2 id="application">应用 | Application<a class="headerlink" href="#application" title="点击此处可置顶内容">&para;</a></h2>
+<div class="admonition question">
+<p class="admonition-title">问题背景</p>
+<p><img alt="Alt text" src="../images/image-78.png" width="50%" /></p>
+<p>我们可以应用 <span class="arithmatex">\(v_{B'}=v_{B}+v_{A'}-v_A\)</span>, 但这样得到的表情细节丢失了。  </p>
+</div>
+<p>为此，我们需要引入光照模型(Lambertian model).  </p>
+<h3 id="lambertian-model">光照模型 | Lambertian model<a class="headerlink" href="#lambertian-model" title="点击此处可置顶内容">&para;</a></h3>
+<p>假设空间中 m 为点光源，曲面亮度如下：</p>
+<div class="arithmatex">\[I=\rho\sum\limits_{1\leq i\leq m} S_iI_in_i\cdot l_i\equiv \rho E(n) \]</div>
+<div class="arithmatex">\[\text{where}\;\; S_i=\left\{\begin{matrix} 0, \text{cannot be seen} \\ 1, \text{otherwise}\end{matrix}\right.\]</div>
+<p>其中 <span class="arithmatex">\(l_i\)</span> 第 i 个光源照过来的角度，<span class="arithmatex">\(n\)</span> 表示当前这个曲面的法向量，所以 <span class="arithmatex">\(n\cdot l_i\)</span> 相当于余弦关系; <span class="arithmatex">\(I_i\)</span> 表示第 i 个光源的亮度；<span class="arithmatex">\(S_i\)</span> 表示曲面能不能被第 i 个点光源照到; <span class="arithmatex">\(\rho\)</span> 表示曲面的材质  </p>
+<p><strong>Expression ratio image(ERI)</strong>: 由于对同一个对象变换前后的材质是一样的，所以<span class="arithmatex">\(\rho\)</span> 一样，可以得到：</p>
+<div class="arithmatex">\[\dfrac{I'}{I}=\dfrac{E(n')}{E(n)}\]</div>
+<p>ERI 是因为曲面变形所导致的亮度的变化；不依赖于材质的。</p>
+<p>假设在对应的点都有相同的法向量，材质不同，相同的形变</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th>Before deform</th>
+<th>After deform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Surface 1</td>
+<td><span class="arithmatex">\(I_1=\rho_1E(n)\)</span></td>
+<td><span class="arithmatex">\(I_1^{'}=\rho_1E(n')\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">Surface 2</td>
+<td><span class="arithmatex">\(I_2=\rho_2E(n)\)</span></td>
+<td><span class="arithmatex">\(I_2^{'}=\rho_2E(n')\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>于是刚刚的问题转变为：（假设人脸有近似相同的法向量）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th>Neutral</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Person A</td>
+<td><span class="arithmatex">\(I_a=\rho_aE(n)\)</span></td>
+<td><span class="arithmatex">\(I_a^{'}=\rho_aE(n')\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">Person B</td>
+<td><span class="arithmatex">\(I_b=\rho_bE(n)\)</span></td>
+<td><span class="arithmatex">\(I_b^{'}=?\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>由刚刚的推导可得</p>
+<div class="arithmatex">\[I_b^{'}=\dfrac{I_a^{'}}{I_a}I_b\]</div>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Step 1: Mark feature points</li>
+<li>Step 2: 对每一个特征点 <span class="arithmatex">\(v_b\)</span> in <span class="arithmatex">\(B\)</span>, warp it: <span class="arithmatex">\(v_{b'}=v_b+v_{a'}-v_a\)</span>, 令 <span class="arithmatex">\(B_g\)</span> 是 <span class="arithmatex">\(B\)</span> 变形后的图像  </li>
+<li>Step 3: 用 <span class="arithmatex">\(B_g\)</span> 对齐 <span class="arithmatex">\(A\)</span> ，<span class="arithmatex">\(A'\)</span>，直到每个像素都能找到另外两种图像上的对应点</li>
+<li>Step 4: 计算 ratio image <span class="arithmatex">\(\Re=\dfrac{A'}{A}\)</span></li>
+<li>Step 5: <span class="arithmatex">\(B' = \Re \cdot B_g\)</span></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">如何找像素的 correspondence</p>
+<p>通过图像对齐，手工标记特征点后进行参数化。</p>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../dip3/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 03-图像灰度变换">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                03-图像灰度变换
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../dip5/" class="md-footer__link md-footer__link--next" aria-label="下一页: 05-卷积和滤波">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                05-卷积和滤波
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>

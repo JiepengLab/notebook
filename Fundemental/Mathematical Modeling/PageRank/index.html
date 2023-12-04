@@ -1,0 +1,2528 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/Fundemental/Mathematical%20Modeling/PageRank/">
+      
+      
+        <link rel="prev" href="../Secret/">
+      
+      
+        <link rel="next" href="../NimGame/">
+      
+      
+      <link rel="icon" href="../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>02 搜索引擎的PageRank模型 - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#model-02-pagerank" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              02 搜索引擎的PageRank模型
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS/" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Friends/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朋友们！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CurrentStudy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正在学习的课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            基础课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    数学建模
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            数学建模
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Secret/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 秘密共享
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    02 搜索引擎的PageRank模型
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    02 搜索引擎的PageRank模型
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机矩阵
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      网页重要度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="网页重要度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      网络链接图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      网页重要度的矩阵表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      悬挂网页
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      多解修正
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多解修正">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perron-frobenius" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perron-Frobenius定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagerank" class="md-nav__link">
+    <span class="md-ellipsis">
+      PageRank中的矩阵求解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PageRank中的矩阵求解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      幂法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="幂法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      完全正、列随机矩阵幂法的收敛性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机浏览
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机概率
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机过程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="随机过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#markov" class="md-nav__link">
+    <span class="md-ellipsis">
+      Markov过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NimGame/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 Nim游戏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FakeCoin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 组合群式 - 伪币辨识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../Disease/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    05 随机模型
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Secretary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 秘书问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Show/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 安全观演
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../Spider/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    08 差分方程模型
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../Chase/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    09 常微分方程模型
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../Probability%20and%20Mathematical%20Statistics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Physics-II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大学物理（乙）II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            校内CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/NA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数值分析
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/AI_Start/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    人工智能初步
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/DigitalDesign/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数字逻辑设计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/DIP/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    图像信息处理
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/FDS/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数据结构基础
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS_Online/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            校外CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML-4360/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML_Lhy/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    李宏毅《机器学习》
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Mess/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            杂项
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Mess/DIP-C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    《数字图像处理编程入门》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/ESG/Paper/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ESG商赛
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/Marxism/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    马原
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机矩阵
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      网页重要度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="网页重要度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      网络链接图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      网页重要度的矩阵表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      悬挂网页
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      多解修正
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多解修正">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perron-frobenius" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perron-Frobenius定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagerank" class="md-nav__link">
+    <span class="md-ellipsis">
+      PageRank中的矩阵求解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PageRank中的矩阵求解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      幂法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="幂法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      完全正、列随机矩阵幂法的收敛性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机浏览
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机概率
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机过程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="随机过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#markov" class="md-nav__link">
+    <span class="md-ellipsis">
+      Markov过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="model-02-pagerank">Model 02 搜索引擎的PageRank模型<a class="headerlink" href="#model-02-pagerank" title="点击此处可置顶内容">&para;</a></h1>
+<div class="admonition question">
+<p class="admonition-title">问题背景：</p>
+<p>如何给出一种<u>合理、客观、定量、可操作</u>的网页排序规则，使“重要”的网页排在前面？</p>
+</div>
+<h2 id="_1">随机矩阵<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h2>
+<p>我们先对矩阵的一些概念进行定义：</p>
+<ul>
+<li>各行（列）元素之和均为1的非负方阵称为<strong>行（列）随机矩阵</strong></li>
+<li>各行和各列元素之和均为1的非负方阵称为<strong>双随机矩阵</strong></li>
+</ul>
+<p>任一随机矩阵的模最大特征值为 1</p>
+<div class="admonition note">
+<p class="admonition-title">证明</p>
+<ol>
+<li>
+<p>证明 <span class="arithmatex">\(1\)</span> 是随机矩阵的特征值。</p>
+<ol>
+<li>对行随机矩阵，我们很容易就能取到特征向量为全为1的列向量，此时特征值为1。</li>
+<li>对列随机矩阵，因为转置前后特征值相同，所以也是1。</li>
+</ol>
+</li>
+<li>
+<p>证明 <span class="arithmatex">\(1\)</span> 是随机矩阵的模最大特征值。</p>
+<ol>
+<li>设 <span class="arithmatex">\(\lambda\)</span> 是行随机矩阵<span class="arithmatex">\(\mathbf{P}=P_{ij}\)</span>的特征值，非零向量 <span class="arithmatex">\(\mathbf{x}=(x_1,x_2,\cdots,x_n)^T\)</span> 为属于特征值<span class="arithmatex">\(\lambda\)</span>的特征向量。设<span class="arithmatex">\(|x_i|=\max\{|x_1|,|x_2|,\cdots,|x_n|\}\)</span></li>
+<li>由 <span class="arithmatex">\(\mathbf{P}\mathbf{x}=\lambda\mathbf{x}\)</span>，可得 <span class="arithmatex">\(\lambda x_i = \sum_{j=1}^np_{ij}x_j\)</span>。</li>
+<li>对上式两边取模，<span class="arithmatex">\(|\lambda||x_i| = |\sum_{j=1}^np_{ij}x_j| \leq \sum_{j=1}^n|p_{ij}||x_j| \leq \sum_{j=1}^n|p_{ij}||x_i| = |x_i|\sum_{j=1}^n|p_{ij}| = |x_i|\)</span>，即 <span class="arithmatex">\(|\lambda| \leq 1\)</span>。</li>
+</ol>
+</li>
+</ol>
+<p>所以，1是随机矩阵的特征值，且模最大。</p>
+</div>
+<h2 id="_2">网页重要度<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h2>
+<p>为了排序网页，我们首先肯定需要定量地描述网页的重要度。于是，我们给出以下网页重要度的原则与假设：</p>
+<div class="admonition note">
+<p class="admonition-title">某网页重要，是因为有其他重要的网页链接到它</p>
+<ul>
+<li>传递性：重要度大的网页链接到网页A时，它对A重要度的贡献大于重要度小的网页<ul>
+<li>某网页对其他网页重要度的贡献之和等于它自身的重要度</li>
+</ul>
+</li>
+<li>等效性：网页对它所链接的每个网页的重要度贡献相等<ul>
+<li>某网页对其他网页的重要度贡献与它所链接的网页数量成反比</li>
+</ul>
+</li>
+<li>叠加性：链接到网页A的网页越多，A越重要<ul>
+<li>网页A的重要度是所有链接到它的网页的重要度贡献之和</li>
+</ul>
+</li>
+<li>无关性：网页链接其它网页的多少，与其本身的重要度无关</li>
+</ul>
+</div>
+<h3 id="_3">网络链接图<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h3>
+<p>我们用<u>有向图</u>来表示互联网中网页之间的连接关系，并称之为<strong>网络链接图</strong>，我们定义顶点为网页<span class="arithmatex">\(V=\{v_1,v_2,\cdots,v_n\}\)</span>，弧为网页之间的有向链接。</p>
+<div class="admonition note">
+<p class="admonition-title">例子</p>
+<p>如图所示，我们记网页A、B、C、D为<span class="arithmatex">\(v_1,v_2,v_3,v_4\)</span>，则有<span class="arithmatex">\(v_1\)</span>指向<span class="arithmatex">\(v_2, v_3,v_4\)</span>; <span class="arithmatex">\(v_2\)</span>指向<span class="arithmatex">\(v_3,v_4\)</span>; <span class="arithmatex">\(v_3\)</span>指向<span class="arithmatex">\(v_1\)</span>; <span class="arithmatex">\(v_4\)</span>指向<span class="arithmatex">\(v_1,v_3\)</span>。</p>
+<p><img alt="Alt text" height="20%" src="../images/image-2.png" width="20%" /></p>
+</div>
+<h3 id="_4">网页重要度的矩阵表示<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h3>
+<p>记网页<span class="arithmatex">\(v_i\)</span>的重要度为<span class="arithmatex">\(x_i\)</span>，出度为<span class="arithmatex">\(q_i\)</span>，根据网页重要度中的假设，我们有</p>
+<ul>
+<li>网页<span class="arithmatex">\(v_i\)</span>对其他网页重要度贡献之和等于它自身的重要度<span class="arithmatex">\(x_i\)</span></li>
+<li>网页<span class="arithmatex">\(v_i\)</span>对它链接的<span class="arithmatex">\(q_i\)</span>个网页的重要度贡献相等，为<span class="arithmatex">\(\frac{x_i}{q_i}\)</span></li>
+<li>
+<p>若链接到<span class="arithmatex">\(v_i\)</span>的网页有<span class="arithmatex">\(v_{j_1},v_{j_2},\cdots,v_{j_{q_i}}\)</span>，则有</p>
+<div class="arithmatex">\[x_i=\frac{x_{j_1}}{q_{j_1}}+\frac{x_{j_2}}{q_{j_2}}+\cdots+\frac{x_{j_{q_i}}}{q_{j_{q_i}}}\]</div>
+</li>
+</ul>
+<p>记<span class="arithmatex">\(p_{ij}\)</span>为网页<span class="arithmatex">\(v_i\)</span>到<span class="arithmatex">\(v_j\)</span>的链接概率，即<span class="arithmatex">\(v_i\)</span>链接到<span class="arithmatex">\(v_j\)</span>的概率，我们有</p>
+<div class="arithmatex">\[p_{ij}=\begin{cases}
+\frac{1}{q_i},&amp;\text{若}v_i\text{链接到}v_j\\
+0,&amp;\text{若}v_i\text{不链接到}v_j
+\end{cases}\]</div>
+<p>所以，我们可以将上式改写为</p>
+<div class="arithmatex">\[x_i=\sum_{j=1}^np_{ij}x_j\]</div>
+<p>记矩阵<span class="arithmatex">\(\mathbf{P}=(p_{ij})_{n\times n}\)</span>为初始链接矩阵，<span class="arithmatex">\(\mathbf{x}=(x_1,x_2,\cdots,x_n)^T\)</span>为网页重要度向量，我们有</p>
+<div class="arithmatex">\[\mathbf{x}=\mathbf{P}\mathbf{x}\]</div>
+<p>显然，<span class="arithmatex">\(\mathbf{x}\)</span>是<span class="arithmatex">\(\mathbf{P}\)</span>的特征向量，对应的特征值为1。且<span class="arithmatex">\(\text{Rank}(\mathbf{I}-\mathbf{P})&lt;n\)</span>（其实<span class="arithmatex">\(\mathbf{I}-\mathbf{P}\)</span>的每一列和为0，将最后一行前的所有行相加至最后一行，得到<span class="arithmatex">\(\mathbf{0}\)</span>，所以<span class="arithmatex">\(\text{Rank}(\mathbf{I}-\mathbf{P})&lt;n\)</span>）。</p>
+<p>因为初始链接矩阵<span class="arithmatex">\(\mathbf{P}\)</span>的每一列和为1，所以<span class="arithmatex">\(\mathbf{P}\)</span>是<strong>列随机矩阵</strong>。</p>
+<div class="admonition note">
+<p class="admonition-title">例子</p>
+<p>如图所示，我们记网页A、B、C、D为<span class="arithmatex">\(v_1,v_2,v_3,v_4\)</span>，则有<span class="arithmatex">\(v_1\)</span>指向<span class="arithmatex">\(v_2, v_3,v_4\)</span>; <span class="arithmatex">\(v_2\)</span>指向<span class="arithmatex">\(v_3,v_4\)</span>; <span class="arithmatex">\(v_3\)</span>指向<span class="arithmatex">\(v_1\)</span>; <span class="arithmatex">\(v_4\)</span>指向<span class="arithmatex">\(v_1,v_3\)</span>。</p>
+<p><img alt="Alt text" height="20%" src="../images/image-2.png" width="20%" /></p>
+<p>我们有（<span class="arithmatex">\(p_{ij}\)</span>是从<span class="arithmatex">\(v_j\)</span>到<span class="arithmatex">\(v_i\)</span>的概率）</p>
+<div class="arithmatex">\[
+\mathbf{P}=\begin{bmatrix}
+0&amp;0&amp;1&amp;\frac{1}{2}\\
+\frac{1}{3}&amp;0&amp;0&amp;0\\
+\frac{1}{3}&amp;\frac{1}{2}&amp;0&amp;\frac{1}{2}\\
+\frac{1}{3}&amp;\frac{1}{2}&amp;0&amp;0
+\end{bmatrix}
+\]</div>
+<p>所以：</p>
+<div class="arithmatex">\[
+\mathbf{I}-\mathbf{P}=\begin{bmatrix}
+1&amp;0&amp;-1&amp;-\frac{1}{2}\\
+-\frac{1}{3}&amp;1&amp;0&amp;0\\
+-\frac{1}{3}&amp;-\frac{1}{2}&amp;1&amp;-\frac{1}{2}\\
+-\frac{1}{3}&amp;-\frac{1}{2}&amp;0&amp;1
+\end{bmatrix}
+\]</div>
+<p>可以解得：</p>
+<div class="arithmatex">\[
+\mathbf{x}=\begin{bmatrix}
+\frac{12}{31}\\
+\frac{4}{31}\\
+\frac{9}{31}\\
+\frac{6}{31}
+\end{bmatrix}
+\]</div>
+</div>
+<p>但是，线性方程组<span class="arithmatex">\(\mathbf{x}=\mathbf{P}\mathbf{x}\)</span>还会有特殊情况：</p>
+<div class="admonition note">
+<div class="admonition question">
+<p class="admonition-title">节点没有出度</p>
+<p><a href="#_5">悬挂网页</a></p>
+<p><img alt="Alt text" height="40%" src="../images/image-6.png" width="40%" /></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">这个线性方程组有多个解</p>
+<p>若<span class="arithmatex">\(\overline{\mathbf{P}}\)</span>有两个属于特征值<span class="arithmatex">\(1\)</span>的线性无关的特征向量，我们就无法得到唯一的网页重要度向量<span class="arithmatex">\(\mathbf{x}\)</span>。如下图。
+<img alt="Alt text" height="40%" src="../images/image-5.png" width="40%" /></p>
+</div>
+</div>
+<h3 id="_5">悬挂网页<a class="headerlink" href="#_5" title="点击此处可置顶内容">&para;</a></h3>
+<p>若某网页不链接到任意其它网页，我们称之为<strong>悬挂网页</strong>。显然，悬挂网页的出度为0，但它的重要度不为0，因为有其他网页链接到它。所以我们需要对初始链接矩阵<span class="arithmatex">\(\mathbf{P}\)</span>进行修正。</p>
+<p>将链接矩阵<span class="arithmatex">\(\mathbf{P}\)</span>的该列所有元素由<span class="arithmatex">\(0\)</span>修改为<span class="arithmatex">\(\frac{1}{n}\)</span>，得到（修正）链接矩阵<span class="arithmatex">\(\overline{\mathbf{P}}\)</span>。</p>
+<p>我们记悬挂网页为第<span class="arithmatex">\(i\)</span>个网页，记<span class="arithmatex">\(\mathbf{d}^T=(0,0,\cdots,0,1,0,\cdots,0)\)</span>，其中索引至悬挂网页的值为1，其余为0。则有</p>
+<div class="arithmatex">\[\overline{\mathbf{P}}=\mathbf{P}+\frac{1}{n}\mathbf{1}\mathbf{d}^T\]</div>
+<div class="admonition note">
+<p class="admonition-title">悬挂网页例子</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">图</label><label for="__tabbed_1_2">修正连接矩阵</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>如下图中，修正的链接矩阵为多少？</p>
+<p><img alt="Alt text" src="../images/image-3.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="Alt text" src="../images/image-4.png" /></p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="_6">多解修正<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h3>
+<p>若<span class="arithmatex">\(\overline{\mathbf{P}}\)</span>有两个属于特征值<span class="arithmatex">\(1\)</span>的线性无关的特征向量，我们就无法得到唯一的网页重要度向量<span class="arithmatex">\(\mathbf{x}\)</span>。</p>
+<p>于是，我们对<span class="arithmatex">\(\overline{\mathbf{P}}\)</span>进行修正，使得<span class="arithmatex">\(\overline{\mathbf{P}}\)</span>成为<strong>完全正矩阵</strong>，即<span class="arithmatex">\(\overline{\mathbf{P}}\)</span>的所有方阵子式的行列式都大于0。</p>
+<p>我们先给出修正的方法：</p>
+<div class="arithmatex">\[\overline{\overline{\mathbf{P}}}=\alpha\overline{\mathbf{P}}+(1-\alpha)\frac{1}{n}\mathbf{1}\mathbf{1}^T\]</div>
+<p>其中，<span class="arithmatex">\(\alpha\)</span>为修正系数，<span class="arithmatex">\(\alpha=0.85\)</span>。<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>是完全正矩阵与列随机矩阵的结合。</p>
+<div class="admonition note">
+<p class="admonition-title">证明<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>是列随机矩阵</p>
+<p><span class="arithmatex">\(\mathbf{1}^T\overline{\overline{\mathbf{P}}}=\alpha\mathbf{1}^T\overline{\mathbf{P}}+(1-\alpha)\mathbf{1}^T\frac{1}{n}\mathbf{1}\mathbf{1}^T=\alpha\mathbf{1}^T+(1-\alpha)\mathbf{1}^T=\mathbf{1}^T\)</span></p>
+<p>所以，<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>是列随机矩阵。</p>
+</div>
+<p>注意，我们说的是<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>是列随机矩阵，而我们要求的是<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\mathbf{x}=\mathbf{x}\)</span>，所以这里的<span class="arithmatex">\(\mathbf{1}^T\)</span>并不是<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>的特征向量。</p>
+<div class="admonition note">
+<p class="admonition-title">证明<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>关于特征值1的特征向量有且只有一个</p>
+<ol>
+<li>存在性：<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>是列随机矩阵，所以1是<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>的特征值，且<span class="arithmatex">\(\mathbf{1}\)</span>是属于特征值1的特征向量。</li>
+<li>唯一性：用反证法：</li>
+</ol>
+<p>设<span class="arithmatex">\(\mathbf{v}=(v_1,v_2,\cdots,v_n)^T, \mathbf{w}=(w_1,w_2,\cdots,w_n)^T\)</span>是完全正、列随机矩阵<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>的属于特征值1的特征向量，且<span class="arithmatex">\(\mathbf{v}\neq\mathbf{w}\)</span>。令<span class="arithmatex">\(x_i = -\frac{W}{V}v_i+w_i, i = 1,2,\cdots,n\)</span>，其中<span class="arithmatex">\(W=\sum_{i=1}^nw_i, V=\sum_{i=1}^nv_i\neq 0\)</span>，因为<span class="arithmatex">\(\mathbf{v}\)</span>和<span class="arithmatex">\(\mathbf{w}\)</span>线性无关，且</p>
+<div class="arithmatex">\[\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}x_j=\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}(-\frac{W}{V}v_j+w_j)=-\frac{W}{V}\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}v_j+\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}w_j=-\frac{W}{V}v_i+w_i=x_i\]</div>
+<div class="admonition note">
+<p><span class="arithmatex">\(\sum\limits_{j=i}^n\overline{\overline{p}}_{ij}v_j=v_i\)</span>，是因为<span class="arithmatex">\(\mathbf{v}=(v_1,v_2,\cdots,v_n)^T\)</span>是属于特征值1的特征向量，经计算可得。</p>
+</div>
+<p>所以有<span class="arithmatex">\(\sum\limits_{i=1}^nx_i = \sum\limits_{i=1}^n(-\frac{W}{V}v_i+w_i) = -\frac{W}{V}\sum\limits_{i=1}^nv_i+\sum\limits_{i=1}^nw_i = -\frac{W}{V}V+W = 0\)</span>，即<span class="arithmatex">\(\mathbf{x}\)</span>是<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>的属于特征值1的特征向量，所以<span class="arithmatex">\(\mathbf{x}\)</span>的分量之和为0。</p>
+<p>我们接下来尝试证明：如果<span class="arithmatex">\(\mathbf{x}\)</span>是<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>的属于特征值1的特征向量，那么<span class="arithmatex">\(\mathbf{x}\)</span>的分量之和不为零，从而与上面的结论矛盾。这也就证明了属于特征值1的特征向量有且只有一个。</p>
+<div class="admonition note">
+<p>证明：
+设<span class="arithmatex">\(\mathbf{x}\)</span>是<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>的属于特征值1的特征向量，则<span class="arithmatex">\(x_i=\sum\limits_{j=1}^n\overline{\overline{p}}_{ij}x_j\)</span></p>
+<p>如果<span class="arithmatex">\(\sum\limits_{i=1}^nx_i=0\)</span>，则<span class="arithmatex">\(\mathbf{x}\)</span>的分量有正有负，所以</p>
+<div class="arithmatex">\[|x_i|=|\sum\limits_{j=1}^n\overline{\overline{p}}_{ij}x_j|&lt;\sum\limits_{j=1}^n\overline{\overline{p}}_{ij}|x_i|\]</div>
+<p>所以</p>
+<div class="arithmatex">\[\sum\limits_{i=1}^n|x_i|&lt;\sum\limits_{i=1}^n\sum\limits_{j=1}^n\overline{\overline{p}}_{ij}|x_j|=\sum\limits_{j=1}^n\sum\limits_{i=1}^n\overline{\overline{p}}_{ij}|x_j|=\sum\limits_{j=1}^n(|x_j|\sum\limits_{i=1}^n\overline{\overline{p}}_{ij})=\sum\limits_{j=1}^n|x_j|\]</div>
+<p>矛盾，所以<span class="arithmatex">\(\mathbf{x}\)</span>的分量之和不为零。</p>
+</div>
+<p>所以，<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\)</span>关于特征值1的特征向量有且只有一个。</p>
+</div>
+<h4 id="perron-frobenius">Perron-Frobenius定理<a class="headerlink" href="#perron-frobenius" title="点击此处可置顶内容">&para;</a></h4>
+<p>把上述结论一般化，我们有：</p>
+<div class="admonition note">
+<p class="admonition-title">Perron定理</p>
+<p>若矩阵 <span class="arithmatex">\(\mathbf{A}\)</span>是完全正矩阵，则
+- <span class="arithmatex">\(\mathbf{A}\)</span>的模最大特征值唯一，且为正实数
+- 该特征值代数重数为1
+- 存在该特征值的一个特征向量，其分量全为正</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Perron—Frobenius定理</p>
+<p>若矩阵 <span class="arithmatex">\(\mathbf{A}\)</span>是非负不可约（irreducible）矩阵，则
+- <span class="arithmatex">\(\mathbf{A}\)</span>的模最大特征值为正实数
+- 该特征值代数重数为1
+- 存在该特征值的一个特征向量，其分量全为正</p>
+<div class="admonition note">
+<p class="admonition-title">不可约矩阵</p>
+<p>不可约矩阵当且仅当矩阵对应的有向图是强连通图。</p>
+<p>强连通图是指在有向图<span class="arithmatex">\(G\)</span>中，如果对于每一对<span class="arithmatex">\(v_i,v_j\)</span>，<span class="arithmatex">\(v_i\neq v_j\)</span>，从<span class="arithmatex">\(v_i\)</span>到<span class="arithmatex">\(v_j\)</span>和从<span class="arithmatex">\(v_j\)</span>到<span class="arithmatex">\(v_i\)</span>都存在路径，则称<span class="arithmatex">\(G\)</span>是强连通图。</p>
+<p><img alt="Alt text" src="../images/image-7.png" /></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">不可约矩阵的代数描述</p>
+<p>若干个初等对换矩阵的乘积称为置换矩阵（permutation matrix）
+- 置换矩阵每行和每列都恰有一个元素为 1，其余元素都为 0
+- 若存在置换矩阵 <span class="arithmatex">\(\mathbf{Q}\)</span>，使得 <span class="arithmatex">\(\mathbf{Q}^T\mathbf{A}\mathbf{Q}= \begin{pmatrix}\mathbf{X}&amp;0\\\mathbf{Y}&amp;\mathbf{Z}\end{pmatrix}\)</span>，其中 <span class="arithmatex">\(\mathbf{X}\)</span> 和 <span class="arithmatex">\(\mathbf{Z}\)</span> 均为方阵，则称 <span class="arithmatex">\(\mathbf{A}\)</span> 为可约矩阵（reducible matrix），否则 <span class="arithmatex">\(\mathbf{A}\)</span> 为不可约矩阵</p>
+</div>
+</div>
+<h2 id="pagerank">PageRank中的矩阵求解<a class="headerlink" href="#pagerank" title="点击此处可置顶内容">&para;</a></h2>
+<p>整个互联网有相当多且稀疏的网页，所以我们需要一个好的算法来求解网页重要度向量<span class="arithmatex">\(\mathbf{x}\)</span>。</p>
+<h3 id="_7">幂法<a class="headerlink" href="#_7" title="点击此处可置顶内容">&para;</a></h3>
+<p>幂法是计算矩阵模最大特征值和对应的特征向量的一种迭代算法</p>
+<p>任取初始向量<span class="arithmatex">\(\mathbf{x}^{(0)}&gt;0\)</span>，且<span class="arithmatex">\(\sum\limits_{i=1}^nx_i^{(0)}=1\)</span>，我们通过迭代计算<span class="arithmatex">\(\mathbf{x}^{(k)}=\overline{\overline{\mathbf{P}}}\mathbf{x}^{(k-1)}\)</span>，直到<span class="arithmatex">\(\mathbf{x}^{(k)}\)</span>收敛</p>
+<div class="admonition note">
+<p><span class="arithmatex">\(\mathbf{1}^T\mathbf{x}^{(k)}=\mathbf{1}^T\overline{\overline{\mathbf{P}}}\mathbf{x}^{(k-1)}=\mathbf{1}^T\mathbf{x}^{(k-1)}=1\)</span></p>
+</div>
+<p>我们展开<span class="arithmatex">\(\mathbf{x}^{(k)}=\overline{\overline{\mathbf{P}}}\mathbf{x}^{(k-1)}\)</span></p>
+<div class="admonition note">
+<div class="arithmatex">\[\overline{\mathbf{P}}=\mathbf{P}+\frac{1}{n}\mathbf{1}\mathbf{d}^T\]</div>
+<div class="arithmatex">\[\overline{\overline{\mathbf{P}}}=\alpha\overline{\mathbf{P}}+(1-\alpha)\frac{1}{n}\mathbf{1}\mathbf{1}^T\]</div>
+</div>
+<div class="arithmatex">\[\begin{aligned}
+\mathbf{x}^{(k)}&amp;=\overline{\overline{\mathbf{P}}}\mathbf{x}^{(k-1)}\\
+&amp;=\alpha\overline{\mathbf{P}}\mathbf{x}^{(k-1)}+(1-\alpha)\frac{1}{n}\mathbf{1}\mathbf{1}^T\mathbf{x}^{(k-1)}\\
+&amp;=\alpha\overline{\mathbf{P}}\mathbf{x}^{(k-1)}+(1-\alpha)\frac{1}{n}\mathbf{1}\\
+&amp;=\alpha(\mathbf{P}+\frac{1}{n}\mathbf{1}\mathbf{d}^T)\mathbf{x}^{(k-1)}+(1-\alpha)\frac{1}{n}\mathbf{1}\\
+&amp;=\alpha\mathbf{P}\mathbf{x}^{(k-1)}+\alpha\frac{1}{n}\mathbf{1}\mathbf{d}^T\mathbf{x}^{(k-1)}+(1-\alpha)\frac{1}{n}\mathbf{1}\\
+\end{aligned}\]</div>
+<h4 id="_8">完全正、列随机矩阵幂法的收敛性<a class="headerlink" href="#_8" title="点击此处可置顶内容">&para;</a></h4>
+<div class="admonition note">
+<div class="arithmatex">\[\mathbf{1}^T\overline{\overline{\mathbf{P}}}=\mathbf{1}^T\]</div>
+<div class="arithmatex">\[\overline{\overline{\mathbf{P}}}=(\overline{\overline{p_{ij}}})_{n\times n}\]</div>
+</div>
+<p>记<span class="arithmatex">\(\mathbf{V}\)</span>为满足<span class="arithmatex">\(\mathbf{1}^T\mathbf{v}=1\)</span>的<span class="arithmatex">\(n\)</span>维列向量<span class="arithmatex">\(\mathbf{v}=\{v_1,v_2,\cdots,v_n\}\)</span>全体组成的集合。记<span class="arithmatex">\(\|\mathbf{v}\|_1=\sum\limits_{i=1}^n|v_i|\)</span>。</p>
+<p>对任意的<span class="arithmatex">\(\mathbf{v}\in\mathbf{V}\)</span>，我们取<span class="arithmatex">\(\mathbf{w}=\overline{\overline{\mathbf{P}}}\mathbf{v}\)</span>，因为</p>
+<div class="arithmatex">\[\mathbf{1}^T\mathbf{w}=\mathbf{1}^T\overline{\overline{\mathbf{P}}}\mathbf{v}=\mathbf{1}^T\mathbf{v}=0\]</div>
+<p>所以<span class="arithmatex">\(\mathbf{w}\in\mathbf{V}\)</span>。</p>
+<p>我们接下来尝试证明<span class="arithmatex">\(\|\mathbf{w}\|_1=\|\overline{\overline{\mathbf{P}}}\mathbf{v}\|_1\leq c\|\mathbf{v}\|_1\)</span>，其中<span class="arithmatex">\(c&lt;1\)</span>。</p>
+<ol>
+<li><span class="arithmatex">\(\mathbf{w}=0\)</span>，显然成立。</li>
+<li><span class="arithmatex">\(\mathbf{w}\neq0\)</span>，记<span class="arithmatex">\(\mathbf{w}=(w_1,w_2,\cdots,w_n)^T\)</span>，<span class="arithmatex">\(e_i = \text{sgn}(w_i)\)</span>，则有</li>
+</ol>
+<div class="arithmatex">\[\begin{aligned}
+\|\mathbf{w}\|_1&amp;=\sum\limits_{i=1}^n|w_i|\\
+&amp;=\sum\limits_{i=1}^ne_iw_i\\
+&amp;=\sum\limits_{i=1}^n(e_i\sum\limits_{j=1}^n\overline{\overline{p_{ij}}}v_j)\\
+&amp;=\sum\limits_{i=1}^n(\sum\limits_{j=1}^ne_i\overline{\overline{p_{ij}}}v_j)\\
+&amp;=\sum\limits_{j=1}^n(\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}}v_j)\\
+&amp;=\sum\limits_{j=1}^n(v_j\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}})\\
+&amp;\leq\sum\limits_{j=1}^n(|v_j||\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}}|)\\
+\end{aligned}\]</div>
+<p>记<span class="arithmatex">\(c = \max \limits_{1\leq j\leq n}|\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}}|&lt;1\)</span>，则有</p>
+<div class="arithmatex">\[\begin{aligned}
+\|\mathbf{w}\|_1&amp;\leq\sum\limits_{j=1}^n(|v_j||\sum\limits_{i=1}^ne_i\overline{\overline{p_{ij}}}|)\\
+&amp;\leq\sum\limits_{j=1}^n(|v_j|c)\\
+&amp;=c\sum\limits_{j=1}^n|v_j|\\
+&amp;=c\|\mathbf{v}\|_1\\
+\end{aligned}\]</div>
+<p>所以，<span class="arithmatex">\(\|\mathbf{w}\|_1\leq c\|\mathbf{v}\|_1\)</span>，其中<span class="arithmatex">\(c&lt;1\)</span>。</p>
+<hr />
+<p>记<span class="arithmatex">\(\mathbf{v}_0=\mathbf{x}^{(0)}-\mathbf{X}\in \mathbf{V}\)</span>，我们有</p>
+<div class="arithmatex">\[\mathbf{1}^T\mathbf{v}_0=\mathbf{1}^T\mathbf{x}^{(0)}-\mathbf{1}^T\mathbf{X}=1-1=0\]</div>
+<p>所以<span class="arithmatex">\(\mathbf{v}_0\in \mathbf{V}\)</span>。</p>
+<p>由于<span class="arithmatex">\(\overline{\overline{\mathbf{P}}}\mathbf{X}=\mathbf{X}\)</span>，</p>
+<div class="arithmatex">\[\mathbf{x}^{(k)}=\overline{\overline{\mathbf{P}}}^k\mathbf{x}^{(0)}=\overline{\overline{\mathbf{P}}}^k(\mathbf{X}+\mathbf{v}_0)=\mathbf{X}+\overline{\overline{\mathbf{P}}}^k\mathbf{v}_0\]</div>
+<p>由于<span class="arithmatex">\(\|\overline{\overline{\mathbf{P}}}^k\mathbf{v}_0\|_1\leq c^k\|\mathbf{v}_0\|_1\)</span>，所以</p>
+<div class="arithmatex">\[\|\mathbf{x}^{(k)}-\mathbf{X}\|_1\leq c^k\|\mathbf{v}_0\|_1\]</div>
+<p>所以，<span class="arithmatex">\(\mathbf{x}^{(k)}\)</span>收敛到<span class="arithmatex">\(\mathbf{X}\)</span>，得证。</p>
+<h2 id="_9">随机浏览<a class="headerlink" href="#_9" title="点击此处可置顶内容">&para;</a></h2>
+<p>按以下模式浏览互联网的网页</p>
+<ul>
+<li>有时从当前网页的链接中随机打开一个网页</li>
+<li>有时键入网址新建一个网页</li>
+<li>从任一网页开始，充分长时间后，访问各网页的概率即为网页重要度</li>
+</ul>
+<p>经过统计，随机打开网页的次数与键入网址新建网页的次数之比约为<span class="arithmatex">\(5:1\)</span>，这就是<span class="arithmatex">\(\alpha=0.85\)</span>的来源。</p>
+<h2 id="_10">随机概率<a class="headerlink" href="#_10" title="点击此处可置顶内容">&para;</a></h2>
+<p>记事件 <span class="arithmatex">\(\{X_m=j\}\)</span> 为时刻 <span class="arithmatex">\(m\)</span> 访问网页 <span class="arithmatex">\(v_j\)</span>，则<span class="arithmatex">\(P\{X_m=i | X_{m-1}=j\}=p_{ij}\)</span></p>
+<p>若  <span class="arithmatex">\(P\{X_m=j\}=x_j\)</span>，则<span class="arithmatex">\(P\{X_{m}=i\}=\sum\limits_{j=1}^nP\{X_m=i | X_{m-1}=j\}P\{X_{m-1}=j\}=\sum\limits_{j=1}^np_{ij}x_j\)</span></p>
+<p>记 <span class="arithmatex">\(\mathbf{x}^{(m)}=(P\{X_m=1\},P\{X_m=2\},\cdots,P\{X_m=n\})^T\)</span>，则有<span class="arithmatex">\(\mathbf{x}^{(m)}=\overline{\overline{\mathbf{P}}}\mathbf{x}^{(m-1)}\)</span></p>
+<h2 id="_11">随机过程<a class="headerlink" href="#_11" title="点击此处可置顶内容">&para;</a></h2>
+<p>随机过程是描述随机现象随时间推移而演化的一类数学模型。</p>
+<p>在<strong>一族随机变量</strong><span class="arithmatex">\(\{X(t),t\in T\}\)</span>中<span class="arithmatex">\(T\)</span>为参数集，<span class="arithmatex">\(t\)</span>是参数。<span class="arithmatex">\(\{X(t),t\in T\}\)</span>称为参数为<span class="arithmatex">\(t\)</span>的随机变量。</p>
+<ul>
+<li><span class="arithmatex">\(T\)</span>为整数集的随机过程称为随机序列</li>
+</ul>
+<h3 id="markov">Markov过程<a class="headerlink" href="#markov" title="点击此处可置顶内容">&para;</a></h3>
+<p>在已知目前的状态（现在）的条件下，它未来的演变（将来）不依赖于它以往的演变（过去）。</p>
+<p>在随机序列<span class="arithmatex">\(\{X(n),n=0,1,2,\cdots\}\)</span>中(<span class="arithmatex">\(X_n\)</span>有限或可列)，我们对于任意的<span class="arithmatex">\(n\geq0\)</span>，有</p>
+<div class="arithmatex">\[P\{X_{n+1}=j | X_n=i,X_{n-1}=i_{n-1},\cdots,X_0=i_0\}=P\{X_{n+1}=j | X_n=i\}\]</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../Secret/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 01 秘密共享">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                01 秘密共享
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../NimGame/" class="md-footer__link md-footer__link--next" aria-label="下一页: 03 Nim游戏">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                03 Nim游戏
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>

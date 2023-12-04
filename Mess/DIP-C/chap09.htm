@@ -1,0 +1,1856 @@
+
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link rel=Edit-Time-Data href="./chap09.files/editdata.mso">
+<title>第9章 图象的压缩编码，JPEG压缩编码标准</title>
+<style><!--
+.Normal
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:0pt;
+	line-height:normal;
+	font-size:10.5pt;
+	font-family:"Times New Roman";}
+.MsoBodyText
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:24.95pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+.MsoBodyTextFirstIndent
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:21.0pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+.a
+	{text-align:center;
+	text-indent:0pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+-->
+</style>
+</head>
+<body lang=ZH-CN link=blue vlink=purple class="Normal" bgcolor="#FFFFFF">
+<div style='layout-grid:15.6pt'> 
+  <h1><a name="_Toc486331907"></a><a name="_Toc486332907"></a><a
+name="_Toc486339016"></a><a name="_Toc454810881"></a><a name="_Toc454856655"><span><span>第<span
+lang=EN-US>9</span></span></span></a><span><span><span style='font-family:黑体;"Times New Roman"'>章</span> 
+    </span></span><span><span><span
+style='font-family:黑体;"Times New Roman"'>图象的压缩编码，</span><span
+lang=EN-US>JPEG</span></span></span><span><span><span style='font-family:黑体;"Times New Roman"'>压缩编码标准</span></span></span></h1>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在介绍图象的压缩编码之前，先考虑一个问题：为什么要压缩？其实这个问题不用我回答，你也能想得到。因为图象信息的数据量实在是太惊人了。举一个例子就明白：一张</span><span
+lang=EN-US>A4(210mm×297mm) </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>幅面的照片，若用中等分辨率</span><span
+lang=EN-US>(300dpi)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的扫描仪按真彩色扫描，其数据量为多少？让我们来计算一下：共有</span><span
+lang=EN-US>(300×210/25.4) ×(300×297/25.4)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个象素，每个象素占</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个字节，其数据量为</span><span lang=EN-US>26M</span><span
+style='font-family:宋体;"Times New Roman"'>字节，其数据量之大可见一斑了。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如今在</span><span
+lang=EN-US>Internet</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>上，传统基于字符界面的应用逐渐被能够浏览图象信息的</span><span
+lang=EN-US>WWW(World Wide Web)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>方式所取代。</span><span
+lang=EN-US>WWW</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>尽管漂亮，但是也带来了一个问题：图象信息的数据量太大了，本来就已经非常紧张的网络带宽变得更加不堪重负，使得</span><span
+lang=EN-US>World Wide Web</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>变成了</span><span
+lang=EN-US>World Wide Wait</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>总之，大数据量的图象信息会给存储器的存储容量，通信干线信道的带宽，以及计算机的处理速度增加极大的压力。单纯靠增加存储器容量，提高信道带宽以及计算机的处理速度等方法来解决这个问题是不现实的，这时就要考虑压缩。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>压缩的理论基础是信息论。从信息论的角度来看，压缩就是去掉信息中的冗余，即保留不确定的信息，去掉确定的信息</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>可推知的</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，也就是用一种更接近信息本质的描述来代替原有冗余的描述。这个本质的东西就是信息量</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>即不确定因素</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>压缩可分为两大类：第一类压缩过程是可逆的，也就是说，从压缩后的图象能够完全恢复出原来的图象，信息没有任何丢失，称为无损压缩；第二类压缩过程是不可逆的，无法完全恢复出原图象，信息有一定的丢失，称为有损压缩。选择哪一类压缩，要折衷考虑，尽管我们希望能够无损压缩，但是通常有损压缩的压缩比</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>即原图象占的字节数与压缩后图象占的字节数之比，压缩比越大，说明压缩效率越高</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>比无损压缩的高。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图象压缩一般通过改变图象的表示方式来达到，因此压缩和编码是分不开的。图象压缩的主要应用是图象信息的传输和存储，可广泛地应用于广播电视、电视会议、计算机通讯、传真、多媒体系统、医学图象、卫星图象等领域。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>压缩编码的方法有很多，主要分成以下四大类：</span><span
+lang=EN-US>(1)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>象素编码；</span><span lang=EN-US>(2)</span><span
+style='font-family:宋体;"Times New Roman"'>预测编码；</span><span lang=EN-US>(3)</span><span
+style='font-family:宋体;"Times New Roman"'>变换编码；</span><span lang=EN-US>(4)</span><span
+style='font-family:宋体;"Times New Roman"'>其它方法。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所谓象素编码是指，编码时对每个象素单独处理，不考虑象素之间的相关性。在象素编码中常用的几种方法有：</span><span
+lang=EN-US>(1)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>脉冲编码调制</span><span lang=EN-US>(Pulse Code Modulation</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，简称</span><span lang=EN-US>PCM)</span><span
+style='font-family:宋体;"Times New Roman"'>；</span><span lang=EN-US>(2)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>熵编码</span><span
+lang=EN-US>(Entropy Coding)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>；</span><span
+lang=EN-US>(3)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行程编码</span><span lang=EN-US>(Run Length Coding)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>；</span><span lang=EN-US>(4)</span><span
+style='font-family:宋体;"Times New Roman"'>位平面编码</span><span lang=EN-US>(Bit Plane 
+    Coding)</span><span
+style='font-family:宋体;"Times New Roman"'>。其中我们要介绍的是熵编码中的哈夫曼</span><span lang=EN-US>(Huffman)</span><span
+style='font-family:宋体;"Times New Roman"'>编码和行程编码</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>以读取</span><span lang=EN-US>.PCX</span><span
+style='font-family:宋体;"Times New Roman"'>文件为例</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所谓预测编码是指，去除相邻象素之间的相关性和冗余性，只对新的信息进行编码。举个简单的例子，因为象素的灰度是连续的，所以在一片区域中，相邻象素之间灰度值的差别可能很小。如果我们只记录第一个象素的灰度，其它象素的灰度都用它与前一个象素灰度之差来表示，就能起到压缩的目的。如</span><span
+lang=EN-US>248</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，实际上这</span><span
+lang=EN-US>6</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个象素的灰度是</span><span lang=EN-US>248</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>250</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>251</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>251</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>252</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>255</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。表示</span><span lang=EN-US>250</span><span
+style='font-family:宋体;"Times New Roman"'>需要</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个比特，而表示</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>只需要两个比特，这样就实现了压缩。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>常用的预测编码有Δ调制</span><span
+lang=EN-US>(Delta Modulation</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，简称</span><span
+lang=EN-US>DM)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>；微分预测编码</span><span lang=EN-US>(Differential Pulse 
+    Code Modulation</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+lang=EN-US>DPCM)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，具体的细节在此就不详述了。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所谓变换编码是指，将给定的图象变换到另一个数据域</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如频域</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>上，使得大量的信息能用较少的数据来表示，从而达到压缩的目的。变换编码有很多，如</span><span
+lang=EN-US>(1)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>离散傅立叶变换</span><span lang=EN-US>(Discrete Fourier 
+    Transform</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，简称</span><span lang=EN-US>DFT)</span><span
+style='font-family:宋体;"Times New Roman"'>；</span><span lang=EN-US>(2)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>离散余弦变换</span><span
+lang=EN-US>(Discrete Cosine Transform</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，简称</span><span
+lang=EN-US>DCT)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>；</span><span lang=EN-US>(3)</span><span
+style='font-family:宋体;"Times New Roman"'>离散哈达玛变换</span><span lang=EN-US>(Discrete 
+    Hadamard Transform</span><span
+style='font-family:宋体;"Times New Roman"'>，简称</span><span lang=EN-US>DHT)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>其它的编码方法也有很多，如混合编码</span><span
+lang=EN-US>(Hybird Coding)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>、矢量量化</span><span
+lang=EN-US>(Vector Quantize</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+lang=EN-US>VQ) </span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>LZW</span><span
+style='font-family:宋体;"Times New Roman"'>算法。在这里，我们只介绍</span><span lang=EN-US>LZW</span><span
+style='font-family:宋体;"Times New Roman"'>算法的大体思想。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>值得注意的是，近些年来出现了很多新的压缩编码方法，如使用人工神经元网络</span><span
+lang=EN-US>(Artificial Neural Network</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，简称</span><span
+lang=EN-US>ANN)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的压缩编码算法、分形</span><span lang=EN-US>(Fractl)</span><span
+style='font-family:宋体;"Times New Roman"'>、小波</span><span lang=EN-US>(Wavelet) 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>、基于对象</span><span lang=EN-US>(Object 
+    Based)</span><span
+style='font-family:宋体;"Times New Roman"'>的压缩编码算法、基于模型</span><span lang=EN-US>(Model 
+    –Based)</span><span
+style='font-family:宋体;"Times New Roman"'>的压缩编码算法</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>应用在</span><span lang=EN-US>MPEG4</span><span
+style='font-family:宋体;"Times New Roman"'>及未来的视频压缩编码标准中</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。这些都超出了本书的范围。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>本章的最后，我们将以</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>压缩编码标准为例，看看上面的几种编码方法在实际的压缩编码中是怎样应用的。</span></p>
+  <h2> <span
+lang=EN-US>9.1</span> <span lang=EN-US> </span><a name="_Toc486331908"></a><a
+name="_Toc486332908"></a><a name="_Toc486339017"></a><a name="_Toc454810882"></a><a
+name="_Toc454856656"><span><span>哈夫曼编码</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>哈夫曼</span><span
+lang=EN-US>(Huffman)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>编码是一种常用的压缩编码方法，是</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>于</span><span
+lang=EN-US>1952</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>年为压缩文本文件建立的。它的基本原理是频繁使用的数据用较短的代码代替，较少使用的数据用较长的代码代替，每个数据的代码各不相同。这些代码都是二进制码，且码的长度是可变的。举个例子：假设一个文件中出现了</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>种符号</span><span lang=EN-US>S0,S1,S2,S3,S4,S5,S6,S7</span><span
+style='font-family:宋体;"Times New Roman"'>，那么每种符号要编码，至少需要</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>比特。假设编码成</span><span lang=EN-US>000,001,010,011,100,101,110,111(</span><span
+style='font-family:宋体;"Times New Roman"'>称做码字</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。那么符号序列</span><span
+lang=EN-US>S0S1S7S0S1S6S2S2S3S4S5S0S0S1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>编码后变成</span><span
+lang=EN-US>000001111000001110010010011100101000000001</span><span
+style='font-family:宋体;"Times New Roman"'>，共用了</span><span lang=EN-US>42</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>比特。我们发现</span><span
+lang=EN-US>S0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>S1</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>S2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>这三个符号出现的频率比较大，其它符号出现的频率比较小，如果我们采用一种编码方案使得</span><span
+lang=EN-US>S0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>S1</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>S2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的码字短，其它符号的码字长，这样就能够减少占用的比特数。例如，我们采用这样的编码方案：</span><span
+lang=EN-US>S0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>到</span><span lang=EN-US>S7</span><span
+style='font-family:宋体;"Times New Roman"'>的码字分别</span><span lang=EN-US>01,11,101,0000,0001,0010,0011,100</span><span
+style='font-family:宋体;"Times New Roman"'>，那么上述符号序列变成</span><span lang=EN-US>011110001110011101101000000010010010111</span><span
+style='font-family:宋体;"Times New Roman"'>，共用了</span><span lang=EN-US>39</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>比特，尽管有些码字如</span><span
+lang=EN-US>S3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>S4</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>S5</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>S6</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>变长了</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>由</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>位变成</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，但使用频繁的几个码字如</span><span lang=EN-US>S0</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>S1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>变短了，所以实现了压缩。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>上述的编码是如何得到的呢？随意乱写是不行的。编码必须保证不能出现一个码字和另一个的前几位相同的情况，比如说，如果</span><span
+lang=EN-US>S0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的码字为</span><span lang=EN-US>01</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>S2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的码字为</span><span
+lang=EN-US>011</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，那么当序列中出现</span><span lang=EN-US>011</span><span
+style='font-family:宋体;"Times New Roman"'>时，你不知道是</span><span lang=EN-US>S0</span><span
+style='font-family:宋体;"Times New Roman"'>的码字后面跟了个</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>，还是完整的一个</span><span lang=EN-US>S2</span><span
+style='font-family:宋体;"Times New Roman"'>的码字。我们给出的编码能够保证这一点。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>下面给出具体的</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>编码算法。</span></p>
+  <p style='line-height:
+18.0pt;'> <span
+lang=EN-US>(1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span> <span style='font-family:宋体;
+&quot;Times New Roman&quot;'>首先统计出每个符号出现的频率，上例</span><span
+lang=EN-US>S0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>到</span><span lang=EN-US>S7</span><span
+style='font-family:宋体;"Times New Roman"'>的出现频率分别为</span><span lang=EN-US>4/14</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>3/14</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>2/14</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>1/14</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>1/14</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>1/14</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>1/14</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>1/14</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:
+18.0pt;'> <span
+lang=EN-US>(2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span> <span style='font-family:宋体;
+&quot;Times New Roman&quot;'>从左到右把上述频率按从小到大的顺序排列。</span></p>
+  <p style='line-height:
+18.0pt;'> <span
+lang=EN-US>(3)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span> <span style='font-family:宋体;
+&quot;Times New Roman&quot;'>每一次选出最小的两个值，作为二叉树的两个叶子节点，将和作为它们的根节点，这两个叶子节点不再参与比较，新的根节点参与比较。</span></p>
+  <p style='line-height:
+18.0pt;'> <span
+lang=EN-US>(4)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span> <span style='font-family:宋体;
+&quot;Times New Roman&quot;'>重复</span><span lang=EN-US>(3)</span><span
+style='font-family:宋体;"Times New Roman"'>，直到最后得到和为</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>的根节点。</span></p>
+  <p style='line-height:
+18.0pt;'> <span
+lang=EN-US>(5)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span> <span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将形成的二叉树的左节点标</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>，右节点标</span><span lang=EN-US>1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。把从最上面的根节点到最下面的叶子节点途中遇到的</span><span
+lang=EN-US>0,1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>序列串起来，就得到了各个符号的编码。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>上面的例子用</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>编码的过程如图</span><span
+lang=EN-US>9.1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所示，其中圆圈中的数字是新节点产生的顺序。可见，我们上面给出的编码就是这么得到的。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=519 height=330
+src="./chap09.files/image001.gif" v:shapes="_x0000_i1025"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>9.1&nbsp;&nbsp;&nbsp;&nbsp; Huffman</b><b><span
+style='font-family:宋体;"Times New Roman"'>编码的示意图</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>产生</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>编码需要对原始数据扫描两遍。第一遍扫描要精确地统计出原始数据中，每个值出现的频率，第二遍是建立</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>树并进行编码。由于需要建立二叉树并遍历二叉树生成编码，因此数据压缩和还原速度都较慢，但简单有效，因而得到广泛的应用。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>源程序就不给出了，有兴趣的读者可以自己实现。</span></p>
+  <h2> <span
+lang=EN-US>9.2</span> <span lang=EN-US> </span><a name="_Toc486331909"></a><a
+name="_Toc486332909"></a><a name="_Toc486339018"></a><a name="_Toc454810883"></a><a
+name="_Toc454856657"><span><span>行程编码</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行程编码</span><span
+lang=EN-US>(Run Length Coding)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的原理也很简单：将一行中颜色值相同的相邻象素用一个计数值和该颜色值来代替。例如</span><span
+lang=EN-US>aaabccccccddeee</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>可以表示为</span><span
+lang=EN-US>3a1b6c2d3e</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。如果一幅图象是由很多块颜色相同的大面积区域组成，那么采用行程编码的压缩效率是惊人的。然而，该算法也导致了一个致命弱点，如果图象中每两个相邻点的颜色都不同，用这种算法不但不能压缩，反而数据量增加一倍。所以现在单纯采用行程编码的压缩算法用得并不多，</span><span
+lang=EN-US>PCX</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件算是其中的一种。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>PCX</span><span
+style='font-family:宋体;"Times New Roman"'>文件最早是</span><span lang=EN-US>PC Paintbrush</span><span
+style='font-family:宋体;"Times New Roman"'>软件所采用的一种文件格式，由于压缩比不高，现在用的并不是很多了。它也是由头信息、调色板、实际的图象数据三个部分组成。其中头信息的结构为：</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>typedef struct{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;char manufacturer;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;char version;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;char encoding;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;char bits_per_pixel;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;WORD xmin,ymin;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;WORD xmax,ymax;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;WORD hres;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;WORD vres;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;char palette[48];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;char reserved;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;char colour_planes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;WORD bytes_per_line;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;WORD palette_type;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;char filler[58];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>} 
+    PCXHEAD;</p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>其中值得注意的是以下几个数据：</span><span
+lang=EN-US>manufacturer</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为</span><span
+lang=EN-US>PCX</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件的标识，必须为</span><span lang=EN-US>0x0a</span><span
+style='font-family:宋体;"Times New Roman"'>；</span><span lang=EN-US>xmin</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>为最小的</span><span
+lang=EN-US>x</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>坐标，</span><span lang=EN-US>xmax</span><span
+style='font-family:宋体;"Times New Roman"'>最大的</span><span lang=EN-US>x</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>坐标，所以图象的宽度为</span><span
+lang=EN-US>xmax-xmin+1</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，同样图象的高度为</span><span
+lang=EN-US>ymax-yin+1</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>；</span><span
+lang=EN-US>bytes_per_line</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为每个编码行所占的字节数，下面将详细介绍。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>PCX</span><span
+style='font-family:宋体;"Times New Roman"'>的调色板在文件的最后。以</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>色</span><span lang=EN-US>PCX</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>文件为例，倒数第</span><span
+lang=EN-US>769</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个字节为颜色数的标识，</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>时该字节必须为</span><span lang=EN-US>12</span><span
+style='font-family:宋体;"Times New Roman"'>，剩下的</span><span lang=EN-US>768(256</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>3)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>为调色板的</span><span
+lang=EN-US>RGB</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>值。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为了叙述方便，我们针对</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>色</span><span lang=EN-US>PCX</span><span
+style='font-family:宋体;"Times New Roman"'>文件，介绍一下它的解码过程。编码是解码的逆过程，有兴趣的读者可以试着自己来完成。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>解码是以行为单位的，该行所占的字节数由</span><span
+lang=EN-US>bytes_per_line</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>给定。为此，我们开一个大小为</span><span
+lang=EN-US>bytes_per_line</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的解码缓冲区。一开始，将缓冲区的所有内容清零。从文件中读出一个字节</span><span
+lang=EN-US>C</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，若</span><span lang=EN-US>C&gt;0xc0</span><span
+style='font-family:宋体;"Times New Roman"'>，说明是行程</span><span lang=EN-US>(Run Length)</span><span
+style='font-family:宋体;"Times New Roman"'>信息，即</span><span lang=EN-US>C</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的低</span><span
+lang=EN-US>6</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位表示后面连续的字节个数</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>所以最多</span><span lang=EN-US>63</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个连续颜色相同的象素，若还有颜色相同的象素，将在下一个行程处理</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，文件的下一个字节就是实际的图象数据</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>即该颜色在调色板中的索引值</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。若</span><span lang=EN-US>C&lt;0xc0</span><span
+style='font-family:宋体;"Times New Roman"'>，则表示</span><span lang=EN-US>C</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>是实际的图象数据。如此反复，直到这</span><span
+lang=EN-US>bytes_per_line</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个字节处理完，这一行的解码完成。</span><span
+lang=EN-US>PCX</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>就是有若干个这样的解码行组成。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>下面是实现</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>色</span><span lang=EN-US>PCX</span><span
+style='font-family:宋体;"Times New Roman"'>文件解码的源程序，其中第二个函数对一行进行解码，应该把阅读的重点放在这个函数上。要注意的是，执行时文件</span><span
+lang=EN-US>C:\\test.pcx</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>必须存在，而且是一个</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>色</span><span lang=EN-US>PCX</span><span
+style='font-family:宋体;"Times New Roman"'>文件。</span></p>
+  <p style='line-height:18.0pt'>unsigned int&nbsp;&nbsp;&nbsp; PcxBytesPerLine;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL LoadPcxFile (HWND hWnd,char 
+    *PcxFileName)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *PCXfp;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>PCXHEAD&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; header;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; LOGPALETTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *pPal;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; HPALETTE&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hPrevPalette; </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hDc;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hPal;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; ImgSize;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpImgData;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    i;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+    x,y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PcxTag;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>unsigned 
+    char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LineBuffer[6400];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    lpPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hfbmp;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if((PCXfp=fopen(PcxFileName,&quot;rb&quot;))==NULL){ //</span><span
+style='font-family:宋体;"Times New Roman"'>文件没有找到</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;File c:\\test.pcx not found!&quot;,&quot;Error 
+    Message&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>读出头信息</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; fread((char*)&amp;header,1,sizeof(PCXHEAD),PCXfp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; if(header.manufacturer!=0x0a){ 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>不是一个合法的</span><span lang=EN-US>PCX</span><span
+style='font-family:宋体;"Times New Roman"'>文件</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Not a valid Pcx file!&quot;,&quot;Error 
+    Message&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>fclose(PCXfp);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    return FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>将文件指针指向调色板开始处</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>fseek(PCXfp,-769L,SEEK_END);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>获取颜色数信息</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>PcxTag=fgetc(PCXfp)&amp;0xff;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(PcxTag!=12){ 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>非</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>色，返回</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    MessageBox(hWnd,&quot;Not a 256 colors Pcx file!&quot;,&quot;Error Message&quot;,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>fclose(PCXfp);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>return FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>创建新的</span><span lang=EN-US>BITMAPFILEHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>BITMAPINFOHEADER</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memset((char 
+    *)&amp;bf,0,sizeof(BITMAPFILEHEADER));&nbsp;&nbsp;&nbsp;&nbsp; </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memset((char 
+    *)&amp;bi,0,sizeof(BITMAPINFOHEADER));</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>填写</span><span lang=EN-US>BITMAPINFOHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>头信息</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bi.biSize=sizeof(BITMAPINFOHEADER);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>得到图象的宽和高</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bi.biWidth=header.xmax-header.xmin+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bi.biHeight=header.ymax-header.ymin+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bi.biPlanes=1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bi.biBitCount=8;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bi.biCompression=BI_RGB;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>ImgWidth=bi.biWidth;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>ImgHeight=bi.biHeight;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>NumColors=256;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LineBytes=(DWORD)WIDTHBYTES(bi.biWidth*bi.biBitCount);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>ImgSize=(DWORD)LineBytes*bi.biHeight;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>填写</span><span lang=EN-US>BITMAPFILEHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>头信息</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bf.bfType=0x4d42;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bf.bfSize=sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER)+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD)+ImgSize;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>bf.bfOffBits=(DWORD)(NumColors*sizeof(RGBQUAD)+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER));</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>为新图分配缓冲区</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((hImgData=GlobalAlloc(GHND,(DWORD)</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>(sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>NumColors*sizeof(RGBQUAD)+ImgSize)))==NULL)</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;ErrorMessage&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    fclose(PCXfp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>return FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>拷贝头信息</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memcpy(lpImgData,(char 
+    *)&amp;bi,sizeof(BITMAPINFOHEADER));</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpPtr=(char 
+    *)lpImgData+sizeof(BITMAPINFOHEADER);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>为</span><span lang=EN-US>256</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>色调色板分配内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; hPal=LocalAlloc(LHND,sizeof(LOGPALETTE)+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors* sizeof(PALETTEENTRY));</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>pPal =(LOGPALETTE *)LocalLock(hPal);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; pPal-&gt;palNumEntries 
+    =256;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>pPal-&gt;palVersion 
+    = 0x300;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for 
+    (i = 0; i &lt; 256; i++) {</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>读取调色板中的</span><span lang=EN-US>RGB</span><span
+style='font-family:宋体;"Times New Roman"'>值</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    pPal-&gt;palPalEntry[i].peRed=(BYTE)fgetc(PCXfp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>pPal-&gt;palPalEntry[i].peGreen=(BYTE)fgetc(PCXfp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>pPal-&gt;palPalEntry[i].peBlue=(BYTE)fgetc(PCXfp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>pPal-&gt;palPalEntry[i].peFlags=(BYTE)0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpPtr++)=(unsigned char)pPal-&gt;palPalEntry[i].peBlue;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpPtr++)=(unsigned char)pPal-&gt;palPalEntry[i].peGreen;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpPtr++)=(unsigned char)pPal-&gt;palPalEntry[i].peRed;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpPtr++)=0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>产生新的逻辑调色板</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hPalette=CreatePalette(pPal);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalUnlock(hPal);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalFree(hPal);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hDc=GetDC(hWnd);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(hPalette){</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>hPrevPalette=SelectPalette(hDc,hPalette,FALSE);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>RealizePalette(hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>解码行所占的字节数</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>PcxBytesPerLine=(unsigned 
+    int)header.bytes_per_line;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>将文件指针指向图象数据的开始处</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>fseek(PCXfp,(LONG)sizeof(PCXHEAD),SEEK_SET);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//BufSize</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>BufSize=OffBits+bi.biHeight*LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for(y=0;y&lt;bi.biHeight;y++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>指向新图中相应的位置</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+BufSize-LineBytes-y*LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>解码该行，放在数组</span><span lang=EN-US>LineBuffer</span><span
+style='font-family:宋体;"Times New Roman"'>中</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>ReadPcxLine(LineBuffer,PCXfp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(x=0;x&lt;bi.biWidth;x++)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpPtr++)=LineBuffer[x]; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将该行存储到位图数据中</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>创建新的位图</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(hPalette 
+    &amp;&amp; hPrevPalette){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>SelectPalette(hDc,hPrevPalette,FALSE);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>RealizePalette(hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hfbmp=_lcreat(&quot;c:\\pcx2bmp.bmp&quot;,0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hfbmp,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hfbmp,(LPSTR)lpImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hfbmp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>fclose(PCXfp); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>释放内存和资源</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE; </p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//</span><span
+style='font-family:宋体;"Times New Roman"'>对每一行进行解码，结果存储到指针</span><span lang=EN-US>p</span><span
+style='font-family:宋体;"Times New Roman"'>指向的内存中</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>void ReadPcxLine(unsigned char 
+    *p,FILE *fp)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>unsigned 
+    int &nbsp; n=0,i;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>char 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    c;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memset(p,0,PcxBytesPerLine);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>do{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>读出一个字节</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>c=fgetc(fp)&amp;0xff;</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>if((c&amp;0xc0)==0xc0){ //</span><span
+style='font-family:宋体;"Times New Roman"'>是个形成字节</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//i</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为</span><span
+lang=EN-US>c</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的低六位</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>i=c&amp;0x3f;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>下一个字节为实际的图象数据</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>c=fgetc(fp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>while(i--) p[n++]=c; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>填充连续的</span><span lang=EN-US>i</span><span
+style='font-family:宋体;"Times New Roman"'>个字节到</span><span lang=EN-US>p</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else p[n++]=c; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>否则是实际的图象数据，直接填入到</span><span
+lang=EN-US>p</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>中</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}while 
+    (n&lt;PcxBytesPerLine); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>共读取</span><span
+lang=EN-US>PcxBytesPerLine</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个字节</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>对一幅的</span><span
+lang=EN-US>PCX</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件格式的图象解码后，结果如图</span><span
+lang=EN-US>9.2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所示。显示的是我最喜欢的法国影星阿佳妮·伊莎贝拉。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=263 height=337
+src="./chap09.files/image002.gif" v:shapes="_x0000_i1026"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>9.2&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>一幅</span><span lang=EN-US>PCX</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>文件格式的图象</span><span lang=EN-US></span></b></p>
+  <h2> <span
+lang=EN-US>9.3</span> <a name="_Toc486331910"></a><a
+name="_Toc486332910"></a><a name="_Toc486339019"></a><a name="_Toc454810884"></a><a
+name="_Toc454856658"><span><span>LZW</span></span></a><span><span><span style='font-family:黑体;'>算法的大体思想</span></span></span></h2>
+  <p style='line-height:18.0pt'><span lang=EN-US>LZW</span><span
+style='font-family:宋体;"Times New Roman"'>是一种比较复杂的压缩算法，其压缩效率也比较高。我们在这里只介绍一下它的基本原理：</span><span
+lang=EN-US>LZW</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>把每一个第一次出现的字符串用一个数值来编码，在还原程序中再将这个数值还成原来的字符串。例如：用数值</span><span
+lang=EN-US>0x100</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>代替字符串“</span><span lang=EN-US>abccddeee</span><span
+style='font-family:宋体;"Times New Roman"'>”，每当出现该字符串时，都用</span><span lang=EN-US>0x100</span><span
+style='font-family:宋体;"Times New Roman"'>代替，这样就起到了压缩的作用。至于</span><span lang=EN-US>0x100</span><span
+style='font-family:宋体;"Times New Roman"'>与字符串的对应关系则是在压缩过程中动态生成的，而且这种对应关系隐含在压缩数据中，随着解压缩的进行这张编码表会从压缩数据中逐步得到恢复，后面的压缩数据再根据前面数据产生的对应关系产生更多的对应关系，直到压缩文件结束为止。</span><span
+lang=EN-US>LZW</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是无损的。</span><span lang=EN-US>GIF</span><span
+style='font-family:宋体;"Times New Roman"'>文件采用了这种压缩算法。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>要注意的是，</span><span
+lang=EN-US>LZW</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>算法由</span><span lang=EN-US>Unisys</span><span
+style='font-family:宋体;"Times New Roman"'>公司在美国申请了专利，要使用它首先要获得该公司的认可。</span></p>
+  <h2> <span
+lang=EN-US>9.4</span> <a name="_Toc486331911"></a><a
+name="_Toc486332911"></a><a name="_Toc486339020"></a><a name="_Toc454810885"></a><a
+name="_Toc454856659"><span><span>JPEG</span></span></a><span><span><span style='font-family:黑体;'>压缩编码标准</span></span></span></h2>
+  <p style='line-height:18.0pt'><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>是联合图象专家组</span><span lang=EN-US>(Joint 
+    Picture Expert Group)</span><span
+style='font-family:宋体;"Times New Roman"'>的英文缩写，是国际标准化组织</span><span lang=EN-US>(ISO)</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>CCITT</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>联合制定的静态图象的压缩编码标准。和相同图象质量的其它常用文件格式</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如</span><span lang=EN-US>GIF</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>TIFF</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>PCX)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>相比，</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>是目前静态图象中压缩比最高的。我们给出具体的数据来对比一下。例图采用</span><span lang=EN-US>Windows95</span><span
+style='font-family:宋体;"Times New Roman"'>目录下的</span><span lang=EN-US>Clouds.bmp</span><span
+style='font-family:宋体;"Times New Roman"'>，原图大小为</span><span lang=EN-US>640*480</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>256</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>色。用工具</span><span
+lang=EN-US>SEA(version1.3)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>将其分别转成</span><span
+lang=EN-US>24</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位色</span><span lang=EN-US>BMP</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>24</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>位色</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>GIF(</span><span
+style='font-family:宋体;"Times New Roman"'>只能转成</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>色</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>压缩格式、</span><span
+lang=EN-US>24</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位色</span><span lang=EN-US>TIFF</span><span
+style='font-family:宋体;"Times New Roman"'>压缩格式、</span><span lang=EN-US>24</span><span
+style='font-family:宋体;"Times New Roman"'>位色</span><span lang=EN-US>TGA</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>压缩格式。得到的文件大小</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>以字节为单位</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>分别为：</span><span lang=EN-US>921,654</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>17,707</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>177,152</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>923,044</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>768,136</span><span
+style='font-family:宋体;"Times New Roman"'>。可见</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>比其它几种压缩比要高得多，而图象质量都差不多</span><span lang=EN-US>(JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>处理的颜色只有真彩和灰度图</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>正是由于</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的高压缩比，使得它广泛地应用于多媒体和网络程序中，例如</span><span
+lang=EN-US>HTML</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>语法中选用的图象格式之一就是</span><span lang=EN-US>JPEG(</span><span
+style='font-family:宋体;"Times New Roman"'>另一种是</span><span lang=EN-US>GIF)</span><span
+style='font-family:宋体;"Times New Roman"'>。这是显然的，因为网络的带宽非常宝贵，选用一种高压缩比的文件格式是十分必要的。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>有几种模式，其中最常用的是基于</span><span lang=EN-US>DCT</span><span
+style='font-family:宋体;"Times New Roman"'>变换的顺序型模式，又称为基线系统</span><span lang=EN-US>(Baseline)</span><span
+style='font-family:宋体;"Times New Roman"'>，以下将针对这种格式进行讨论。</span></p>
+  <p style='line-height:
+18.0pt;'> <b><span
+lang=EN-US>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span></b> <b><span lang=EN-US>JPEG</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>的压缩原理</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>的压缩原理其实上面介绍的那些原理的综合，博采众家之长，这也正是</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>有高压缩比的原因。其编码器的流程为：</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=505 height=91
+src="./chap09.files/image003.gif" v:shapes="_x0000_i1027"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>9.3&nbsp;&nbsp;&nbsp;&nbsp; JPEG</b><b><span
+style='font-family:宋体;"Times New Roman"'>编码器流程</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>解码器基本上为上述过程的逆过程：</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=544 height=114
+src="./chap09.files/image004.gif" v:shapes="_x0000_i1028"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>9.4&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>解码器流程</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的图象经过</span><span
+lang=EN-US>DCT</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>变换后，其低频分量都集中在左上角，高频分量分布在右下角</span><span
+lang=EN-US>(DCT</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>变换实际上是空间域的低通滤波器</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。由于该低频分量包含了图象的主要信息</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如亮度</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，而高频与之相比，就不那么重要了，所以我们可以忽略高频分量，从而达到压缩的目的。如何将高频分量去掉，这就要用到量化，它是产生信息损失的根源。这里的量化操作，就是将某一个值除以量化表中对应的值。由于量化表左上角的值较小，右上角的值较大，这样就起到了保持低频分量，抑制高频分量的目的。</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>使用的颜色是</span><span lang=EN-US>YUV</span><span
+style='font-family:宋体;"Times New Roman"'>格式。我们提到过，</span><span lang=EN-US>Y</span><span
+style='font-family:宋体;"Times New Roman"'>分量代表了亮度信息，</span><span lang=EN-US>UV</span><span
+style='font-family:宋体;"Times New Roman"'>分量代表了色差信息。相比而言，</span><span lang=EN-US>Y</span><span
+style='font-family:宋体;"Times New Roman"'>分量更重要一些。我们可以对</span><span lang=EN-US>Y</span><span
+style='font-family:宋体;"Times New Roman"'>采用细量化，对</span><span lang=EN-US>UV</span><span
+style='font-family:宋体;"Times New Roman"'>采用粗量化，可进一步提高压缩比。所以上面所说的量化表通常有两张，一张是针对</span><span
+lang=EN-US>Y</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的；一张是针对</span><span lang=EN-US>UV</span><span
+style='font-family:宋体;"Times New Roman"'>的。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>上面讲了，经过</span><span
+lang=EN-US>DCT</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>变换后，低频分量集中在左上角，其中</span><span
+lang=EN-US>F(0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>0)(</span><span
+style='font-family:宋体;"Times New Roman"'>即第一行第一列元素</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>代表了直流</span><span lang=EN-US>(DC)</span><span
+style='font-family:宋体;"Times New Roman"'>系数，即</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>子块的平均值，要对它单独编码。由于两个相邻的</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>子块的</span><span lang=EN-US>DC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>系数相差很小，所以对它们采用差分编码</span><span
+lang=EN-US>DPCM</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，可以提高压缩比，也就是说对相邻的子块</span><span
+lang=EN-US>DC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>系数的差值进行编码。</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的其它</span><span
+lang=EN-US>63</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个元素是交流</span><span lang=EN-US>(AC)</span><span
+style='font-family:宋体;"Times New Roman"'>系数，采用行程编码。这里出现一个问题：这</span><span lang=EN-US>63</span><span
+style='font-family:宋体;"Times New Roman"'>个系数应该按照怎么样的顺序排列？为了保证低频分量先出现，高频分量后出现，以增加行程中连续“</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>”的个数，这</span><span lang=EN-US>63</span><span
+style='font-family:宋体;"Times New Roman"'>个元素采用了“之”字型</span><span lang=EN-US>(Zig-Zag)</span><span
+style='font-family:宋体;"Times New Roman"'>的排列方法，如图</span><span lang=EN-US>9.5</span><span
+style='font-family:宋体;"Times New Roman"'>所示。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=227 height=214
+src="./chap09.files/image006.gif" v:shapes="_x0000_i1029"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>9.5&nbsp;&nbsp;&nbsp;&nbsp; Zig-Zag</b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>这</span><span
+lang=EN-US>63</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个</span><span lang=EN-US>AC</span><span
+style='font-family:宋体;"Times New Roman"'>系数行程编码的码字用两个字节表示，如图</span><span lang=EN-US>9.6</span><span
+style='font-family:宋体;"Times New Roman"'>所示。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=443 height=183
+src="./chap09.files/image007.gif" v:shapes="_x0000_i1030"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>9.6&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>行程编码</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>上面，我们得到了</span><span
+lang=EN-US>DC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>码字和</span><span lang=EN-US> AC</span><span
+style='font-family:宋体;"Times New Roman"'>行程码字。为了进一步提高压缩比，需要对其再进行熵编码，这里选用</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>编码，分成两步：</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(1)</span><span
+style='font-family:宋体;"Times New Roman"'>熵编码的中间格式表示</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>对于</span><span
+lang=EN-US>AC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>系数，有两个符号。符号</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>为行程和尺寸，即上面的</span><span lang=EN-US>(RunLength</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Size)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。</span><span
+lang=EN-US>(0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>0)</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>(15</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>0)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是两个比较特殊的情况。</span><span lang=EN-US>(0</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>表示块结束标志</span><span
+lang=EN-US>(EOB)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>(15</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>表示</span><span
+lang=EN-US>ZRL</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，当行程长度超过</span><span lang=EN-US>15</span><span
+style='font-family:宋体;"Times New Roman"'>时，用增加</span><span lang=EN-US>ZRL</span><span
+style='font-family:宋体;"Times New Roman"'>的个数来解决，所以最多有三个</span><span lang=EN-US>ZRL(3</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>16+15=63)</span><span
+style='font-family:宋体;"Times New Roman"'>。符号</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>为幅度值</span><span
+lang=EN-US>(Amplitude)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>对于</span><span
+lang=EN-US>DC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>系数，也有两个符号。符号</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>为尺寸</span><span lang=EN-US>(Size)</span><span
+style='font-family:宋体;"Times New Roman"'>；符号</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>为幅度值</span><span
+lang=EN-US>(Amplitude)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(2)</span><span
+style='font-family:宋体;"Times New Roman"'>熵编码</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>对于</span><span
+lang=EN-US>AC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>系数，符号</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>和符号</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>分别进行编码。零行程长度超过</span><span
+lang=EN-US>15</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个时，有一个符号</span><span lang=EN-US>(15</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，块结束时只有一个符号</span><span
+lang=EN-US>(0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>0)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>对符号</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>进行</span><span lang=EN-US>Hufffman</span><span
+style='font-family:宋体;"Times New Roman"'>编码</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>亮度，色差的</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>码表不同</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。对符号</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>进行变长整数</span><span lang=EN-US>VLI</span><span
+style='font-family:宋体;"Times New Roman"'>编码。举例来说：</span><span lang=EN-US>Size=6</span><span
+style='font-family:宋体;"Times New Roman"'>时，</span><span lang=EN-US>Amplitude</span><span
+style='font-family:宋体;"Times New Roman"'>的范围是</span><span lang=EN-US>-63~-32</span><span
+style='font-family:宋体;"Times New Roman"'>，以及</span><span lang=EN-US>32~63</span><span
+style='font-family:宋体;"Times New Roman"'>，对绝对值相同，符号相反的码字之间为反码关系。所以</span><span lang=EN-US>AC</span><span
+style='font-family:宋体;"Times New Roman"'>系数为</span><span lang=EN-US>32</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的码字为</span><span
+lang=EN-US>100000</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>33</span><span
+style='font-family:宋体;"Times New Roman"'>的码字为</span><span lang=EN-US>100001</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>-32</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的码字为</span><span
+lang=EN-US>011111</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>-33</span><span
+style='font-family:宋体;"Times New Roman"'>的码字为</span><span lang=EN-US>011110</span><span
+style='font-family:宋体;"Times New Roman"'>。符号</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的码字紧接于符号</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的码字之后。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>对于</span><span
+lang=EN-US>DC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>系数，</span><span lang=EN-US>Y</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>UV</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>码表也不同。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>掉了这么半天的书包，你可能已经晕了，呵呵。举个例子来说明上述过程就容易明白了。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>下面为</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>的亮度</span><span lang=EN-US>(Y)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>图象子块经过量化后的系数。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'>15&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; -1&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0</p>
+  <p align=center style='text-align:center;line-height:18.0pt'>-2&nbsp;&nbsp;&nbsp; 
+    -1&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0</p>
+  <p align=center style='text-align:center;line-height:18.0pt'>-1&nbsp;&nbsp;&nbsp; 
+    -1&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0</p>
+  <p class=a style='line-height:18.0pt'>0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0</p>
+  <p align=center style='text-align:center;line-height:18.0pt'>0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0</p>
+  <p align=center style='text-align:center;line-height:18.0pt'>0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0</p>
+  <p align=center style='text-align:center;line-height:18.0pt'>0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0</p>
+  <p align=center style='text-align:center;line-height:18.0pt'>0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 
+    0</p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>可见量化后只有左上角的几个点</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>低频分量</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>不为零，这样采用行程编码就很有效。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>第一步，熵编码的中间格式表示：先看</span><span lang=EN-US>DC</span><span
+style='font-family:宋体;"Times New Roman"'>系数。假设前一个</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>子块</span><span
+lang=EN-US>DC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>系数的量化值为</span><span lang=EN-US>12</span><span
+style='font-family:宋体;"Times New Roman"'>，则本块</span><span lang=EN-US>DC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>系数与它的差为</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，根据下表</span></p>
+  <p style='line-height:18.0pt'>Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    Amplitude</p>
+  <p style='line-height:18.0pt'>0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    0</p>
+  <p style='line-height:18.0pt'>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –1,1</p>
+  <p style='line-height:18.0pt'>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –3,-2,2,3</p>
+  <p style='line-height:18.0pt'>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –7~-4<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>4~7</span></p>
+  <p style='line-height:18.0pt'>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –15~-8<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>8~15</span></p>
+  <p style='line-height:18.0pt'>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –31~-16<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>16~31</span></p>
+  <p style='line-height:18.0pt'>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –63~-32<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>32~63</span></p>
+  <p style='line-height:18.0pt'>7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –127~-64<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>64~127</span></p>
+  <p style='line-height:18.0pt'>8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –255~-128<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>128~255</span></p>
+  <p style='line-height:18.0pt'>9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –511~-256<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>256~511</span></p>
+  <p style='line-height:18.0pt'>10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –1023~512<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>512~1023</span></p>
+  <p style='line-height:18.0pt'>11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –2047~-1024<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>1024~2047</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>查表得</span><span lang=EN-US>Size=2</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Amplitude=3</span><span
+style='font-family:宋体;"Times New Roman"'>，所以</span><span lang=EN-US>DC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中间格式为</span><span
+lang=EN-US>(2)(3)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>下面对</span><span
+lang=EN-US>AC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>系数编码。经过</span><span lang=EN-US>Zig-Zag</span><span
+style='font-family:宋体;"Times New Roman"'>扫描后，遇到的第一个非零系数为</span><span lang=EN-US>-2</span><span
+style='font-family:宋体;"Times New Roman"'>，其中遇到零的个数为</span><span lang=EN-US>1(</span><span
+style='font-family:宋体;"Times New Roman"'>即</span><span lang=EN-US>RunLength)</span><span
+style='font-family:宋体;"Times New Roman"'>，根据下面这张</span><span lang=EN-US>AC</span><span
+style='font-family:宋体;"Times New Roman"'>系数表：</span></p>
+  <p style='line-height:18.0pt'>Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    Amplitude</p>
+  <p style='line-height:18.0pt'>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –1,1</p>
+  <p style='line-height:18.0pt'>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –3,-2,2,3</p>
+  <p style='line-height:18.0pt'>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –7~-4<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>4~7</span></p>
+  <p style='line-height:18.0pt'>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –15~-8<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>8~15</span></p>
+  <p style='line-height:18.0pt'>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –31~-16<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>16~31</span></p>
+  <p style='line-height:18.0pt'>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –63~-32<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>32~63</span></p>
+  <p style='line-height:18.0pt'>7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –127~-64<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>64~127</span></p>
+  <p style='line-height:18.0pt'>8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –255~-128<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>128~255</span></p>
+  <p style='line-height:18.0pt'>9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –511~-256<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>256~511</span></p>
+  <p style='line-height:18.0pt'>10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    –1023~512<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>512~1023</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>查表得</span><span
+lang=EN-US>Size=2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。所以</span><span lang=EN-US>RunLength=1,Size=2,Amplitude=3</span><span
+style='font-family:宋体;"Times New Roman"'>，所以</span><span lang=EN-US>AC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中间格式为</span><span
+lang=EN-US>(1,2)(-2)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>其余的点类似，可以求得这个</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>子块熵编码的中间格式为</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(DC)(2)(3),(1,2)(-2),(0,1)(-1),(0,1)(-1),(0,1)(-1),(2,1)(-1),(EOB)(0,0)</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>第二步，熵编码：</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对于</span><span lang=EN-US>(2)(3)</span><span
+style='font-family:宋体;"Times New Roman"'>：</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>查</span><span
+lang=EN-US>DC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>亮度</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>表得到</span><span lang=EN-US>11</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>经过</span><span lang=EN-US>VLI</span><span
+style='font-family:宋体;"Times New Roman"'>编码为</span><span lang=EN-US>011</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>；</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对于</span><span lang=EN-US>(1,2)(-2)</span><span
+style='font-family:宋体;"Times New Roman"'>：</span><span lang=EN-US>(1,2)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>查</span><span
+lang=EN-US>AC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>亮度</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>表得到</span><span lang=EN-US>11011</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>-2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>是</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的反码，为</span><span lang=EN-US>01</span><span
+style='font-family:宋体;"Times New Roman"'>；</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对于</span><span lang=EN-US>(0,1)(-1)</span><span
+style='font-family:宋体;"Times New Roman"'>：</span><span lang=EN-US>(0,1)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>查</span><span
+lang=EN-US>AC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>亮度</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>表得到</span><span lang=EN-US>00</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>-1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>的反码，为</span><span lang=EN-US>0</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>；</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>……</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>最后，这一</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>子块亮度信息压缩后的数据流为</span><span lang=EN-US>11011, 
+    1101101, 000, 000, 000, 111000,1010</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。总共</span><span
+lang=EN-US>31</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>比特，其压缩比是</span><span lang=EN-US>64</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>8/31=16.5</span><span
+style='font-family:宋体;"Times New Roman"'>，大约每个象素用半个比特。</span></p>
+  <p class=MsoBodyTextFirstIndent style='
+line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>可以想见，压缩比和图象质量是呈反比的，以下是压缩效率与图象质量之间的大致关系，可以根据你的需要，选择合适的压缩比。</span></p>
+  <p class=MsoBodyTextFirstIndent align=center style='
+text-align:center;line-height:18.0pt'><b><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>表</span>9.1&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>压缩比与图象质量的关系</span><span lang=EN-US></span></b></p>
+  <table border=1 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>压缩效率</span><span lang=EN-US>(</span><span
+  style='font-family:宋体;"Times New Roman"'>单位：</span><span lang=EN-US>bits/pixel)</span></p>
+      </td>
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>图象质量</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US>0.25~0.50</span></p>
+      </td>
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>中</span><span lang=EN-US>~</span><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>好，可满足某些应用</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US>0.50~0.75</span></p>
+      </td>
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>好</span><span lang=EN-US>~</span><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>很好，满足多数应用</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US>0.75~1.5</span></p>
+      </td>
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>极好，满足大多数应用</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US>1.5~2.0</span></p>
+      </td>
+      <td width=284 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>与原始图象几乎一样</span></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>以上我们介绍了</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>压缩的原理，其中</span><span lang=EN-US>DC</span><span
+style='font-family:宋体;"Times New Roman"'>系数使用了预测编码</span><span lang=EN-US>DPCM</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>AC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>系数使用了变换编码</span><span
+lang=EN-US>DCT</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，二者都使用了熵编码</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>，可见几乎所有传统的压缩方法在这里都用到了。这几种方法的结合正是产生</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>高压缩比的原因。顺便说一下，该标准是</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>小组从很多种不同中方案中比较测试得到的，并非空穴来风。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>上面介绍了</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>压缩的基本原理，下面介绍一下</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>的文件格式。</span></p>
+  <p style='line-height:
+18.0pt;'> <b><span
+lang=EN-US>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span></b> <b><span lang=EN-US>JPEG</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>的文件格式</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>文件大体上可以分成以下两个部分：标记码</span><span lang=EN-US>(Tag)</span><span
+style='font-family:宋体;"Times New Roman"'>加压缩数据。先介绍标记码部分。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记码部分给出了</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图象的所有信息</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>有点类似于</span><span lang=EN-US>BMP</span><span
+style='font-family:宋体;"Times New Roman"'>中的头信息，但要复杂的多</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，如图象的宽、高、</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>表、量化表等等。标记码有很多，但绝大多数的</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>文件只包含几种。标记码的结构为：</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>SOI</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DQT</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>DRI</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>SOF0</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>DHT</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>SOS</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>…</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>EOI</p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记码由两个字节组成，高字节为</span><span
+lang=EN-US>0XFF</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，每个标记码之前可以填上个数不限的填充字节</span><span
+lang=EN-US>0XFF</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>下面介绍一些常用的标记码的结构及其含义。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>(1)SOI(Start of Image)</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>标记结构</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>字节数</span></p>
+  <p style='line-height:18.0pt'>0XFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>0XD8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>可作为</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>格式的判据</span><span lang=EN-US>(JFIF</span><span
+style='font-family:宋体;"Times New Roman"'>还需要</span><span lang=EN-US>APP0</span><span
+style='font-family:宋体;"Times New Roman"'>的配合</span><span lang=EN-US>)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(2)APP0(Application)</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记结构</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>字节数</span><span>&nbsp;&nbsp;&nbsp; </span><span
+style='font-family:宋体;"Times New Roman"'>意义</span></p>
+  <p style='line-height:18.0pt'>0XFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>0XE0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Lp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; APP0<span
+style='font-family:宋体;"Times New Roman"'>标记码长度，不包括前两个字节</span><span lang=EN-US>0XFF</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0XE0</span></p>
+  <p style='line-height:18.0pt'>Identifier 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    JFIF<span
+style='font-family:宋体;"Times New Roman"'>识别码</span><span lang=EN-US> 0X4A</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0X46</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>0X49</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>0X46</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0X00</span></p>
+  <p style='line-height:18.0pt'>Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JFIF<span
+style='font-family:宋体;"Times New Roman"'>版本号</span> <span style='font-family:宋体;"Times New Roman";"Times New Roman"'>可为</span><span
+lang=EN-US>0X0101</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>或者</span><span lang=EN-US>0X0102</span></p>
+  <p style='line-height:18.0pt'>Units&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>单位，等于零时表示未指定，为</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>表示英寸，为</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>表示</span></p>
+  <p style='line-height:
+18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>厘米</span></p>
+  <p style='line-height:18.0pt'>Xdensity&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>水平分辨率</span></p>
+  <p style='line-height:18.0pt'>Ydensity&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>垂直分辨率</span></p>
+  <p style='line-height:18.0pt'>Xthumbnail&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>水平点数</span></p>
+  <p style='line-height:18.0pt'>Ythumbnail&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>垂直点数</span></p>
+  <p style='line-height:18.0pt'>RGB0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RGB<span
+style='font-family:宋体;"Times New Roman"'>的值</span></p>
+  <p style='line-height:18.0pt'>RGB1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RGB<span
+style='font-family:宋体;"Times New Roman"'>的值</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>…</span></p>
+  <p style='line-height:18.0pt'>RGBn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RGB<span
+style='font-family:宋体;"Times New Roman"'>的值，</span><span lang=EN-US>n=Xthumbnail*Ythumbnail</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>APP0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>保留给</span><span lang=EN-US>Application</span><span
+style='font-family:宋体;"Times New Roman"'>所使用的标记码，而</span><span lang=EN-US>JFIF</span><span
+style='font-family:宋体;"Times New Roman"'>将文件的相关信息定义在此标记中。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(3)DQT(Define Quantization Table)</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记结构</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>字节数</span><span>&nbsp;&nbsp;&nbsp; </span><span
+style='font-family:宋体;"Times New Roman"'>意义</span></p>
+  <p style='line-height:18.0pt'>0XFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>0XDB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Lq&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DQT<span
+style='font-family:宋体;"Times New Roman"'>标记码长度，不包括前两个字节</span><span lang=EN-US>0XFF</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0XDB</span></p>
+  <p style='line-height:18.0pt'>(Pq,Tq)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='font-family:
+宋体;&quot;Times New Roman&quot;'>高四位</span><span
+lang=EN-US>Pq</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为量化表的数据精确度，</span><span lang=EN-US>Pq=0</span><span
+style='font-family:宋体;"Times New Roman"'>时，</span><span lang=EN-US>Q0~Qn</span><span
+style='font-family:宋体;"Times New Roman"'>的</span></p>
+  <p style='line-height:
+18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>值为</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>位，</span><span lang=EN-US>Pq=1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>时，</span><span
+lang=EN-US>Qt</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的值为</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>位，</span><span lang=EN-US>Tq</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>表示量化表的</span></p>
+  <p style='line-height:
+18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>编号，为</span><span lang=EN-US>0~3</span><span
+style='font-family:宋体;"Times New Roman"'>。在基本系统中，</span><span lang=EN-US>Pq=0</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Tq=0~1</span><span
+style='font-family:宋体;"Times New Roman"'>，也就是</span></p>
+  <p style='line-height:
+18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>说最多有两个量化表。</span></p>
+  <p style='line-height:18.0pt'>Q0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1<span
+style='font-family:宋体;"Times New Roman"'>或</span>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>量化表的值，</span><span lang=EN-US>Pq=0</span><span
+style='font-family:宋体;"Times New Roman"'>时；为一个字节，</span><span lang=EN-US>Pq=1</span><span
+style='font-family:宋体;"Times New Roman"'>时，为两个</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>字节</span></p>
+  <p style='line-height:18.0pt'>Q1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1<span
+style='font-family:宋体;"Times New Roman"'>或</span>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>量化表的值，</span><span lang=EN-US>Pq=0</span><span
+style='font-family:宋体;"Times New Roman"'>时；为一个字节，</span><span lang=EN-US>Pq=1</span><span
+style='font-family:宋体;"Times New Roman"'>时，为两个</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>字节</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>…</span></p>
+  <p style='line-height:18.0pt'>Qn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1<span
+style='font-family:宋体;"Times New Roman"'>或</span>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>量化表的值，</span><span lang=EN-US>Pq=0</span><span
+style='font-family:宋体;"Times New Roman"'>时，为一个字节；</span><span lang=EN-US>Pq=1</span><span
+style='font-family:宋体;"Times New Roman"'>时，为两个</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>字节。</span><span lang=EN-US>n</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的值为</span><span
+lang=EN-US>0~63</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，表示量化表中</span><span lang=EN-US>64</span><span
+style='font-family:宋体;"Times New Roman"'>个值</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>之字形排</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>列</span><span lang=EN-US>)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(4)DRI(Define Restart Interval)</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>此标记需要用到最小编码单元</span><span lang=EN-US>(MCU</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Minimum Coding 
+    Unit)</span><span
+style='font-family:宋体;"Times New Roman"'>的概念。前面提到，</span><span lang=EN-US>Y</span><span
+style='font-family:宋体;"Times New Roman"'>分量数据重要，</span><span lang=EN-US>UV</span><span
+style='font-family:宋体;"Times New Roman"'>分量的数据相对不重要，所以可以只取</span><span lang=EN-US>UV</span><span
+style='font-family:宋体;"Times New Roman"'>的一部分，以增加压缩比。目前支持</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>格式的软件通常提供两种取样方式</span><span lang=EN-US>YUV411</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>YUV422</span><span
+style='font-family:宋体;"Times New Roman"'>，其含义是</span><span lang=EN-US>YUV</span><span
+style='font-family:宋体;"Times New Roman"'>三个分量的数据取样比例。举例来说，如果</span><span lang=EN-US>Y</span><span
+style='font-family:宋体;"Times New Roman"'>取四个数据单元，即水平取样因子</span><span lang=EN-US>Hy</span><span
+style='font-family:宋体;"Times New Roman"'>乘以垂直取样因子</span><span lang=EN-US>Vy</span><span
+style='font-family:宋体;"Times New Roman"'>的值为</span><span lang=EN-US>4</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，而</span><span
+lang=EN-US>U</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>和</span><span lang=EN-US>V</span><span
+style='font-family:宋体;"Times New Roman"'>各取一个数据单元，即</span><span lang=EN-US>Hu×Vu=1,Hv×Vv=1</span><span
+style='font-family:宋体;"Times New Roman"'>。那么这种部分取样就称为</span><span lang=EN-US>YUV411</span><span
+style='font-family:宋体;"Times New Roman"'>。如图</span><span lang=EN-US>9.7</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>所示：</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=276 valign=top class="Normal"> 
+        <p class=a style='line-height:18.0pt'><b><span lang=EN-US> <img width=197 height=89
+  src="./chap09.files/image009.jpg" v:shapes="_x0000_i1031"> </span></b></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>9.7&nbsp;&nbsp;&nbsp;&nbsp; 
+          YUV411</b><b><span
+  style='font-family:宋体;"Times New Roman"'>的示意图</span><span lang=EN-US></span></b></p>
+      </td>
+      <td width=276 valign=top class="Normal"> 
+        <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=253 height=90
+  src="./chap09.files/image011.gif" v:shapes="_x0000_i1032"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>9.8&nbsp;&nbsp;&nbsp;&nbsp; 
+          YUV111</b><b><span
+  style='font-family:宋体;"Times New Roman"'>的排列顺序</span><span lang=EN-US></span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>易知</span><span
+lang=EN-US>YUV411</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>有</span><span lang=EN-US>50%</span><span
+style='font-family:宋体;"Times New Roman"'>的压缩比</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>原来有</span><span
+lang=EN-US>12</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个数据单元，现在有</span><span lang=EN-US>6</span><span
+style='font-family:宋体;"Times New Roman"'>个数据单元</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>YUV422</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>有</span><span lang=EN-US>33%</span><span
+style='font-family:宋体;"Times New Roman"'>的压缩比</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>原来有</span><span
+lang=EN-US>12</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个数据单元，现在有</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>个数据单元</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>那么你可能会想，</span><span
+lang=EN-US>YUV911</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>YUV1611</span><span
+style='font-family:宋体;"Times New Roman"'>压缩比不是更高嘛？但是要考虑到图象质量的因素。所以</span><span lang=EN-US>JPEG</span><span
+style='font-family:宋体;"Times New Roman"'>标准规定了最小编码单元</span><span lang=EN-US>MCU</span><span
+style='font-family:宋体;"Times New Roman"'>，要求</span><span lang=EN-US>Hy×Vy+Hu×Vu+Hv×Vv</span><span
+style='font-family:宋体;"Times New Roman"'>≤</span><span lang=EN-US>10</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>MCU</span><span
+style='font-family:宋体;"Times New Roman"'>中块的排列方式与</span><span lang=EN-US>H</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>V</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的值有密切关系，如图</span><span
+lang=EN-US>9.8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、图</span><span lang=EN-US>9.9</span><span
+style='font-family:宋体;"Times New Roman"'>、图</span><span lang=EN-US>9.10</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>所示。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+lang=EN-US> <img width=336 height=262
+src="./chap09.files/image013.gif" v:shapes="_x0000_i1033"> </span></b></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>9.9&nbsp;&nbsp;&nbsp;&nbsp; YUV211</b><b><span
+style='font-family:宋体;"Times New Roman"'>的排列顺序</span></b></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+lang=EN-US> <img width=368 height=199
+src="./chap09.files/image015.gif" v:shapes="_x0000_i1034"> </span></b></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>9.10&nbsp;&nbsp; YUV411</b><b><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的排列顺序</span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记结构</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>字节数</span><span>&nbsp;&nbsp;&nbsp; </span><span
+style='font-family:宋体;"Times New Roman"'>意义</span></p>
+  <p style='line-height:18.0pt'>0XFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>0XDD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Lr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRI<span
+style='font-family:宋体;"Times New Roman"'>标记码长度，不包括前两个字节</span><span lang=EN-US>0XFF</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0XDD</span></p>
+  <p style='line-height:
+18.0pt'>Ri&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>重入间隔的</span><span lang=EN-US>MCU</span><span
+style='font-family:宋体;"Times New Roman"'>个数，</span><span lang=EN-US>Ri</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>必须是一</span><span
+lang=EN-US>MCU</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行中</span><span lang=EN-US>MCU</span></p>
+  <p style='line-height:
+18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个数的整数，最后一个零头不一定刚好是</span><span
+lang=EN-US>Ri</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个</span><span lang=EN-US>MCU</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:
+18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>每个重入间隔各自独立编码。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(5)SOF(Start of Frame) </span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在基本系统中，只处理</span><span lang=EN-US>SOF0</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记结构</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>字节数</span><span>&nbsp;&nbsp;&nbsp; </span><span
+style='font-family:宋体;"Times New Roman"'>意义</span></p>
+  <p style='line-height:18.0pt'>0XFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>0XC0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Lf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOF<span
+style='font-family:宋体;"Times New Roman"'>标记码长度，不包括前两个字节</span><span lang=EN-US>0XFF</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0XC0</span></p>
+  <p style='line-height:18.0pt'>P&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>基本系统中，为</span><span lang=EN-US>0X08</span></p>
+  <p style='line-height:18.0pt'>Y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>图象高度</span></p>
+  <p style='line-height:18.0pt'>X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>图象宽度</span></p>
+  <p style='line-height:18.0pt'>Nf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    Frame<span
+style='font-family:宋体;"Times New Roman"'>中的成分个数，一般为</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>或</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>代表灰度图，</span><span lang=EN-US>3</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>代表真彩图</span></p>
+  <p style='line-height:18.0pt'>C1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>成分编号</span><span lang=EN-US>1</span></p>
+  <p style='line-height:18.0pt'>(H1,V1)&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>第一个水平和垂直采样因子</span></p>
+  <p style='line-height:18.0pt'>Tq1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>该量化表编号</span></p>
+  <p style='line-height:18.0pt'>C2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>成分编号</span><span lang=EN-US>2</span></p>
+  <p style='line-height:18.0pt'>(H2,V2)&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>第二个水平和垂直采样因子</span></p>
+  <p style='line-height:18.0pt'>Tq2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>该量化表编号</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>…</span></p>
+  <p style='line-height:18.0pt'>Cn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>成分编号</span><span lang=EN-US>n</span></p>
+  <p style='line-height:18.0pt'>(Hn,Vn)&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span
+style='font-family:宋体;"Times New Roman"'>第</span><span lang=EN-US>n</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个水平和垂直采样因子</span></p>
+  <p style='line-height:18.0pt'>Tqn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>该量化表编号</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(6)DHT(Define Huffman Table)</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记结构</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>字节数</span><span>&nbsp;&nbsp;&nbsp; </span><span
+style='font-family:宋体;"Times New Roman"'>意义</span></p>
+  <p style='line-height:18.0pt'>0XFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>0XC4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Lh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DHT<span
+style='font-family:宋体;"Times New Roman"'>标记码长度，不包括前两个字节</span><span lang=EN-US>0XFF</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0XC4</span></p>
+  <p style='line-height:18.0pt'>(Tc,Th)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+  <p style='line-height:18.0pt'>L1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>L2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'>L16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>V1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>V2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>…</span></p>
+  <p style='line-height:18.0pt'>Vt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>Tc</span><span
+style='font-family:宋体;"Times New Roman"'>为高</span><span lang=EN-US>4</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>位，</span><span
+lang=EN-US>Th</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为低</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>位。在基本系统中，</span><span lang=EN-US>Tc</span><span
+style='font-family:宋体;"Times New Roman"'>为</span><span lang=EN-US>0</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>或</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，为</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>时，指</span><span lang=EN-US>DC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>所用的</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>表，为</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>时，指</span><span lang=EN-US>AC</span><span
+style='font-family:宋体;"Times New Roman"'>所用的</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>表。</span><span lang=EN-US>Th</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>表示</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>表的编号，在基本系统中，其值为</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>或</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>。所以，在基本系统中，最多有</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>个</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>表，如下所示：</span></p>
+  <p style='line-height:18.0pt'>Tc&nbsp;&nbsp; Th&nbsp;&nbsp; Huffman<span
+style='font-family:宋体;"Times New Roman"'>表编号</span><span lang=EN-US>(2×Tc+Th)</span></p>
+  <p style='line-height:18.0pt'>0&nbsp;&nbsp;&nbsp;&nbsp; 0</p>
+  <p style='line-height:18.0pt'>1&nbsp;&nbsp;&nbsp;&nbsp; 1</p>
+  <p style='line-height:18.0pt'>0&nbsp;&nbsp;&nbsp;&nbsp; 2</p>
+  <p style='line-height:18.0pt'>1&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 
+    3</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>Ln</span><span
+style='font-family:宋体;"Times New Roman"'>表示每个</span><span lang=EN-US>n</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>比特的</span><span
+lang=EN-US>Huffman</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>码字的个数，</span><span
+lang=EN-US>n=1~16</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>Vt</span><span
+style='font-family:宋体;"Times New Roman"'>表示每个</span><span lang=EN-US>Huffman</span><span
+style='font-family:宋体;"Times New Roman"'>码字所对应的值，也就是我们前面所讲的符号</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>，对</span><span lang=EN-US>DC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>来说该值为</span><span
+lang=EN-US>(Size)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，对</span><span lang=EN-US>AC</span><span
+style='font-family:宋体;"Times New Roman"'>来说该值为</span><span lang=EN-US>(RunLength</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Size)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>t=L1+L2+…L16</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(7)SOS(Start of Scan)</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记结构</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>字节数</span><span>&nbsp;&nbsp;&nbsp; </span><span
+style='font-family:宋体;"Times New Roman"'>意义</span></p>
+  <p style='line-height:18.0pt'>0XFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>0XDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Ls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DHT<span
+style='font-family:宋体;"Times New Roman"'>标记码长度，不包括前两个字节</span><span lang=EN-US>0XFF</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0XDA</span></p>
+  <p style='line-height:18.0pt'>Ns&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Cs1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>(Td1,Ta1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Cs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>(Td2,Ta2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>…</span></p>
+  <p style='line-height:18.0pt'>CsNs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>(TdNs,TaNs)&nbsp; 1</p>
+  <p style='line-height:18.0pt'>Ss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>Se&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>(Ah</span><span
+style='font-family:宋体;"Times New Roman"'>，</span>Al) 1</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>Ns</span><span
+style='font-family:宋体;"Times New Roman"'>为</span><span lang=EN-US>Scan</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中成分的个数，在基本系统中，</span><span
+lang=EN-US>Ns=Nf(Frame</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>中成分个数</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。</span><span lang=EN-US>CSNs</span><span
+style='font-family:宋体;"Times New Roman"'>为在</span><span lang=EN-US>Scan</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中成分的编号。</span><span
+lang=EN-US>TdNs</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为高</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>位，</span><span lang=EN-US>TaNs</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>为低</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位，分别表示</span><span lang=EN-US>DC</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>AC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>编码表的编号。在基本系统中</span><span
+lang=EN-US>Ss=0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>Se=63</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Ah=0</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>Al=0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'>(8)EOI(End of Image)&nbsp;&nbsp; <span
+style='font-family:宋体;"Times New Roman"'>结束标志</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标记结构</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>字节数</span><span>&nbsp;&nbsp;&nbsp; </span><span
+style='font-family:宋体;"Times New Roman"'>意义</span></p>
+  <p style='line-height:18.0pt'>0XFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:18.0pt'>0XD9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    1</p>
+  <p style='line-height:
+18.0pt;'> <b><span
+lang=EN-US>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span></b> <b><span lang=EN-US>JPEG</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>基本系统解码器的实现</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>笔者曾经实现了一个</span><span
+lang=EN-US>Windows</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>下</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>基本系统的解码器，限于篇幅，这里就不给源程序了，只给出大体上的程序流程图</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>见图</span><span lang=EN-US>9.11)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=269 valign=bottom class="Normal"> 
+        <p style='line-height:18.0pt'><span lang=EN-US> <img width=246 height=462
+  src="./chap09.files/image016.gif" v:shapes="_x0000_i1035"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>9.11&nbsp;&nbsp;&nbsp; JPEG</b><b><span style='font-family:宋体;
+  &quot;Times New Roman&quot;'>解码器的程序流程图</span></b></p>
+      </td>
+      <td width=299 valign=bottom class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  lang=EN-US> <img width=285 height=292
+  src="./chap09.files/image017.gif" v:shapes="_x0000_i1036"> </span></b></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>9.12&nbsp;&nbsp; </b><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>程序运行时的画面</span><span
+  lang=EN-US></span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>由于没有用到什么优化算法，该解码器的速度并不高，在用</span><span
+lang=EN-US>VC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的性能评测工具</span><span lang=EN-US>Profile</span><span
+style='font-family:宋体;"Times New Roman"'>评测该程序时我发现最耗时的地方是反离散余弦变换</span><span lang=EN-US>(IDCT)</span><span
+style='font-family:宋体;"Times New Roman"'>那里，其实这是显然的，浮点数的指令条数要比整数的多得多，因此采用一种快速的</span><span
+lang=EN-US>IDCT</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>算法能很大的提高性能，我这里采用是目前被认为比较好的一种快速</span><span
+lang=EN-US>IDCT</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>算法，其主要思想是把二维</span><span lang=EN-US>IDCT</span><span
+style='font-family:宋体;"Times New Roman"'>分解成行和列两个一维</span><span lang=EN-US>IDCT</span><span
+style='font-family:宋体;"Times New Roman"'>。图</span><span lang=EN-US>9.12</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>是程序运行时的画面。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>源程序参见本书所附软盘。</span></p>
+</div>
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+USC does not screen or control the content herein and does not take responsibility for any inaccurate, offensive, infringing, or objectionable content, all of which is the sole responsibility of the author or the users who post content on this website.
+</div>
+</body>
+</html>

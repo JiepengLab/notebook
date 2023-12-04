@@ -1,0 +1,2774 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/DIP/dip1/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../dip2/">
+      
+      
+      <link rel="icon" href="../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>01-成像与图像的基本属性 - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01-成像与图像的基本属性
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Fundemental/" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Friends/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朋友们！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CurrentStudy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正在学习的课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Fundemental/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            基础课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/Mathematical%20Modeling/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数学建模
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/Probability%20and%20Mathematical%20Statistics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Fundemental/Physics-II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大学物理（乙）II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            校内CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../NA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数值分析
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../AI_Start/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    人工智能初步
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../DigitalDesign/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数字逻辑设计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    图像信息处理
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            图像信息处理
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    01-成像与图像的基本属性
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    01-成像与图像的基本属性
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-principle-of-imaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Principle of Imaging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#digital-image-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digital Image Representation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像格式 | Image Format
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图像格式 | Image Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      BMP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像文件头
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像信息头
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      调色板 | Palette
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitmap-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      位图数据 | Bitmap data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jpeg" class="md-nav__link">
+    <span class="md-ellipsis">
+      JPEG
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JPEG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jpeg_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      JPEG 文件格式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tiff" class="md-nav__link">
+    <span class="md-ellipsis">
+      TIFF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gif" class="md-nav__link">
+    <span class="md-ellipsis">
+      GIF
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#light-and-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      Light and Color
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Light and Color">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#color-vision-basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Color Vision Basic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Color Vision Basic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#properties-of-color-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties of Color Vision
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      Color Space
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Color Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rgb-color-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      RGB Color Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmy-color-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMY Color Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rgb-vs-cmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      RGB vs CMY
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RGB vs CMY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hsv-color-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      HSV Color Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cie-xyz" class="md-nav__link">
+    <span class="md-ellipsis">
+      CIE XYZ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cie-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      CIE L*a*b
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cie-yuv" class="md-nav__link">
+    <span class="md-ellipsis">
+      CIE YUV
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-processing-data-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Processing Data Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Processing Data Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      矩阵
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      链式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-二值图像与形态学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-图像灰度变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-几何变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-卷积和滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../FDS/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数据结构基础
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS_Online/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            校外CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML-4360/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML_Lhy/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    李宏毅《机器学习》
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Mess/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            杂项
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Mess/DIP-C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    《数字图像处理编程入门》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/ESG/Paper/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ESG商赛
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/Marxism/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    马原
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-principle-of-imaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Principle of Imaging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#digital-image-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digital Image Representation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像格式 | Image Format
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图像格式 | Image Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      BMP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像文件头
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像信息头
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      调色板 | Palette
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitmap-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      位图数据 | Bitmap data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jpeg" class="md-nav__link">
+    <span class="md-ellipsis">
+      JPEG
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JPEG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jpeg_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      JPEG 文件格式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tiff" class="md-nav__link">
+    <span class="md-ellipsis">
+      TIFF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gif" class="md-nav__link">
+    <span class="md-ellipsis">
+      GIF
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#light-and-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      Light and Color
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Light and Color">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#color-vision-basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Color Vision Basic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Color Vision Basic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#properties-of-color-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties of Color Vision
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      Color Space
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Color Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rgb-color-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      RGB Color Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmy-color-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMY Color Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rgb-vs-cmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      RGB vs CMY
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RGB vs CMY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hsv-color-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      HSV Color Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cie-xyz" class="md-nav__link">
+    <span class="md-ellipsis">
+      CIE XYZ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cie-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      CIE L*a*b
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cie-yuv" class="md-nav__link">
+    <span class="md-ellipsis">
+      CIE YUV
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-processing-data-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Processing Data Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Processing Data Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      矩阵
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      链式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="1">1 成像与图像的基本属性<a class="headerlink" href="#1" title="点击此处可置顶内容">&para;</a></h1>
+<h2 id="basic-principle-of-imaging">Basic Principle of Imaging<a class="headerlink" href="#basic-principle-of-imaging" title="点击此处可置顶内容">&para;</a></h2>
+<p>通过使用透镜可以会聚更多的光线到一个成像点，只是只有在特殊的位置上才能达到这个目标，即大家以前就学习过的透镜聚焦。位于合适距离的物体点可以成清晰像，其他的点则会产生弥散圆。</p>
+<p>通过改变镜头的形状可以改变聚焦时的物体点所需要的距离。</p>
+<p><strong>弥散圆</strong>(circle of confusion) ：在焦点前后，光线开始聚集和扩散，点的影像变模糊，形成一个扩大的圆。如果弥散圆的直径小于人眼的鉴别能力，在一定范围内实际影像产生的模糊是不能辨认的。不能辨认的直径叫做容许弥散圆。焦点前后各有一个容许弥散圆。对于6寸照片，观察距离25－30cm ，大概是底片对角线1/1000-1/1500，</p>
+<p><img alt="Alt text" height="50%" src="../images/image-2.png" width="50%" /></p>
+<p><strong>数码相机的成像过程：</strong></p>
+<ol>
+<li>在拍摄照片时，场景中的光线经过镜头进入CCD。</li>
+<li>当CCD曝光后，光电二极管受到光线的激发而释放出电荷，生成感光元件的电信号。</li>
+<li>CCD控制芯片利用感光元件中的控制信号点路对光电二极管产生的电流进行控制。CCD会将一次成像产生的电信号收集起来，统一输出到放大器。</li>
+<li>经过放大和滤波后的电信号被传送到ADC，由ADC将连续的电信号（模拟信号）转换为离散的数字信号，数字信号的值与电信号强度和电压成正比，这些值对应着图像中的像素。</li>
+<li>但是上述数据不能直接作为图像处理，它们需要进一步通过DSP(数字信号处理)处理。在DSP中，将会对这些图像数据进行色彩校正、白平衡处理，并编码为数码相机所支持的图像格式、分辨率，然后才会被存储为图像文件。</li>
+<li>当完成上述步骤后，图像文件就会被保存到存储器上,我们就可以欣赏了。</li>
+</ol>
+<p><img alt="Alt text" height="50%" src="../images/image-1.png" width="50%" /></p>
+<h2 id="digital-image-representation">Digital Image Representation<a class="headerlink" href="#digital-image-representation" title="点击此处可置顶内容">&para;</a></h2>
+<p>每个灰度图像可以看做是一个二维数组或者矩阵  </p>
+<p>灰度图像(grayscale image)一般每个像素（pixel）用一个字节（8bit）表示，此时最大能表示[0,1,...,255]共256个灰度级。</p>
+<p>在有色图中每个像素用24位来表示，每八位分别为R\G\B(有可能计算机中实际存储时是B\G\R的形式)</p>
+<p>当前的大部分计算机采用 32 位来存储图像，多出来的八位是 <span class="arithmatex">\(\alpha\)</span> 通道, 用来表示透明度.</p>
+<h2 id="image-format">图像格式 | Image Format<a class="headerlink" href="#image-format" title="点击此处可置顶内容">&para;</a></h2>
+<p>目的: 存储图像信息  </p>
+<p>图像的特点: 基于像素,矩形区域,信息量大。</p>
+<p>操作系统不同，采用的软件不同，都会导致图像格式不一样。</p>
+<p>编码方法: 无压缩, 有损压缩, 无损压缩</p>
+<p>常见格式: BMP, JPEG, TIFF, GIF, PNG...</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>手机里一般是 jpeg.<br />
+tiff 主要用于地理信息系统.<br />
+gif 是动态的.<br />
+互联网一般是 png.  </p>
+</div>
+<h3 id="bmp">BMP<a class="headerlink" href="#bmp" title="点击此处可置顶内容">&para;</a></h3>
+<p>BMP文件是Windows系统中的标准图像文件格式之一, 有时<code>.bmp</code>也以<code>.dib</code>文件的扩展名保存.  </p>
+<p>大部分 BMP 文件是不压缩的形式, 但它本身还是支持图像压缩的，如 rle 格式（行程长度编码，runlength encoding）压缩格式等</p>
+<p>我们来看看bmp的格式是什么样子的：</p>
+<p><img alt="BMP" src="../images/image.png" /></p>
+<p>可以看到，bmp格式由图像文件头(Image file header)，图像信息头(Image information header)，调色板(Palette)，实际的图像数据(Image data)四部分组成</p>
+<h4 id="_1">图像文件头<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h4>
+<p>第一部分是图像文件头<code>BITMAPFILEHEADER</code>，这是一个结构，其定义如下：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tagBITMAPFILEHEADER</span><span class="w"> </span><span class="p">{</span><span class="w">   </span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">WORD</span><span class="w"> </span><span class="n">bfType</span><span class="p">;</span><span class="w">        </span><span class="c1">// 2</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">DWORD</span><span class="w"> </span><span class="n">bfSize</span><span class="p">;</span><span class="w">       </span><span class="c1">// 4</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">WORD</span><span class="w"> </span><span class="n">bfReserved1</span><span class="p">;</span><span class="w">   </span><span class="c1">// 2</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">WORD</span><span class="w"> </span><span class="n">bfReserved2</span><span class="p">;</span><span class="w">   </span><span class="c1">// 2</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">DWORD</span><span class="w"> </span><span class="n">bfOffBits</span><span class="p">;</span><span class="w">    </span><span class="c1">// 4</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span><span class="w"> </span><span class="n">BITMAPFILEHEADER</span><span class="p">,</span><span class="o">*</span><span class="n">PBITMAPFILEHEADER</span><span class="p">;</span>
+</span></code></pre></div>
+<p>这个结构的长度是固定的, 为 14 个字节( WORD 为无符号 16 位整数, DWORD 为无符号 32 位整数), 各个域的说明如下:</p>
+<ul>
+<li><strong><code>bfType</code></strong>: 说明文件的类型。对BMP格式图像来说，该值必需是<code>0x4D42</code>，也就是字符串'BM'.(C 语言可用 fopen 读)  </li>
+<li><strong><code>bfSize</code></strong>: 说明该位图文件的大小(包括这14个字节)，用字节为单位</li>
+<li><strong><code>bfReserved1</code></strong>: 保留，必须设置为0</li>
+<li><strong><code>bfReserved2</code></strong>: 保留，必须设置为0</li>
+<li><strong><code>bfOffBits</code></strong>: 说明从文件头<code>BITMAPFILEHEADER</code>开始到实际的图像数据<code>Image Data</code>之间的字节偏移量。这个参数是非常有用的，因为位图信息头和调色板的长度会根据不同情况而变化，所以你可以用这个偏移值迅速的从文件中读取到位数据.  </li>
+</ul>
+<h4 id="_2">图像信息头<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h4>
+<p>第二部分为位图信息头 <code>BITMAPINFOHEADER</code> , 也是一个结构, 其定义如下:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tagBITMAPINFOHEADER</span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">DWORD</span><span class="w"> </span><span class="n">biSize</span><span class="p">;</span><span class="w">           </span><span class="c1">// 4</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">LONG</span><span class="w"> </span><span class="n">biWidth</span><span class="p">;</span><span class="w">           </span><span class="c1">// 4</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">LONG</span><span class="w"> </span><span class="n">biHeight</span><span class="p">;</span><span class="w">          </span><span class="c1">// 4</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">WORD</span><span class="w"> </span><span class="n">biPlanes</span><span class="p">;</span><span class="w">          </span><span class="c1">// 2</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">WORD</span><span class="w"> </span><span class="n">biBitCount</span><span class="p">;</span><span class="w">        </span><span class="c1">// 2</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">DWORD</span><span class="w"> </span><span class="n">biCompression</span><span class="p">;</span><span class="w">    </span><span class="c1">// 4</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">DWORD</span><span class="w"> </span><span class="n">biSizeImage</span><span class="p">;</span><span class="w">      </span><span class="c1">// 4</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">LONG</span><span class="w"> </span><span class="n">biXPelsPerMeter</span><span class="p">;</span><span class="w">   </span><span class="c1">// 4</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">LONG</span><span class="w"> </span><span class="n">biYPelsPerMeter</span><span class="p">;</span><span class="w">   </span><span class="c1">// 4</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="n">DWORD</span><span class="w"> </span><span class="n">biClrUsed</span><span class="p">;</span><span class="w">        </span><span class="c1">// 4</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="n">DWORD</span><span class="w"> </span><span class="n">biClrImportant</span><span class="p">;</span><span class="w">   </span><span class="c1">// 4</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span><span class="w"> </span><span class="n">BITMAPINFOHEADER</span><span class="p">,</span><span class="o">*</span><span class="n">PBITMAPINFOHEADER</span><span class="p">;</span>
+</span></code></pre></div>
+<p>这个结构的长度也是固定的, 为 40 个字节( LONG 为 32 位整数), 各个域的说明如下:</p>
+<ul>
+<li><strong><code>biSize</code></strong>  </li>
+</ul>
+<p>说明 BITMAPINFOHEADER(图像信息头) 结构所需要的字节数，也就是40</p>
+<ul>
+<li><strong><code>biWidth</code></strong>  </li>
+</ul>
+<p>说明图像的宽度，以像素为单位.  </p>
+<ul>
+<li><strong><code>biHeight</code></strong>  </li>
+</ul>
+<p>说明图像的高度，以像素为单位. 注：这个值除了用于描述图像的高度之外，它还有另一个用处，就是指明该图像是倒向的位图，还是正向的位图。如果该值是一个正数，说明图像是倒向的(头朝上脚朝下)，如果该值是一个负数，则说明图像是正向的。大多数的BMP文件都是倒向的位图，也就是说，高度值是一个正数.(操作系统中会提前处理以保证我们看到的是正向的)</p>
+<ul>
+<li><strong><code>biPlanes</code></strong>  </li>
+</ul>
+<p>为目标设备说明位面数，其值将总是被设为 1.  </p>
+<ul>
+<li><strong><code>biBitCount</code></strong>  </li>
+</ul>
+<p>说明每个像素多少位. 其值为1(黑白二色图)、4(16色图)、8(256色)、16(伪彩色)、24(真彩色)、或 32(不透明度+真彩色).</p>
+<ul>
+<li><strong><code>biCompression</code></strong>  </li>
+</ul>
+<p>说明图像数据压缩的类型，有效的值有 <code>BI_RGB</code>, <code>BI_RLE8</code>, <code>BI_RLE4</code>, <code>BI_BITFIELDS</code>。我们只讨论没有压缩的类型：<code>BI_RGB</code>.  </p>
+<ul>
+<li><strong><code>biSizeImage</code></strong>  </li>
+</ul>
+<p>说明实际的位图数据占用的字节数，以字节为单位. 可由<code>biSizeImage</code>= <code>biWidth'</code> * <code>biHeight</code> 计算得出（其中的<code>biWidth'</code>是大于等于<code>biWidth</code>的最小能被四整除的数,eg:<code>241'</code> -&gt; <code>244</code>）  当用 <code>BI_RGB</code> 格式时，<code>biSizeImage</code>可设置为 0.  </p>
+<ul>
+<li><strong><code>biXPelsPerMeter/biYPelsPerMeter</code></strong>  </li>
+</ul>
+<p>水平/垂直方向分辨率, 单位为pixels/meter.
+像素不是越多越好, 而是颗粒越小越好.(如果每一米的像素少，那么颗粒就很大)</p>
+<ul>
+<li><strong><code>biClrUsd</code></strong>  </li>
+</ul>
+<p>位图中实际用到的的颜色索引的数量.(如果该值为0，说明要使用所有的调色板项，也就是说色彩数为2的<code>biBit Count</code>次方).</p>
+<ul>
+<li><strong><code>biClrImportant</code></strong>  </li>
+</ul>
+<p>说明对图像显示有重要影响的颜色索引的数目，如果是 0，则认为所有的颜色都重要. 当不得不抛弃颜色时, 会先把不重要的颜色丢掉.</p>
+<h4 id="palette">调色板 | Palette<a class="headerlink" href="#palette" title="点击此处可置顶内容">&para;</a></h4>
+<p>第三部分为调色板 <code>Palette</code>, 当然, 这里是对那些需要调色板的位图文件而言的。有些位图, 如真彩色图, 是不需要调色板的, <code>BITMAPINFOHEADER</code> 后直接是位图数据。</p>
+<div class="admonition note">
+<p class="admonition-title">调色板的作用</p>
+<p>有一个长宽各为200个像素，颜色数为16的彩色图，每一个像素都用R，G，B三个分量表示。因为每个分量有256个级别，要用8位(bit)，即一个字节(byte)来表示，所以每个像素需要用3个字节。整个图像要用200×200×3，约120K字节，可不是一个小数目呀!如果我们用下面的方法，就能节省很多。</p>
+<p>因为是一个16色图，也就是说这幅图中最多只有16种颜色，因此可以用一个表，表中的每一行记录一种颜色的R，G，B值。这样当我们表示一个像素的颜色时，只需要指出该颜色是在第几行，即该颜色在表中的索引值。举个例子，如果表的第0行为255，0，0(红色)，那么当某个像素为红色时，只需要标明0即可。</p>
+<p>让我们再来计算一下:16种状态可以用4位表示，所以一个像素要用半个字节。整个图像要用200×200×0.5，约20K字节，再加上表占用的字节为3×16=48字节，整个占用的字节数约为前面的&#8537;，省很多吧?</p>
+<p>这张R，G，B的表，就是我们常说的调色板，另一种叫法是颜色查找表LUT(look up table)，似乎更确切一些。Windows位图中便用到了调色板技术。其实不光是Windows位图，许多图像文件格式如pcx，tif，gif等都用到了调色板。所以很好地掌握调色板的概念是十分必要的。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">调色板对真彩色图</p>
+<p>对真彩色图，如果用调色板，表示一个像素也要用24位。这是因为每种颜色的索引要用24位(因为总共有<span class="arithmatex">\(2^{24}\)</span>种颜色，即调色板有<span class="arithmatex">\(2^{24}\)</span>行)，和直接用R，G，B三个分量表示的字节数一样，不但没有任何便宜，还要加上一个<span class="arithmatex">\(2^{24}×4\)</span>个字节的大调色板。</p>
+</div>
+<p>调色板实际上是一个数组,共有<code>biClrUsed</code>个元素(在<code>BITMAPINFOHEADER</code>中存储的<code>biClrUsed</code>)。数组中每个元素的类型是一个<code>RGBQUAD</code>结构,占4个字节,其定义如下:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tagRGBQUAD</span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">BYTE</span><span class="w"> </span><span class="n">rgbBlue</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">BYTE</span><span class="w"> </span><span class="n">rgbGreen</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">BYTE</span><span class="w"> </span><span class="n">rgbRed</span><span class="p">;</span><span class="w">    </span><span class="c1">// 1</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">BYTE</span><span class="w"> </span><span class="n">rgbReserved</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span><span class="w"> </span><span class="n">RGBQUAD</span><span class="p">;</span>
+</span></code></pre></div>
+<p>可以看到，实际存储的顺序是BGR。其中，一个字节表示蓝色，一个字节表示绿色，一个字节表示红色，一个字节是保留值，必须为 0.(BGR)</p>
+<h4 id="bitmap-data">位图数据 | Bitmap data<a class="headerlink" href="#bitmap-data" title="点击此处可置顶内容">&para;</a></h4>
+<p>第四部分就是实际的图像数据了。对于用到调色板的位图, 图像数据就是该像素在调色板中的索引值。对于真彩色图, 图像数据就是实际的 R, G, B值。</p>
+<ul>
+<li>每一行的字节数必须是4的整倍数，如果不是，则需要补齐。 在前面介绍<code>biSizeImage</code>时已经提到了。</li>
+<li>一般来说，<code>.bmp</code>文件的数据是从下到上，从左到右的。也就是说，从文件中最先读到的是图像最下面一行的左边第一个像素，然后是左边第二个像素……接下来是倒数第二行左边第一个像素，左边第二个像素……依次类推 ，最后得到的是最上面一行的最右一个像素。</li>
+</ul>
+<h3 id="jpeg">JPEG<a class="headerlink" href="#jpeg" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>文件扩展名:<code>.JPEG</code>,<code>.JFIF</code>,<code>.JPG</code>,<code>.JPE</code></li>
+<li>用于静态图像的压缩格式，是有损编码方法，允许用户在图像质量和图像大小之间做平衡。</li>
+<li>基于变换的编码,例如离散余弦变换(DCT/Discrete Cosine Transformation)<ul>
+<li>JPEG2000基于小波变换(wavelet)。</li>
+<li>JPEG is NOT JPEG2000</li>
+</ul>
+</li>
+<li>对高频信号和低频信号进行不同的操作。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">频率</p>
+<p>低频就是颜色缓慢变化，也就是灰度缓慢地变化，就代表着那是连续渐变的一块区域。</p>
+<p>高频即频率变化快，相邻区域之间灰度相差很大。</p>
+<p>对图像高频区域和低频区域区别对待。想想计算机体系结构中的哈弗曼编码，低频部分放在树的顶端，高频部分放在树的低端</p>
+</div>
+<ul>
+<li>压缩策略：根据压缩比要求，从高频到低频逐步削减信息</li>
+<li>
+<p>好处</p>
+<ul>
+<li>高频信息占用存储空间大，减少高频信息更容易获得高压缩比；</li>
+<li>低频信息保留了物体的结构和色彩分布等关键信息,这是图像的关键因素</li>
+<li>适合用于互联网传播的视觉媒体</li>
+</ul>
+</li>
+<li>
+<p>编码原则：DPCM编码, differential pulse-code modulation，是对模拟信号幅度抽样的差值进行量化编码的调制方式。这种方式是用已经过去的抽样值来预测当前的抽样值，对它们的差值进行编码。差值编码可以提高编码频率，这种技术已应用于模拟信号的数字通信之中。</p>
+</li>
+</ul>
+<p>不适合用于线条画、文字、图标等，其有损压缩会导致这类对象的瑕疵严重</p>
+<h4 id="jpeg_1">JPEG 文件格式<a class="headerlink" href="#jpeg_1" title="点击此处可置顶内容">&para;</a></h4>
+<p>JPEG文件是由一系列的segment组成的，每个segment从一个标记（Marker）开始。</p>
+<p>标记目的：用以区分和识别图像数据及其相关信息</p>
+<p>标记规范：每个标记都是由2个字节组成，其前一个字节是固定值<code>0xFF</code></p>
+<p>主要的标记有<code>SOI</code>、<code>APP0</code>、<code>APPn</code>、<code>DQT</code>、<code>SOF0</code>、<code>DHT</code>、<code>SOS</code>、<code>EOI</code>.</p>
+<p><img alt="Alt text" src="../images/image-6.png" /></p>
+<ul>
+<li>
+<p><strong><code>SOI</code></strong></p>
+<p>以<code>SOI</code>（Start of Image）标志图像开始，内容为固定值<code>0xD8</code></p>
+</li>
+<li>
+<p><strong><code>APP0</code></strong></p>
+<p><code>APP0</code>，Application 0, 应用程序保留标记0，标记代码为固定值<code>0XE0</code>，用2字节表示；该标记码之后包含了9个具体的字段：</p>
+<p>（1）数据长度(Length)：2个字节，用来表示（1）--（9）的9个字段的总长度，即不包含标记代码但包含本字段；</p>
+<p>（2）标示符(Identifier)：5个字节，固定值<code>0X4A6494600</code>，表示了字符串“JFIF0”；</p>
+<p>（3）版本号(Version)：2个字节，一般为<code>0X0102</code>，表示JFIF的版本号为1.2；但也可能为其它数值，从而代表了其它版本号；</p>
+<p>（4）X,Y方向的密度单位(Density unit of X and Y)：1个字节，只有三个值可选，0：无单位；1：points/inch；2：points/cm；</p>
+<p>（5）X方向像素密度 (X density)：2个字节</p>
+<p>（6）Y方向像素密度 (Y density)：2个字节</p>
+<p>（7）缩略图水平像素数目：1个字节，如果为0则表示没有缩略图；</p>
+<p>（8）缩略图垂直像素数目：1个字节，同上</p>
+<p>（9）缩略图RGB位图：长度为3n个字节，n = 缩略图水平像素数目*缩略图垂直像素数目，这是一个24bits/pixel的RGB位图</p>
+</li>
+<li>
+<p><strong><code>APPn</code></strong></p>
+<p><code>APPn</code>，Application n, 应用程序保留标记n(n=1---15),标记代码为2个字节，取值为0XFFE1--0XFFFF；包含了两个字段：</p>
+<p>（1）数据长度，2个字节，表示（1）（2）两个字段的总长度；即，不包含标记代码，但包含本字段；</p>
+<p>（2）详细信息：长度为两个字节，包含图像的详细信息。例如，APP1中包含了EXIF信息，这里的EXIF是Exchangeable Image File Format的缩写，即可交换图像文件格式，包含了图像的拍摄参数信息，如光圈、快门速度、ISO感光度、焦距等信息。</p>
+</li>
+<li>
+<p><strong><code>DQT</code></strong></p>
+<div class="admonition note">
+<p class="admonition-title">量化表</p>
+<p>人眼对于一个相对较大范围的区域，辨别色彩细微差异能力比较强（低频），但对于高频区域，却表现一般。受此启发，人们可以对高频部分进行量化，也就是说，把频域上的每个分量，除以针对该分量的常数，然后四舍五入取整，这样一般会把高频分量变为0。但这样操作就要求针对每一个分量设置一个常数值，所以就最终形成了量化表。</p>
+</div>
+<p>图像里会有一个或多个量化表，用来表示量化矩阵，这些量化表的标记为<code>DQT</code>，即Define Quantization Table，标记代码为固定值<code>0XDB</code>，包含了三个字段：</p>
+<p>① 量化表长度(quantization table length)</p>
+<p>② 量化表数目(quantization table number)</p>
+<p>③ 量化表(quantization table)</p>
+</li>
+<li>
+<p><strong><code>SOF0</code></strong></p>
+<p><code>SOF0</code>，Start of Frame 0, 标记代码为固定值<code>0xC0</code>，包含了三个字段：</p>
+<p>① 帧开始长度(start of frame length)</p>
+<p>② 精度(precision)，每个颜色分量每个像素的位数(bits per pixel per color component)</p>
+<p>③ 图像高度(image height)</p>
+<p>④ 图像宽度(image width)</p>
+<p>⑤ 颜色分量数(number of color components)</p>
+<p>⑥ 对每个颜色分量(for each component)
+- ID
+- 垂直方向的样本因子(vertical sample factor)
+- 水平方向的样本因子(horizontal sample factor)
+- 量化表号(quantization table #)</p>
+</li>
+<li>
+<p><strong><code>DHT</code></strong></p>
+<p>图像里会有一个或多个 <code>DHT</code>，Define Huffman Table, 标记代码为固定值<code>0XC4</code>，包含了两个字段：</p>
+<p>① 霍夫曼表的长度(Huffman table length)</p>
+<p>② 类型、AC或者DC(Type, AC or DC)</p>
+<p>③ 索引(Index)</p>
+<p>④ 位表(bits table):不同长度 Huffman 的码字数量</p>
+<p>⑤ 值表(value table):每个符号码字对应的权值</p>
+</li>
+<li>
+<p><strong><code>SOS</code></strong></p>
+<p><code>SOS</code>，Start of Scan, 标记代码为固定值<code>0XDA</code>，包含了三个字段：</p>
+<p>① 扫描开始长度(start of scan length)</p>
+<p>② 颜色分量数(number of color components)</p>
+<p>③ 每个颜色分量</p>
+<p>ID
+交流系数表号(AC table #)
+直流系数表号(DC table #)
+④ 压缩图像数据(compressed image data)</p>
+</li>
+<li>
+<p><strong><code>EOI</code></strong></p>
+<p><code>EOI</code>，End of Image, 标记代码为固定值<code>0XD9</code>，表示图像结束。</p>
+</li>
+</ul>
+<p><img alt="Alt text" src="../images/image-7.png" /></p>
+<h3 id="tiff">TIFF<a class="headerlink" href="#tiff" title="点击此处可置顶内容">&para;</a></h3>
+<p>TIFF是Tagged Image File Format的缩写，是一个广为应用的光栅图像文件格式，它的来源有：扫描仪、CAD系统、地理信息 。</p>
+<p>TIFF是一个非常稳定的文件格式，有很长的应用历史，有公共的软件库来读写TIFF格式的图像（支持各种操作系统）</p>
+<ul>
+<li>支持从高端到低端的设备</li>
+<li>可扩展性强，支持公共和私用的标记结构（每个公司有自己私有的部分）</li>
+<li>支持各种压缩格式</li>
+<li>有公共软件库支持</li>
+<li>二值图、灰度图、调色板、真彩色、其他扩展</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">TIFF_img</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">     </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">mono</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">     </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">cmap</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">     </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">***</span><span class="n">color</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">     </span><span class="kt">char</span><span class="w">          </span><span class="n">TIFF_type</span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">     </span><span class="kt">char</span><span class="w">          </span><span class="n">compress_type</span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">     </span><span class="kt">int</span><span class="w">           </span><span class="n">height</span><span class="p">;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">     </span><span class="kt">int</span><span class="w">           </span><span class="n">width</span><span class="p">;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">};</span>
+</span></code></pre></div>
+<h3 id="gif">GIF<a class="headerlink" href="#gif" title="点击此处可置顶内容">&para;</a></h3>
+<p>Graphics Interchange Format</p>
+<ul>
+<li>采用复杂的 LZW 编码方式</li>
+<li>一个 GIF 文件可以存储多幅图像</li>
+<li>带有色彩表（全局、局部色彩表）</li>
+<li>支持图像定序显示或覆盖(播放次序，如从后往前)</li>
+<li>可以错行存放</li>
+<li>支持文本覆盖嵌入</li>
+</ul>
+<h2 id="light-and-color">Light and Color<a class="headerlink" href="#light-and-color" title="点击此处可置顶内容">&para;</a></h2>
+<ul>
+<li>
+<p><strong>色彩</strong>  </p>
+<p>色彩可以分为<strong>彩色</strong>（chromatic color）和<strong>消色</strong>（achromatic color）两大类。</p>
+<ul>
+<li><strong>彩色</strong>是指红、黄、蓝等单色(monochrome color)以及它们的混合色。彩色物体对光谱各波长的反射具有选择性，所以它们在白光照射下呈现出不同的颜色。  </li>
+<li><strong>消色</strong>，又称非彩色，也就是我们通常所说的<strong>灰度</strong>，是指白色，黑色以及各种深浅不同的灰色。消色物体对光谱各波长的反射没有选择性，它们是中性色。</li>
+</ul>
+</li>
+<li>
+<p><strong>色觉</strong>  </p>
+<p><strong>色觉</strong>是指不同波长的光线作用于视网膜而在大脑中引起的感觉。人眼可见光线的波长是390nm～780nm，一般可辨出包括紫、蓝、青、绿、黄、橙、红7种主要颜色在内的120～180种不同的颜色。  </p>
+</li>
+<li>
+<p><strong>视网膜</strong>  </p>
+<p>视网膜是人眼中最重要的组成部分，就像相机里的感光底片，可以捕捉光线并产生图像。视网膜上有两种视觉细胞
+- 杆状(Rod) 约1亿个, 对光的亮度比较敏感, 但不能区分色彩
+- 锥形(Cone) 约600-700万个, 但可以区分色彩(前提: 光线比较充足，强光才能激发)</p>
+</li>
+</ul>
+<p><strong>三原色</strong>是对色觉机制的一种典型解释：  </p>
+<ul>
+<li>在视网膜上存在着三种分别对红、绿和蓝光线的波长特别敏感的视锥细胞或相应的感光色素(photopigment)。</li>
+<li>当不同波长的光线进入人眼时，与之相符或相近的视锥细胞发生不同程度的兴奋，于是在大脑产生相应的色觉。</li>
+<li>三种视锥细胞若受到同等程度的刺激，则产生<strong>消色</strong>。</li>
+</ul>
+<h3 id="color-vision-basic">Color Vision Basic<a class="headerlink" href="#color-vision-basic" title="点击此处可置顶内容">&para;</a></h3>
+<p>国际照明委员会，简称<strong>CIE</strong>，在1931年根据已有的实验结果，选择700nm（R）、541.6nm（G）、435.8nm（B）作为三原色，计算出相应的光谱三刺激值 r、g 、b ，其三刺激值曲线如图所示：</p>
+<p><img alt="Alt text" src="../images/image-3.png" /></p>
+<h4 id="properties-of-color-vision">Properties of Color Vision<a class="headerlink" href="#properties-of-color-vision" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>
+<p>绝对颜色视觉并不精确，人类会通过视觉环境识别颜色。</p>
+<details class="example">
+<summary>eg</summary>
+<p><img alt="Alt text" src="../images/image-5.png" /></p>
+</details>
+</li>
+<li>
+<p>感知能力, 不同的人的感知能力也不同</p>
+</li>
+<li>Weber's Law  </li>
+</ul>
+<p>感知到的对比度, 和背景的灰度成正比.  能被感知到的 <span class="arithmatex">\(\delta I\)</span> 与 <span class="arithmatex">\(I\)</span> 成正比(黄色线内符合这个定律)</p>
+<p><img alt="Alt text" src="../images/image-4.png" /></p>
+<ul>
+<li>感知的优先程度和敏感度<ul>
+<li>优先程度：同等条件下，人们往往会先注意到<strong>色调</strong>（Hue, H）的变化，然后是<strong>饱和度</strong>（Saturation, S），然后是<strong>亮度</strong>（Value, V）。</li>
+<li>敏感度：人眼对于<strong>亮度</strong>的变化最为敏感，分辨能力最强。恰好与人眼的高动态能力相匹配。</li>
+</ul>
+</li>
+</ul>
+<h3 id="color-space">Color Space<a class="headerlink" href="#color-space" title="点击此处可置顶内容">&para;</a></h3>
+<p>颜色模型包括一系列颜色模型，这些颜色模型是由国际照明委员会提出的，是基于人的眼睛对RGB的反应，被用于精确表示对色彩的接收。  </p>
+<p><strong>设备无关性</strong>：这些颜色模型被用来定义所谓的独立于设备的颜色。它能够在任何类型的设备上产生真实的颜色，例如：扫描仪、监视器和打印机。这些模型被广泛地使用，因为它们很容易被用于计算机，描述颜色的范围。</p>
+<ul>
+<li>
+<p>与<strong>设备有关</strong>的颜色模型:  RGB, CMY, HSV</p>
+</li>
+<li>
+<p>与<strong>设备无关</strong>的颜色模型：(主要是国际照明委员会定义的CIE)  <strong>CIE XYZ, CIE L*a*b和 CIE YUV</strong>  </p>
+<p>这些颜色模型被用来定义所谓的独立于设备的颜色。它能够在任何类型的设备上产生真实的颜色，例如：扫描仪、监视器和打印机。这些模型被广泛地使用，因为它们很容易被用于计算机，描述颜色的范围。</p>
+</li>
+</ul>
+<h4 id="rgb-color-model">RGB Color Model<a class="headerlink" href="#rgb-color-model" title="点击此处可置顶内容">&para;</a></h4>
+<p>RBG 颜色模型是三维直角坐标颜色系统中的一个单位正方体</p>
+<p>在正方体的主对角线上，各原色的量相等，产生由暗到亮的白色，即灰度。（0，0，0）为黑，（1，1，1）为白，正方体的其他6个角点分别为红、黄、绿、青、蓝和品红。</p>
+<p>RGB颜色模型构成的颜色空间是CIE原色空间的一个真子集。</p>
+<p>RGB颜色模型通常用于彩色阴极射线管和彩色光栅图形显示器（计算机和电视机采用）。</p>
+<p><img alt="Alt text" src="../images/image-87.png" width="30%" /></p>
+<h4 id="cmy-color-model">CMY Color Model<a class="headerlink" href="#cmy-color-model" title="点击此处可置顶内容">&para;</a></h4>
+<p>彩色印刷或者彩色打印的纸张不能发射光线，因而印刷机或打印机就只能使用一些能够吸收特定光波而反射其他光波的油墨或者颜色。</p>
+<p>油墨或颜料的3种基色是以红、绿、蓝三色的补色青（Cyan）、品红（Magenta）、黄（Yellow）为基色。</p>
+<p>用CMY模型产生的颜色称为相减色，是因为它减掉了为视觉系统识别颜色所需要的反射光</p>
+<h3 id="rgb-vs-cmy">RGB vs CMY<a class="headerlink" href="#rgb-vs-cmy" title="点击此处可置顶内容">&para;</a></h3>
+<p>CMY是subtractive color, RGB是additive color</p>
+<p><img alt="Alt text" src="../images/image-88.png" width="35%" /></p>
+<p>CMY空间与RGB空间互补，也就是用白色减去RGB空间中的某一颜色值就等于同样颜色在CMY空间中的值</p>
+<table>
+<thead>
+<tr>
+<th>RGB</th>
+<th>CMY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(0,0,0)</td>
+<td>(255,255,255)</td>
+</tr>
+<tr>
+<td>R+G = Y</td>
+<td>C+M = B</td>
+</tr>
+<tr>
+<td>G+B = C</td>
+<td>M+Y = R</td>
+</tr>
+<tr>
+<td>R+B = M</td>
+<td>C+Y = G</td>
+</tr>
+</tbody>
+</table>
+<h4 id="hsv-color-model">HSV Color Model<a class="headerlink" href="#hsv-color-model" title="点击此处可置顶内容">&para;</a></h4>
+<p>HIS/HSV颜色空间是基于人类视觉系统定义的。采用色调（Hue）、饱和度（Saturation）和亮度（Intensity，或者Value）来表示</p>
+<p>HIS可以描绘为一个圆锥体</p>
+<p>圆锥的顶面对应于V=1，它包含RGB模型中的R=1，G=1，B=1三个面，故所代表的颜色较亮。</p>
+<p>色调H由绕V轴的旋转角给定。红色对应于角度0°，绿色对应于角度120°，蓝色对应于角度240°。</p>
+<p>饱和度:是指色彩的鲜艳程度，沿径向方向越远越饱和。</p>
+<p>在圆锥的顶点处，V=0，H和S无定义，代表黑色。</p>
+<p>在圆锥体顶面中心，V=1，S=0，H无定义，代表白色。</p>
+<p><img alt="Alt text" src="../images/image-89.png" width="35%" /></p>
+<ul>
+<li>符合人类视觉系统</li>
+<li>当采用RGB（或者CMY）颜色模型时，改变某一颜色的属性，比如改变色调就必须同时改变R、G、B（或者C、M、Y）三个坐标；而采用HSV颜色模型时只需改变H坐标。也就是说，HSV颜色模型中的三个坐标是独立的。</li>
+<li>HSV颜色模型构成一个均匀的颜色空间，让颜色在HSV圆锥体积内线性分布。也就是说，颜色差异的感知与HSV圆锥体上的欧几里得距离成正比。</li>
+</ul>
+<h4 id="cie-xyz">CIE XYZ<a class="headerlink" href="#cie-xyz" title="点击此处可置顶内容">&para;</a></h4>
+<p>XYZ颜色模型的概念基于三原色理论,它描述人眼有RGB三种感光细胞,所有其他颜色都是RGB的混合。</p>
+<p>1931年CIE假定了一位标准观察者，设置配色函数 <span class="arithmatex">\(\overline x(\lambda)\)</span> <span class="arithmatex">\(\overline y(\lambda)\)</span> <span class="arithmatex">\(\overline z(\lambda)\)</span></p>
+<p>XYZ三刺激值是利用这些标准观察者配色函数计算得来的。</p>
+<p>在此基础上，CIE于1931年规定了Yxy颜色空间，其中Y为亮度，x,y是从三刺激值XYZ计算得来的色坐标。它描述了人眼可以感知的颜色范围。</p>
+<h4 id="cie-lab">CIE L*a*b<a class="headerlink" href="#cie-lab" title="点击此处可置顶内容">&para;</a></h4>
+<p>L<em>a</em>b*颜色空间是在1976年制定的，它是CIE XYZ颜色模型的改进型，以便克服原来的Yxy颜色空间存在的在x，y色度图上相等的距离并不相当于我们所觉察到的相等色差的问题。  </p>
+<p>它的“L”（明亮度），“a”（绿色到红色）和“b”(蓝色到黄色)代表许多的值。与XYZ比较，CIE L*a*b*颜色更适合于人眼的感觉。</p>
+<p>利用CIE L*a*b*，颜色的亮度（L）、灰阶和饱和度（a,b）可以单独修正，这样，图像的整个颜色都可以在不改变图像或其亮度的情况下，发生改变。</p>
+<h4 id="cie-yuv">CIE YUV<a class="headerlink" href="#cie-yuv" title="点击此处可置顶内容">&para;</a></h4>
+<p>在现代彩色电视系统中，通常采用三管彩色摄像机或彩色CCD（电荷耦合器件）摄像机，它把摄得的彩色图像信号，经分色，分别放大校正得到RGB，再经过矩阵变换电路得到亮度信号Y和两个色差信号R－Y、B－Y，最后发送端将亮度和色差三个信号分别进行编码，用同一信道发送出去。这就是我们常用的YUV颜色空间。</p>
+<p>采用YUV颜色空间的重要性是它的亮度信号Y和色度信号U、V是分离的。如果只有Y信号分量而没有U、V分量，那么这样表示的图就是黑白灰度图。彩色电视采用YUV空间正是为了用亮度信号Y解决彩色电视机与黑白电视机的兼容问题，使黑白电视机也能接收彩色信号。</p>
+<p>根据美国国家电视制式委员会，NTSC制式的标准，当白光的亮度用Y来表示时，它和红、绿、蓝三色光的关系可用如下式的方程描述：</p>
+<p><img alt="Alt text" src="../images/image-86.png" width="35%" /></p>
+<h2 id="image-processing-data-structure">Image Processing Data Structure<a class="headerlink" href="#image-processing-data-structure" title="点击此处可置顶内容">&para;</a></h2>
+<ul>
+<li>矩阵(Matrix)</li>
+<li>链式(Chain)</li>
+<li>拓扑数据结构(Topological Data Structure)</li>
+<li>有理数据结构/合理数据结构(Rational Data Structure)</li>
+</ul>
+<p>Matrix 到有理数据结构是一个由底层到高层的关系，由没有语义到有语义。</p>
+<p>本课程不讨论后两种数据结构。</p>
+<h3 id="_3">矩阵<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>矩阵是图像最常见的底层表示的数据结构。</li>
+<li>矩阵的元素:灰度级,亮度或其他属性。</li>
+<li>通过像素位置的坐标进行访问。</li>
+<li>二值图像: 由只包含0和1的矩阵来表示。</li>
+<li>多光谱图像(Matrices of different resolution)由多个矩阵表示: 每个矩阵包含对应于一个光谱带的图像。</li>
+</ul>
+<h3 id="_4">链式<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h3>
+<p>链码(Chain Code):链码用于描述对象边界。</p>
+<p>链码可以用静态数据结构(例如一维数组)来表示;其大小为预期的最长链码长度。</p>
+<p>链码的一个例子是游程编码(run-length encoding/RLE)。</p>
+<p>在二值图像中,游程编码只记录属于图像对象的区域;然后该区域表示为一个列表的列表。图像的每一行都由一个子列表描述,其第一个元素是行号。后续项是坐标对;每对的第一个元素是游程的开始,第二个是结束。一行中可以有多个这样的序列。</p>
+<div class="admonition note">
+<p class="admonition-title">eg</p>
+<p>例如下图第三个括号里的内容，表示第五行的第二个像素到第三个像素，以及第五个像素到第五个像素是黑色的。
+<img alt="Alt text" src="../images/image-8.png" /></p>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一页: 图像信息处理">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                图像信息处理
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../dip2/" class="md-footer__link md-footer__link--next" aria-label="下一页: 02-二值图像与形态学">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                02-二值图像与形态学
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>

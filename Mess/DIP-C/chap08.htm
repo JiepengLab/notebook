@@ -1,0 +1,633 @@
+
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link rel=Edit-Time-Data href="./chap08.files/editdata.mso">
+<link rel=OLE-Object-Data href="./chap08.files/oledata.mso">
+<title>第8章 图象的检测及模板匹配</title>
+<style><!--
+.Normal
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:0pt;
+	line-height:normal;
+	font-size:10.5pt;
+	font-family:"Times New Roman";}
+.a
+	{text-align:center;
+	text-indent:0pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+-->
+</style>
+</head>
+<body lang=ZH-CN link=blue vlink=purple class="Normal" bgcolor="#FFFFFF">
+<div style='layout-grid:15.6pt'> 
+  <h1><a name="_Toc486331903"></a><a name="_Toc486332903"></a><a
+name="_Toc486339012"></a><a name="_Toc454810877"></a><a name="_Toc454856651"><span><span>第<span
+lang=EN-US>8</span></span></span></a><span><span><span style='font-family:黑体;"Times New Roman"'>章</span> 
+    </span></span><span><span><span
+style='font-family:黑体;"Times New Roman"'>图象的检测及模板匹配</span></span></span></h1>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图象的分割与检测</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>识别</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>实际上是一项非常困难的工作。很难说清楚为什么图象应该分割成这样而不是那样。人类的视觉系统是非常优越的，它不仅包含了双眼，还包括了大脑，可以从很复杂的景物中分开并识别每个物体，甚至可以毫不费力地跟上每秒好几十帧变化的图象。举两个例子来说明一下人类视觉系统的优越性。</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=276 valign=top class="Normal"> 
+        <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=264 height=139
+  src="./chap08.files/image001.gif" v:shapes="_x0000_i1025"> </span></p>
+        <p class=a style='line-height:18.0pt'><b><span style='font-family:宋体;
+  &quot;Times New Roman&quot;'>图</span>8.1&nbsp;&nbsp;&nbsp; </b><b><span
+  style='font-family:宋体;"Times New Roman"'>单词</span><span lang=EN-US>THE</span></b></p>
+      </td>
+      <td width=276 valign=top class="Normal"> 
+        <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=153 height=137
+  src="./chap08.files/image003.gif" v:shapes="_x0000_i1026"> </span></p>
+        <p class=a style='line-height:18.0pt'><b><span style='font-family:宋体;
+  &quot;Times New Roman&quot;'>图</span>8.2&nbsp;&nbsp;&nbsp; </b><b><span
+  style='font-family:宋体;"Times New Roman"'>看不见的三角</span><span lang=EN-US></span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span><span
+lang=EN-US>8.1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是单词</span><span lang=EN-US>THE</span><span
+style='font-family:宋体;"Times New Roman"'>，这一点很容易看出来，但仔细观察一下，就会发现，图中少了很多线条。在我们人类看来很简单的一件事，让计算机来做就很困难了。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span><span
+lang=EN-US>8.2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>中尽管没有任何线条，但我们还是可以很容易的看出中间存在着一个白色三角形。计算机却很难发现。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>由于人类在观察图象时适用了大量的知识，所以没有任何一台计算机在分割和检测真实图象时，能达到人类视觉系统的水平。正因为如此，对于大部分图象应用来说，自动分割与检测还是一个将来时。目前只有少数的几个领域</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如印刷体识别</span><span lang=EN-US>OCR)</span><span
+style='font-family:宋体;"Times New Roman"'>自动识别达到了实用的水平。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>也许算是题外话，我们可以憧憬这样一种应用：基于内容的搜索。在一场足球比赛的录象中，用户可以输入命令，由计算机自动搜索出所有射门的镜头并显示在屏幕上。目前，我们能从一幅图象中获得的信息只是每个象素的颜色或灰度值，除此以外别无其它，完成上述功能实在是太困难了。所以说解决图象分割和检测最根本的方法是在编码</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>成象</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>时就给予考虑。这也正是</span><span lang=EN-US>MPEG4</span><span
+style='font-family:宋体;"Times New Roman"'>及未来的视频压缩编码标准的主要工作。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>正因为有上述的困难，所以我们今天要介绍的只是一些最基本，最简单的算法和思想，针对也只能是一些具体</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>而不是通用</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>的应用。算法共有三个：投影法、差影法和模板匹配。</span></p>
+  <h2> <span
+lang=EN-US>8.1</span> <span lang=EN-US> </span><a name="_Toc486331904"></a><a
+name="_Toc486332904"></a><a name="_Toc486339013"></a><a name="_Toc454810878"></a><a
+name="_Toc454856652"><span><span>投影法</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在介绍投影法之前，我先出一道题目，下面的这幅照片是著名的华盛顿纪念碑</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>我记得在“阿甘正传”中曾经看到过它</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，怎样从图中自动检测到水平方向上纪念碑的位置。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>仔细观察，不难发现，纪念碑上象素的灰度都差不多而且与众不同，如果我们选取合适的阈值，做削波处理</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>这里选</span><span lang=EN-US>175</span><span
+style='font-family:宋体;"Times New Roman"'>到</span><span lang=EN-US>220)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，将该图二值化，如图</span><span
+lang=EN-US>8.3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所示：</span></p>
+  <div align=center> 
+    <table border=0 cellspacing=0 cellpadding=0>
+      <tr> 
+        <td width=276 valign=top class="Normal"> 
+          <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=216 height=216
+  src="./chap08.files/image005.jpg" v:shapes="_x0000_i1027"> </span></p>
+          <p class=a style='line-height:18.0pt'><b><span style='font-family:宋体;
+  &quot;Times New Roman&quot;'>图</span>8.3&nbsp;&nbsp;&nbsp; </b><b><span
+  style='font-family:宋体;"Times New Roman"'>华盛顿纪念碑</span><span lang=EN-US></span></b></p>
+        </td>
+        <td width=276 valign=top class="Normal"> 
+          <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=215 height=217
+  src="./chap08.files/image007.gif" v:shapes="_x0000_i1028"> </span></p>
+          <p class=a style='line-height:18.0pt'><b><span style='font-family:宋体;
+  &quot;Times New Roman&quot;'>图</span>8.4&nbsp;&nbsp;&nbsp; </b><b><span
+  style='font-family:宋体;"Times New Roman"'>削波处理，将图</span><span lang=EN-US>8.3</span></b><b><span
+  style='font-family:宋体;"Times New Roman"'>二值化</span><span lang=EN-US></span></b></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>由于纪念碑所在的那几列的白色点比起其他列多很多，如果把该图在垂直方向做投影，如图</span><span
+lang=EN-US>8.5</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所示。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=210 height=168
+src="./chap08.files/image009.jpg" v:shapes="_x0000_i1029"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>8.5&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>8.4</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>做垂直方向投影</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>其中，黑色线条的高度代表了该列上白色点的个数。图中间的高峰部分就是我们要找的水平方向上纪念碑所在的位置，这就是投影法。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>可以看出投影法是一种很自然的想法，有点象灰度直方图。为了得到更好的效果，投影法经常和阈值化一起使用。由于噪声点对投影有一定的影响，所以处理前最好先做一次平滑，去除噪声。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>以下是投影法的源程序，第二个参数是个</span><span
+lang=EN-US>BOOL</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>变量，为真时表示在水平方向上做投影，否则在垂直方向上做投影。要注意的是，我们针对的虽然是二值图，但为了处理的方便，用的是</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种灰度级。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL Projection(HWND hWnd,BOOL 
+    Hori)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; lpImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    lpPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HLOCAL&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; lpTempPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HDC 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hDc;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hf;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x,y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    num;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>用的是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种灰度级。</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if( 
+    NumColors!=256){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    MessageBox(hWnd,&quot;Must be a mono bitmap with grayscale palette!&quot;,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>&quot;Error Message&quot;,MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>到位图数据的偏移值</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>BufSize=OffBits+bi.biHeight*LineBytes;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为新图缓冲区分配内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error Message&quot;,</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp; 
+    return FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; }</p>
+  <p style='line-height:18.0pt'><span>&nbsp; </span>&nbsp;&nbsp;&nbsp; lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>新图缓冲区初始化为</span><span lang=EN-US>255</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>memset(lpTempImgData,(BYTE)255,BufSize);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>拷贝头信息</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memcpy(lpTempImgData,lpImgData,OffBits);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(Hori)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>水平投影</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(y=0;y&lt;bi.biHeight;y++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num=0; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>计数器初始化为</span><span lang=EN-US>0</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(x=0;x&lt;bi.biWidth;x++)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*(lpPtr++)!=0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是白点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num++; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>计数器加</span><span lang=EN-US>1</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char *)lpTempImgData+(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(x=0;x&lt;num;x++)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpTempPtr++)=0; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在新图中，该行中共有</span><span lang=EN-US>num</span><span
+style='font-family:宋体;"Times New Roman"'>个黑点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>else{ 
+    //<span
+style='font-family:宋体;"Times New Roman"'>垂直投影</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(x=0;x&lt;bi.biWidth;x++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num=0; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>计数器初始化为</span><span lang=EN-US>0</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes)+x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(y=0;y&lt;bi.biHeight;y++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*lpPtr!=0)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num++; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>计数器加</span><span lang=EN-US>1</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr-=LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char *)lpTempImgData+OffBits+x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(y=0;y&lt;num;y++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*lpTempPtr=0; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在新图中，该列中共有</span><span lang=EN-US>num</span><span
+style='font-family:宋体;"Times New Roman"'>个黑点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr+=LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(hBitmap!=NULL)</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp; 
+    DeleteObject(hBitmap);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hDc=GetDC(hWnd);&nbsp;&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>创立一个新的位图</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NumColors*sizeof(RGBQUAD),</p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    (LPBITMAPINFO)lpTempImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>起不同的结果文件名</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(Hori)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>hf=_lcreat(&quot;c:\\hproject.bmp&quot;,0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>else</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>hf=_lcreat(&quot;c:\\vproject.bmp&quot;,0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>释放内存和资源</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <h2> <span
+lang=EN-US>8.2</span> <span lang=EN-US> </span><a name="_Toc486331905"></a><a
+name="_Toc486332905"></a><a name="_Toc486339014"></a><a name="_Toc454810879"></a><a
+name="_Toc454856653"><span><span>差影法</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>差影法的原理非常简单：将前后两幅图象相减，得到的差作为结果结果图象。图</span><span
+lang=EN-US>8.6</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、图</span><span lang=EN-US>8.7</span><span
+style='font-family:宋体;"Times New Roman"'>、图</span><span lang=EN-US>8.8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>能够说明差影法的原理。</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=184 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span lang=EN-US> <img width=184 height=148
+  src="./chap08.files/image011.jpg" v:shapes="_x0000_i1030"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>8.6&nbsp;&nbsp;&nbsp;&nbsp; 
+          </b><b><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>前景</span><span
+  lang=EN-US>+</span></b><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>背景</span><span
+  lang=EN-US></span></b></p>
+      </td>
+      <td width=184 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span lang=EN-US> <img width=186 height=150
+  src="./chap08.files/image013.jpg" v:shapes="_x0000_i1031"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>8.7&nbsp;&nbsp;&nbsp;&nbsp; 
+          </b><b><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>背景</span><span
+  lang=EN-US></span></b></p>
+      </td>
+      <td width=184 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span lang=EN-US> <img width=186 height=150
+  src="./chap08.files/image015.jpg" v:shapes="_x0000_i1032"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>8.8 </span></b><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>8.6</span></b><b><span
+  style='font-family:宋体;"Times New Roman"'>、图</span><span lang=EN-US>8.7</span></b></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>相减的结果</span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span><span
+lang=EN-US>8.6</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是前景图</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>猫</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>加背景图</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>木星</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。图</span><span lang=EN-US>8.7</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>是背景图。图</span><span
+lang=EN-US>8.6</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>减图</span><span lang=EN-US>8.7</span><span
+style='font-family:宋体;"Times New Roman"'>的结果如图</span><span lang=EN-US>8.8</span><span
+style='font-family:宋体;"Times New Roman"'>所示，这样就得到了前景</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>不完全是前景，因为背景的灰度值并不为零，但至少可以得到前景的形状</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>差影法是非常有用的，比如说可以用在监控系统中。在银行金库内，摄像头每隔一小段时间，拍摄一幅图，与上一幅图做差影；如果差别超过了预先设置的阈值，说明有人，这时就应该拉响警报。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>我们在介绍灰度窗口变换时，曾经提到了电影“阿甘正传”特技中应用了“蓝幕”技术，其实也包含了差影法的原理。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>以下是差影法的源程序。要注意的是，第一幅图的文件名为</span><span
+lang=EN-US>c:\test.bmp</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，第二幅图的文件名是</span><span
+lang=EN-US>c:\backgnd.bmp</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。它们有着相同的灰度值和调色板。执行时，这两个文件都已经准备好。我们针对的虽然是二值图，但为了处理的方便，用的是</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种灰度级。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL Subtraction(HWND hWnd)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; lpImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    lpPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HGLOBAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hSecond;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpSecondImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    lpSecondPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    lpTempPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hDc;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hf;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x,y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num,pos;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>用的是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种灰度级。</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if( 
+    NumColors!=256){</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Must be a mono bitmap with grayscale 
+    palette!&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>&quot;Error Message&quot;,MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; if((hf=_lopen(&quot;c:\\backgnd.bmp&quot;,OF_READ))==HFILE_ERROR){ 
+  </p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>背景图没找到</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp; 
+    MessageBox(hWnd,&quot;File c:\\backgnd.bmp not found!&quot;,&quot;Error Message&quot;,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>到位图数据的偏移值</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>BufSize=OffBits+bi.biHeight*LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>为背景图的数据分配内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((hSecond=GlobalAlloc(GHND,BufSize))==NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; {</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MessageBox(hWnd,&quot;Error 
+    alloc memory!&quot;,&quot;Error Message&quot;,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp; 
+    return FALSE;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>指向该内存指针</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>lpSecondImgData=(LPBITMAPINFOHEADER)GlobalLock(hSecond);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件指针指到</span><span lang=EN-US>BITMAPINFOHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>结构开始的地方</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_llseek(hf,sizeof(BITMAPFILEHEADER),FILE_BEGIN);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>读入头信息和位图数据</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lread(hf,(LPSTR)lpSecondImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>为结果图缓冲区分配内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MessageBox(hWnd,&quot;Error 
+    alloc memory!&quot;,&quot;Error Message&quot;,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>GlobalUnlock(hSecond);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>GlobalFree(hSecond);</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>新图缓冲区初始化为</span><span lang=EN-US>255</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>memset(lpTempImgData,(BYTE)255,BufSize);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>拷贝头信息</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memcpy(lpTempImgData,lpImgData,OffBits);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for(y=0;y&lt;bi.biHeight;y++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>pos=(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//lpPtr<span
+style='font-family:宋体;"Times New Roman"'>指向第一幅图，</span><span lang=EN-US>lpSecondPtr</span><span
+style='font-family:宋体;"Times New Roman"'>指向第二幅图，</span><span lang=EN-US>lpTempPtr</span><span
+style='font-family:宋体;"Times New Roman"'>指向结果图</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+pos;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpSecondPtr=(char *)lpSecondImgData+pos;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char *)lpTempImgData+pos;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(x=0;x&lt;bi.biWidth;x++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num=(unsigned char)*(lpPtr++);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num-=(unsigned char)*(lpSecondPtr++);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpTempPtr++)=(unsigned char)fabs(num); </p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>两者相减取绝对值，存入新图中</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; if(hBitmap!=NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp; 
+    DeleteObject(hBitmap);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hDc=GetDC(hWnd);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>创立一个新的位图</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hf=_lcreat(&quot;c:\\subtract.bmp&quot;,0);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>释放内存和资源</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hSecond);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalFree(hSecond);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <h2> <span
+lang=EN-US>8.3</span> <span lang=EN-US> </span><a name="_Toc486331906"></a><a
+name="_Toc486332906"></a><a name="_Toc486339015"></a><a name="_Toc454810880"></a><a
+name="_Toc454856654"><span><span>模板匹配</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>利用模板匹配可以在一幅图象中找到已知的物体。比如抓拍到了一张射门的照片，要在该照片中找到足球的位置。这时就可以采用模板匹配的方法。所谓模板匹配，其实想法很简单：拿已知的模板</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在本例中为足球的图象</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，和原图象中同样大小的一块区域去对。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>最开始时，模板的左上角点和图象的左上角点是重合的，拿模板和原图象中同样大小的一块区域去对比，然后平移到下一个象素，仍然进行同样的操作，</span><span
+lang=EN-US>……</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所有的位置都对完后，差别最小的那块就是我们要找的物体。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>我们用平方误差之和来衡量原图中的块和模板之间的差别。假设模板的大小为</span><span
+lang=EN-US>m×n(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>宽</span><span lang=EN-US>×</span><span
+style='font-family:宋体;"Times New Roman"'>高</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>；图象的大小为</span><span
+lang=EN-US>Width×Height</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。模板中的某点坐标为</span><span
+lang=EN-US>(x<sub>0</sub>,y<sub>0</sub>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，该点的灰度为</span><span
+lang=EN-US>U(x<sub>0</sub>,y<sub>0</sub>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>；与之重合的图象中的点坐标为</span><span
+lang=EN-US>(X<sub>0</sub>-x<sub>0</sub>,Y<sub>0</sub>-y<sub>0</sub>)</span><span
+style='font-family:宋体;"Times New Roman"'>，该点的灰度为</span><span lang=EN-US>V(X<sub>0</sub>-x<sub>0</sub>,Y<sub>0</sub>-y<sub>0</sub>)</span><span
+style='font-family:宋体;"Times New Roman"'>。则一次匹配的结果为：</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US><sub> <img width=264 height=48
+src="./chap08.files/image017.gif" v:shapes="_x0000_i1033"> </sub> </span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>全部图象都匹配后，找到最小的即为结果。可以看到模板匹配的运算量是惊人的。一次匹配都要做</span><span
+lang=EN-US>m×n</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>次减法，</span><span lang=EN-US>m×n</span><span
+style='font-family:宋体;"Times New Roman"'>次平方，</span><span lang=EN-US>m×n-1</span><span
+style='font-family:宋体;"Times New Roman"'>次加法，整个图象要匹配</span><span lang=EN-US>(Width-m+1) 
+    ×(Height-n+1)</span><span
+style='font-family:宋体;"Times New Roman"'>次。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>源程序不再给出，有兴趣的读者可以自己完成。</span></p>
+</div>
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+USC does not screen or control the content herein and does not take responsibility for any inaccurate, offensive, infringing, or objectionable content, all of which is the sole responsibility of the author or the users who post content on this website.
+</div>
+</body>
+</html>

@@ -1,0 +1,2000 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/Fundemental/Discrete%20Mathematics%20And%20Its%20Applications/Chapter8/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>Chapter.8 - Advanced Counting Techniques - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter8-advanced-counting-techniques" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter.8 - Advanced Counting Techniques
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS/" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Friends/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朋友们！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CurrentStudy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正在学习的课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            基础课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../Mathematical%20Modeling/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数学建模
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../Probability%20and%20Mathematical%20Statistics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Physics-II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大学物理（乙）II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            校内CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/NA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数值分析
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/AI_Start/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    人工智能初步
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/DigitalDesign/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数字逻辑设计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/DIP/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    图像信息处理
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/FDS/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数据结构基础
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS_Online/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            校外CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML-4360/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML_Lhy/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    李宏毅《机器学习》
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Mess/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            杂项
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Mess/DIP-C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    《数字图像处理编程入门》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/ESG/Paper/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ESG商赛
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/Marxism/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    马原
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-applications-of-recurrence-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1 - Applications of Recurrence Relations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-solving-linear-recurrence-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2 - Solving Linear Recurrence Relations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2 - Solving Linear Recurrence Relations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solving-linear-homogeneous-recurrence-relations-with-constant-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solving Linear Homogeneous Recurrence Relations with Constant Coefficients
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solving-linear-nonhomogeneous-recurrence-relations-with-constant-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solving Linear Nonhomogeneous Recurrence Relations with Constant Coefficients
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-generating-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3 - Generating Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3 - Generating Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-extended-binomial-coefficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      The extended Binomial coefficient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-common-generating-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some Common Generating Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generation-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      用Generation Functions解决计数问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generation-functions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      用Generation Functions解决递归关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-inclusion-exclusion-and-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4 - Inclusion-Exclusion and Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 4 - Inclusion-Exclusion and Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#derangements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Derangements 错排
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="chapter8-advanced-counting-techniques">Chapter.8 - Advanced Counting Techniques<a class="headerlink" href="#chapter8-advanced-counting-techniques" title="点击此处可置顶内容">&para;</a></h1>
+<h2 id="section-1-applications-of-recurrence-relations">Section 1 - Applications of Recurrence Relations<a class="headerlink" href="#section-1-applications-of-recurrence-relations" title="点击此处可置顶内容">&para;</a></h2>
+<p><strong>Recurrence Relations</strong> - A recurrence relation for the sequence <span class="arithmatex">\(a_0, a_1, a_2, \dots\)</span> is an equation that expresses <span class="arithmatex">\(a_n\)</span> in terms of one or more of the previous terms of the sequence, namely <span class="arithmatex">\(a_0, a_1, \dots, a_{n-1}\)</span>, for all integers <span class="arithmatex">\(n\)</span> with <span class="arithmatex">\(n \geq n_0\)</span>, where <span class="arithmatex">\(n_0\)</span> is a nonnegative integer.</p>
+<p><strong>Degree</strong>:</p>
+<blockquote>
+<p><span class="arithmatex">\(a_n=a_{n-1}+a_{n-8}\)</span> is a recurrence relation of degree 8.</p>
+<p>意味着我们需要知道前8个数才能计算后面的数</p>
+</blockquote>
+<h2 id="section-2-solving-linear-recurrence-relations">Section 2 - Solving Linear Recurrence Relations<a class="headerlink" href="#section-2-solving-linear-recurrence-relations" title="点击此处可置顶内容">&para;</a></h2>
+<p><strong>Linear Homogeneous Recurrence Relations（线性齐次递归关系）</strong>:</p>
+<blockquote>
+<p>(1) <span class="arithmatex">\(a_n = (1.02)a_{n-1}\)</span></p>
+<p>linear; constant coefficients; homogeneous;degree 1</p>
+<p>(2) <span class="arithmatex">\(a_n = (1.02)a_{n-1} + 100\)</span></p>
+<p>linear; constant coefficients; nonhomogeneous;degree 1</p>
+<p>(3) <span class="arithmatex">\(a_n = (1.02)a_{n-1} + 100a_{n-2}\)</span></p>
+<p>linear; constant coefficients; homogeneous;degree 2</p>
+<p>(4) <span class="arithmatex">\(a_n = (1.02)a_{n-1} + 100a_{n-2} + 1000\)</span></p>
+<p>linear; constant coefficients; nonhomogeneous;degree 2</p>
+<p>(5) <span class="arithmatex">\(a_n = (1.02)a_{n-1}a_{n-2} + 1000a_{n-3}\)</span></p>
+<p>nonlinear; constant coefficients; homogeneous;degree 3</p>
+<p>(6) <span class="arithmatex">\(a_n = (1.02)a_{n-1}a_{n-2} + 1000na_{n-3}\)</span></p>
+<p>nonlinear; coefficient is a function of <span class="arithmatex">\(n\)</span>; homogeneous;degree 3</p>
+</blockquote>
+<h3 id="solving-linear-homogeneous-recurrence-relations-with-constant-coefficients">Solving Linear Homogeneous Recurrence Relations with Constant Coefficients<a class="headerlink" href="#solving-linear-homogeneous-recurrence-relations-with-constant-coefficients" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Characteristic Equation</strong> - The characteristic equation of the recurrence relation <span class="arithmatex">\(a_n = c_1a_{n-1} + c_2a_{n-2} + \dots + c_ka_{n-k}\)</span> is <span class="arithmatex">\(x^k = c_1x^{k-1} + c_2x^{k-2} + \dots + c_k\)</span>.</p>
+<p><strong>Roots of a Characteristic Equation</strong> - The roots of the characteristic equation of the recurrence relation <span class="arithmatex">\(a_n = c_1a_{n-1} + c_2a_{n-2} + \dots + c_ka_{n-k}\)</span> are called the characteristic roots of the recurrence relation.</p>
+<p><strong>General Solution</strong> - The general solution of the recurrence relation <span class="arithmatex">\(a_n = c_1a_{n-1} + c_2a_{n-2} + \dots + c_ka_{n-k}\)</span> is <span class="arithmatex">\(a_n = \alpha_1r_1^n + \alpha_2r_2^n + \dots + \alpha_kr_k^n\)</span>, where <span class="arithmatex">\(r_1, r_2, \dots, r_k\)</span> are the distinct characteristic roots of the recurrence relation and <span class="arithmatex">\(\alpha_1, \alpha_2, \dots, \alpha_k\)</span> are constants that depend on the initial conditions.</p>
+<p><strong>General Solution with Repeated Roots</strong> - If the characteristic equation of the recurrence relation <span class="arithmatex">\(a_n = c_1a_{n-1} + c_2a_{n-2} + \dots + c_ka_{n-k}\)</span> has <span class="arithmatex">\(t\)</span> distinct roots <span class="arithmatex">\(r_1, r_2, \dots, r_t\)</span> and <span class="arithmatex">\(r_i\)</span> has multiplicity <span class="arithmatex">\(m_i\)</span>, then the general solution of the recurrence relation is</p>
+<div class="arithmatex">\[
+\begin{aligned}
+a_n &amp;= (\alpha_{1,0} + \alpha_{1,1}n + \alpha_{1,2}n^2 + \dots + \alpha_{1,m_1-1}n^{m_1-1})r_1^n \\
+&amp;+ (\alpha_{2,0} + \alpha_{2,1}n + \alpha_{2,2}n^2 + \dots + \alpha_{2,m_2-1}n^{m_2-1})r_2^n \\
+&amp;+ \dots \\
+&amp;+ (\alpha_{t,0} + \alpha_{t,1}n + \alpha_{t,2}n^2 + \dots + \alpha_{t,m_t-1}n^{m_t-1})r_t^n
+\end{aligned}
+\]</div>
+<p>, where <span class="arithmatex">\(\alpha_{i,j}\)</span> are constants that depend on the initial conditions.</p>
+<blockquote>
+<p>[Example] Find an explicit formula for the Fibonacci numbers.</p>
+<p>Solution:</p>
+<ol>
+<li>The Fibonacci numbers are defined by the recurrence relation <span class="arithmatex">\(F_n = F_{n-1} + F_{n-2}\)</span> for <span class="arithmatex">\(n \geq 2\)</span> with the initial conditions <span class="arithmatex">\(F_0 = 0\)</span> and <span class="arithmatex">\(F_1 = 1\)</span>.</li>
+<li>The characteristic equation of this recurrence relation is <span class="arithmatex">\(x^2 = x + 1\)</span>.</li>
+<li>The roots of this equation are <span class="arithmatex">\(r_1 = \frac{1 + \sqrt{5}}{2}\)</span> and <span class="arithmatex">\(r_2 = \frac{1 - \sqrt{5}}{2}\)</span>.</li>
+<li>Therefore, the general solution of the recurrence relation is <span class="arithmatex">\(F_n = \alpha_1(\frac{1 + \sqrt{5}}{2})^n + \alpha_2(\frac{1 - \sqrt{5}}{2})^n\)</span>.</li>
+<li>The initial conditions <span class="arithmatex">\(F_0 = 0\)</span> and <span class="arithmatex">\(F_1 = 1\)</span> give the equations <span class="arithmatex">\(\alpha_1 + \alpha_2 = 0\)</span> and <span class="arithmatex">\(\alpha_1(\frac{1 + \sqrt{5}}{2}) + \alpha_2(\frac{1 - \sqrt{5}}{2}) = 1\)</span>.</li>
+<li>Solving these equations gives <span class="arithmatex">\(\alpha_1 = \frac{1}{\sqrt{5}}\)</span> and <span class="arithmatex">\(\alpha_2 = -\frac{1}{\sqrt{5}}\)</span>.</li>
+<li>Therefore, the explicit formula for the Fibonacci numbers is <span class="arithmatex">\(F_n = \frac{1}{\sqrt{5}}(\frac{1 + \sqrt{5}}{2})^n - \frac{1}{\sqrt{5}}(\frac{1 - \sqrt{5}}{2})^n\)</span>.</li>
+</ol>
+<hr />
+<p>[Example] <span class="arithmatex">\(a_n = 6a_{n-1}-9a_{n-2}\)</span> for <span class="arithmatex">\(n \geq 2\)</span> with the initial conditions <span class="arithmatex">\(a_0 = a_1 = 1\)</span></p>
+<p>Solution:</p>
+<ol>
+<li>The characteristic equation of this recurrence relation is <span class="arithmatex">\(x^2 = 6x - 9\)</span>.</li>
+<li>The roots of this equation are <span class="arithmatex">\(r_1 = r_2 = 3\)</span>.</li>
+<li>Therefore, the general solution of the recurrence relation is <span class="arithmatex">\(a_n = (\alpha_{1,0} + \alpha_{1,1}n)3^n\)</span></li>
+<li>The initial conditions <span class="arithmatex">\(a_0 = 1\)</span> and <span class="arithmatex">\(a_1 = 1\)</span> give the equations <span class="arithmatex">\(\alpha_{1,0} = 1\)</span> and <span class="arithmatex">\(3\times(\alpha_{1,0} +  \alpha_{1,1}) = 1\)</span>.</li>
+<li>Solving these equations gives <span class="arithmatex">\(\alpha_{1,0} = 1\)</span> and <span class="arithmatex">\(\alpha_{1,1} = -\frac{2}{3}\)</span>.</li>
+<li>Therefore, the explicit formula for the sequence is <span class="arithmatex">\(a_n = (1 - \frac{2}{3}n)3^n\)</span>.</li>
+</ol>
+</blockquote>
+<h3 id="solving-linear-nonhomogeneous-recurrence-relations-with-constant-coefficients">Solving Linear Nonhomogeneous Recurrence Relations with Constant Coefficients<a class="headerlink" href="#solving-linear-nonhomogeneous-recurrence-relations-with-constant-coefficients" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Particular Solution</strong> - A particular solution of the recurrence relation <span class="arithmatex">\(a_n = c_1a_{n-1} + c_2a_{n-2} + \dots + c_ka_{n-k} + f(n)\)</span> is a solution of the recurrence relation that does not depend on the initial conditions.</p>
+<p>[Theorem] 假设非齐次线性递归关系的非线性部分<span class="arithmatex">\(F(n)\)</span>的形式为</p>
+<div class="arithmatex">\[F(n) = (b_tn^t + b_{t-1}n^{t-1} + \dots + b_1n + b_0)r^n\]</div>
+<ol>
+<li>如果<span class="arithmatex">\(r\)</span>不是特征根，那么特解的形式是<span class="arithmatex">\((c_tn^t + c_{t-1}n^{t-1} + \dots + c_1n + c_0)r^n\)</span></li>
+<li>如果<span class="arithmatex">\(r\)</span>是<span class="arithmatex">\(m\)</span>重特征根，那么特解的形式是<span class="arithmatex">\((c_tn^t + c_{t-1}n^{t-1} + \dots + c_1n + c_0)r^nn^m\)</span></li>
+</ol>
+<blockquote>
+<p>[Example] <span class="arithmatex">\(a_n = 6a_{n-1}-9a_{n-2} + F(n)\)</span> where <span class="arithmatex">\(F(n) = 3^n,n3^n,n^22^n,(n^2+1)3^n\)</span>.</p>
+<p>Solution:</p>
+<ol>
+<li>齐次部分的特征根为<span class="arithmatex">\(r_1 = r_2 = 3\)</span>。</li>
+<li>对于<span class="arithmatex">\(F(n) = 3^n\)</span>，其中<span class="arithmatex">\(r=3\)</span>是二重特征根，所以特解的形式是<span class="arithmatex">\(c_0n^23^n\)</span>。</li>
+<li>对于<span class="arithmatex">\(F(n) = n3^n\)</span>，其中<span class="arithmatex">\(r=3\)</span>是二重特征根，所以特解的形式是<span class="arithmatex">\((c_1n+c_0)n^23^n\)</span>。</li>
+<li>对于<span class="arithmatex">\(F(n) = n^22^n\)</span>，其中<span class="arithmatex">\(r=2\)</span>不是特征根，所以特解的形式是<span class="arithmatex">\((c_2n^2+c_1n+c_0)2^n\)</span>。</li>
+<li>对于<span class="arithmatex">\(F(n) = (n^2+1)3^n\)</span>，其中<span class="arithmatex">\(r=3\)</span>是二重特征根，所以特解的形式是<span class="arithmatex">\((c_3n^2+c_2n+c_1)n^23^n\)</span>。</li>
+</ol>
+<hr />
+<p>[Example] <span class="arithmatex">\(a_n = a_{n-1}+n\)</span> where <span class="arithmatex">\(a_1 = 1\)</span>.</p>
+<p>Solution:</p>
+<ol>
+<li>齐次部分的特征根为一重根<span class="arithmatex">\(r = 1\)</span>,通解形式为<span class="arithmatex">\(a_n^H = C\)</span></li>
+<li>对于<span class="arithmatex">\(F(n) = n=n\times 1^n\)</span>，其中<span class="arithmatex">\(r=1\)</span>是一重特征根，所以特解的形式是<span class="arithmatex">\((c_1n+c_0)*1*n=c_1n^2+c_0n\)</span>。</li>
+<li>将特解代入递归关系，得到<span class="arithmatex">\(c_1n^2+c_0n = c_1(n-1)^2+c_0(n-1)+n\)</span>，所以<span class="arithmatex">\((2c_1-1)n=c_1-c_0\)</span>，所以<span class="arithmatex">\(c_1 =c_0 = \frac{1}{2}\)</span>，故特解为<span class="arithmatex">\(a_n^P=\frac{1}{2}n^2+\frac{1}{2}n\)</span>。</li>
+<li>故通解为<span class="arithmatex">\(a_n = a_n^H + a_n^P = C + \frac{1}{2}n^2+\frac{1}{2}n\)</span>。将<span class="arithmatex">\(a_1 = 1\)</span>代入，得到<span class="arithmatex">\(C = 0\)</span>，故<span class="arithmatex">\(a_n = \frac{1}{2}n^2+\frac{1}{2}n\)</span>。</li>
+</ol>
+</blockquote>
+<h2 id="section-3-generating-functions">Section 3 - Generating Functions<a class="headerlink" href="#section-3-generating-functions" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="generating-functions">Generating Functions<a class="headerlink" href="#generating-functions" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Generating Function</strong> - The generating function of the sequence <span class="arithmatex">\(a_0, a_1, a_2, \dots\)</span> is the power series <span class="arithmatex">\(a_0 + a_1x + a_2x^2 + \dots = \sum_{n=0}^{\infty}a_nx^n\)</span>.</p>
+<blockquote>
+<p>[Example] The generating function of the sequence <span class="arithmatex">\(1, 1, 1, \dots\)</span> is <span class="arithmatex">\(1 + x + x^2 + \dots = \frac{1}{1-x}\)</span>.</p>
+</blockquote>
+<p>[Theorem] 假设<span class="arithmatex">\(f(x)=\sum_{n=0}^{\infty}a_nx^n\)</span>和<span class="arithmatex">\(g(x)=\sum_{n=0}^{\infty}b_nx^n\)</span>是两个生成函数，那么</p>
+<ul>
+<li><span class="arithmatex">\(f(x)+g(x)=\sum_{n=0}^{\infty}(a_n+b_n)x^n\)</span></li>
+<li><span class="arithmatex">\(cf(x)=\sum_{n=0}^{\infty}(ca_n)x^n\)</span></li>
+<li><span class="arithmatex">\(f(x)g(x)=\sum_{n=0}^{\infty}(\sum_{k=0}^{n}a_kb_{n-k})x^n\)</span></li>
+<li><span class="arithmatex">\(f(\alpha x)=\sum_{n=0}^{\infty}a_n(\alpha x)^n=\sum_{n=0}^{\infty}a_n\alpha^nx^n\)</span></li>
+<li><span class="arithmatex">\(xf'(x)=\sum_{n=0}^{\infty}na_nx^{n}\)</span></li>
+</ul>
+<blockquote>
+<p>[Example] Suppose that the generating function ofthe sequence: <span class="arithmatex">\(a_0, a_1, a_2, \dots\)</span> is <span class="arithmatex">\(A(x)\)</span>. What is the generating function of the sequence <span class="arithmatex">\(b_k = \sum_{i=0}^{k}a_i\)</span> ?</p>
+<ul>
+<li>
+<p>Solution:</p>
+</li>
+<li>
+<p>记<span class="arithmatex">\(c_k=1\)</span>,其生成函数为<span class="arithmatex">\(C(x)=\sum_{k=0}^{\infty}c_kx^k=1+x+x^2+\dots=\frac{1}{1-x}\)</span></p>
+</li>
+<li>We have <span class="arithmatex">\(b_k = \sum_{i=0}^{k}a_i = \sum_{i=0}^{k}a_ic_{k-i}\)</span>.</li>
+<li>The generating function of the sequence <span class="arithmatex">\(b_k\)</span> is <span class="arithmatex">\(B(x) = \sum_{k=0}^{\infty}b_kx^k = \sum_{k=0}^{\infty}(\sum_{i=0}^{k}a_ic_{k-i})x^k = A(x)C(x) = \frac{A(x)}{1-x}\)</span>.</li>
+</ul>
+<hr />
+<p>[Example] What is the generating function for the sequence  <span class="arithmatex">\(a_k = \sum_{i=1}^{k}i^2\)</span> ?</p>
+<ul>
+<li>
+<p>Solution:</p>
+</li>
+<li>
+<p>对于<span class="arithmatex">\(b_k = 1\)</span>,其生成函数为<span class="arithmatex">\(B(x)=\sum_{k=0}^{\infty}b_kx^k=1+x+x^2+\dots=\frac{1}{1-x}\)</span></p>
+</li>
+<li>对于<span class="arithmatex">\(c_k = k\)</span>,其生成函数为<span class="arithmatex">\(C(x)=x*\sum_{k=0}^{\infty}kx^{k-1}=x*B'(x)=x*\frac{1}{(1-x)^2}=\frac{x}{(1-x)^2}\)</span></li>
+<li>对于<span class="arithmatex">\(d_k = k^2\)</span>,其生成函数为<span class="arithmatex">\(D(x)=x*\sum_{k=0}^{\infty}k^2x^{k-1}=x*C'(x)=x*\frac{1+x}{(1-x)^3}=\frac{x+x^2}{(1-x)^3}\)</span></li>
+<li>根据上一个例子，<span class="arithmatex">\(a_k = \sum_{i=1}^{k}i^2 = \sum_{i=1}^{k}d_i = \sum_{i=1}^{k}d_ic_{k-i}\)</span>.</li>
+<li>所以<span class="arithmatex">\(a_k\)</span>的生成函数为<span class="arithmatex">\(A(x) = \sum_{k=0}^{\infty}a_kx^k = \sum_{k=0}^{\infty}(\sum_{i=1}^{k}d_ic_{k-i})x^k = D(x)C(x) = \frac{x+x^2}{(1-x)^4}\)</span>.</li>
+</ul>
+<hr />
+<p>[Example] Let <span class="arithmatex">\(f(x)=\frac{1}{1-4x^2}\)</span>, find the cofficient <span class="arithmatex">\(a_0,a_1,a_2,\dots\)</span> of the power series expansion of <span class="arithmatex">\(f(x)=\sum_{n=0}^{\infty}a_nx^n\)</span>.</p>
+<ul>
+<li>
+<p>Solution:</p>
+</li>
+<li>
+<p><span class="arithmatex">\(f(x)=\frac{1}{1-4x^2}=\frac{1}{(1-2x)(1+2x)}=\frac{1}{2}(\frac{1}{1-2x}+\frac{1}{1+2x})\)</span></p>
+</li>
+<li><span class="arithmatex">\(\frac{1}{1-2x}=\sum_{n=0}^{\infty}(2x)^n=1+2x+4x^2+\dots\)</span>对应的系数为<span class="arithmatex">\(b_n=2^n\)</span></li>
+<li><span class="arithmatex">\(\frac{1}{1+2x}=\sum_{n=0}^{\infty}(-2x)^n=1-2x+4x^2-\dots\)</span>对应的系数为<span class="arithmatex">\(c_n=(-2)^n\)</span></li>
+<li>所以<span class="arithmatex">\(f(x)=\frac{1}{2}(\frac{1}{1-2x}+\frac{1}{1+2x})=\frac{1}{2}(\sum_{n=0}^{\infty}2^nx^n+\sum_{n=0}^{\infty}(-2)^nx^n)=\sum_{n=0}^{\infty}a_nx^n\)</span>，其中<span class="arithmatex">\(a_n=\frac{1}{2}(2^n+(-2)^n)\)</span>
+</li>
+</ul>
+</blockquote>
+<h3 id="the-extended-binomial-coefficient">The extended Binomial coefficient<a class="headerlink" href="#the-extended-binomial-coefficient" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Extended Binomial Coefficient</strong> - Let <span class="arithmatex">\(u\)</span> be a real number and <span class="arithmatex">\(k\)</span> a nonnegative integer. The extended binomial coefficient <span class="arithmatex">\(\binom{u}{k}\)</span> is defined by</p>
+<div class="arithmatex">\[\binom{u}{k} = \begin{cases} \frac{u(u-1)\dots(u-k+1)}{k!} &amp; \text{if } k &gt; 0 \\ 1 &amp; \text{if } k = 0 \end{cases}\]</div>
+<blockquote>
+<p>[Example]</p>
+<div class="arithmatex">\[\binom{\frac{1}{2}}{3} = \frac{\frac{1}{2}(\frac{1}{2}-1)(\frac{1}{2}-2)}{3!} = \frac{1}{16}\]</div>
+<p><span class="arithmatex">\(\binom{-n}{k}=\frac{(-n)(-n-1)\dots(-n-k+1)}{k!}=\frac{(-1)^kn(n+1)\dots(n+k-1)}{k!}=(-1)^k\binom{n+k-1}{k}\)</span></p>
+</blockquote>
+<p><strong>The extended Binomial Theorem</strong> - Let <span class="arithmatex">\(u\)</span> be a real number and <span class="arithmatex">\(x\)</span> a real number with <span class="arithmatex">\(|x| &lt; 1\)</span>. Then</p>
+<div class="arithmatex">\[(1+x)^u = \sum_{k=0}^{\infty}\binom{u}{k}x^k\]</div>
+<blockquote>
+<p>Find the generating functions for</p>
+</blockquote>
+<div class="arithmatex">\[(1+x)^{-n}~and~(1-x)^{-n}\]</div>
+<p>, where <span class="arithmatex">\(n\)</span> is a positive integer.</p>
+<blockquote>
+<ul>
+<li>
+<p>Solution:</p>
+</li>
+<li>
+<p><span class="arithmatex">\((1+x)^{-n} = \sum_{k=0}^{\infty}\binom{-n}{k}x^k = \sum_{k=0}^{\infty}(-1)^k\binom{n+k-1}{k}x^k\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\((1-x)^{-n} = \sum_{k=0}^{\infty}\binom{-n}{k}(-x)^k = \sum_{k=0}^{\infty}(-1)^k\binom{n+k-1}{k}(-x)^k = \sum_{k=0}^{\infty}\binom{n+k-1}{k}x^k\)</span></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="some-common-generating-functions">Some Common Generating Functions<a class="headerlink" href="#some-common-generating-functions" title="点击此处可置顶内容">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Sequence</th>
+<th style="text-align: center;">Generating Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(C(n,k)\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}C(n,k)x^k = (1+x)^n\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(C(n,k)a^k\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}C(n,k)a^kx^k = (ax+1)^n\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(C(n,k/r)~if~r整除k\)</span>;0,otherwise</td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}C(n,k/r)x^k = (1+x^r)^n\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(1,1,1,\dots,1\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{n}x^k = \frac{1-x^{n+1}}{1-x}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(1,1,1,\dots\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}x^k = \frac{1}{1-x}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(a^k\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}a^kx^k = \frac{1}{1-ax}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(1~if~r整除k\)</span>;0,otherwise</td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}x^{kr} = \frac{1}{1-x^r}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(k+1\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}(k+1)x^k = \frac{1}{(1-x)^2}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(C(n+k-1,k)\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}C(n+k-1,k)x^k = \frac{1}{(1-x)^n}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\((-1)^kC(n+k-1,k)\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}(-1)^kC(n+k-1,k)x^k = \frac{1}{(1+x)^n}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(a^kC(n+k-1,k)\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}C(n+k-1,k)a^kx^k = \frac{1}{(1-ax)^n}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(1/k!\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=0}^{\infty}\frac{1}{k!}x^k = e^x\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(\frac{(-1)^{k+1}}{k}\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k}x^k = ln(1+x)\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="generation-functions">用Generation Functions解决计数问题<a class="headerlink" href="#generation-functions" title="点击此处可置顶内容">&para;</a></h3>
+<blockquote>
+<p>[Example] Find the number of solutions of <span class="arithmatex">\(e_1 + e_2 + e_3 = 17\)</span>, where <span class="arithmatex">\(e_1, e_2, e_3\)</span> are nonnegative integers with <span class="arithmatex">\(2\leq e_1 \leq 5,3\leq e_2 \leq 6, 4\leq e_3 \leq 7\)</span>.</p>
+<ul>
+<li>
+<p>Solution:</p>
+</li>
+<li>
+<p>令<span class="arithmatex">\(E_1(x)=x^2+x^3+x^4+x^5\)</span>，<span class="arithmatex">\(E_2(x)=x^3+x^4+x^5+x^6\)</span>，<span class="arithmatex">\(E_3(x)=x^4+x^5+x^6+x^7\)</span>，则<span class="arithmatex">\(E_1(x)E_2(x)E_3(x)\)</span>的<span class="arithmatex">\(x^{17}\)</span>的系数即为所求。</p>
+</li>
+</ul>
+<hr />
+<p>[Example] Use generating functions to find the number of r-combinations from a set with <span class="arithmatex">\(n\)</span> elements when repetition of elements is allowed.</p>
+<ul>
+<li>
+<p>Solution:</p>
+</li>
+<li>
+<p>令<span class="arithmatex">\(G(x)=(1+x+x^2+\dots)^n=\frac{1}{(1-x)^n}\)</span>，则<span class="arithmatex">\(G(x)\)</span>的<span class="arithmatex">\(x^r\)</span>的系数即为所求。</p>
+</li>
+<li><span class="arithmatex">\(\frac{1}{(1-x)^n}=\sum_{k=0}^{\infty}C(n+k-1,k)x^k\)</span>，则<span class="arithmatex">\(G(x)\)</span>的<span class="arithmatex">\(x^r\)</span>的系数为<span class="arithmatex">\(C(n+r-1,r)\)</span>。</li>
+</ul>
+<hr />
+<p>[Example] Determine the number of ways to insert tokens worth <span class="arithmatex">\(\$1\)</span>,<span class="arithmatex">\(\$2\)</span> and <span class="arithmatex">\(\$5\)</span> into a vending machine to pay for an item that costs <span class="arithmatex">\(r\)</span> dollars in both the case when the order in which the tokens are inserted does not matter and when the order does matter.</p>
+<ul>
+<li>
+<p>Solution:</p>
+</li>
+<li>
+<p>Do not matter: <span class="arithmatex">\(G(x)=(1+x+x^2+\dots)(1+x^2+x^4+\dots)(1+x^5+x^{10}+\dots)=\frac{1}{(1-x)(1-x^2)(1-x^5)}\)</span>, the coefficient of <span class="arithmatex">\(x^r\)</span> is the solution.</p>
+</li>
+<li>Matter: <span class="arithmatex">\(G(x)=(x+x^2+x^5)^n\)</span>, the coefficient of <span class="arithmatex">\(x^r\)</span> is the solution for exactly <span class="arithmatex">\(n\)</span> tokens. So the final function is <span class="arithmatex">\(1+(x+x^2+x^5)+(x+x^2+x^5)^2+\dots=\frac{1}{1-(x+x^2+x^5)}\)</span>. The coefficient of <span class="arithmatex">\(x^r\)</span> is the solution.</li>
+</ul>
+</blockquote>
+<h3 id="generation-functions_1">用Generation Functions解决递归关系<a class="headerlink" href="#generation-functions_1" title="点击此处可置顶内容">&para;</a></h3>
+<blockquote>
+<p>[Example]  Use generating functions to solve the recurrence relation <span class="arithmatex">\(a_n = 2a_{n-1}+3a_{n-2}+4^n+6\)</span> with initial conditions <span class="arithmatex">\(a_0 = 20\)</span> and <span class="arithmatex">\(a_1 = 60\)</span>.</p>
+<ul>
+<li>
+<p>Solution:</p>
+</li>
+<li>
+<p>令<span class="arithmatex">\(A(x)=\sum_{n=0}^{\infty}a_nx^n\)</span>，则</p>
+</li>
+</ul>
+<div class="arithmatex">\[\sum_{n=2}^{\infty}a_nx^n - 2\sum_{n=2}^{\infty}a_{n-1}x^{n} - 3\sum_{n=2}^{\infty}a_{n-2}x^{n} = \sum_{n=2}^{\infty}4^nx^n + \sum_{n=2}^{\infty}6x^n\]</div>
+<div class="arithmatex">\[\therefore (A(x)-a_0-a_1x)-2x(A(x)-a_0)-3x^2A(x)\]</div>
+<div class="arithmatex">\[=(\frac{1}{1-4x}-1-4x)+6(\frac{1}{1-x}-1-x)\]</div>
+<div class="arithmatex">\[\therefore A(x)=\frac{20-80x+2x^2+40x^3}{(1-4x)(1-x)(1+x)(1-3x)}=\frac{16/5}{1-4x}+\frac{-3/2}{1-x}+\frac{31/20}{1+x}+\frac{67/4}{1-3x}\]</div>
+<div class="arithmatex">\[\therefore a_n=\frac{16}{5}\times 4^n-\frac{3}{2}+\frac{31}{20}\times (-1)^n+\frac{67}{4}\times 3^n\]</div>
+</blockquote>
+<h2 id="section-4-inclusion-exclusion-and-applications">Section 4 - Inclusion-Exclusion and Applications<a class="headerlink" href="#section-4-inclusion-exclusion-and-applications" title="点击此处可置顶内容">&para;</a></h2>
+<blockquote>
+<p>How many permutations of the <span class="arithmatex">\(26\)</span> letters of the English alphabet do not contain any of the strings <span class="arithmatex">\(fish\)</span>, <span class="arithmatex">\(rat\)</span> or <span class="arithmatex">\(bird\)</span>?</p>
+<ul>
+<li>Solution:</li>
+</ul>
+<p>U: the set of all permutations of the <span class="arithmatex">\(26\)</span> letters .</p>
+<p>A: the set of all permutations of the <span class="arithmatex">\(26\)</span> letters containing <span class="arithmatex">\(fish\)</span>.</p>
+<p>B: the set of all permutations of the <span class="arithmatex">\(26\)</span> letters containing <span class="arithmatex">\(rat\)</span>.</p>
+<p>C: the set of all permutations of the <span class="arithmatex">\(26\)</span> letters containing <span class="arithmatex">\(bird\)</span>.</p>
+<p><span class="arithmatex">\(~~~~|\overline{A}\cap\overline{B}\cap\overline{C}|\)</span></p>
+<p><span class="arithmatex">\(=|U|-|A\cup B\cup C|\)</span></p>
+<p>$=|U|-(|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|) $</p>
+<p><span class="arithmatex">\(= 26!-(23!+24!+23!-21!-0-0-0)\)</span></p>
+</blockquote>
+<p><strong>An alternate form of inclusion-exclusion</strong> - 记<span class="arithmatex">\(N(P_1P_2\dots P_n)\)</span>为包含性质<span class="arithmatex">\(P_1,P_2,\dots,P_n\)</span>的元素个数；记<span class="arithmatex">\(N(P_1'P_2'\dots P_n')\)</span>为不包含性质<span class="arithmatex">\(P_1,P_2,\dots,P_n\)</span>的元素个数，则</p>
+<div class="arithmatex">\[N(P_1'P_2'\dots P_n')=N-\sum_{1 \leq i \leq n}N(P_i)+\sum_{1 \leq i &lt; j \leq n}N(P_iP_j)-\dots+(-1)^nN(P_1P_2\dots P_n)\]</div>
+<p><strong>The number of onto functions</strong>: Let <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(n\)</span> be positive integers with <span class="arithmatex">\(m \geq n\)</span>. Then,there are</p>
+<div class="arithmatex">\[n^m - C(n,1)(n-1)^m + C(n,2)(n-2)^m - \dots + (-1)^{n-1}C(n,n-1)1^m\]</div>
+<p>onto functions from a set with <span class="arithmatex">\(m\)</span> elements to a set with <span class="arithmatex">\(n\)</span> elements.</p>
+<blockquote>
+<p>也就是<span class="arithmatex">\(S(m,n)n!\)</span>，其中<span class="arithmatex">\(S(m,n)\)</span>为第二类Stirling数。</p>
+</blockquote>
+<h3 id="derangements">Derangements 错排<a class="headerlink" href="#derangements" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Derangement</strong> - The number of derangements of a set with n elements is</p>
+<div class="arithmatex">\[D_n = n!(1-\frac{1}{1!}+\frac{1}{2!}-\frac{1}{3!}+\dots+(-1)^n\frac{1}{n!})\]</div>
+<blockquote>
+<p><span class="arithmatex">\(D_n = N(P_1'P_2'\dots P_n')\)</span></p>
+<p>$ = N - \sum_{1 \leq i \leq n}N(P_i) + \sum_{1 \leq i &lt; j \leq n}N(P_iP_j) - \dots + (-1)^nN(P_1P_2\dots P_n)$</p>
+<p>$ = n! - C(n,1)(n-1)! + C(n,2)(n-2)! - \dots + (-1)^nC(n,n-1)0!$</p>
+<p>$ = n!-\frac{n!}{1!(n-1)!}\times (n-1)!+\frac{n!}{2!(n-2)!}\times (n-2)!-\dots+(-1)^n\frac{n!}{n!(n-n)!}\times (n-n)!$</p>
+<p><span class="arithmatex">\(\therefore D_n = n!(1-\frac{1}{1!}+\frac{1}{2!}-\frac{1}{3!}+\dots+(-1)^n\frac{1}{n!})\)</span></p>
+</blockquote>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>

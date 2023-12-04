@@ -1,0 +1,2523 @@
+
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link rel=Edit-Time-Data href="./chap10.files/editdata.mso">
+<title>前 言</title>
+<style><!--
+.Normal
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:24.95pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+.a
+	{text-align:center;
+	text-indent:0pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+-->
+</style>
+</head>
+<body lang=ZH-CN link=blue vlink=purple class="Normal" bgcolor="#FFFFFF">
+<div style='layout-grid:16.3pt'> 
+  <h1><a name="_Toc486331912"></a><a name="_Toc486332912"></a><a
+name="_Toc486339021"></a><a name="_Toc454810886"></a><a name="_Toc454856660"><span><span>第<span
+lang=EN-US>10</span></span></span></a><span><span><span style='font-family:黑体;"Times New Roman"'>章</span><span>&nbsp; 
+    </span></span></span><span><span><span style='font-family:黑体;"Times New Roman"'>图象处理编程工具及简单的多媒体编程</span></span></span></h1>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在前九章，我们主要是介绍一些数字图象处理的基本原理和算法，很多细节和优化的算法都没有提，所以程序的通用性和效率并不理想。其实有很多优秀的图象处理编程工具，功能强大，速度很快。在实际的编程中，可以调用它们提供的功能来满足我们自己的需求，提高了编程效率和代码的正确性。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在这一章里，将介绍图象处理编程工具</span><span
+lang=EN-US>LeadTools(OCX)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。给出的例程中要用到</span><span
+lang=EN-US>Visual C++(</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>以下简称</span><span
+lang=EN-US>VC)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的</span><span lang=EN-US>AppWizard</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>MFC</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的一些特性，不熟悉</span><span
+lang=EN-US>C++</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的读者可以先看看相关的参考书。</span></p>
+  <h2> <span
+lang=EN-US>10.1</span> <a name="_Toc486331913"></a><a
+name="_Toc486332913"></a><a name="_Toc486339022"></a><a name="_Toc454810887"></a><a
+name="_Toc454856661"><span><span>LeadTools</span></span></a></h2>
+  <p style='line-height:18.0pt'><span lang=EN-US>LeadTools(OCX)</span><span
+style='font-family:宋体;"Times New Roman"'>是</span><span lang=EN-US>Lead Technologies</span><span
+style='font-family:宋体;"Times New Roman"'>公司出品的一款功能强大的图象处理编程工具，目前的最新版本是</span><span lang=EN-US>Lead8.0(1997.7.25)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span><span lang=EN-US>LeadTools</span><span
+style='font-family:宋体;"Times New Roman"'>实质上是一个</span><span lang=EN-US>OCX</span><span
+style='font-family:宋体;"Times New Roman"'>控件。先来说说什么是</span><span lang=EN-US>OCX</span><span
+style='font-family:宋体;"Times New Roman"'>控件？</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如果你用过</span><span
+lang=EN-US>Visual Basic</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>或者</span><span
+lang=EN-US>Delphi</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>一类的可视化编程工具，那么对控件这个概念一定不会陌生，就是那些工具条上的小按钮，如</span><span
+lang=EN-US>EditBox</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+lang=EN-US>Grid</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>ImageBox</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Timer</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>等等。每个控件都有自己的事件</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>事件</span><span lang=EN-US>) </span><span
+style='font-family:宋体;"Times New Roman"'>、方法</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>方法</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>和属性</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>属性</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。使用了控件的编程非常容易。首先，在程序的设计阶段可以设置一些属性，如大小，位置，标题</span><span
+lang=EN-US>(caption)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>等等；在程序运行阶段，可以更改这些属性，还可以针对不同的事件，调用不同的方法来实现对该控件的控制。控件就好象一块块的积木，程序要做的事只是将这些积木搭起来。控件的最大好处是可以重复使用，甚至可以在不同的编程语言之间使用，例如你可以在</span><span
+lang=EN-US>VB</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>中嵌入用</span><span lang=EN-US>VC</span><span
+style='font-family:宋体;"Times New Roman"'>开发的控件。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>控件的本质是微软公司的对象链接和嵌入</span><span
+lang=EN-US>(OLE)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>标准。由于它充分利用了面向对象的优点，使得程序效率得到了很大的提高，从而得到了广泛的应用。国外有很多公司就是专门制作各种各样控件的。控件的最早形式是以</span><span
+lang=EN-US>.VBX</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的格式出现的，后来变成了</span><span lang=EN-US>.OCX</span><span
+style='font-family:宋体;"Times New Roman"'>。由于</span><span lang=EN-US>Internet</span><span
+style='font-family:宋体;"Times New Roman"'>的广泛流行，微软公司推出了</span><span lang=EN-US>ActiveX</span><span
+style='font-family:宋体;"Times New Roman"'>技术，就是从</span><span lang=EN-US>OLE</span><span
+style='font-family:宋体;"Times New Roman"'>发展起来的，加入了</span><span lang=EN-US>WWW</span><span
+style='font-family:宋体;"Times New Roman"'>上的功能。所以目前最流行的是</span><span lang=EN-US>ActiveX</span><span
+style='font-family:宋体;"Times New Roman"'>控件。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>介绍完了</span><span
+lang=EN-US>OCX</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>控件的概念，下面我们以</span><span lang=EN-US>Lead Version5.1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为例，来看看</span><span lang=EN-US>LeadTools</span><span
+style='font-family:宋体;"Times New Roman"'>究竟有哪些功能？</span><span lang=EN-US>Lead 
+    Version5.1</span><span
+style='font-family:宋体;"Times New Roman"'>可以在正版</span><span lang=EN-US>MicroSoft 
+    Visual C++4.1</span><span
+style='font-family:宋体;"Times New Roman"'>安装光盘中</span><span lang=EN-US>Msdev\samples\ocx\leadtools</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>Msdev\redist\redist</span><span
+style='font-family:宋体;"Times New Roman"'>下找到，主要是</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>个文件，</span><span lang=EN-US> Lead51n.dll</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Lead32.ocx</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Lead.lic</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Ltocx.hlp</span><span
+style='font-family:宋体;"Times New Roman"'>。如果你想了解</span><span lang=EN-US>LeadTools</span><span
+style='font-family:宋体;"Times New Roman"'>的最新信息，可以访问以下</span><span lang=EN-US>www</span><span
+style='font-family:宋体;"Times New Roman"'>网址：</span><span lang=EN-US><a
+href="http://www.leadtools.com/"><span style='color:windowtext;text-decoration:
+none;text-underline:none'>http://www.leadtools.com/</span></a></span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>LeadTools</span><span
+style='font-family:宋体;"Times New Roman"'>主要有以下几大功能：</span></p>
+  <p style='line-height:18.0pt;
+'> <span
+lang=EN-US>(1)<span style='font:7.0pt "Times New Roman"'> </span></span> <span
+style='font-family:宋体;"Times New Roman"'>对显示设备的全面支持：在显示时，你的程序中无需考虑是哪种显示模式，如</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>色还是真彩色。</span><span lang=EN-US>LeadTools</span><span
+style='font-family:宋体;"Times New Roman"'>为你做了所有的事。当然你也可以通过设置参数获得对显示设备更多的控制。你还可以实现自己的调色板。</span></p>
+  <p style='line-height:18.0pt;
+'> <span
+lang=EN-US>(2)<span style='font:7.0pt "Times New Roman"'> </span></span> <span
+style='font-family:宋体;"Times New Roman"'>支持多种文件格式：表</span><span lang=EN-US>10.1</span><span
+style='font-family:宋体;"Times New Roman"'>是</span><span lang=EN-US>LeadTools</span><span
+style='font-family:宋体;"Times New Roman"'>所支持的常用文件格式，其中读表示用</span><span lang=EN-US>LeadTools</span><span
+style='font-family:宋体;"Times New Roman"'>能打开的文件格式，写表示</span><span lang=EN-US>LeatTools</span><span
+style='font-family:宋体;"Times New Roman"'>能存成的文件格式：</span></p>
+  <p align=center style='text-align:center;
+line-height:18.0pt'><b><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>表</span>10.1&nbsp; LeadTools</b><b><span
+style='font-family:宋体;"Times New Roman"'>支持的常用文件格式</span><span lang=EN-US></span></b></p>
+  <table border=1 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p align=center style='text-align:center;
+  line-height:18.0pt'><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>文件格式</span><span lang=EN-US style='font-size:10.5pt;
+  '></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p align=center style='text-align:center;
+  line-height:18.0pt'><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>读</span><span lang=EN-US style='font-size:10.5pt;
+  '>(</span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>位</span><span lang=EN-US style='font-size:10.5pt;
+  '>/</span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>象素</span><span lang=EN-US style='font-size:10.5pt;
+  '>)</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p align=center style='text-align:center;
+  line-height:18.0pt'><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>写</span><span lang=EN-US style='font-size:10.5pt;
+  '>(</span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>位</span><span lang=EN-US style='font-size:10.5pt;
+  '>/</span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>象素</span><span lang=EN-US style='font-size:10.5pt;
+  '>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>JFIF</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：一种常用的</span><span
+  lang=EN-US style='font-size:10.5pt;'>Jpeg</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件格式，</span><span
+  lang=EN-US style='font-size:10.5pt;'>LeadTools</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>支持</span><span
+  lang=EN-US style='font-size:10.5pt;'>YUV 4:4:4, 4:2:2, 4:1:1(</span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>彩色</span><span lang=EN-US style='font-size:10.5pt;
+  '>)YUV 4:0:0(</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>灰度</span><span lang=EN-US
+  style='font-size:10.5pt;'>)</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8 (</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>灰度</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>24(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>彩色</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8 (</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>灰度</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>24(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>彩色</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>JFIF</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：另一种常用的</span><span
+  lang=EN-US style='font-size:10.5pt;'>Jpeg</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件格式，</span><span
+  lang=EN-US style='font-size:10.5pt;'>LeadTools</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>支持</span><span
+  lang=EN-US style='font-size:10.5pt;'>YUV 4:4:4, 4:2:2, 4:1:1(</span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>彩色</span><span lang=EN-US style='font-size:10.5pt;
+  '>)YUV 4:0:0(</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>灰度</span><span lang=EN-US
+  style='font-size:10.5pt;'>)</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8 (</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>灰度</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>24(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>彩色</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8 (</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>灰度</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>24(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>彩色</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>TIFF</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：</span><span
+  lang=EN-US style='font-size:10.5pt;'>Tiff</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件有很多种，</span><span
+  lang=EN-US style='font-size:10.5pt;'>LeadTools</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>支持常用的几种</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>4</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>8</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>16</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>24</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>32</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，还包括另一种颜色表示方法</span><span
+  lang=EN-US style='font-size:10.5pt;'>CMYK (LZW</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>压缩</span><span
+  lang=EN-US style='font-size:10.5pt;'>) </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>和</span><span
+  lang=EN-US style='font-size:10.5pt;'> RLE (LZW</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>压缩</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 16, 24</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>MPT</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：一种多页</span><span
+  lang=EN-US style='font-size:10.5pt;'>(MultiPage)</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>的</span><span
+  lang=EN-US style='font-size:10.5pt;'>Tiff</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件格式，类似于动画</span><span
+  lang=EN-US style='font-size:10.5pt;'>Gif</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>。</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>4</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>8</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>16</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>24</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>32</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，还包括另一种颜色表示方法</span><span
+  lang=EN-US style='font-size:10.5pt;'>CMYK (LZW</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>压缩</span><span
+  lang=EN-US style='font-size:10.5pt;'>) </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>和</span><span
+  lang=EN-US style='font-size:10.5pt;'> RLE (LZW</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>压缩</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 16, 24</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>TIFF LZW</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：采用</span><span
+  lang=EN-US style='font-size:10.5pt;'>LZW</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>压缩的</span><span
+  lang=EN-US style='font-size:10.5pt;'>Tiff</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>格式，使用时要获得</span><span
+  lang=EN-US style='font-size:10.5pt;'>Unisys</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>公司的认可。</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 16, 24, 32</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 8, 16, 24</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>TIFF CCITT Group 3</span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>：是一种用于二值黑白图</span><span lang=EN-US style='font-size:10.5pt;
+  '>(</span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>如传真</span><span lang=EN-US style='font-size:10.5pt;
+  '>)</span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>的</span><span lang=EN-US style='font-size:10.5pt;
+  '>Tiff</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>压缩格式。</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>TIFF CCITT Group 4</span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>：是一种用于二值黑白图</span><span lang=EN-US style='font-size:10.5pt;
+  '>(</span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>如传真</span><span lang=EN-US style='font-size:10.5pt;
+  '>)</span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>的</span><span lang=EN-US style='font-size:10.5pt;
+  '>Tiff</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>压缩格式。比</span><span lang=EN-US
+  style='font-size:10.5pt;'>Group 3</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>有更高的压缩比。</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>TGA (TARGA)</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：</span><span
+  lang=EN-US style='font-size:10.5pt;'>Truevision</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>公司的一种文件格式，</span><span
+  lang=EN-US style='font-size:10.5pt;'>LeadTools</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>支持所有未压缩的，及用</span><span
+  lang=EN-US style='font-size:10.5pt;'>RLE</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>算法压缩的</span><span
+  lang=EN-US style='font-size:10.5pt;'>TGA</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件。</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8, 16, 24, 32</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8, 16, 24, 32</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>GIF</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：由</span><span
+  lang=EN-US style='font-size:10.5pt;'>CompuServe</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>公司定义的一种文件格式，是</span><span
+  lang=EN-US style='font-size:10.5pt;'>html</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>语言采用的一种文件格式。要注意的是，使用采用了</span><span
+  lang=EN-US style='font-size:10.5pt;'>LZW</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>压缩的</span><span
+  lang=EN-US style='font-size:10.5pt;'>Gif</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件时，首先要获得</span><span
+  lang=EN-US style='font-size:10.5pt;'>Unisys</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>公司的认可。</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Photoshop 3.0 (PSD)</span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>：</span><span lang=EN-US style='font-size:10.5pt;
+  '>Adobe</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>公司</span><span lang=EN-US
+  style='font-size:10.5pt;'>PhotoShop3.0</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>所采用的文件格式。</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 8, 24</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 8, 24</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Windows Bitmap (BMP)</span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>：由微软公司定义的文件格式。</span><span lang=EN-US style='font-size:
+  10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 24(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>未压缩</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>采用</span><span
+  lang=EN-US style='font-size:10.5pt;'>RLE</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>压缩</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 24</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Windows Metafile (WMF)</span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>：一种矢量图文件格式。在</span><span lang=EN-US style='font-size:10.5pt;
+  '>Word</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>中用到。</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8, 24</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>8, 24</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>PCX</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：由</span><span
+  lang=EN-US style='font-size:10.5pt;'>Zsoft</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>公司制定的一种文件格式，采用了行程编码。</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 24</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 24</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SUN Raster (RAS)</span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>：在</span><span lang=EN-US style='font-size:10.5pt;
+  '>Sun UNIX</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>平台上的一种文件格式。</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 24, 32</span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>1, 4, 8, 24, 32</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>PCD</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>：柯达公司的</span><span
+  lang=EN-US style='font-size:10.5pt;'>PhotoCD </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件格式。要注意的是要有</span><span
+  lang=EN-US style='font-size:10.5pt;'>PCDLIB32.DLL</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>这个文件。</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>所有</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+      <td width=189 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>不能写</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>以上只是常用的文件格式，除此以外还有很多其它的文件格式，感兴趣的读者可以参考帮助。</span></p>
+  <p style='line-height:18.0pt;
+'> <span
+lang=EN-US>(3)<span style='font:7.0pt "Times New Roman"'> </span></span> <span
+style='font-family:宋体;"Times New Roman"'>图象处理：如二值化、平滑、加噪声、增加对比度、色调、饱和度、亮度、</span><span lang=EN-US>Gamma</span><span
+style='font-family:宋体;"Times New Roman"'>校正、中值滤波、半影调、抖动、橡皮筋、滚动、填充、反色、镜象、马赛克、浮雕、打印、扫描、拷贝、粘贴、裁剪、缩放、截屏、调色板、直方图、有关数据库的操作、还有制作幻灯的功能，如淡入、淡出、卷帘等等、真的很爽。表</span><span
+lang=EN-US>10.2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是</span><span lang=EN-US>Version5.1</span><span
+style='font-family:宋体;"Times New Roman"'>的所有属性、事件、和方法列表，看看有没有你所需要的功能。以字母顺序排列，其中标</span><span
+lang=EN-US>[P]</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的表示只有专业级</span><span lang=EN-US>(Professional)</span><span
+style='font-family:宋体;"Times New Roman"'>和特殊级</span><span lang=EN-US>(Express)</span><span
+style='font-family:宋体;"Times New Roman"'>用户才能使用。</span></p>
+  <p align=center style='text-align:center;
+line-height:18.0pt'><b><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>表</span>10.2&nbsp; LeadTools</b><b><span
+style='font-family:宋体;"Times New Roman"'>的事件、属性、方法</span><span lang=EN-US></span></b></p>
+  <table border=1 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>AboutBox </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：显示</span><span
+  lang=EN-US style='font-size:10.5pt;'>LeadTools</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>的“关于”信息</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] AddNoise </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：增加随机噪声</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>AutoRepaint </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为真时，位图自动重画</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>AutoScroll </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为真时，当位图超出窗口范围时，自动出现滚动条</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>AutoSetRects </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为真时，自动调整窗口大小</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Average </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：平滑</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BackColor </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性设置位图的背景色</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BackErase </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为真时，擦除控件的背景</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[E] BinaryFilter </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：对黑色对象进行腐蚀或膨胀操作</span><span lang=EN-US style='font-size:
+  10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Bitmap </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为位图句柄</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BitmapBits </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为每个象素所占的比特数</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BitmapHeight </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为位图的高</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BitmapPalette </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性设置调色板中某一项的</span><span
+  lang=EN-US style='font-size:10.5pt;'>RGB</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>值</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BitmapWidth </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为位图的宽</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BitmapXRes </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为位图的水平分辨率</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BitmapYRes </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为位图的垂直分辨率</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[E] BitonalScaling </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>属性：设置该属性，以增强二值图的显示效果</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>BorderStyle </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：该属性为</span><span
+  lang=EN-US style='font-size:10.5pt;'>0</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>时，控件周围没有边框，为</span><span
+  lang=EN-US style='font-size:10.5pt;'>1</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>时有边框</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Capture </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：从某一设备上下文指定的矩形区域中获得位图</span><span
+  lang=EN-US style='font-size:10.5pt;'>(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>截屏</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Click </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当用户点击控件时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] ColorMerge </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：融合调色板</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] ColorPlanes </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：该属性为灰度图的调色板数组</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ColorRes </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：颜色数转换</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] ColorSeparate </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：按照调色板将位图分离成一个个的灰度图</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Combine </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将两幅图结合，例如另一幅图是一个边沿检测的滤波器</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Contrast </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：增加或减少位图的对比度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Copy </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将位图拷贝至剪贴板</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>CreateBitmap </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：对位图初始化并分配内存，但不调入任何数据</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbAddNew </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：为当前记录集增加一个新的空记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbCanAppend </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：该属性为真时，表示可以在当前记录集中增加一个记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbCanRestart </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>属性：该属性为真时，表示可以从数据库中重建记录集</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbCanScroll </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：该属性为真时，表示数据源支持</span><span
+  lang=EN-US style='font-size:10.5pt;'>dbMove</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法，可以在记录集中滚</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+          </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>动</span><span lang=EN-US style='font-size:10.5pt;
+  '></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbCanUpdate </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：该属性为真时，表示可以在当前记录集中增加或者更新一个记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbClose </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：关闭当前记录集和数据库</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbCurrentRecord </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>属性：记录集中当前记录号</span><span lang=EN-US style='font-size:10.5pt;
+  '></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbDelete </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：删除当前记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbEdit </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：为更新当前记录做准备</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbEditMode </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指示当前记录的编辑模式，如只读，可编辑，可添加</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbIsBOF </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指示是否到了最前面的记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbIsDeleted </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：指示当前记录是否已经被删除</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbIsEOF </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指示是否到了最后面的记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbIsOpen </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指示是否和一个数据库相连</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DblClick </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当用户双击控件时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbLoadBits </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指示从数据库中调入位图时，每个象素所占的比特数，为</span><span
+  lang=EN-US style='font-size:10.5pt;'>0</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>时，和原来位图的颜色数保持一致</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbLockingMode </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>属性：当对数据库中已有记录进行更新时，该属性用来指定记录锁定模式</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbMove </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将当前记录移动到指定位置</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbMoveFirst </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>方法：选定记录集中的第一个记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbMoveLast </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：选定记录集中的最后一个记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbMoveNext </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：选定记录集中的下一个记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbMovePrev </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：选定记录集中的前一个记录</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbOpen </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：在</span><span
+  lang=EN-US style='font-size:10.5pt;'>ODBC</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>类型的数据库中打开一个记录集</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbRecordCount </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>属性：指示记录集中的记录数</span><span lang=EN-US style='font-size:
+  10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbRequery </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：从数据库中重建记录集</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] dbUpdate </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：更新数据库</span><span
+  lang=EN-US style='font-size:10.5pt;'>(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>当调用</span><span
+  lang=EN-US style='font-size:10.5pt;'>dbAddNew</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>或者</span><span
+  lang=EN-US style='font-size:10.5pt;'>dbEdit</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>后</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[E] Deskew </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：旋转位图使其变正，常用于扫描图象的自动纠斜</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[E] Despeckle </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：去除位图中的小斑点</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DstClipHeight </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定目标剪切矩形的高度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DstClipLeft </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定目标剪切矩形的左坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DstClipTop </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定目标剪切矩形的上坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DstClipWidth </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定目标剪切矩形的宽度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DstHeight </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定目标矩形的高度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DstLeft </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定目标矩形的左坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DstTop </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定目标矩形的上坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>DstWidth </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定目标矩形的宽度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Emboss </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：制作浮雕效果</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Enabled </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定控件是否使能</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>EnableMethodErrors </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：指示控件是否导致了系统错误</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] EnableProgressEvent </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：指示控件是否产生一个进度状态的事件，用来指示已经完成的百分比</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] EnableTwainEvent </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：为真时，表示支持多页扫描，每扫一页产生一个</span><span
+  lang=EN-US style='font-size:10.5pt;'>TwainPage</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Fill </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：用指定颜色填充位图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Flip </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：上下反转位图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ForceRepaint </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：重画位图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ForePalette </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：当为真时，将使用控件的调色板作为前景调色板</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] GammaCorrect </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：</span><span lang=EN-US style='font-size:10.5pt;
+  '>Gamma</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>校正</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>GetBitmapDC </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：获得位图的设备上下文</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>GetClientDC </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：获得控件客户区的设备上下文</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] GetDDB </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：从控件位图中获得设备相关位图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] GetDIB </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：从控件位图中获得设备无关位图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>GetFileInfo </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：获得指定文件的信息</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] GetHistogram </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：获得颜色直方图</span><span lang=EN-US style='font-size:10.5pt;
+  '></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>GetPalette </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：获得调色板</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] GetPicture </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：返回一个</span><span
+  lang=EN-US style='font-size:10.5pt;'>Picture</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>的对象，是位图的一个拷贝</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Grayscale </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将彩色图转成</span><span
+  lang=EN-US style='font-size:10.5pt;'>256</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>级灰度图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Halftone </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：半影调效果</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] HistoContrast </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：使用直方图指定中间亮度，用以增加图象的对比度</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] HistoEqualize </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：直方图均衡化</span><span lang=EN-US style='font-size:10.5pt;
+  '></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] HistogramTable </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>属性：得到指定强度级别的颜色出现的次数</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Hue </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：改变图象色调</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>hWnd </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：得到控件的窗口句柄</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>InfoBits </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：得到指定图象文件每个象素所占的比特数</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>InfoCompress </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：得到指定图象文件所用的压缩方法</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>InfoFormat </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：得到指定图象文件的格式</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>InfoHeight </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：得到指定图象文件的高度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>InfoPage </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：对于多页图象文件，指示出该页的页号</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] InfoPCDRes </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：用来指示</span><span
+  lang=EN-US style='font-size:10.5pt;'>PhotoCD</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件格式的分辨率</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>InfoSizeDisk </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：得到文件大小</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>InfoSizeMem </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：得到要调入该文件，其位图所占的内存大小</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>InfoWidth </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：得到指定图象文件的宽度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Intensity </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：改变图象的亮度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] IntensityDetect </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：用来检测指定范围内的颜色</span><span lang=EN-US style='font-size:
+  10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Invert </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：反色，制作底片效果</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>KeyDown </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当用户按下键盘时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>KeyPress </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当用户按下并抬起键盘时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>KeyUp </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当用户抬起键盘时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Load </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：调入一个图象文件到位图中</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] LoadStamp </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：在</span><span
+  lang=EN-US style='font-size:10.5pt;'>JFIF</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>或者</span><span
+  lang=EN-US style='font-size:10.5pt;'>LEAD CMP</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>压缩文件中调入一幅</span><span
+  lang=EN-US style='font-size:10.5pt;'>Thumbnail</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>图象</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Median </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：中值滤波</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Mosaic </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：马赛克效果</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>MouseDown </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当鼠标按钮按下时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>MouseIcon </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：用户定制的鼠标光标形状</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>MouseMove </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当鼠标移动时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>MousePointer </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：已有的鼠标光标形状</span><span
+  lang=EN-US style='font-size:10.5pt;'>(</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>如沙漏，箭头等等</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>MouseUp </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当鼠标按钮抬起时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Paint </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：控件的某一部分需要重画时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>PaintDither </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定抖动方法，是顺序的还是误差传递的</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] PaintEffect </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：指定显示效果，如卷帘，淡入，淡出</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>PaintPalette </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：当用只能显示</span><span
+  lang=EN-US style='font-size:10.5pt;'>256</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>色或更低的设备显示高颜色数位图时，用来指定调色板的模式，是用固定的调色板，还是用最佳调色板</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] PaintWhileLoad </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>属性：当为真时，调入图象的同时就在屏幕上显示，当为假时，全部调入后才在屏幕上显示</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Paste </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将图象数据从剪切板粘贴到指定的位图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] PCDRes </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定</span><span
+  lang=EN-US style='font-size:10.5pt;'>PCD</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件的分辨率</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Posterize </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：增加海报效果，即将颜色数重新量化成较少的级别</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>PrintEnd </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：结束打印工作</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>PrintStart </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：开始打印工作</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] ProgressStatus </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>事件：进度事件，用来得到已经完成的百分比</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ReleaseBitmapDC </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>方法：释放位图设备上下文</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ReleaseClientDC </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>方法：释放客户区设备上下文</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] RemapIntensity </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：使用一个查找表来改变位图的颜色值</span><span lang=EN-US
+  style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] RemapTable </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：</span><span
+  lang=EN-US style='font-size:10.5pt;'>RemapIntensity</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法中用到的查找表</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Render </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：在任何设备上下文中打印或者显示图象</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Resize </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当控件第一次显示或者大小改变时触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Reverse </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：水平反转位图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Rotate </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：旋转位图</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>RubberBandHeight </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：橡皮筋的高度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>RubberBandLeft </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：橡皮筋的左坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>RubberBandTop </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：橡皮筋的上坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>RubberBandVisible </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：为真时，橡皮筋可见</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>RubberBandWidth </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>属性：橡皮筋的宽度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Saturation </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：改变图象的饱和度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Save </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将图象存成文件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] SaveWithStamp </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：将位图存成包括一幅</span><span lang=EN-US style='font-size:10.5pt;
+  '>Thumbnail</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>图象的</span><span lang=EN-US
+  style='font-size:10.5pt;'>JPEG</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>或者</span><span
+  lang=EN-US style='font-size:10.5pt;'>LEAD CMP</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>文件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ScaleHeight </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：控件客户区高度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ScaleLeft </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：控件客户区左坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ScaleMode </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：控件的丈量单位，如厘米，象素，英寸等等</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ScaleTop </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：控件客户区上坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>ScaleWidth </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：控件客户区宽度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Scroll </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当滚动时，触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] SetDDB </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将一设备相关位图拷贝，并将该拷贝指派到控件上</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] SetDIB </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将一设备无关位图拷贝，并将该拷贝指派到控件上</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SetDstClipRect </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：指定目标剪切矩形</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SetDstRect </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：指定目标矩形</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] SetPicture </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将一</span><span
+  lang=EN-US style='font-size:10.5pt;'>Picture</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>对象拷贝，并将该拷贝指派到控件上</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SetRubberBandRect </span><span style='font-size:10.5pt;font-family:
+  宋体;&quot;Times New Roman&quot;'>方法：指定橡皮筋矩形</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SetSrcClipRect </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：指定源剪切矩形</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SetSrcRect </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：指定源矩形</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Sharpen </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：锐化</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Shear </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：错切</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Size </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：放缩</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] SpatialFilter </span><span style='font-size:10.5pt;  font-family:宋体;"Times New Roman"'>方法：用指定的滤波器处理，如</span><span lang=EN-US style='font-size:
+  10.5pt;'>LAPLACE</span><span style='font-size:10.5pt;
+  font-family:宋体;
+  &quot;Times New Roman&quot;'>，</span><span lang=EN-US
+  style='font-size:10.5pt;'>SOBEL</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+  lang=EN-US style='font-size:10.5pt;'>EMBOSS</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>等等</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SrcClipHeight </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定源剪切矩形的高度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SrcClipLeft </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定源剪切矩形的左坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SrcClipTop </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定源剪切矩形的上坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SrcClipWidth </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定源剪切矩形的宽度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SrcHeight </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定源矩形的高度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SrcLeft </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定源矩形的左坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SrcTop </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定源矩形的上坐标</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>SrcWidth </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定源矩形的宽度</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] StretchIntensity </span><span style='font-size:10.5pt;font-family:宋体;"Times New Roman"'>方法：对比度扩展</span><span lang=EN-US style='font-size:10.5pt;
+  '></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>Trim </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：在指定的矩形区域内剪切图象</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>TwainAcquire </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：扫描</span><span
+  lang=EN-US style='font-size:10.5pt;'>(Twain</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>标准</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] TwainPage </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>事件：当进行多页扫描时，每扫完一页触发该事件</span><span
+  lang=EN-US style='font-size:10.5pt;'>(Twain</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>标准</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>TwainSelect </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：选择扫描仪</span><span
+  lang=EN-US style='font-size:10.5pt;'>(Twain</span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>标准</span><span
+  lang=EN-US style='font-size:10.5pt;'>)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>[P] Underlay </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>方法：将两幅结合起来，使得一幅图做另一幅图的文理</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>UserPalette </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：指定调色板中的某一项颜色</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>VersionDate </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：版本日期</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>VersionLevel </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：版本级别</span><span
+  lang=EN-US style='font-size:10.5pt;'>(EXPRESS </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>或者</span><span
+  lang=EN-US style='font-size:10.5pt;'>PROFESSIONAL)</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>VersionMajor </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：主版本号</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>VersionMinor </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：副版本号</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>VersionProduct </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：当前版本的全名</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=568 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US style='font-size:10.5pt;'>VersionTime </span><span
+  style='font-size:10.5pt;font-family:宋体;"Times New Roman";"Times New Roman"'>属性：版本时间</span><span
+  lang=EN-US style='font-size:10.5pt;'></span></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt;
+'> <span
+lang=EN-US>(4)<span style='font:7.0pt "Times New Roman"'> </span></span> <span
+style='font-family:宋体;"Times New Roman"'>源代码例子：</span><span lang=EN-US>LeadTools</span><span
+style='font-family:宋体;"Times New Roman"'>的帮助做的特别好，这一点非常吸引人。每一个事件、方法、属性都有很详细的说明，后面都附有一个详细的例子。而且例子有很多种版本，如</span><span
+lang=EN-US>VC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>版、</span><span lang=EN-US>VB</span><span
+style='font-family:宋体;"Times New Roman"'>版、</span><span lang=EN-US>Delphi</span><span
+style='font-family:宋体;"Times New Roman"'>版、</span><span lang=EN-US>Access</span><span
+style='font-family:宋体;"Times New Roman"'>版，这样使用不同编程语言的程序员都能从中获得直接的帮助。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>好了，介绍了这么多</span><span
+lang=EN-US>LeadTools</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的功能，下面我们给出一个最简单的利用</span><span
+lang=EN-US>LeadTools</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>例子，其功能是显示任意一幅图</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>当然是</span><span lang=EN-US>Lead</span><span
+style='font-family:宋体;"Times New Roman"'>能支持的文件格式</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，图被缩放成和控件一样大小。</span></p>
+  <p style='line-height:18.0pt'><b><span lang=EN-US>[</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>例子</span><span lang=EN-US>10.1] </span></b><span
+style='font-family:宋体;"Times New Roman"'>用</span><span lang=EN-US>Lead</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>显示一幅图</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>步骤</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>：打开</span><span lang=EN-US>VC++5.0</span><span
+style='font-family:宋体;"Times New Roman"'>，用</span><span lang=EN-US>MFC AppWizard 
+    (exe)</span><span
+style='font-family:宋体;"Times New Roman"'>新建一个</span><span lang=EN-US>Project</span><span
+style='font-family:宋体;"Times New Roman"'>，起名为</span><span lang=EN-US>TestLead</span><span
+style='font-family:宋体;"Times New Roman"'>。要注意的是在</span><span lang=EN-US>Step1</span><span
+style='font-family:宋体;"Times New Roman"'>中，选定</span><span lang=EN-US>&quot;Dialog 
+    based&quot;</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Step2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>中，选定</span><span
+lang=EN-US>&quot;ActiveX Controls&quot;</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，其它过程全部采用缺省值。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>步骤</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>：把</span><span lang=EN-US>Lead</span><span
+style='font-family:宋体;"Times New Roman"'>控件添加到工具条中，方法是：</span><span lang=EN-US>(1)</span><span
+style='font-family:宋体;"Times New Roman"'>打开</span><span lang=EN-US>Project-&gt;Add 
+    To Project-&gt;Components and Controls</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>菜单</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>其它的</span><span lang=EN-US>VC</span><span
+style='font-family:宋体;"Times New Roman"'>版本，如</span><span lang=EN-US>4.0</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>4.1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>、</span><span
+lang=EN-US>4.2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，为</span><span lang=EN-US>Insert-&gt;Component…</span><span
+style='font-family:宋体;"Times New Roman"'>菜单</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，出现对话框，选择“</span><span
+lang=EN-US>Registered ActiveX Controls</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>”那个目录</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>其它的</span><span lang=EN-US>VC</span><span
+style='font-family:宋体;"Times New Roman"'>版本为</span><span lang=EN-US>”OLE Controls”</span><span
+style='font-family:宋体;"Times New Roman"'>那一页</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>；</span><span
+lang=EN-US>(2)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>选中</span><span lang=EN-US>&quot;Lead Std Control&quot;</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>那一项，如图</span><span lang=EN-US>10.1</span><span
+style='font-family:宋体;"Times New Roman"'>所示。然后按下</span><span lang=EN-US>Insert</span><span
+style='font-family:宋体;"Times New Roman"'>菜单即可；</span></p>
+  <table border=0 cellspacing=0 cellpadding=0 width=579>
+    <tr> 
+      <td width=479 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span
+  lang=EN-US> <img border=0 width=463 height=347
+  src="./chap10.files/image002.jpg" v:shapes="_x0000_i1143"> </span></p>
+        <p align=center style='text-align:center;
+  line-height:18.0pt'><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>图</span>10.1&nbsp; 
+          Lead</b><b><span
+  style='font-family:宋体;"Times New Roman"'>控件</span><span lang=EN-US></span></b></p>
+      </td>
+      <td width=100 valign=bottom class="Normal"> 
+        <p class=a style='line-height:18.0pt'><span lang=EN-US> <img border=0 width=55 height=288
+  src="./chap10.files/image003.gif" v:shapes="_x0000_i1144"> </span></p>
+        <p align=center style='text-align:center;
+  line-height:18.0pt'><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>图</span><span
+  lang=EN-US>10.2</span></b></p>
+        <p align=center style='text-align:center;
+  line-height:18.0pt'><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>工具条</span><span
+  lang=EN-US></span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span lang=EN-US>(3)</span><span
+style='font-family:宋体;"Times New Roman"'>如果没有该项，找到</span><span lang=EN-US>lead32.ocx</span><span
+style='font-family:宋体;"Times New Roman"'>文件所在的目录</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>一般为</span><span lang=EN-US>95</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的系统目录</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，选择该文件，按下</span><span lang=EN-US>Insert</span><span
+style='font-family:宋体;"Times New Roman"'>按钮即可</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>其它</span><span
+lang=EN-US>VC</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>版本的操作方法是：按下</span><span lang=EN-US>Customize</span><span
+style='font-family:宋体;"Times New Roman"'>菜单，出现一个新的对话框，按下</span><span lang=EN-US>Import</span><span
+style='font-family:宋体;"Times New Roman"'>菜单，找到</span><span lang=EN-US>lead32.ocx</span><span
+style='font-family:宋体;"Times New Roman"'>文件所在的目录，选择该文件，按下</span><span lang=EN-US>Import</span><span
+style='font-family:宋体;"Times New Roman"'>按钮，再按下</span><span lang=EN-US>OK</span><span
+style='font-family:宋体;"Times New Roman"'>按钮，然后做</span><span lang=EN-US>(2)</span><span
+style='font-family:宋体;"Times New Roman"'>所做的工作即可</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。按下</span><span lang=EN-US>Close</span><span
+style='font-family:宋体;"Times New Roman"'>按钮，关闭</span><span lang=EN-US>Component</span><span
+style='font-family:宋体;"Times New Roman"'>对话框。插入该控件后，会出现一个对话框，提示你新增加了两个类：</span><span lang=EN-US>Clead</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>Cpicture</span><span
+style='font-family:宋体;"Times New Roman"'>，选择</span><span lang=EN-US>Ok</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。打开对话框资源，选择</span><span
+lang=EN-US>ID</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为</span><span lang=EN-US>IDD_TESTLEAD_DIALOG</span><span
+style='font-family:宋体;"Times New Roman"'>的对话框，这时可以看到该控件已经添加到工具条中，如图</span><span lang=EN-US>10.2</span><span
+style='font-family:宋体;"Times New Roman"'>所示。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>步骤</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>：将</span><span lang=EN-US>Lead</span><span
+style='font-family:宋体;"Times New Roman"'>控件从工具条拖到对话框中，设置好合适的大小，右击该控件，选择</span><span lang=EN-US>Property</span><span
+style='font-family:宋体;"Times New Roman"'>菜单，设置其</span><span lang=EN-US>ID</span><span
+style='font-family:宋体;"Times New Roman"'>属性为</span><span lang=EN-US>IDC_LEAD1</span><span
+style='font-family:宋体;"Times New Roman"'>，删除“</span><span lang=EN-US>TODO: Place 
+    form controls on this dialog</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>”的静态文本。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>步骤</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>：按</span><span lang=EN-US>Ctrl+w</span><span
+style='font-family:宋体;"Times New Roman"'>，出现</span><span lang=EN-US>ClassWizard</span><span
+style='font-family:宋体;"Times New Roman"'>对话框，选择</span><span lang=EN-US>Member 
+    Variables</span><span
+style='font-family:宋体;"Times New Roman"'>那一页，为该</span><span lang=EN-US>ID</span><span
+style='font-family:宋体;"Times New Roman"'>添加一个变量</span><span lang=EN-US>m_Lead1</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Category</span><span
+style='font-family:宋体;"Times New Roman"'>为</span><span lang=EN-US>Control</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>Variable Type</span><span
+style='font-family:宋体;"Times New Roman"'>为</span><span lang=EN-US>Clead</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>步骤</span><span
+lang=EN-US>5</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>：编辑</span><span lang=EN-US>TestLeadDlg.cpp</span><span
+style='font-family:宋体;"Times New Roman"'>文件中的</span><span lang=EN-US>OnInitDialog()</span><span
+style='font-family:宋体;"Times New Roman"'>函数，在</span><span>&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>// TODO: Add extra initialization here<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>后加入如下的代码：</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>m_Lead1.Load(“c:\\test.jpg”,0,0);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>m_Lead1.SetAutoScroll(TRUE);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>m_Lead1.SetDstRect(0,0,m_Lead1.GetScaleWidth(), m_Lead1.GetScaleHeight());</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>m_Lead1.SetDstClipRect(0,0,m_Lead1.GetScaleWidth(), m_Lead1.GetScaleHeight());</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>m_Lead1.SetAutoRepaint(FALSE); </span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>m_Lead1.ForceRepaint(); </span><span lang=EN-US style='font-size:
+9.0pt;'></span></p>
+  <p style='line-height:
+18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>步骤</span><span lang=EN-US>6</span><span
+style='font-family:宋体;"Times New Roman"'>：编译运行，结果如图</span><span lang=EN-US>10.3</span><span
+style='font-family:宋体;"Times New Roman"'>所示。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img border=0 width=244 height=213
+src="./chap10.files/image005.jpg" v:shapes="_x0000_i1145"> </span></p>
+  <p align=center style='text-align:center;
+line-height:18.0pt'><b><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span>10.3&nbsp; </b><b><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>例</span><span
+lang=EN-US>10.1</span></b><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的运行结果</span><span
+lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>可以看到，使用了控件的编程是多么的简单。更复杂的应用，读者可以参考帮助来完成，要注意的是，使用了</span><span
+lang=EN-US>LeadTools</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的应用程序一定要注意版权问题，另外，程序中如果用到了</span><span
+lang=EN-US>LeatTools</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的</span><span
+lang=EN-US>OCX</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，在制作安装程序</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>如用</span><span lang=EN-US>InstallShield)</span><span
+style='font-family:宋体;"Times New Roman"'>时一定要将</span><span lang=EN-US>OLE</span><span
+style='font-family:宋体;"Times New Roman"'>的信息进行注册，否则用户无法正常运行程序。</span></p>
+  <h2> <span
+lang=EN-US>10.2</span> <a name="_Toc486331914"></a><a
+name="_Toc486332914"></a><a name="_Toc486339023"></a><a name="_Toc454810888"></a><a
+name="_Toc454856662"><span><span>DirectDraw</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>本节内容主要参考自微软公司的技术文档。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>相信游戏玩家对</span><span
+lang=EN-US>DirectX</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>这个词并不陌生。最近有越来越多的游戏用到了</span><span
+lang=EN-US>DirectX</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。那么</span><span
+lang=EN-US>DirectX</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>究竟是什么呢？</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在</span><span
+lang=EN-US>Windows3.x</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的时代，由于</span><span
+lang=EN-US>Microsoft</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>提供的</span><span
+lang=EN-US>Windows API</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>不能对硬件直接操作，使得</span><span
+lang=EN-US>Windows3.x</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>下的游戏不仅效果差，而且运行速度极慢。而</span><span
+lang=EN-US>DOS4GW</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>有很多很好的性能，例如：可对硬件直接操作；访问超过</span><span
+lang=EN-US>16</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>比特大小的内存区；可对保护模式编程等等，使得大部分游戏是在</span><span
+lang=EN-US>DOS4GW</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>下利用如</span><span lang=EN-US>WATCOMC</span><span
+style='font-family:宋体;"Times New Roman"'>一类的开发工具编制的，如老版本的《仙剑奇侠传》。为了吸引游戏商到</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>平台上来，</span><span lang=EN-US>Microsoft</span><span
+style='font-family:宋体;"Times New Roman"'>专门开发了</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>的游戏接口</span><span lang=EN-US>WinG</span><span
+style='font-family:宋体;"Times New Roman"'>，然而效果并不理想。在推出</span><span lang=EN-US>Windows95</span><span
+style='font-family:宋体;"Times New Roman"'>之后，</span><span lang=EN-US>Microsoft</span><span
+style='font-family:宋体;"Times New Roman"'>又开发了该平台的</span><span lang=EN-US>GAME 
+    SDK</span><span
+style='font-family:宋体;"Times New Roman"'>，这就是</span><span lang=EN-US>DirectX</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>DirectX</span><span
+style='font-family:宋体;"Times New Roman"'>是非常成功的，很多优秀的游戏都又从</span><span lang=EN-US>DOS</span><span
+style='font-family:宋体;"Times New Roman"'>平台移植到</span><span lang=EN-US>Windows95</span><span
+style='font-family:宋体;"Times New Roman"'>平台，《仙剑奇侠传》出了</span><span lang=EN-US>Win95</span><span
+style='font-family:宋体;"Times New Roman"'>版本，</span><span lang=EN-US>Red Alert, 
+    Diablo</span><span
+style='font-family:宋体;"Times New Roman"'>，以及最近十分流行的</span><span lang=EN-US>Age 
+    of Empire</span><span
+style='font-family:宋体;"Times New Roman"'>，都用到了</span><span lang=EN-US>DirectX</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>DirectX</span><span
+style='font-family:宋体;"Times New Roman"'>技术的最大特点是能直接对硬件抽象层</span><span lang=EN-US>(HAL)</span><span
+style='font-family:宋体;"Times New Roman"'>操作，实现视频、声音的输出、网络相互通信，特别能对游戏杆直接编程。与传统的</span><span
+lang=EN-US>GDI</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>和</span><span lang=EN-US>MCI</span><span
+style='font-family:宋体;"Times New Roman"'>相比，不仅大大加快了速度，而且大大地提高了游戏的质量，有人甚至已将</span><span lang=EN-US>DirectX</span><span
+style='font-family:宋体;"Times New Roman"'>称为</span><span lang=EN-US>Windows95</span><span
+style='font-family:宋体;"Times New Roman"'>的</span><span lang=EN-US>GAME OS</span><span
+style='font-family:宋体;"Times New Roman"'>。目前的最新版</span><span lang=EN-US>DirectX5.0 
+    SDK</span><span
+style='font-family:宋体;"Times New Roman"'>包括</span><span lang=EN-US>DirectDraw</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>DirectSound</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>DirectPlay</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>Direct3D</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>DirectInput</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>DirectSetup</span><span
+style='font-family:宋体;"Times New Roman"'>六个部分。其中</span><span lang=EN-US>DirectDraw</span><span
+style='font-family:宋体;"Times New Roman"'>管理游戏的视频输出，</span><span lang=EN-US>DirectSound</span><span
+style='font-family:宋体;"Times New Roman"'>管理游戏的声音输出，</span><span lang=EN-US>DirectPlay</span><span
+style='font-family:宋体;"Times New Roman"'>管理游戏的网络通信，</span><span lang=EN-US>Direct3D</span><span
+style='font-family:宋体;"Times New Roman"'>管理游戏的三维图形，</span><span lang=EN-US>DirectInput</span><span
+style='font-family:宋体;"Times New Roman"'>管理游戏的游戏杆控制，</span><span lang=EN-US>DirectSetup</span><span
+style='font-family:宋体;"Times New Roman"'>管理游戏的安装。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>因为本书的题目是图象处理编程，我们这里只介绍</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的大致原理。有的读者可能会说：“跑题了，图象处理编程和编游戏有什么关系？”其实</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>并不只是用在游戏中，由于它的显示处理速度快，在很多和视频有关的软件中</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>比如说</span><span lang=EN-US>Mpeg</span><span
+style='font-family:宋体;"Times New Roman"'>的解码器</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>都可以用到。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>DirectDraw</span><span
+style='font-family:宋体;"Times New Roman"'>是为速度而设计的，它绕过与</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>的图形设备相连的多个层次，直接与硬件的底层打交道。这很适合游戏编程，因为它着重于快速产生平稳的图形。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>但</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>最重要的一点在于它对不同的显示适配器具有一个共同的接口。你不必管你的程序它是否会工作。</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>利用包含在硬件抽象层</span><span
+lang=EN-US>(HAL)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>中的信息来决定显示适配器的功能。</span><span
+lang=EN-US>(HAL</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是由显示适配器厂商提供的</span><span lang=EN-US>)HAL</span><span
+style='font-family:宋体;"Times New Roman"'>为不同的硬件厂商和使用</span><span lang=EN-US>.DirectDraw</span><span
+style='font-family:宋体;"Times New Roman"'>的开发者提供了共同的接口。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>然而，</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>并不只限于利用显示适配器的硬件功能。如果你的程序指定了某一种特定的显示适配器，例如</span><span
+lang=EN-US>XXXX hardware blitter</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，但用户并没有该硬件，程序就会使用</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的硬件仿真层</span><span
+lang=EN-US>(HEL)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。在这种情况下，</span><span lang=EN-US>DirectDraw</span><span
+style='font-family:宋体;"Times New Roman"'>利用内建的硬件仿真来仿真缺少的硬件。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>下图一说明了</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>和其他</span><span
+lang=EN-US>Windows</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>显示构件的联系。</span></p>
+  <p align=center style='text-align:center;
+line-height:18.0pt'><span lang=EN-US> <img border=0 width=307 height=259
+src="./chap10.files/image007.jpg" v:shapes="_x0000_i1146"> </span></p>
+  <p align=center style='text-align:center;
+line-height:18.0pt'><b><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span>10.4&nbsp; DirectDraw</b><b><span
+style='font-family:宋体;"Times New Roman"'>和其他</span><span lang=EN-US>Windows</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>显示构件</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>DirectDraw API</span><span
+style='font-family:宋体;"Times New Roman"'>由</span><span lang=EN-US>DirectDraw</span><span
+style='font-family:宋体;"Times New Roman"'>对象组成，它表示具体的显示适配器。另外，</span><span lang=EN-US>DirectDraw 
+    API</span><span
+style='font-family:宋体;"Times New Roman"'>还包括表示</span><span lang=EN-US>surface</span><span
+style='font-family:宋体;"Times New Roman"'>的</span><span lang=EN-US>DirectDrawSurface</span><span
+style='font-family:宋体;"Times New Roman"'>对象，表示</span><span lang=EN-US>surface</span><span
+style='font-family:宋体;"Times New Roman"'>调色板的</span><span lang=EN-US>DirectDrawPalette</span><span
+style='font-family:宋体;"Times New Roman"'>对象和表示剪接列表的</span><span lang=EN-US>DirectDrawClipper</span><span
+style='font-family:宋体;"Times New Roman"'>对象。可以用</span><span lang=EN-US>DirectDraw</span><span
+style='font-family:宋体;"Times New Roman"'>对象来创建</span><span lang=EN-US>DirectDrawSurface</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>DirectDrawPalette</span><span
+style='font-family:宋体;"Times New Roman"'>对象。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>本节只介绍到这里，目的主要是想说明由于游戏对显示速度的要求非常高，所以</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>是为速度而设计的。如果要编写一个对速度要求很高</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如</span><span lang=EN-US>Mpeg</span><span
+style='font-family:宋体;"Times New Roman"'>的解码器</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的图象处理系统中，可以考虑使用</span><span
+lang=EN-US>DirectDraw</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <h2> <span
+lang=EN-US>10.3</span> <span lang=EN-US> </span><a name="_Toc486331915"></a><a
+name="_Toc486332915"></a><a name="_Toc486339024"></a><a name="_Toc454810889"></a><a
+name="_Toc454856663"><span><span>简单的多媒体编程</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>前面讲过的内容都是针对数字图象处理这一领域的，现在来谈一些题外的东西，比如说多媒体和</span><span
+lang=EN-US>MPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>多媒体这几个字，近年来是非常流行的。它包含的东西也是非常多的，除了文本，静态图象，还包括音频，视频等媒体信息。有时候在程序中加入一小段多媒体的东西，能给你的软件增色不少。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>其实编制一个多媒体播放程序非常简单，关键代码不超过</span><span
+lang=EN-US>10</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行代码，你相信吗？其实质是</span><span lang=EN-US>MCI</span><span
+style='font-family:宋体;"Times New Roman"'>。</span><span lang=EN-US>MCI</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>是</span><span
+lang=EN-US>Media Control Interface(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>媒体控制接口</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的缩写，它提供了一套与设备无关的命令消息和命令字来控制媒体的播放。</span><span
+lang=EN-US>MCI</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>可以播放的文件类型有</span><span lang=EN-US>AVI</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>WAV</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>MIDI</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>MPEG(</span><span
+style='font-family:宋体;"Times New Roman"'>如果系统中已经安装了</span><span lang=EN-US>MPEG</span><span
+style='font-family:宋体;"Times New Roman"'>的驱动程序，如安装</span><span lang=EN-US>XING</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>ACTIVEMOVIE</span><span
+style='font-family:宋体;"Times New Roman"'>时带的</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>JPEG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>等等。</span><span lang=EN-US>MCI</span><span
+style='font-family:宋体;"Times New Roman"'>窗口底部有一个播放条，上面有播放</span><span lang=EN-US>/</span><span
+style='font-family:宋体;"Times New Roman"'>暂停</span><span lang=EN-US>(Play/Pause)</span><span
+style='font-family:宋体;"Times New Roman"'>按键、有显示播放进度的标尺，还有一个菜单，可调整窗口大小、声音大小，速度快慢等等，就和媒体播放器的界面一样。库</span><span
+lang=EN-US>VFW32.LIB</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>中提供了</span><span
+lang=EN-US>MCI</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的所有功能，编译后生成的是真正的可执行文件，无需附加动态库和控件，如</span><span
+lang=EN-US>VBX</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>和</span><span lang=EN-US>OCX</span><span
+style='font-family:宋体;"Times New Roman"'>等。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>源代码如下，其中黑体部分为关键代码，可以采用如下的命令行编译：</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>cl testmci.c user32.lib vfw32.lib</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//testmci.c</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>#include &lt;windows.h&gt;</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>#include &lt;vfw.h&gt;</span></b></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>void SetClientRect(HWND hwnd, 
+    HWND hwndMCI)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>RECT rect;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>GetWindowRect(hwndMCI, &amp;rect);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>AdjustWindowRectEx(&amp;rect, GetWindowLong(hwnd, GWL_STYLE), FALSE,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>GetWindowLong(hwnd, GWL_EXSTYLE));</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>MoveWindow(hwnd, rect.left, rect.top, rect.right - rect.left,rect.bottom 
+    - rect.top, </span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>TRUE);</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>LRESULT CALLBACK WndProc(HWND 
+    hwnd, UINT uMsg,WPARAM wParam, </span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>LPARAM lParam)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>switch(uMsg)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>case MCIWNDM_NOTIFYPOS:</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>case MCIWNDM_NOTIFYSIZE:</p>
+  <p style='line-height:18.0pt'><b><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>SetClientRect(hwnd, (HWND)wParam);</b></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>break;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>case WM_DESTROY:</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>PostQuitMessage(0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>break;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>default:</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>return DefWindowProc(hwnd, uMsg, wParam, lParam);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>return 0;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>int WINAPI WinMain(HINSTANCE 
+    hInstance, HINSTANCE hPrevInstance,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>LPSTR lpCmdLine,int nCmdShow)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>MSG msg;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>HWND hwnd;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>WNDCLASS wndClass;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>if (hPrevInstance 
+    == NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>memset(&amp;wndClass, 0, sizeof(wndClass));</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>wndClass.style = CS_HREDRAW | CS_VREDRAW;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>wndClass.lpfnWndProc = WndProc;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>wndClass.hInstance = hInstance;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>wndClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>wndClass.lpszClassName = &quot;HELLO&quot;;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if (!RegisterClass(&amp;wndClass)) return FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>hwnd = CreateWindow(&quot;HELLO&quot;, 
+    &quot;HELLO&quot;,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>WS_OVERLAPPED|WS_CAPTION|WS_SYSMENU,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>CW_USEDEFAULT, 0, CW_USEDEFAULT, 0,</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NULL, NULL, hInstance, NULL);</p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>SetClientRect(hwnd, MCIWndCreate(hwnd, hInstance,</span></b></p>
+  <p style='line-height:
+18.0pt'><b><span lang=EN-US>WS_VISIBLE|WS_CHILD|</span></b></p>
+  <p style='line-height:
+18.0pt'><b><span lang=EN-US>MCIWNDF_SHOWALL|</span></b></p>
+  <p style='line-height:
+18.0pt'><b><span lang=EN-US>MCIWNDF_NOTIFYSIZE|</span></b></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>MCIWNDF_NOTIFYPOS, “c:\\test.avi”));</span></b></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>ShowWindow(hwnd, nCmdShow);</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>UpdateWindow(hwnd);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>while (GetMessage(&amp;msg, 
+    NULL, 0, 0))</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>DispatchMessage(&amp;msg);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>return msg.wParam;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>运行时文件</span><span
+lang=EN-US>C:\test.avi</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>必须准备好，当然，你可以改成其它的文件名。其运行结果如图</span><span
+lang=EN-US>10.5</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所示。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img border=0 width=166 height=171
+src="./chap10.files/image008.gif" v:shapes="_x0000_i1142"> </span></p>
+  <p align=center style='text-align:center;
+line-height:18.0pt'><b><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span>10.5&nbsp; TestMCI</b><b><span
+style='font-family:宋体;"Times New Roman"'>的运行结果</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>该程序非常简单，所有的代码加在一起不超过</span><span
+lang=EN-US>60</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行，其关键部分只有一个</span><span lang=EN-US>MCIWndCreate</span><span
+style='font-family:宋体;"Times New Roman"'>函数，细节就不介绍了，有兴趣的读者可以参看</span><span lang=EN-US>VC</span><span
+style='font-family:宋体;"Times New Roman"'>的帮助。</span></p>
+  <h1 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US> 
+    &nbsp; </span></h1>
+</div>
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+USC does not screen or control the content herein and does not take responsibility for any inaccurate, offensive, infringing, or objectionable content, all of which is the sole responsibility of the author or the users who post content on this website.
+</div>
+</body>
+</html>

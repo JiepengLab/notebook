@@ -1,0 +1,2874 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/NA/Chapter_03/">
+      
+      
+        <link rel="prev" href="../Chapter_09/">
+      
+      
+        <link rel="next" href="../Chapter_08/">
+      
+      
+      <link rel="icon" href="../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>Chapter 3 Interpolation and Polynomial Approximation - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-3-interpolation-and-polynomial-approximation" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 3 Interpolation and Polynomial Approximation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Fundemental/" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Friends/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朋友们！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CurrentStudy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正在学习的课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Fundemental/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            基础课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/Mathematical%20Modeling/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数学建模
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/Probability%20and%20Mathematical%20Statistics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Fundemental/Physics-II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大学物理（乙）II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            校内CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    数值分析
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            数值分析
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter_01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 1 Mathematical Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter_02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 2 Solutions of Equations in One Variable
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter_06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 6 Direct Methods for Solving Linear Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter_07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 7 Iterative Techniques in Matrix Algebra
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter_09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 9 Approximating Eigenvalues
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Chapter 3 Interpolation and Polynomial Approximation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 3 Interpolation and Polynomial Approximation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-lagrange-interpolation-and-lagrange-polynomials" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 插值和 Lagrange 多项式 | Interpolation and Lagrange Polynomials
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 插值和 Lagrange 多项式 | Interpolation and Lagrange Polynomials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lagrange" class="md-nav__link">
+    <span class="md-ellipsis">
+      构造 Lagrange 多项式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lagrange_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lagrange 多项式的唯一性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉格朗日逼近的余项
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="拉格朗日逼近的余项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neville" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neville 迭代插值法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Neville 迭代插值法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-divided-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Divided Differences | 差商
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Divided Differences | 差商">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#newtons-interpolatory-divided-difference-formula-newton" class="md-nav__link">
+    <span class="md-ellipsis">
+      Newton's Interpolatory Divided-Difference formula | 差商型 Newton 插值多项式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Newton's Interpolatory Divided-Difference formula | 差商型 Newton 插值多项式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      差商和导数的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      差分记号引入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距下的向前差商公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距下的向前差分公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距下的向后差商公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距下的向后差分公式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-hermite-interpolation-hermite" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Hermite Interpolation | Hermite 插值
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Hermite Interpolation | Hermite 插值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#osculating-polynomials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Osculating polynomials | 密切多项式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hermite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hermite 插值多项式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hermite 插值多项式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊例子
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般情况
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      余项
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-cubic-spline-i-nterpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Cubic Spline I           nterpolation | 三次样条插值
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Cubic Spline I nterpolation | 三次样条插值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#piecewise-polynomial-approximation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Piecewise-polynomial approximation | 分段多项式逼近
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cubic-spline-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cubic spline interpolation | 三次样条插值
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cubic spline interpolation | 三次样条插值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-of-bending-moments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method of Bending Moments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clamped-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clamped boundary | 固支边界
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#natural-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Natural boundary | 自由边界
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties-of-cubic-splines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties of cubic splines | 三次样条的性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter_08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 8 Approximation Theory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../AI_Start/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    人工智能初步
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../DigitalDesign/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数字逻辑设计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../DIP/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    图像信息处理
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../FDS/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数据结构基础
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS_Online/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            校外CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML-4360/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML_Lhy/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    李宏毅《机器学习》
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Mess/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            杂项
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Mess/DIP-C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    《数字图像处理编程入门》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/ESG/Paper/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ESG商赛
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/Marxism/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    马原
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-lagrange-interpolation-and-lagrange-polynomials" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 插值和 Lagrange 多项式 | Interpolation and Lagrange Polynomials
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 插值和 Lagrange 多项式 | Interpolation and Lagrange Polynomials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lagrange" class="md-nav__link">
+    <span class="md-ellipsis">
+      构造 Lagrange 多项式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lagrange_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lagrange 多项式的唯一性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉格朗日逼近的余项
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="拉格朗日逼近的余项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neville" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neville 迭代插值法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Neville 迭代插值法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-divided-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Divided Differences | 差商
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Divided Differences | 差商">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#newtons-interpolatory-divided-difference-formula-newton" class="md-nav__link">
+    <span class="md-ellipsis">
+      Newton's Interpolatory Divided-Difference formula | 差商型 Newton 插值多项式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Newton's Interpolatory Divided-Difference formula | 差商型 Newton 插值多项式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      差商和导数的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      差分记号引入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距下的向前差商公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距下的向前差分公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距下的向后差商公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距下的向后差分公式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-hermite-interpolation-hermite" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Hermite Interpolation | Hermite 插值
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Hermite Interpolation | Hermite 插值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#osculating-polynomials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Osculating polynomials | 密切多项式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hermite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hermite 插值多项式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hermite 插值多项式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊例子
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般情况
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      余项
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-cubic-spline-i-nterpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Cubic Spline I           nterpolation | 三次样条插值
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Cubic Spline I nterpolation | 三次样条插值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#piecewise-polynomial-approximation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Piecewise-polynomial approximation | 分段多项式逼近
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cubic-spline-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cubic spline interpolation | 三次样条插值
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cubic spline interpolation | 三次样条插值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-of-bending-moments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method of Bending Moments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clamped-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clamped boundary | 固支边界
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#natural-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Natural boundary | 自由边界
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties-of-cubic-splines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties of cubic splines | 三次样条的性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="chapter-3-interpolation-and-polynomial-approximation">Chapter 3 插值和多项式逼近 | Interpolation and Polynomial Approximation<a class="headerlink" href="#chapter-3-interpolation-and-polynomial-approximation" title="点击此处可置顶内容">&para;</a></h1>
+<h2 id="31-lagrange-interpolation-and-lagrange-polynomials">3.1 插值和 Lagrange 多项式 | Interpolation and Lagrange Polynomials<a class="headerlink" href="#31-lagrange-interpolation-and-lagrange-polynomials" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="lagrange">构造 Lagrange 多项式<a class="headerlink" href="#lagrange" title="点击此处可置顶内容">&para;</a></h3>
+<p>拉格朗日插值就是构造一个次数至多为 <span class="arithmatex">\(n\)</span> 次的多项式使它通过 <span class="arithmatex">\(n+1\)</span> 个给定的点，这个多项式就是拉格朗日多项式。</p>
+<div class="admonition note">
+<p class="admonition-title"> <span class="arithmatex">\(n = 1\)</span> </p>
+<p>构造<span class="arithmatex">\(P(x)=a_0+a_1x\)</span>，使得<span class="arithmatex">\(P(x_0)=y_0\)</span>，<span class="arithmatex">\(P(x_1)=y_1\)</span>。</p>
+<p>则<span class="arithmatex">\(P(x)=y_0+\frac{y_1-y_0}{x_1-x_0}(x-x_0)=\frac{x-x_1}{x_0-x_1}y_0+\frac{x-x_0}{x_1-x_0}y_1\)</span>。 </p>
+<p>其中<span class="arithmatex">\(\frac{x-x_1}{x_0-x_1}\)</span>和<span class="arithmatex">\(\frac{x-x_0}{x_1-x_0}\)</span>分别记作<span class="arithmatex">\(L_{1,0}(x)\)</span>和<span class="arithmatex">\(L_{1,1}(x)\)</span>（第一个下标即为<span class="arithmatex">\(n\)</span>的值，第二个下标为样本点的序号），这称为拉格朗日基函数（Lagrange Basis）。</p>
+</div>
+<div class="admonition note">
+<p>可以知道，拉格朗日基函数总是满足Kronecker Delta函数<span class="arithmatex">\(\delta_{ij}\)</span>。</p>
+<div class="arithmatex">\[\delta_{ij} = \begin{cases} 1, &amp; i = j \\ 0, &amp; i \neq j \end{cases}\]</div>
+</div>
+<p>推广到<span class="arithmatex">\(n\)</span>次插值，构造<span class="arithmatex">\(P(x)=a_0+a_1x+\cdots+a_nx^n\)</span>，使得<span class="arithmatex">\(P(x_i)=y_i\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n\)</span>。就是要找到 <span class="arithmatex">\(L_{n,i}(x)\)</span> 使得 <span class="arithmatex">\(L_{n,i}(x_j) = \delta_{ij}\)</span></p>
+<p>分析可知，这里的<span class="arithmatex">\(L_{n,i}(x)\)</span>有 <span class="arithmatex">\(n\)</span> 个根，分别为<span class="arithmatex">\(x_0,x_1,\cdots,x_{i-1},x_{i+1},\cdots,x_n\)</span>。所以可以构造出</p>
+<div class="arithmatex">\[L_{n,i}(x)=C(x-x_0)(x-x_1)\cdots(x-x_{i-1})(x-x_{i+1})\cdots(x-x_n)\]</div>
+<p>又因为<span class="arithmatex">\(L_{n,i}(x_i)=1\)</span>，所以</p>
+<div class="arithmatex">\[L_{n,i}(x)=\frac{(x-x_0)(x-x_1)\cdots(x-x_{i-1})(x-x_{i+1})\cdots(x-x_n)}{(x_i-x_0)(x_i-x_1)\cdots(x_i-x_{i-1})(x_i-x_{i+1})\cdots(x_i-x_n)}\]</div>
+<p>即</p>
+<div class="arithmatex">\[L_{n,i}(x)=\prod\limits_{j=0,j\neq i}^n\frac{x-x_j}{x_i-x_j}\]</div>
+<p>于是我们根据拉格朗日基函数构造出了 <span class="arithmatex">\(n\)</span> 次拉格朗日插值多项式</p>
+<div class="arithmatex">\[P_n(x)=\sum\limits_{i=0}^nL_{n,i}(x)y_i\]</div>
+<h3 id="lagrange_1">Lagrange 多项式的唯一性<a class="headerlink" href="#lagrange_1" title="点击此处可置顶内容">&para;</a></h3>
+<p>对 <span class="arithmatex">\(n\)</span> 个不同的点 ， <span class="arithmatex">\(n\)</span> 次拉格朗日插值多项式是唯一的</p>
+<p><strong><em>证明：</em></strong></p>
+<p>如果不唯一，假设存在另一个多项式<span class="arithmatex">\(Q_n(x)\)</span>，使得<span class="arithmatex">\(Q_n(x_i)=y_i\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n\)</span>，且<span class="arithmatex">\(Q_n(x)\neq P_n(x)\)</span>。</p>
+<p>则<span class="arithmatex">\(R_n(x)=P_n(x)-Q_n(x)\)</span>是一个次数不超过<span class="arithmatex">\(n\)</span>的多项式，且<span class="arithmatex">\(R_n(x_i)=0\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n\)</span>。</p>
+<p>由于<span class="arithmatex">\(R_n(x)\)</span>的次数不超过<span class="arithmatex">\(n\)</span>，<span class="arithmatex">\(n\)</span>次多项式不可能有 <span class="arithmatex">\(n+1\)</span> 个解，所以<span class="arithmatex">\(R_n(x)=0\)</span>，即<span class="arithmatex">\(P_n(x)=Q_n(x)\)</span>，与假设矛盾。</p>
+<div class="admonition note">
+<p>如果 对 <span class="arithmatex">\(n\)</span> 个点 运用 超过<span class="arithmatex">\(n\)</span> 次的拉格朗日插值多项式，那么得到的多项式就不唯一了。</p>
+<p>例如 <span class="arithmatex">\(P(x)=L_n\left(x\right)+p(x)\prod\limits_{i=0}^n\left(x-x_i\right)\)</span></p>
+</div>
+<h3 id="_1">拉格朗日逼近的余项<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h3>
+<p>假定<span class="arithmatex">\(a\leq x_0&lt;x_1&lt;\cdots&lt;x_n\leq b\)</span>，<span class="arithmatex">\(f\in C[a,b]\)</span>，<span class="arithmatex">\(P_n(x)\)</span>是<span class="arithmatex">\(f(x)\)</span>在<span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span>上的拉格朗日插值多项式，则对任意<span class="arithmatex">\(x\in[a,b]\)</span>，存在<span class="arithmatex">\(\xi(x)\in(a,b)\)</span>，使得</p>
+<div class="arithmatex">\[f(x)-P_n(x)=\frac{f^{(n+1)}(\xi(x))}{(n+1)!}\prod\limits_{i=0}^n(x-x_i)\]</div>
+<div class="admonition note">
+<p class="admonition-title">证明</p>
+<p>记<span class="arithmatex">\(R_n(x)=f(x)-P_n(x)\)</span>，则<span class="arithmatex">\(R_n(x)\)</span>是一个次数不超过<span class="arithmatex">\(n\)</span>的多项式，且<span class="arithmatex">\(R_n(x_i)=0\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n\)</span>。所以<span class="arithmatex">\(R_n(x)\)</span>可记作<span class="arithmatex">\(C(x)\prod\limits_{i=0}^n(x-x_i)\)</span></p>
+<p>固定一个点<span class="arithmatex">\(x\)</span> (<span class="arithmatex">\(x\neq x_i\)</span>) 时，记<span class="arithmatex">\(g(t)=R_n(t)-C(x)\prod\limits_{i=0}^n(t-x_i)\)</span>，则<span class="arithmatex">\(g(x)=0\)</span>，<span class="arithmatex">\(g(x_i)=0\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n\)</span>，所以<span class="arithmatex">\(g(t)\)</span>存在<span class="arithmatex">\(n+2\)</span>个不同的零点</p>
+<p>根据推广的Rolle定理，存在<span class="arithmatex">\(\xi(x)\in(a,b)\)</span>，使得<span class="arithmatex">\(g^{(n+1)}(\xi(x))=0\)</span>，即</p>
+<div class="arithmatex">\[
+\begin{aligned}
+0=g^{(n+1)}(\xi(x))&amp;=(R_n(\xi(x))-C(x)\prod\limits_{i=0}^n(\xi(x)-x_i))^{(n+1)}\\&amp;=(f(\xi(x))-P_n(\xi(x))-C(x)\prod\limits_{i=0}^n(t-x_i))^{(n+1)}\\
+&amp;=f^{(n+1)}(\xi(x))-C(x)(n+1)! \quad //因为P_n(x)是n次多项式，所以P_n^{(n+1)}(x)=0\\
+\end{aligned}
+\]</div>
+<p>所以<span class="arithmatex">\(C(x)=\frac{f^{(n+1)}(\xi(x))}{(n+1)!}\)</span>，所以<span class="arithmatex">\(R_n(x)=\frac{f^{(n+1)}(\xi(x))}{(n+1)!}\prod\limits_{i=0}^n(x-x_i)\)</span></p>
+</div>
+<p>因为这里的<span class="arithmatex">\(f^{(n+1)}(\xi(x))\)</span>是不知道的，所以我们经常用<span class="arithmatex">\(f^{(n+1)}(x)\)</span>的上界来估计余项。</p>
+<div class="admonition note">
+<p>分析余项可知，对于小于等于 <span class="arithmatex">\(n\)</span> 次的多项式 <span class="arithmatex">\(f\)</span> ，经过<span class="arithmatex">\(n\)</span>次拉格朗日插值得到的余项为0，得到的多项式就是 <span class="arithmatex">\(f\)</span> 本身</p>
+<div class="admonition note">
+<p>这里限制了<span class="arithmatex">\(f\)</span>为多项式</p>
+</div>
+</div>
+<h4 id="1">例子 1<a class="headerlink" href="#1" title="点击此处可置顶内容">&para;</a></h4>
+<p>假设为 <span class="arithmatex">\(x\in [0,1]\)</span> 的函数 <span class="arithmatex">\(f(x)=e^x\)</span> 做一个表格。设表中每一项精确的位数是 <span class="arithmatex">\(d\geq 8\)</span>，相邻 <span class="arithmatex">\(x\)</span> 值之差即步长为 <span class="arithmatex">\(h\)</span>。为使线性插值（即一次Lagrange插值）的误差不超过 <span class="arithmatex">\(10^{-6}\)</span>，<span class="arithmatex">\(h\)</span>应该是多少？</p>
+<p><strong><em>解：</em></strong></p>
+<p>假设 <span class="arithmatex">\([0, 1]\)</span> 被分成 <span class="arithmatex">\(n\)</span> 个等距的子区间 <span class="arithmatex">\([x_0, x_1], [x_1, x_2], \cdots, [x_{n-1} , x_n]\)</span>，<span class="arithmatex">\(x\)</span> 在区间 <span class="arithmatex">\([x_k, x_{k+1}]\)</span> 中。则误差估计为</p>
+<div class="arithmatex">\[
+\begin{aligned}
+|f(x)-P_1(x)| &amp;= |\frac{f''(\xi(x))}{2!}(x-x_k)(x-x_{k+1})| \\
+&amp;\leq |\frac{e^\xi}{2}(x-kh)(x-(k+1)h)| \\
+&amp;\leq \frac{e}{2}\cdot \frac{h^2}{4} \\
+&amp;\leq 10^{-6}
+\end{aligned}
+\]</div>
+<p>所以 <span class="arithmatex">\(h\leq 1.72\times 10^{-3}\)</span>。我们不妨取 <span class="arithmatex">\(h=10^{-3}\)</span>，则 <span class="arithmatex">\(n=1000\)</span>。</p>
+<h4 id="2">例子 2<a class="headerlink" href="#2" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="Alt text" src="../images/image-37.png" /></p>
+<div class="admonition note">
+<p>给三个点，我们有两种方法来线性插值。往往，<strong>内插(Intrapolation)</strong> 会比 <strong>外插(Extrapolation)</strong> 更加准确。</p>
+</div>
+<p><img alt="Alt text" src="../images/image-38.png" /></p>
+<div class="admonition note">
+<p>高次的拉格朗日插值一般会比低次的插值更加准确，但是这不一定总成立。</p>
+</div>
+<h3 id="neville">Neville 迭代插值法<a class="headerlink" href="#neville" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>记号说明：</strong> 设 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 上有定义，<span class="arithmatex">\(m_1,m_2,\cdots,m_k\)</span> 是 <span class="arithmatex">\(k\)</span> 个不同的整数，<span class="arithmatex">\(0\leq m_i\leq n\)</span>，<span class="arithmatex">\(i=1,2,\cdots,k\)</span>。记在这 <span class="arithmatex">\(k\)</span> 个点上与 <span class="arithmatex">\(f(x)\)</span> 相同的拉格朗日多项式为 <span class="arithmatex">\(P_{m_1,m_2,\cdots,m_k}(x)\)</span>。</p>
+<p><strong>定理：</strong> 设 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 上有定义，让 <span class="arithmatex">\(x_i\)</span> 和 <span class="arithmatex">\(x_j\)</span> 是这个集合中的两个不同的数。则</p>
+<div class="arithmatex">\[P(x)=\frac{(x-x_j)P_{0,1,...,j-1,j+1,...,k}(x)-(x-x_i)P_{0,1,...,i-1,i+1,...,k}(x)}{(x_i-x_j)}\]</div>
+<p>描述了对 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0,x_1,\cdots,x_k\)</span> 这 <span class="arithmatex">\(k+1\)</span>个点 上的 <span class="arithmatex">\(k\)</span> 次插值多项式。</p>
+<div class="admonition example">
+<p class="admonition-title">五个点</p>
+<p><img alt="Alt text" src="../images/image-40.png" /></p>
+</div>
+<p><strong>证明：</strong></p>
+<p>对于任意 <span class="arithmatex">\(0\leq r\leq k\)</span>，<span class="arithmatex">\(r\neq i\)</span> 和 <span class="arithmatex">\(r\neq j\)</span>，分子上的两个插值多项式在 <span class="arithmatex">\(x_r\)</span> 处都等于 <span class="arithmatex">\(f(x_r)\)</span>，所以 <span class="arithmatex">\(P(x_r)=f(x_r)\)</span>。</p>
+<p>分子上的第一个多项式在 <span class="arithmatex">\(x_i\)</span> 处等于 <span class="arithmatex">\(f(x_i)\)</span>，而第二个多项式在 <span class="arithmatex">\(x_i\)</span> 处为0，所以 <span class="arithmatex">\(P(x_i)=f(x_i)\)</span>。同理 <span class="arithmatex">\(P(x_j)=f(x_j)\)</span>。</p>
+<p>所以 <span class="arithmatex">\(P(x)\)</span> 在 <span class="arithmatex">\(x_0,x_1,\cdots,x_k\)</span> 上与 <span class="arithmatex">\(f(x)\)</span> 相同，因为 <span class="arithmatex">\(P(x)\)</span> 是 <span class="arithmatex">\(k\)</span> 次多项式，所以 <span class="arithmatex">\(P(x)=P_{0,1,\cdots,k}(x)\)</span>。</p>
+<h4 id="_2">伪代码<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="Alt text" src="../images/image-39.png" /></p>
+<h2 id="32-divided-differences">3.2 Divided Differences | 差商<a class="headerlink" href="#32-divided-differences" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="newtons-interpolatory-divided-difference-formula-newton">Newton's Interpolatory Divided-Difference formula | 差商型 Newton 插值多项式<a class="headerlink" href="#newtons-interpolatory-divided-difference-formula-newton" title="点击此处可置顶内容">&para;</a></h3>
+<p>设 <span class="arithmatex">\(P_n(x)\)</span> 是函数 <span class="arithmatex">\(f\)</span> 在点 <span class="arithmatex">\(x_0, x_1,\cdots,x_n\)</span> 上的拉格朗日多项式，<span class="arithmatex">\(f\)</span> 关于 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 的差商被用于将 <span class="arithmatex">\(P_n(x)\)</span> 表示为：</p>
+<div class="arithmatex">\[P_n(x)=f[x_0]+f[x_0,x_1](x-x_0)+\cdots+f[x_0,x_1,\cdots,x_n](x-x_0)(x-x_1)\cdots(x-x_{n-1})\]</div>
+<p>其中 <span class="arithmatex">\(f[x_0,x_1,\cdots,x_n]\)</span> 是 <span class="arithmatex">\(f\)</span> 关于 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 的差商，通过代值可以得到</p>
+<div class="arithmatex">\[f[x_0]=f(x_0), f[x_0,x_1]=\frac{f(x_1)-f(x_2)}{x_1-x_0}, f[x_0,x_1,x_2]=\frac{f[x_1,x_2]-f[x_0,x_1]}{x_2-x_0}, \cdots\]</div>
+<div class="arithmatex">\[f[x_0,x_1,\cdots,x_n]=\frac{f[x_1,x_2,\cdots,x_n]-f[x_0,x_1,\cdots,x_{n-1}]}{x_n-x_0}\]</div>
+<p>我们记 <span class="arithmatex">\(f[x_0], f[x_0,x_1],\cdots,f[x_0,x_1,\cdots,x_n]\)</span> 为 <span class="arithmatex">\(f\)</span> 关于 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 的 <span class="arithmatex">\(0\)</span> 阶差商，<span class="arithmatex">\(1\)</span> 阶差商，<span class="arithmatex">\(\cdots\)</span>，<span class="arithmatex">\(n\)</span> 阶差商。</p>
+<div class="admonition note">
+<p class="admonition-title">六个点的三阶差商计算的例子</p>
+<p><img alt="Alt text" src="../images/image-41.png" /></p>
+</div>
+<p>同时，我们称</p>
+<div class="arithmatex">\[P_n(x)=f[x_0]+f[x_0,x_1](x-x_0)+\cdots+f[x_0,x_1,\cdots,x_n](x-x_0)(x-x_1)\cdots(x-x_{n-1})\]</div>
+<p>为<strong>差商型 Newton 插值多项式</strong>(Newton's Interpolatory Divided-Difference formula)。</p>
+<h4 id="_3">伪代码<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="Alt text" src="../images/image-42.png" /></p>
+<h4 id="_4">差商和导数的关系<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h4>
+<h5 id="_5">一阶差分<a class="headerlink" href="#_5" title="点击此处可置顶内容">&para;</a></h5>
+<p>将中值定理应用到 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\([x_0,x_1]\)</span> 上，得到</p>
+<div class="arithmatex">\[f[x_0,x_1]=\frac{f(x_1)-f(x_0)}{x_1-x_0}=f'(\xi)\]</div>
+<h5 id="n"><span class="arithmatex">\(n\)</span> 阶差分<a class="headerlink" href="#n" title="点击此处可置顶内容">&para;</a></h5>
+<p>设 <span class="arithmatex">\(f\in C^n[a,b]\)</span> 且 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\in[a,b]\)</span>，则存在 <span class="arithmatex">\(\xi\in(a,b)\)</span>，使得</p>
+<div class="arithmatex">\[f[x_0,x_1,\cdots,x_n]=\frac{f^{(n)}(\xi)}{n!}\]</div>
+<p><strong><em>证明：</em></strong></p>
+<p>设 <span class="arithmatex">\(g(t)=f(t)-P_n(t)\)</span>，则 <span class="arithmatex">\(g(x_i)=0\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n\)</span>。所以 <span class="arithmatex">\(g(t)\)</span> 在 <span class="arithmatex">\([x_0,x_n]\)</span> 上有 <span class="arithmatex">\(n+1\)</span> 个零点，根据推广的 Rolle 定理，存在 <span class="arithmatex">\(\xi\in(a,b)\)</span>，使得 <span class="arithmatex">\(g^{(n)}(\xi)=0\)</span>，即</p>
+<div class="arithmatex">\[f^{(n)}(\xi)-P_n^{(n)}(\xi)=0\]</div>
+<p>所以 <span class="arithmatex">\(P_n^{(n)}(\xi)=f^{(n)}(\xi)\)</span>，因为</p>
+<div class="arithmatex">\[P_n^{(n)}(\xi)=n!f[x_0,x_1,\cdots,x_n]\]</div>
+<p>所以</p>
+<div class="arithmatex">\[f[x_0,x_1,\cdots,x_n]=\frac{f^{(n)}(\xi)}{n!}\]</div>
+<div class="admonition note">
+<p class="admonition-title">PPT上采用的证明方法</p>
+<p><img alt="Alt text" src="../images/image-43.png" /></p>
+</div>
+<h4 id="_6">差分记号引入<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h4>
+<p>如果每个点都连续等步长排列，记步长为<span class="arithmatex">\(h\)</span>，令<span class="arithmatex">\(x_i=x_0+ih\)</span>，则</p>
+<p>引入<strong>向前差分(forward difference)</strong>记号：</p>
+<div class="arithmatex">\[\begin{aligned}
+\Delta f(x_i)&amp;=f(x_{i+1})-f(x_i)\\
+\Delta^2 f(x_i)&amp;=\Delta f(x_{i+1})-\Delta f(x_i)\\
+\Delta^3 f(x_i)&amp;=\Delta^2 f(x_{i+1})-\Delta^2 f(x_i)\\
+\cdots
+\end{aligned}\]</div>
+<p>引入<strong>向后差分(backward difference)</strong>记号：</p>
+<div class="arithmatex">\[\begin{aligned}
+\nabla f(x_i)&amp;=f(x_i)-f(x_{i-1})\\
+\nabla^2 f(x_i)&amp;=\nabla f(x_i)-\nabla f(x_{i-1})\\
+\nabla^3 f(x_i)&amp;=\nabla^2 f(x_i)-\nabla^2 f(x_{i-1})\\
+\cdots
+\end{aligned}\]</div>
+<p>引入<strong>中心差分(central difference)</strong>记号：</p>
+<div class="arithmatex">\[\delta^k f_i = \delta^{k-1}f_{i+\frac{1}{2}}-\delta^{k-1}f_{i-\frac{1}{2}}\]</div>
+<p>其中</p>
+<div class="arithmatex">\[f_{i\pm\frac{1}{2}}=f(x_i\pm\frac{h}{2})\]</div>
+<h4 id="_7">等距下的向前差商公式<a class="headerlink" href="#_7" title="点击此处可置顶内容">&para;</a></h4>
+<p>在等距情况下，向前差商的公式可表示为：</p>
+<div class="arithmatex">\[\begin{aligned}
+P_n(x_s)=P_n(x_0+sh)&amp;=f[x_0]+f[x_0,x_1]sh+\cdots+f[x_0,x_1,\cdots,x_n]s(s-1)\cdots(s-n+1)h^n\\
+&amp;=\sum\limits_{k=0}^n\begin{pmatrix}s\\k\end{pmatrix}k!h^kf[x_0,x_1,\cdots,x_k]
+\end{aligned}\]</div>
+<div class="admonition note">
+<p>这里的 <span class="arithmatex">\(\begin{pmatrix}s\\k\end{pmatrix}\)</span> 是组合数，即 <span class="arithmatex">\(\frac{s(s-1)\cdots(s-k+1)}{k!}\)</span></p>
+</div>
+<h4 id="_8">等距下的向前差分公式<a class="headerlink" href="#_8" title="点击此处可置顶内容">&para;</a></h4>
+<p>由向前差分的记号可知道</p>
+<div class="arithmatex">\[
+\begin{aligned}
+f[x_{0},x_{1}]&amp; =\frac{f(x_{1})-f(x_{0})}{x_{1}-x_{0}}=\frac{1}{h}\Delta f(x_{0})  \\
+f[x_{0},x_{1},x_{2}]&amp; =\frac{1}{2h}\left[\frac{\Delta f(x_{1})-\Delta f(x_{0})}{h}\right]=\frac{1}{2h^{2}}\Delta^{2}f(x_{0}), 
+\end{aligned}
+\]</div>
+<p>由此可推广得出</p>
+<div class="arithmatex">\[f[x_{0},x_{1},\ldots,x_{k}]=\frac{1}{k!h^{k}}\Delta^{k}f(x_{0}).\]</div>
+<p>所以</p>
+<div class="arithmatex">\[P_n(x_s)=\sum\limits_{k=0}^n\begin{pmatrix}s\\k\end{pmatrix}\Delta^{k}f(x_{0})\]</div>
+<p>此即为向前差分的公式</p>
+<h4 id="_9">等距下的向后差商公式<a class="headerlink" href="#_9" title="点击此处可置顶内容">&para;</a></h4>
+<p>重排插值节点再计算，此时：</p>
+<div class="arithmatex">\[\begin{aligned}P_n(x)=&amp;f[x_n]+f[x_n,x_{n-1}](x-x_n)+f[x_n,x_{n-1},x_{n-2}](x-x_n)(x-x_{n-1})\\&amp;+\cdots+f[x_n,\ldots,x_0](x-x_n)(x-x_{n-1})\cdots(x-x_1).\end{aligned}\]</div>
+<p>在等距情况下，记 <span class="arithmatex">\(x_s=x_n+sh=x_i+(s+n-i)h\)</span>，有</p>
+<div class="arithmatex">\[
+\begin{aligned}
+P_{n}(x_s) =&amp;P_{n}(x_{n}+sh)  \\
+=&amp;f[x_{n}]+shf[x_{n},x_{n-1}]+s(s+1)h^{2}f[x_{n},x_{n-1},x_{n-2}]+\cdots  \\
+&amp;+s(s+1)\cdots(s+n-1)h^nf[x_n,\ldots,x_0]\\
+=&amp;\sum\limits_{k=0}^n(-1)^k\begin{pmatrix}-s\\k\end{pmatrix}k!h^kf[x_n,x_{n-1},\cdots,x_{n-k}]
+\end{aligned}
+\]</div>
+<div class="admonition note">
+<p>这里的 <span class="arithmatex">\(\begin{pmatrix}-s\\k\end{pmatrix}\)</span> 是组合数，即 <span class="arithmatex">\(\frac{-s(-s-1)\cdots(-s-k+1)}{k!}=(-1)^k \cdot \frac{s(s+1)\cdots(s+k-1)}{k!}\)</span></p>
+</div>
+<h4 id="_10">等距下的向后差分公式<a class="headerlink" href="#_10" title="点击此处可置顶内容">&para;</a></h4>
+<p>由向后差分的记号可知道</p>
+<div class="arithmatex">\[\begin{aligned}
+f[x_n,x_{n-1}]&amp;=\frac1h\nabla f(x_n),\\
+f[x_n,x_{n-1},x_{n-2}]&amp;=\frac1{2h^2}\nabla^2f(x_n),\\\end{aligned}\]</div>
+<p>由此可推广得出</p>
+<div class="arithmatex">\[
+\begin{aligned}
+f[x_n,x_{n-1},\ldots,x_{n-k}]&amp;=\frac1{k!h^k}\nabla^kf(x_n).\end{aligned}\]</div>
+<p>所以</p>
+<div class="arithmatex">\[P_n(x_s)=\sum\limits_{k=0}^n(-1)^k\begin{pmatrix}-s\\k\end{pmatrix}\nabla^kf(x_n)\]</div>
+<h2 id="33-hermite-interpolation-hermite">3.3 Hermite Interpolation | Hermite 插值<a class="headerlink" href="#33-hermite-interpolation-hermite" title="点击此处可置顶内容">&para;</a></h2>
+<p>Hermite 插值的目标是找到一个插值多项式</p>
+<h3 id="osculating-polynomials">Osculating polynomials | 密切多项式<a class="headerlink" href="#osculating-polynomials" title="点击此处可置顶内容">&para;</a></h3>
+<p>在 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 上逼近 <span class="arithmatex">\(f\in C^m[a,b]\)</span> 的<strong>密切多项式(osculating polynomial)</strong> 是具有以下性质的多项式 <span class="arithmatex">\(P_n(x)\)</span>：</p>
+<ol>
+<li><span class="arithmatex">\(P_n(x)\)</span> 在 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 上与 <span class="arithmatex">\(f(x)\)</span> 相同</li>
+<li>对每个 <span class="arithmatex">\(x_i\)</span>，<span class="arithmatex">\(P_n(x)\)</span> 和 <span class="arithmatex">\(f(x)\)</span> 在 <span class="arithmatex">\(x_i\)</span> 处的前 <span class="arithmatex">\(m_i\)</span> 阶导数相同</li>
+<li>因此，我们可以得到 <span class="arithmatex">\(\sum\limits_{i=0}^n(m_i+1)=\sum\limits_{i=0}^nm_i+(n+1)\)</span> 个条件，于是 <span class="arithmatex">\(P_n(x)\)</span> 是一个次数至多为 <span class="arithmatex">\(\sum\limits_{i=0}^nm_i+n\)</span> 的多项式</li>
+</ol>
+<p>我们给出密切多项式的定义：</p>
+<p><strong>定义：</strong> 设 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 是 <span class="arithmatex">\([a,b]\)</span> 上的 <span class="arithmatex">\(n+1\)</span> 个不同的点，<span class="arithmatex">\(m_0,m_1,\cdots,m_n\)</span> 是 <span class="arithmatex">\(n+1\)</span> 个非负整数，假设$ f\in C^m[a,b]$，其中 <span class="arithmatex">\(m=\max\limits_{0\leq i\leq n}m_i\)</span>。逼近 <span class="arithmatex">\(f\)</span> 的<strong>密切多项式</strong> <span class="arithmatex">\(P_n(x)\)</span> 是使得下式成立的<strong>最小次数</strong>的多项式：</p>
+<div class="arithmatex">\[\frac{d^k}{dx^k}P_n(x_i)=\frac{d^k}{dx^k}f(x_i),\quad k=0,1,\cdots,m_i,\quad i=0,1,\cdots,n\]</div>
+<div class="admonition note">
+<ol>
+<li>当 <span class="arithmatex">\(n=0\)</span> 时，逼近 <span class="arithmatex">\(f\)</span> 的密切多项式是 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的 <span class="arithmatex">\(m_0\)</span> 阶 Taylor 多项式。</li>
+<li>当 <span class="arithmatex">\(m_i=0\)</span> 时，密切多项式就是对 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span> 上插值的 <span class="arithmatex">\(n\)</span> 次拉格朗日插值多项式。</li>
+</ol>
+</div>
+<h3 id="hermite">Hermite 插值多项式<a class="headerlink" href="#hermite" title="点击此处可置顶内容">&para;</a></h3>
+<p>对密切多项式 <span class="arithmatex">\(m_i=1\)</span> 的情况，我们定义其为 Hermite 多项式。也就是说，多项式 <span class="arithmatex">\(P(n)\)</span> 和它的一阶导数 <span class="arithmatex">\(P'(n)\)</span> 在 <span class="arithmatex">\(x_i\)</span> 处与 <span class="arithmatex">\(f\)</span> 和 <span class="arithmatex">\(f'\)</span> 相同。</p>
+<h4 id="_11">特殊例子<a class="headerlink" href="#_11" title="点击此处可置顶内容">&para;</a></h4>
+<p>假设 <span class="arithmatex">\(x_0\neq x_1 \neq x_2\)</span>，给定 <span class="arithmatex">\(f(x_0),f(x_1),f(x_2),f'(x_1)\)</span>，找到多项式使得<span class="arithmatex">\(P(x_i)=f(x_i)\)</span>，<span class="arithmatex">\(P'(x_1)=f'(x_1)\)</span>。</p>
+<p>首先，其次数为3次，我们猜想其形式为</p>
+<div class="arithmatex">\[P(x)=\sum\limits_{i=0}^2f(x_i)h_i(x)+f'(x_1)\hat{h}_1(x)\]</div>
+<p>其中<span class="arithmatex">\(h_i(x_j)=\delta_i(x_j),h'_i(x_1)=0,\hat{h}_1(x_i)=0,\hat{h}'_1(x_1)=1\)</span>。</p>
+<p>根据这个猜想，我们试图构造出 <span class="arithmatex">\(h_i(x)\)</span> 和 <span class="arithmatex">\(\hat{h}_1(x)\)</span> 。</p>
+<p>首先，我们可以用拉格朗日同样的方法构造出三次多项式<span class="arithmatex">\(h_i(x)\)</span>，使得<span class="arithmatex">\(h_i(x_j)=\delta_i(x_j)\)</span>，<span class="arithmatex">\(h'_i(x_1)=0\)</span>，<span class="arithmatex">\(i=0,1,2\)</span>。</p>
+<p>对于<span class="arithmatex">\(h_0(x)\)</span>，有根<span class="arithmatex">\(x_1,x_2\)</span>，且因为 <span class="arithmatex">\(h'_0(x_1)=0\)</span> 所以 <span class="arithmatex">\(x_1\)</span> 是 <span class="arithmatex">\(h_0(x)\)</span> 的二重根，所以其形式为</p>
+<div class="arithmatex">\[h_0(x)=C_0(x-x_1)^2(x-x_2)\]</div>
+<p>又因为<span class="arithmatex">\(h'_0(x_0)=1\)</span>，所以</p>
+<div class="arithmatex">\[h_0(x)=\frac{(x-x_1)^2(x-x_2)}{(x_0-x_1)^2(x_0-x_2)}\]</div>
+<p>类似地，我们可以得到</p>
+<div class="arithmatex">\[h_2(x)=\frac{(x-x_0)(x-x_1)^2}{(x_2-x_0)(x_2-x_1)^2}\]</div>
+<p>对于<span class="arithmatex">\(h_1(x)\)</span>，有根<span class="arithmatex">\(x_0,x_2\)</span>，都是单根。所以其形式为</p>
+<div class="arithmatex">\[h_1(x)=(Ax+B)(x-x_0)(x-x_2)\]</div>
+<p>通过计算 <span class="arithmatex">\(h_1(x_1)=1\)</span>，<span class="arithmatex">\(h'_1(x_1)=0\)</span>，可以得到 <span class="arithmatex">\(A\)</span> 和 <span class="arithmatex">\(B\)</span> 的值。此处略。</p>
+<p>然后，我们构造<span class="arithmatex">\(\hat{h}_1(x)\)</span>，使得<span class="arithmatex">\(\hat{h}_1(x_i)=0\)</span>，<span class="arithmatex">\(\hat{h}'_1(x_1)=1\)</span>。对于<span class="arithmatex">\(\hat{h}_1(x)\)</span>，有根<span class="arithmatex">\(x_0,x_1,x_2\)</span>，所以</p>
+<div class="arithmatex">\[\hat{h}_1(x)=C(x-x_0)(x-x_1)(x-x_2)\]</div>
+<p>又因为<span class="arithmatex">\(\hat{h}'_1(x_1)=1\)</span>，所以可以通过计算得到 <span class="arithmatex">\(C\)</span> 的值。此处略。</p>
+<h4 id="_12">一般情况<a class="headerlink" href="#_12" title="点击此处可置顶内容">&para;</a></h4>
+<p>如果已知 <span class="arithmatex">\(f(x_0),f(x_1),\cdots,f(x_n)\)</span> 和 <span class="arithmatex">\(f'(x_0),f'(x_1),\cdots,f'(x_n)\)</span>，则可以构造出 Hermite 插值多项式</p>
+<div class="arithmatex">\[H_{2n+1}(x)=\sum\limits_{i=0}^nf(x_i)h_i(x)+\sum\limits_{i=0}^nf'(x_i)\hat{h}_i(x)\]</div>
+<p>其中<span class="arithmatex">\((2n+1)\)</span>阶多项式<span class="arithmatex">\(h_i(x_j)=\delta_i(x_j),h'_i(x_j)=0,\hat{h}_i(x_j)=0,\hat{h}'_i(x_j)=\delta_i(x_j)\)</span>。</p>
+<p>对于<span class="arithmatex">\(h_i(x)\)</span>，有根<span class="arithmatex">\(x_0,x_1,\cdots,x_{i-1},x_{i+1},\cdots,x_n\)</span>，且因为 <span class="arithmatex">\(h'_i(x_j)=0(j\neq i)\)</span> 所以 <span class="arithmatex">\(x_j\)</span> 是 <span class="arithmatex">\(h_i(x)\)</span> 的 <span class="arithmatex">\(2\)</span> 重根，所以其形式为</p>
+<div class="arithmatex">\[
+\begin{aligned}
+h_i(x)&amp;=(A'x+B')(x-x_0)^2(x-x_1)^2\cdots(x-x_{i-1})^2(x-x_{i+1})^2\cdots(x-x_n)^2\\
+&amp;=(Ax+B)L_{n,i}^2(x)
+\end{aligned}
+\]</div>
+<div class="admonition note">
+<p>这里的常系数改变是因为引入 <span class="arithmatex">\(L_{n,i}(x)\)</span> 的话，它相较前面的有额外系数</p>
+<div class="arithmatex">\[L_{n,i}(x)=\prod\limits_{j=0,j\neq i}^n\frac{x-x_j}{x_i-x_j}\]</div>
+</div>
+<p>因为<span class="arithmatex">\(h_i(x_i)=1\)</span>，<span class="arithmatex">\(h'_i(x_i)=0\)</span>，所以</p>
+<div class="arithmatex">\[h_i(x)=\left(1-2(x-x_i)L'_{n,i}(x_i)\right)\left(L_{n,i}(x)\right)^2\]</div>
+<p>对于<span class="arithmatex">\(\hat{h}_i(x)\)</span>，有根<span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span>，且因为 <span class="arithmatex">\(\hat{h}'_i(x_j)=0(j\neq i)\)</span>，<span class="arithmatex">\(\hat{h}'_i(x_i)=1\)</span> 所以 <span class="arithmatex">\(x_i\)</span> 是 <span class="arithmatex">\(\hat{h}_i(x)\)</span> 的 <span class="arithmatex">\(1\)</span> 重根，其余的都是 <span class="arithmatex">\(2\)</span> 重根，所以其形式为</p>
+<div class="arithmatex">\[\hat{h}_i(x)=C_i(x-x_i)\left(L_{n,i}(x)\right)^2\]</div>
+<p>因为<span class="arithmatex">\(\hat{h}'_i(x_i)=1\)</span>，所以</p>
+<div class="arithmatex">\[\hat{h}_i(x)=\left(x-x_i\right)\left(L_{n,i}(x)\right)^2\]</div>
+<h4 id="_13">余项<a class="headerlink" href="#_13" title="点击此处可置顶内容">&para;</a></h4>
+<p>如果 <span class="arithmatex">\(a=x_0&lt;x_1&lt;\cdots&lt;x_n=b\)</span>，<span class="arithmatex">\(f\in C^{2n}[a,b]\)</span>，余项为</p>
+<div class="arithmatex">\[f(x)-P_n(x)=\frac{f^{(2n+2)}(\xi(x))}{(2n+2)!}\prod\limits_{i=0}^n(x-x_i)^2\]</div>
+<h2 id="34-cubic-spline-i-nterpolation">3.4 Cubic Spline I           nterpolation | 三次样条插值<a class="headerlink" href="#34-cubic-spline-i-nterpolation" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="piecewise-polynomial-approximation">Piecewise-polynomial approximation | 分段多项式逼近<a class="headerlink" href="#piecewise-polynomial-approximation" title="点击此处可置顶内容">&para;</a></h3>
+<p>最简单的分段多项式逼近是分段线性逼近，即在每个子区间上用一个一次多项式逼近函数 <span class="arithmatex">\(f\)</span>。但是，分段线性逼近的函数不光滑，所以我们希望用更高次的多项式来逼近 <span class="arithmatex">\(f\)</span>。</p>
+<p><img alt="Alt text" src="../images/image-45.png" width="50%" /></p>
+<p>一个可替代的方法是使用 Hermite 插值多项式。例如，如果 <span class="arithmatex">\(f\)</span> 和 <span class="arithmatex">\(f'\)</span> 的值在每一个点 <span class="arithmatex">\(x_i\)</span> 处都已知，那么我们可以在每个子区间上使用一个三次多项式来逼近 <span class="arithmatex">\(f\)</span>。这样的逼近是光滑的，但是为了将该多项式应用于一般插值，需要知道所有的 <span class="arithmatex">\(f'\)</span> 的值，这是不现实的。</p>
+<p>由此，我们引入了三次样条插值。</p>
+<h3 id="cubic-spline-interpolation">Cubic spline interpolation | 三次样条插值<a class="headerlink" href="#cubic-spline-interpolation" title="点击此处可置顶内容">&para;</a></h3>
+<div class="admonition note">
+<p>三次样条的构造不假设插值函数的导数值与原函数的导数值相等，即使在插值点处也如此。</p>
+</div>
+<p>给定在 <span class="arithmatex">\([a,b]\)</span> 上的 <span class="arithmatex">\(n+1\)</span> 个点 <span class="arithmatex">\(x_0,x_1,\cdots,x_n\)</span>，<span class="arithmatex">\(a=x_0&lt;x_1&lt;\cdots&lt;x_n=b\)</span>，以及 <span class="arithmatex">\(f\)</span>。三次样条插值是一个函数 <span class="arithmatex">\(S(x)\)</span>，满足以下条件：</p>
+<ol>
+<li><span class="arithmatex">\(S(x)\)</span> 在每个子区间 <span class="arithmatex">\([x_i,x_{i+1}]\)</span> 上是一个三次多项式，<span class="arithmatex">\(i=0,1,\cdots,n-1\)</span></li>
+<li><span class="arithmatex">\(S(x_i)=f(x_i)\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n\)</span></li>
+<li><span class="arithmatex">\(S_{i+1}(x_{i+1})=S_i(x_{i+1})\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n-2\)</span></li>
+<li><span class="arithmatex">\(S'_{i+1}(x_{i+1})=S'_i(x_{i+1})\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n-2\)</span></li>
+<li><span class="arithmatex">\(S''_{i+1}(x_{i+1})=S''_i(x_{i+1})\)</span>，<span class="arithmatex">\(i=0,1,\cdots,n-2\)</span></li>
+<li>下列的边界条件之一成立：<ol>
+<li><span class="arithmatex">\(S''(x_0)=S''(x_n)=0\)</span>，称为<strong>自由或自然边界(free or natural boundary)</strong></li>
+<li><span class="arithmatex">\(S'(x_0)=f'(x_0)\)</span>，<span class="arithmatex">\(S'(x_n)=f'(x_n)\)</span>，称为<strong>固支边界(clamped boundary)</strong></li>
+<li>其他边界条件（上面两个条件其实已经足以满足目的了）</li>
+</ol>
+</li>
+</ol>
+<p>我们介绍一种构造三次样条插值的方法：</p>
+<h4 id="method-of-bending-moments">Method of Bending Moments<a class="headerlink" href="#method-of-bending-moments" title="点击此处可置顶内容">&para;</a></h4>
+<p>记 <span class="arithmatex">\(h_j=x_j-x_{j-1}\)</span>，在 <span class="arithmatex">\(x\in[x_{j-1},x_j]\)</span> 上，<span class="arithmatex">\(S(x)=S_j(x)\)</span>，<span class="arithmatex">\(S'(x)=S'_j(x)\)</span>，<span class="arithmatex">\(S''(x)=S''_j(x)\)</span>。</p>
+<p>因为 <span class="arithmatex">\(S(x)\)</span> 是一个三次多项式，所以 <span class="arithmatex">\(S''_j(x)\)</span> 是一个一次多项式，由端点值决定，假设 <span class="arithmatex">\(S''_j(x_{j-1})=M_{j-1}\)</span>，<span class="arithmatex">\(S''_j(x_j)=M_j\)</span>。那么对于 <span class="arithmatex">\(x\in[x_{j-1},x_j]\)</span>，有</p>
+<div class="arithmatex">\[S''_j(x)=M_{j-1}\frac{x_j-x}{h_j}+M_j\frac{x-x_{j-1}}{h_j}\]</div>
+<p>积分得到</p>
+<div class="arithmatex">\[S'_j(x)=-M_{j-1}\frac{(x_j-x)^2}{2h_j}+M_j\frac{(x-x_{j-1})^2}{2h_j}+A_j\]</div>
+<p>再积分得到</p>
+<div class="arithmatex">\[S_j(x)=M_{j-1}\frac{(x_j-x)^3}{6h_j}+M_j\frac{(x-x_{j-1})^3}{6h_j}+A_jx+B_j\]</div>
+<p><span class="arithmatex">\(A_j\)</span> 和 <span class="arithmatex">\(B_j\)</span> 是常数，可以通过 <span class="arithmatex">\(S_j(x_{j-1})=y_{j-1}\)</span> 和 <span class="arithmatex">\(S_j(x_j)=y_{j}\)</span> 得到。</p>
+<div class="arithmatex">\[\begin{aligned}
+\begin{cases}
+S_j(x_{j-1})=y_{j-1}\\
+S_j(x_j)=y_{j}
+\end{cases}
+&amp;\Rightarrow
+\begin{cases}
+M_{j-1}\frac{h_j^2}{6}+A_jx_{j-1}+B_j=y_{j-1}\\
+M_j\frac{h_j^2}{6}+A_jx_j+B_j=y_{j}
+\end{cases}\\
+&amp;\Rightarrow
+\begin{cases}
+A_j=\frac{y_j-y_{j-1}}{h_j}-\frac{M_j-M_{j-1}}{6}h_j\\
+B_j=\frac{y_{j-1}x_j-y_jx_{j-1}}{h_j}-\frac{M_{j-1}x_j-M_jx_{j-1}}{6}h_j
+\end{cases}\\
+\end{aligned}\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+\begin{aligned}
+A_jx+B_j&amp;=\frac{y_j-y_{j-1}}{h_j}x+\frac{y_{j-1}x_j-y_jx_{j-1}}{h_j}-\frac{M_j-M_{j-1}}{6}h_jx-\frac{M_{j-1}x_j-M_jx_{j-1}}{6}h_j\\
+&amp;=(y_{j-1}-\frac{M_{j-1}}{6}h_j^2)\frac{x_j-x}{h_j}+(y_j-\frac{M_j}{6}h_j^2)\frac{x-x_{j-1}}{h_j}
+\end{aligned}
+\]</div>
+<p>所以，我们的目的就是求出 <span class="arithmatex">\(M_j\)</span>，<span class="arithmatex">\(j=0,1,\cdots,n\)</span>。</p>
+<p>因为 <span class="arithmatex">\(S'\)</span> 是连续的，所以</p>
+<p>在 <span class="arithmatex">\([x_{j-1},x_j]\)</span> 上，<span class="arithmatex">\(S'_j(x)=-M_{j-1}\frac{(x_j-x)^2}{2h_j}+M_j\frac{(x-x_{j-1})^2}{2h_j}+f[x_{j-1},x_j]-\frac{M_j-M_{j-1}}{6}h_j\)</span></p>
+<p>在 <span class="arithmatex">\([x_j,x_{j+1}]\)</span> 上，<span class="arithmatex">\(S'_{j+1}(x)=-M_{j}\frac{(x_{j+1}-x)^2}{2h_{j+1}}+M_{j+1}\frac{(x-x_{j})^2}{2h_{j+1}}+f[x_j,x_{j+1}]-\frac{M_{j+1}-M_{j}}{6}h_{j+1}\)</span></p>
+<p>有 <span class="arithmatex">\(S'_{j+1}(x_j)=S'_j(x_j)\)</span>，所以我们可以得到 <span class="arithmatex">\(M_{j-1}, M_j, M_{j+1}\)</span> 之间的关系：</p>
+<p>记 <span class="arithmatex">\(\lambda_j=\frac{h_{j+1}}{h_j+h_{j+1}}\)</span>，<span class="arithmatex">\(\mu_j=\frac{h_{j}}{h_j+h_{j+1}}\)</span>，<span class="arithmatex">\(g_j=\frac{6}{h_j+h_{j+1}}(f[x_j,x_{j+1}]-f[x_{j-1},x_j])\)</span>，则</p>
+<div class="arithmatex">\[
+\mu_jM_{j-1}+2M_j+\lambda_jM_{j+1}=g_j
+\]</div>
+<p>其中 <span class="arithmatex">\(j=1,2,\cdots,n-1\)</span>。</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+\mu_1 &amp; 2 &amp; \lambda_1 &amp;  &amp; &amp; \\
+&amp; \mu_2 &amp; 2 &amp; \lambda_2 &amp;  &amp; \\
+&amp; &amp; \ddots &amp; \ddots &amp; \ddots &amp; \\
+&amp; &amp; &amp; \mu_{n-1} &amp; 2 &amp; \lambda_{n-1} \\
+\end{bmatrix}
+\begin{bmatrix}
+M_0\\
+M_1\\
+\vdots\\
+M_n\\
+\end{bmatrix}=
+\begin{bmatrix}
+g_1\\
+g_2\\
+\vdots\\
+g_{n-1}\\
+\end{bmatrix}
+\]</div>
+<p>我们有 <span class="arithmatex">\(n+1\)</span> 个未知数，<span class="arithmatex">\(n-1\)</span>个方程 → 由边界条件增加两个方程</p>
+<h4 id="clamped-boundary">Clamped boundary | 固支边界<a class="headerlink" href="#clamped-boundary" title="点击此处可置顶内容">&para;</a></h4>
+<p>此时我们知道 <span class="arithmatex">\(S'(x_0)=f'(x_0)\)</span>，<span class="arithmatex">\(S'(x_n)=f'(x_n)\)</span>，所以</p>
+<p>在 <span class="arithmatex">\([x_0,x_1]\)</span> 上，<span class="arithmatex">\(S'_1(x)=-M_0\frac{(x_1-x)^2}{2h_1}+M_1\frac{(x-x_0)^2}{2h_1}+f[x_0,x_1]-\frac{M_1-M_0}{6}h_1\)</span></p>
+<p>在 <span class="arithmatex">\([x_{n-1},x_n]\)</span> 上，<span class="arithmatex">\(S'_n(x)=-M_{n-1}\frac{(x_n-x)^2}{2h_n}+M_n\frac{(x-x_{n-1})^2}{2h_n}+f[x_{n-1},x_n]-\frac{M_n-M_{n-1}}{6}h_n\)</span></p>
+<p>所以我们额外有两个方程：</p>
+<div class="arithmatex">\[
+\begin{cases}
+f'(x_0)=-M_0\frac{h_1}{2}+f[x_0,x_1]-\frac{M_1-M_0}{6}h_1\\
+f'(x_n)=M_{n }\frac{h_n}{2}+f[x_{n-1},x_n]-\frac{M_n-M_{n-1}}{6}h_n
+\end{cases}
+\Rightarrow
+\begin{cases}
+2M_0+M_1=\frac{6}{h_1}(f[x_0,x_1]-f'(x_0))\triangleq g_0\\
+M_{n-1}+2M_n=\frac{6}{h_n}(f'(x_n)-f[x_{n-1},x_n]) \triangleq g_n
+\end{cases}
+\]</div>
+<p>所以我们可以得到</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+2 &amp; 1 &amp;  &amp; &amp; &amp;\\
+\mu_1 &amp; 2 &amp; \lambda_1 &amp;  &amp; &amp;\\
+&amp; \ddots &amp; \ddots &amp; \ddots &amp; &amp;\\
+&amp; &amp; \mu_{n-1} &amp; 2 &amp; \lambda_{n-1} &amp;\\
+&amp; &amp; &amp;   &amp; 1  &amp; 2
+\end{bmatrix}
+\begin{bmatrix}
+M_0\\
+M_1\\
+\vdots\\
+M_n\\
+\end{bmatrix}=
+\begin{bmatrix}
+g_0\\
+g_1\\
+\vdots\\
+g_n
+\end{bmatrix}
+\]</div>
+<h4 id="natural-boundary">Natural boundary | 自由边界<a class="headerlink" href="#natural-boundary" title="点击此处可置顶内容">&para;</a></h4>
+<div class="admonition note">
+<p>如果 <span class="arithmatex">\(S''(x_0)=y''_0=M_0\)</span>，<span class="arithmatex">\(S''(x_n)=y''_n=M_n\)</span>，则</p>
+<div class="arithmatex">\[ \lambda_0 = 0, g_0 = 2y''_0, \mu_n = 0, g_n = 2y''_n \]</div>
+<p>如果 <span class="arithmatex">\(S''(x_0)=S''(x_n)=0\)</span>，则称为<strong>自由边界(free boundary)</strong>，此时 <span class="arithmatex">\(g_0=g_n=0\)</span>。</p>
+</div>
+<div class="arithmatex">\[
+\begin{bmatrix}
+2 &amp; 0 &amp; 0 &amp; &amp; &amp;\\
+\mu_1 &amp; 2 &amp; \lambda_1 &amp;   \\
+ &amp; \ddots &amp; \ddots &amp; \ddots &amp; \\
+ &amp; &amp; \mu_{n-1} &amp; 2 &amp; \lambda_{n-1} \\
+ &amp; &amp;   0&amp; 0  &amp; 2
+\end{bmatrix}_{(n+1)\times (n+1)}
+\begin{bmatrix}
+M_0\\
+M_1\\
+\vdots\\
+M_{n-1}\\
+M_n\\
+\end{bmatrix}_{(n+1)\times 1}=
+\begin{bmatrix}
+g_0\\
+g_1\\
+\vdots\\
+g_{n-1}\\
+g_n
+\end{bmatrix}_{(n+1)\times 1}
+\]</div>
+<p>自由边界的情况下，有 <span class="arithmatex">\(S''(x_0)=S''(x_n)=0\)</span>。</p>
+<h3 id="properties-of-cubic-splines">Properties of cubic splines | 三次样条的性质<a class="headerlink" href="#properties-of-cubic-splines" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>只要系数矩阵严格对角占优（实际上是确保可逆），三次样条就可以由其边界条件唯一确定。</li>
+<li>如果 <span class="arithmatex">\(\frac{\max h_i}{\min h_i}\)</span> 有界，那么 <span class="arithmatex">\(S(x)\)</span> 是收敛的。</li>
+<li>增加点可以更贴近原函数。</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../Chapter_09/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Chapter 9 Approximating Eigenvalues">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Chapter 9 Approximating Eigenvalues
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Chapter_08/" class="md-footer__link md-footer__link--next" aria-label="下一页: Chapter 8 Approximation Theory">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Chapter 8 Approximation Theory
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>

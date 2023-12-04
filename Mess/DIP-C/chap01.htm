@@ -1,0 +1,1317 @@
+
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link rel=Edit-Time-Data href="./chap01.files/editdata.mso">
+<title>第1章 Windows位图和调色板</title>
+<style><!--
+.Normal
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:0pt;
+	line-height:normal;
+	font-size:10.5pt;
+	font-family:"Times New Roman";}
+.a
+	{text-align:center;
+	text-indent:0pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+-->
+</style>
+</head>
+<body lang=ZH-CN link=blue vlink=purple class="Normal" bgcolor="#FFFFFF">
+<div style='layout-grid:15.6pt'> 
+  <h1><a name="_Toc486331863"></a><a name="_Toc486332863"></a><a
+name="_Toc486338972"></a><a name="_Toc454810837"></a><a name="_Toc454856611"><span><span>第<span
+lang=EN-US>1</span></span></span></a><span><span><span style='font-family:黑体;"Times New Roman"'>章</span><span
+lang=EN-US> Windows</span></span></span><span><span><span style='font-family:黑体;"Times New Roman"'>位图和调色板</span></span></span></h1>
+  <h2> <span
+lang=EN-US>1.1</span> <span lang=EN-US> </span><a name="_Toc486331864"></a><a
+name="_Toc486332864"></a><a name="_Toc486338973"></a><a name="_Toc454810838"></a><a
+name="_Toc454856612"><span><span>位图和调色板的概念</span></span></a></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>如今</span><span lang=EN-US>Windows(3.x</span><span
+style='font-family:宋体;"Times New Roman"'>以及</span><span lang=EN-US>95</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>98</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>NT)</span><span
+style='font-family:宋体;"Times New Roman"'>系列已经成为绝大多数用户使用的操作系统，它比</span><span lang=EN-US>DOS</span><span
+style='font-family:宋体;"Times New Roman"'>成功的一个重要因素是它可视化的漂亮界面。那么</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>是如何显示图象的呢？这就要谈到位图</span><span lang=EN-US>(bitmap)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们知道，普通的显示器屏幕是由许许多多点构成的，我们称之为象素。显示时采用扫描的方法：电子枪每次从左到右扫描一行，为每个象素着色，然后从上到下这样扫描若干行，就扫过了一屏。为了防止闪烁，每秒要重复上述过程几十次。例如我们常说的屏幕分辨率为</span><span
+lang=EN-US>640×480</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，刷新频率为</span><span
+lang=EN-US>70Hz</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，意思是说每行要扫描</span><span lang=EN-US>640</span><span
+style='font-family:宋体;"Times New Roman"'>个象素，一共有</span><span lang=EN-US>480</span><span
+style='font-family:宋体;"Times New Roman"'>行，每秒重复扫描屏幕</span><span lang=EN-US>70</span><span
+style='font-family:宋体;"Times New Roman"'>次。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们称这种显示器为位映象设备。所谓位映象，就是指一个二维的象素矩阵，而位图就是采用位映象方法显示和存储的图象。举个例子，图</span><span
+lang=EN-US>1.1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是一幅普通的黑白位图，图</span><span lang=EN-US>1.2</span><span
+style='font-family:宋体;"Times New Roman"'>是被放大后的图，图中每个方格代表了一个象素。我们可以看到：整个骷髅就是由这样一些黑点和白点组成的。</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=276 valign=bottom class="Normal"> 
+        <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=48 height=48
+  src="./chap01.files/image001.gif" v:shapes="_x0000_i1026"> </span></p>
+        <p class=a style='line-height:18.0pt'><b><span style='font-family:宋体;
+  &quot;Times New Roman&quot;'>图</span>1.1&nbsp;&nbsp;&nbsp; </b><b><span
+  style='font-family:宋体;"Times New Roman"'>骷髅</span></b></p>
+      </td>
+      <td width=276 valign=bottom class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  lang=EN-US> <img width=157 height=177
+  src="./chap01.files/image003.jpg" v:shapes="_x0000_i1025"> </span></b></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>1.2&nbsp;&nbsp;&nbsp;&nbsp; 
+          </b><b><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>放大后的骷髅位图</span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>那么，彩色图是怎么回事呢？</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们先来说说三元色</span><span lang=EN-US>RGB</span><span
+style='font-family:宋体;"Times New Roman"'>概念。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们知道，自然界中的所有颜色都可以由红、绿、蓝</span><span lang=EN-US>(R</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>G</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>B)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>组合而成。有的颜色含有红色成分多一些，如深红；有的含有红色成分少一些，如浅红。针对含有红色成分的多少，可以分成</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>到</span><span lang=EN-US>255</span><span
+style='font-family:宋体;"Times New Roman"'>共</span><span lang=EN-US>256</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个等级，</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级表示不含红色成分；</span><span lang=EN-US>255</span><span
+style='font-family:宋体;"Times New Roman"'>级表示含有</span><span lang=EN-US>100%</span><span
+style='font-family:宋体;"Times New Roman"'>的红色成分。同样，绿色和蓝色也被分成</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级。这种分级概念称为量化。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这样，根据红、绿、蓝各种不同的组合我们就能表示出</span><span lang=EN-US>256×256×256</span><span
+style='font-family:宋体;"Times New Roman"'>，约</span><span lang=EN-US>1600</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>万种颜色。这么多颜色对于我们人眼来说已经足够丰富了。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>表</span>1.1&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>常见颜色的</span><span lang=EN-US>RGB</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>组合值</span><span lang=EN-US></span></b></p>
+  <div align=center> 
+    <table border=1 cellspacing=0 cellpadding=0 width="75%">
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p class=a style='line-height:18.0pt'><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>颜色</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p class=a style='line-height:18.0pt'><span lang=EN-US>R</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p class=a style='line-height:18.0pt'><span lang=EN-US>G</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p class=a style='line-height:18.0pt'><span lang=EN-US>B</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>红</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>蓝</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>绿</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>黄</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>紫</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>青</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>白</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>255</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>黑</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>0</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>灰</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>128</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>128</span></p>
+        </td>
+        <td width="25%" class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US>128</span></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>你大概已经明白了，当一幅图中每个象素赋予不同的</span><span lang=EN-US>RGB</span><span
+style='font-family:宋体;"Times New Roman"'>值时，能呈现出五彩缤纷的颜色了，这样就形成了彩色图。的确是这样的，但实际上的做法还有些差别。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>让我们来看看下面的例子。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>有一个长宽各为</span><span lang=EN-US>200</span><span
+style='font-family:宋体;"Times New Roman"'>个象素，颜色数为</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>色的彩色图，每一个象素都用</span><span lang=EN-US>R</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>G</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>、</span><span
+lang=EN-US>B</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>三个分量表示。因为每个分量有</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>个级别，要用</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>位</span><span lang=EN-US>(bit)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，即一个字节</span><span
+lang=EN-US>(byte)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>来表示，所以每个象素需要用</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>个字节。整个图象要用</span><span lang=EN-US>200×200×3</span><span
+style='font-family:宋体;"Times New Roman"'>，约</span><span lang=EN-US>120k</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>字节，可不是一个小数目呀！如果我们用下面的方法，就能省的多。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>因为是一个</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>色图，也就是说这幅图中最多只有</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>种颜色，我们可以用一个表：表中的每一行记录一种颜色的</span><span lang=EN-US>R</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>G</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>、</span><span
+lang=EN-US>B</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>值。这样当我们表示一个象素的颜色时，只需要指出该颜色是在第几行，即该颜色在表中的索引值。举个例子，如果表的第</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行为</span><span lang=EN-US>255</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>0</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，</span><span
+lang=EN-US>0(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>红色</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，那么当某个象素为红色时，只需要标明</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>即可。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>让我们再来计算一下：</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>种状态可以用</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>位</span><span lang=EN-US>(bit)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>表示，所以一个象素要用半个字节。整个图象要用</span><span
+lang=EN-US>200×200×0.5</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，约</span><span
+lang=EN-US>20k</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>字节，再加上表占用的字节为</span><span lang=EN-US>3×16=48</span><span
+style='font-family:宋体;"Times New Roman"'>字节</span><span lang=EN-US>.</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>整个占用的字节数约为前面的</span><span
+lang=EN-US>1/6</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，省很多吧？</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这张</span><span lang=EN-US>R</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>、</span><span
+lang=EN-US>G</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>B</span><span
+style='font-family:宋体;"Times New Roman"'>的表，就是我们常说的调色板</span><span lang=EN-US>(Palette)</span><span
+style='font-family:宋体;"Times New Roman"'>，另一种叫法是颜色查找表</span><span lang=EN-US>LUT(Look 
+    Up Table)</span><span
+style='font-family:宋体;"Times New Roman"'>，似乎更确切一些。</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>位图中便用到了调色板技术。其实不光是</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>位图，许多图象文件格式如</span><span lang=EN-US>pcx</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>tif</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>、</span><span
+lang=EN-US>gif</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>等都用到了。所以很好地掌握调色板的概念是十分有用的。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>有一种图，它的颜色数高达</span><span lang=EN-US>256×256×256</span><span
+style='font-family:宋体;"Times New Roman"'>种，也就是说包含我们上述提到的</span><span lang=EN-US>R</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>G</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>、</span><span
+lang=EN-US>B</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>颜色表示方法中所有的颜色，这种图叫做真彩色图</span><span
+lang=EN-US>(true color)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。真彩色图并不是说一幅图包含了所有的颜色，而是说它具有显示所有颜色的能力，即最多可以包含所有的颜色。表示真彩色图时，每个象素直接用</span><span
+lang=EN-US>R</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>G</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>B</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>三个分量字节表示，而不采用调色板技术。原因很明显：如果用调色板，表示一个象素也要用</span><span
+lang=EN-US>24</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位，这是因为每种颜色的索引要用</span><span
+lang=EN-US>24</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>因为总共有</span><span lang=EN-US>2<sup>24</sup></span><span
+style='font-family:宋体;"Times New Roman"'>种颜色，即调色板有</span><span lang=EN-US>2<sup>24</sup></span><span
+style='font-family:宋体;"Times New Roman"'>行</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，和直接用</span><span
+lang=EN-US>R</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>G</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>B</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>三个分量表示用的字节数一样，不但没有任何便宜，还要加上一个</span><span
+lang=EN-US>256×256×256×3</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个字节的大调色板。所以真彩色图直接用</span><span
+lang=EN-US>R</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>G</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>B</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>三个分量表示，它又叫做</span><span
+lang=EN-US>24</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位色图。</span></p>
+  <h2><a name="_Toc486331865"></a><a
+name="_Toc486332865"> <span
+lang=EN-US>1.2</span> <span lang=EN-US> </span></a><a
+name="_Toc486338974"></a><a name="_Toc454810839"></a><a name="_Toc454856613"><span><span>bmp</span></span></a><span><span><span style='font-family:黑体;'>文件格式</span></span></span></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>介绍完位图和调色板的概念，下面就让我们来看一看</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>的位图文件</span><span lang=EN-US>(.bmp</span><span
+style='font-family:宋体;"Times New Roman"'>文件</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的格式是什么样子的。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>bmp</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件大体上分成四个部分，如图</span><span lang=EN-US>1.3</span><span
+style='font-family:宋体;"Times New Roman"'>所示。</span></p>
+  <div align=center> 
+    <table border=1 cellspacing=0 cellpadding=0 width="80%">
+      <tr> 
+        <td width=455 valign=top class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>位图文件头</span><span lang=EN-US>BITMAPFILEHEADER</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width=455 valign=top class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>位图信息头</span><span lang=EN-US>BITMAPINFOHEADER</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width=455 valign=top class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>调色板</span><span lang=EN-US>Palette</span></p>
+        </td>
+      </tr>
+      <tr> 
+        <td width=455 valign=top class="Normal"> 
+          <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>实际的位图数据</span><span lang=EN-US>ImageDate</span></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>1.3&nbsp;&nbsp;&nbsp;&nbsp; Windows</b><b><span
+style='font-family:宋体;"Times New Roman"'>位图文件结构示意图</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>第一部分为位图文件头</span><b><span lang=EN-US>BITMAPFILEHEADER</span></b><span
+style='font-family:宋体;"Times New Roman"'>，是一个结构，其定义如下：</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>typedef struct tagBITMAPFILEHEADER 
+    {</span></p>
+  <p style='line-height:18.0pt'>WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    bfType; </p>
+  <p style='line-height:18.0pt'>DWORD bfSize; </p>
+  <p style='line-height:18.0pt'>WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    bfReserved1; </p>
+  <p style='line-height:18.0pt'>WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    bfReserved2; </p>
+  <p style='line-height:18.0pt'>DWORD bfOffBits; </p>
+  <p style='line-height:18.0pt'><span lang=EN-US>} BITMAPFILEHEADER; </span><span lang=EN-US style='font-size:9.0pt;'></span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这个结构的长度是固定的，为</span><span lang=EN-US>14</span><span
+style='font-family:宋体;"Times New Roman"'>个字节</span><span lang=EN-US>(WORD</span><span
+style='font-family:宋体;"Times New Roman"'>为无符号</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>位整数，</span><span
+lang=EN-US>DWORD</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为无符号</span><span lang=EN-US>32</span><span
+style='font-family:宋体;"Times New Roman"'>位整数</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，各个域的说明如下：</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>bfType</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定文件类型，必须是</span><span lang=EN-US>0x424D</span><span
+style='font-family:宋体;"Times New Roman"'>，即字符串“</span><span lang=EN-US>BM</span><span
+style='font-family:宋体;"Times New Roman"'>”，也就是说所有</span><span lang=EN-US>.bmp</span><span
+style='font-family:宋体;"Times New Roman"'>文件的头两个字节都是“</span><span lang=EN-US>BM</span><span
+style='font-family:宋体;"Times New Roman"'>”。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>bfSize</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定文件大小，包括这</span><span lang=EN-US>14</span><span
+style='font-family:宋体;"Times New Roman"'>个字节。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>bfReserved1</span></b><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，</span>bfReserved2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>为保留字，不用考虑</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>bfOffBits</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>为从文件头到实际的位图数据的偏移字节数，即图</span><span lang=EN-US>1.3</span><span
+style='font-family:宋体;"Times New Roman"'>中前三个部分的长度之和。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>第二部分为位图信息头</span><b><span lang=EN-US>BITMAPINFOHEADER</span></b><span
+style='font-family:宋体;"Times New Roman"'>，也是一个结构，其定义如下：</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>typedef struct tagBITMAPINFOHEADER{</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp; biSize; </p>
+  <p style='line-height:18.0pt'>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    biWidth; </p>
+  <p style='line-height:18.0pt'>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    biHeight; </p>
+  <p style='line-height:18.0pt'>WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    biPlanes; </p>
+  <p style='line-height:18.0pt'>WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    biBitCount </p>
+  <p style='line-height:18.0pt'>DWORD&nbsp; biCompression; </p>
+  <p style='line-height:18.0pt'>DWORD&nbsp; biSizeImage; </p>
+  <p style='line-height:18.0pt'>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    biXPelsPerMeter; </p>
+  <p style='line-height:18.0pt'>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    biYPelsPerMeter; </p>
+  <p style='line-height:18.0pt'>DWORD&nbsp; biClrUsed; </p>
+  <p style='line-height:18.0pt'>DWORD&nbsp; biClrImportant; </p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>} BITMAPINFOHEADER; </span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这个结构的长度是固定的，为</span><span lang=EN-US>40</span><span
+style='font-family:宋体;"Times New Roman"'>个字节</span><span lang=EN-US>(LONG</span><span
+style='font-family:宋体;"Times New Roman"'>为</span><span lang=EN-US>32</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>位整数</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，各个域的说明如下：</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biSize</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定这个结构的长度，为</span><span lang=EN-US>40</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biWidth</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定图象的宽度，单位是象素。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biHeight</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定图象的高度，单位是象素。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biPlanes</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>必须是</span><span lang=EN-US>1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，不用考虑。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biBitCount </span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定表示颜色时要用到的位数，常用的值为</span><span lang=EN-US>1(</span><span
+style='font-family:宋体;"Times New Roman"'>黑白二色图</span><span lang=EN-US>), 4(16</span><span
+style='font-family:宋体;"Times New Roman"'>色图</span><span lang=EN-US>), 8(256</span><span
+style='font-family:宋体;"Times New Roman"'>色</span><span lang=EN-US>), 24(</span><span
+style='font-family:宋体;"Times New Roman"'>真彩色图</span><span lang=EN-US>)(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>新的</span><span
+lang=EN-US>.bmp</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>格式支持</span><span lang=EN-US>32</span><span
+style='font-family:宋体;"Times New Roman"'>位色，这里就不做讨论了</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biCompression</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定位图是否压缩，有效的值为</span><span lang=EN-US>BI_RGB</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>BI_RLE8</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>BI_RLE4</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>BI_BITFIELDS(</span><span
+style='font-family:宋体;"Times New Roman"'>都是一些</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>定义好的常量</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。要说明的是，</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>位图可以采用</span><span lang=EN-US>RLE4</span><span
+style='font-family:宋体;"Times New Roman"'>，和</span><span lang=EN-US>RLE8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的压缩格式，但用的不多。我们今后所讨论的只有第一种不压缩的情况，即</span><span
+lang=EN-US>biCompression</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为</span><span
+lang=EN-US>BI_RGB</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的情况。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biSizeImage</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定实际的位图数据占用的字节数，其实也可以从以下的公式中计算出来：</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US>biSizeImage=biWidth’ 
+    × biHeight</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>要注意的是：上述公式中的</span><span lang=EN-US>biWidth’</span><span
+style='font-family:宋体;"Times New Roman"'>必须是</span><span lang=EN-US>4</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的整倍数</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所以不是</span><span lang=EN-US>biWidth</span><span
+style='font-family:宋体;"Times New Roman"'>，而是</span><span lang=EN-US>biWidth’</span><span
+style='font-family:宋体;"Times New Roman"'>，表示大于或等于</span><span lang=EN-US>biWidth</span><span
+style='font-family:宋体;"Times New Roman"'>的，最接近</span><span lang=EN-US>4</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的整倍数。举个例子，如果</span><span
+lang=EN-US>biWidth=240</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，则</span><span
+lang=EN-US>biWidth’=240</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>；如果</span><span
+lang=EN-US>biWidth=241</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，</span><span
+lang=EN-US>biWidth’=244)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>如果</span><span lang=EN-US>biCompression</span><span
+style='font-family:宋体;"Times New Roman"'>为</span><span lang=EN-US>BI_RGB</span><span
+style='font-family:宋体;"Times New Roman"'>，则该项可能为零</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biXPelsPerMeter</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定目标设备的水平分辨率，单位是每米的象素个数，关于分辨率的概念，我们将在第</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>章详细介绍。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biYPelsPerMeter</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定目标设备的垂直分辨率，单位同上。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biClrUsed</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定本图象实际用到的颜色数，如果该值为零，则用到的颜色数为</span><span lang=EN-US>2<sup>biBitCount</sup></span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><b><span
+lang=EN-US>biClrImportant</span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>指定本图象中重要的颜色数，如果该值为零，则认为所有的颜色都是重要的。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>第三部分为调色板</span><b><span lang=EN-US>Palette</span></b><span
+style='font-family:宋体;"Times New Roman"'>，当然，这里是对那些需要调色板的位图文件而言的。有些位图，如真彩色图，前面已经讲过，是不需要调色板的，</span><span
+lang=EN-US>BITMAPINFOHEADER</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>后直接是位图数据。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>调色板实际上是一个数组，共有</span><span lang=EN-US>biClrUsed</span><span
+style='font-family:宋体;"Times New Roman"'>个元素</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>如果该值为零，则有</span><span
+lang=EN-US>2<sup>biBitCount</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个元素</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。数组中每个元素的类型是一个</span><span lang=EN-US>RGBQUAD</span><span
+style='font-family:宋体;"Times New Roman"'>结构，占</span><span lang=EN-US>4</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个字节，其定义如下：</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>typedef struct tagRGBQUAD { </span></p>
+  <p style='line-height:18.0pt'>BYTE&nbsp;&nbsp;&nbsp; rgbBlue; //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>该颜色的蓝色分量</span></p>
+  <p style='line-height:18.0pt'>BYTE&nbsp;&nbsp;&nbsp; rgbGreen; //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>该颜色的绿色分量</span></p>
+  <p style='line-height:18.0pt'>BYTE&nbsp;&nbsp;&nbsp; rgbRed; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>该颜色的红色分量</span></p>
+  <p style='line-height:18.0pt'>BYTE&nbsp;&nbsp;&nbsp; rgbReserved; //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>保留值</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>} RGBQUAD; </span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>第四部分就是实际的图象数据了。对于用到调色板的位图，图象数据就是该象素颜在调色板中的索引值。对于真彩色图，图象数据就是实际的</span><span
+lang=EN-US>R</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>G</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>B</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>值。下面针对</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>色、</span><span lang=EN-US>16</span><span
+style='font-family:宋体;"Times New Roman"'>色、</span><span lang=EN-US>256</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>色位图和真彩色位图分别介绍。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对于</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>色位图，用</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位就可以表示该象素的颜色</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>一般</span><span lang=EN-US>0</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>表示黑，</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>表示白</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，所以一个字节可以表示</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>个象素。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对于</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>色位图，用</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>位可以表示一个象素的颜色，所以一个字节可以表示</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个象素。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对于</span><span lang=EN-US>256</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>色位图，一个字节刚好可以表示</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个象素。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对于真彩色图，三个字节才能表示</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>个象素，哇，好费空间呀！没办法，谁叫你想让图的颜色显得更亮丽呢，有得必有失嘛。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>要注意两点：</span></p>
+  <p style='line-height:18.0pt;
+'> <span
+lang=EN-US>(1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span> 
+    <span
+style='font-family:宋体;"Times New Roman"'>每一行的字节数必须是</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>的整倍数，如果不是，则需要补齐。这在前面介绍</span><span lang=EN-US>biSizeImage</span><span
+style='font-family:宋体;"Times New Roman"'>时已经提到了。</span></p>
+  <p style='line-height:18.0pt;
+'> <span
+lang=EN-US>(2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span> 
+    <span
+style='font-family:宋体;"Times New Roman"'>一般来说，</span><span lang=EN-US>.bMP</span><span
+style='font-family:宋体;"Times New Roman"'>文件的数据从下到上，从左到右的。也就是说，从文件中最先读到的是图象最下面一行的左边第一个象素，然后是左边第二个象素</span><span
+lang=EN-US>……</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>接下来是倒数第二行左边第一个象素，左边第二个象素</span><span
+lang=EN-US>……</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>依次类推</span> <span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，最后得到的是最上面一行的最右一个象素。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>好了，终于介绍完</span><span lang=EN-US>bmp</span><span
+style='font-family:宋体;"Times New Roman"'>文件结构了，是不是觉得头有些大？别着急，对照着下面的程序，你就会很清楚了</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>我最爱看源程序了，呵呵</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <h2> <span
+lang=EN-US>1.3</span> <span lang=EN-US> </span><a name="_Toc486331866"></a><a
+name="_Toc486332866"></a><a name="_Toc486338975"></a><a name="_Toc454810840"></a><a
+name="_Toc454856614"><span><span>显示一个<span lang=EN-US>bmp</span></span></span></a><span><span><span style='font-family:黑体;'>文件的</span><span lang=EN-US>C</span></span></span><span><span><span style='font-family:黑体;'>程序</span></span></span></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面的函数</span><span lang=EN-US>LoadBmpFile</span><span
+style='font-family:宋体;"Times New Roman"'>，其功能是从一个</span><span lang=EN-US>.bmp</span><span
+style='font-family:宋体;"Times New Roman"'>文件中读取数据</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>包括</span><span lang=EN-US>BITMAPINFOHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>，调色板和实际图象数据</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，将其存储在一个全局内存句柄</span><span lang=EN-US>hImgData</span><span
+style='font-family:宋体;"Times New Roman"'>中，这个</span><span lang=EN-US>hImgData</span><span
+style='font-family:宋体;"Times New Roman"'>将在以后的图象处理程序中用到。同时填写一个类型为</span><span lang=EN-US>HBITMAP</span><span
+style='font-family:宋体;"Times New Roman"'>的全局变量</span><span lang=EN-US>hBitmap</span><span
+style='font-family:宋体;"Times New Roman"'>和一个类型为</span><span lang=EN-US>HPALETTE</span><span
+style='font-family:宋体;"Times New Roman"'>的全局变量</span><span lang=EN-US>hPalette</span><span
+style='font-family:宋体;"Times New Roman"'>。这两个变量将在处理</span><span lang=EN-US>WM_PAINT</span><span
+style='font-family:宋体;"Times New Roman"'>消息时用到，用来显示位图。该函数的两个参数分别是用来显示位图的窗口句柄，和</span><span
+lang=EN-US>.bmp</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件名</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>全路径</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。当函数成功时，返回</span><span
+lang=EN-US>TRUE</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，否则返回</span><span lang=EN-US>FALSE</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'>BITMAPFILEHEADER&nbsp; bf;</p>
+  <p style='line-height:18.0pt'>BITMAPINFOHEADER bi;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL LoadBmpFile (HWND hWnd,char 
+    *BmpFileName)</span></p>
+  <p style='line-height:18.0pt'>{&nbsp;&nbsp; </p>
+  <p style='line-height:18.0pt'>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hf; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件句柄</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>指向</span><span lang=EN-US>BITMAPINFOHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>结构的指针</span></p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; lpImgData; 
+  </p>
+  <p style='line-height:18.0pt'>LOGPALETTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *pPal; //<span
+style='font-family:宋体;"Times New Roman"'>指向逻辑调色板结构的指针</span></p>
+  <p style='line-height:18.0pt'>LPRGBQUAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpRGB; //<span
+style='font-family:宋体;"Times New Roman"'>指向</span><span lang=EN-US>RGBQUAD</span><span
+style='font-family:宋体;"Times New Roman"'>结构的指针</span></p>
+  <p style='line-height:18.0pt'>HPALETTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hPrevPalette; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>用来保存设备中原来的调色板</span></p>
+  <p style='line-height:18.0pt'>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hDc; //<span
+style='font-family:宋体;"Times New Roman"'>设备句柄</span></p>
+  <p style='line-height:18.0pt'>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hPal; //<span
+style='font-family:宋体;"Times New Roman"'>存储调色板的局部内存句柄</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LineBytes;&nbsp; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>每一行的字节数</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ImgSize;&nbsp;&nbsp; //<span style='font-family:
+宋体;&quot;Times New Roman&quot;'>实际的图象数据占用的字节数</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>实际用到的颜色数</span> <span
+style='font-family:宋体;"Times New Roman"'>，即调色板数组中的颜色个数</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NumColors; </p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if((hf=_lopen(BmpFileName,OF_READ))==HFILE_ERROR){</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;File c:\\test.bmp not found!&quot;,&quot;Error 
+    Message&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE; //</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>打开文件错误，返回</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将</span><span lang=EN-US>BITMAPFILEHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>结构从文件中读出，填写到</span><span lang=EN-US>bf</span><span
+style='font-family:宋体;"Times New Roman"'>中</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lread(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); </span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将</span><span lang=EN-US>BITMAPINFOHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>结构从文件中读出，填写到</span><span lang=EN-US>bi</span><span
+style='font-family:宋体;"Times New Roman"'>中</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_lread(hf,(LPSTR)&amp;bi,sizeof(BITMAPINFOHEADER));</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>我们定义了一个宏</span> #define WIDTHBYTES(i)&nbsp;&nbsp;&nbsp; 
+    ((i+31)/32*4)<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>上面曾经</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>提到过，每一行的字节数必须是</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>的整倍数，只要调用</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//WIDTHBYTES(bi.biWidth*bi.biBitCount)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>就能完成这一换算。举一个例</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>子，对于</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>色图，如果图象宽是</span><span lang=EN-US>31</span><span
+style='font-family:宋体;"Times New Roman"'>，则每一行需要</span><span lang=EN-US>31</span><span
+style='font-family:宋体;"Times New Roman"'>位存储，合</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>字节加</span><span lang=EN-US>7</span><span
+style='font-family:宋体;"Times New Roman"'>位，因为字节数必须是</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>的整倍数，所以应该是</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>，而此时的</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//biWidth=31,biBitCount=1,WIDTHBYTES(31*1)=4</span><span
+style='font-family:宋体;"Times New Roman"'>，和我们设想的一样。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>再举一个</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>色的例子，如果图象宽是</span><span lang=EN-US>31</span><span
+style='font-family:宋体;"Times New Roman"'>，则每一行需要</span><span lang=EN-US>31</span><span
+style='font-family:宋体;"Times New Roman"'>个字节存</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>储，因为字节数必须是</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>的整倍数，所以应该是</span><span lang=EN-US>32</span><span
+style='font-family:宋体;"Times New Roman"'>，而此时的</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//biWidth=31,biBitCount=8,WIDTHBYTES(31*8)=32</span><span
+style='font-family:宋体;"Times New Roman"'>，我们设想的一样。你可</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>以多举几个例子来验证一下</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//LineBytes</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为每一行的字节数</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>LineBytes=(DWORD)WIDTHBYTES(bi.biWidth*bi.biBitCount);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//ImgSize</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为实际的图象数据占用的字节数</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>ImgSize=(DWORD)LineBytes*bi.biHeight;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//NumColors</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为实际用到的颜色数</span> 
+    <span
+style='font-family:宋体;"Times New Roman"'>，即调色板数组中的颜色个数</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(bi.biClrUsed!=0)</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>如果</span><span
+lang=EN-US>bi.biClrUsed</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>不为零，即为实际用到的颜色数</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors=(DWORD)bi.biClrUsed; </span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>else //</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>否则，用到的颜色数为</span><span
+lang=EN-US>2<sup>biBitCount</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>switch(bi.biBitCount){</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>case 1:</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>NumColors=2;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;</p>
+  <p style='line-height:18.0pt;'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>case 4:</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors=16;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>case 
+    8:</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span> NumColors=256;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span> break;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>case 
+    24:</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span> NumColors=0; //<span style='font-family:
+宋体;&quot;Times New Roman&quot;'>对于真彩色图，没用到调色板</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span> break;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>default: //</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>不处理其它的颜色数，认为出错。</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Invalid color numbers!&quot;,&quot;Error 
+    Message&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>_lclose(hf);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    return FALSE; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>关闭文件，返回</span><span lang=EN-US>FALSE</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(bf.bfOffBits!=(DWORD)(NumColors*sizeof(RGBQUAD)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPFILEHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)))</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>计算出的偏移量与实际偏移量不符，一定是颜色数出错</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span> MessageBox(hWnd,&quot;Invalid 
+    color numbers!&quot;,&quot;Error Message&quot;,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>_lclose(hf);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE; //</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>关闭文件，返回</span><span
+lang=EN-US>FALSE</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>bf.bfSize=sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD)+ImgSize;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>分配内存，大小为</span><span lang=EN-US>BITMAPINFOHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>结构长度加调色板</span><span lang=EN-US>+</span><span
+style='font-family:宋体;"Times New Roman"'>实际位图</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if((hImgData=GlobalAlloc(GHND,(DWORD)</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>ImgSize)))==NULL)</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>分配内存错误</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;ErrorMessage&quot;,MB_OK|</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MB_ICONEXCLAMATION);</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>_lclose(hf);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE; //</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>关闭文件，返回</span><span
+lang=EN-US>FALSE</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>指针</span><span lang=EN-US>lpImgData</span><span
+style='font-family:宋体;"Times New Roman"'>指向该内存区</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData); </span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件指针重新定位到</span><span lang=EN-US>BITMAPINFOHEADER</span><span
+style='font-family:宋体;"Times New Roman"'>开始处</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_llseek(hf,sizeof(BITMAPFILEHEADER),SEEK_SET);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将文件内容读入</span><span lang=EN-US>lpImgData</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>_hread(hf,(char *)lpImgData,(long)sizeof(BITMAPINFOHEADER)</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>+(long)NumColors*sizeof(RGBQUAD)+ImgSize);</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>_lclose(hf); //</span><span
+style='font-family:宋体;"Times New Roman"'>关闭文件</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>if(NumColors!=0) //NumColors</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>不为零，说明用到了调色板</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为逻辑调色板分配局部内存，大小为逻辑调色板结构长度加</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//NumColors</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个</span><span
+lang=EN-US>PALETTENTRY</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hPal=LocalAlloc(LHND,sizeof(LOGPALETTE)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors* sizeof(PALETTEENTRY));</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>指针</span><span lang=EN-US>pPal</span><span
+style='font-family:宋体;"Times New Roman"'>指向该内存区</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>pPal =(LOGPALETTE *)LocalLock(hPal);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span> //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>填写逻辑调色板结构的头</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>pPal-&gt;palNumEntries = NumColors;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span> pPal-&gt;palVersion 
+    = 0x300;</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//lpRGB</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>指向的是调色板开始的位置</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>lpRGB = (LPRGBQUAD)((LPSTR)lpImgData +</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(DWORD)sizeof(BITMAPINFOHEADER));</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>填写每一项</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>for (i = 0; i &lt; NumColors; i++)</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>pPal-&gt;palPalEntry[i].peRed=lpRGB-&gt;rgbRed;</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>pPal-&gt;palPalEntry[i].peGreen=lpRGB-&gt;rgbGreen;</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>pPal-&gt;palPalEntry[i].peBlue=lpRGB-&gt;rgbBlue;</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>pPal-&gt;palPalEntry[i].peFlags=(BYTE)0;</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>lpRGB++; //</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>指针移到下一项</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>产生逻辑调色板，</span><span
+lang=EN-US>hPalette</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>是一个全局变量</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>hPalette=CreatePalette(pPal);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>释放局部内存</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>LocalUnlock(hPal);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>LocalFree(hPal);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>获得设备上下文句柄</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hDc=GetDC(hWnd);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(hPalette) //</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>如果刚才产生了逻辑调色板</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将新的逻辑调色板选入</span><span lang=EN-US>DC</span><span
+style='font-family:宋体;"Times New Roman"'>，将旧的逻辑调色板句柄保存在</span><span lang=EN-US>//hPrevPalette</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>hPrevPalette=SelectPalette(hDc,hPalette,FALSE);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>RealizePalette(hDc);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>产生位图句柄</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpImgData, </span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>(LPSTR)lpImgData+sizeof(BITMAPINFOHEADER)+NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpImgData, DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将原来的调色板</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>如果有的话</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>选入设备上下文句柄</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(hPalette &amp;&amp; hPrevPalette)</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>SelectPalette(hDc,hPrevPalette,FALSE);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>RealizePalette(hDc);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>ReleaseDC(hWnd,hDc); //</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>释放设备上下文</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>GlobalUnlock(hImgData); //</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>解锁内存区</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>return TRUE; //</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>成功返回</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span><span
+lang=EN-US style='font-size:9.0pt;'></span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对上面的程序要说明两点：</span></p>
+  <p style='line-height:18.0pt;
+'> <span
+lang=EN-US>(1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span> 
+    <span
+style='font-family:宋体;"Times New Roman"'>对于需要调色板的图，要想正确地显示，必须根据</span><span lang=EN-US>bmp</span><span
+style='font-family:宋体;"Times New Roman"'>文件，产生逻辑调色板。产生的方法是：①为逻辑调色板指针分配内存，大小为逻辑调色板结构</span><span
+lang=EN-US>(LOGPALETTE)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>长度加</span><span
+lang=EN-US>NumColors</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个</span><span
+lang=EN-US>PALETTENTRY</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>大小</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>调色板的每一项都是一个</span><span lang=EN-US>PALETTEENTRY</span><span
+style='font-family:宋体;"Times New Roman"'>结构</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>；②填写逻辑调色板结构的头</span><span
+lang=EN-US>pPal-&gt;palNumEntries = NumColors; pPal-&gt;palVersion = 0x300</span><span
+style='font-family:宋体;"Times New Roman"'>；③从文件中读取调色板的</span><span lang=EN-US>RGB</span><span
+style='font-family:宋体;"Times New Roman"'>值，填写到每一项中；④产生逻辑调色板：</span><span lang=EN-US>hPalette=CreatePalette(pPal)</span><span
+style='font-family:宋体;"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt;
+'> <span
+lang=EN-US>(2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span> 
+    <span
+style='font-family:宋体;"Times New Roman"'>产生位图</span><span lang=EN-US>(BITMAP)</span><span
+style='font-family:宋体;"Times New Roman"'>句柄，该项工作由函数</span><span lang=EN-US>CreateDIBitmap</span><span
+style='font-family:宋体;"Times New Roman"'>来完成。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpImgData, </span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>(LPSTR)lpImgData+sizeof(BITMAPINFOHEADER)+NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpImgData, DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>CreateDIBitmap</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的作用是产生一个和</span><span
+lang=EN-US>Windows</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>设备无关的位图。该函数的第一项参数为设备上下文句柄。如果位图用到了调色板，要在调用</span><span
+lang=EN-US>CreateDIBitmap</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>之前将逻辑调色板选入该设备上下文中，产生</span><span
+lang=EN-US>hBitmap</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>后，再把原调色板选入该设备上下文中，并释放该上下文；第二项为指向</span><span
+lang=EN-US>BITMAPINFOHEADER</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>的指针；第三项就用常量</span><span
+lang=EN-US>CBM_INI</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，不用考虑；第四项为指向调色板的指针；第五项为指向</span><span
+lang=EN-US>BITMAPINFO(</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>包括</span><span
+lang=EN-US>BITMAPINFOHEADER,</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>调色板</span><span
+lang=EN-US>,</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>及实际的图象数据</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>的指针；第六项就用常量</span><span lang=EN-US>DIB_RGB_COLORS</span><span
+style='font-family:宋体;"Times New Roman"'>，不用考虑。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>上面提到了设备上下文，相信编过</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>程序的读者对它并不陌生，这里再简单介绍一下。</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>操作系统统一管理着诸如显示，打印等操作，将它们看作是一个个的设备，每一个设备都有一个复杂的数据结构来维护。所谓设备上下文就是指这个数据结构。然而，我们不能直接和这些设备上下文打交道，只能通过引用标识它的句柄</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>实际上是一个整数</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，让</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>去做相应的处理。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>产生的逻辑调色板句柄</span><span lang=EN-US>hPalette</span><span
+style='font-family:宋体;"Times New Roman"'>和位图句柄</span><span lang=EN-US>hBitmap</span><span
+style='font-family:宋体;"Times New Roman"'>要在处理</span><span lang=EN-US>WM_PAINT</span><span
+style='font-family:宋体;"Times New Roman"'>消息时使用，这样才能在屏幕上显示出来，处理过程如下面的程序。</span></p>
+  <p style='line-height:18.0pt'>Static&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hDC,hMemDC;</p>
+  <p style='line-height:18.0pt'>PAINTSTRUCT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    ps;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>case WM_PAINT:</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hDC = BeginPaint(hwnd, &amp;ps); //</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>获得屏幕设备上下文</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if (hBitmap) //hBitmap</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>一开始是</span><span
+lang=EN-US>NULL</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，当不为</span><span lang=EN-US>NULL</span><span
+style='font-family:宋体;"Times New Roman"'>时表示有图</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>hMemDC = CreateCompatibleDC(hDC); //</span><span
+style='font-family:宋体;"Times New Roman"'>建立一个内存设备上下文</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>if (hPalette) //</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>有调色板</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>将调色板选入屏幕设备上下文</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>SelectPalette (hDC, hPalette, FALSE); </span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>将调色板选入内存设备上下文</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>SelectPalette (hMemDC, hpalette, FALSE);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>RealizePalette (hDC);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>将位图选入内存设备上下文</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>SelectObject(hMemDC, hBitmap);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>显示位图</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>BitBlt(hDC, 0, 0, bi.biWidth, bi.biHeight, hMemDC, 0, 
+    0, SRCCOPY);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>释放内存设备上下文</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DeleteDC(hMemDC);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>释放屏幕设备上下文</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>EndPaint(hwnd, &amp;ps);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>break;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在上面的程序中，我们调用</span><span lang=EN-US>CreateCompatibleDC</span><span
+style='font-family:宋体;"Times New Roman"'>创建一个内存设备上下文。</span><span lang=EN-US>SelectObject</span><span
+style='font-family:宋体;"Times New Roman"'>函数将与设备无关的位图选入内存设备上下文中。然后我们调用</span><span lang=EN-US>BitBlt</span><span
+style='font-family:宋体;"Times New Roman"'>函数在内存设备上下文和屏幕设备上下文中进行位拷贝。由于所有操作都是在内存中进行，所以速度很快。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>BitBlt</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>函数的参数分别为：</span><span lang=EN-US>1.</span><span
+style='font-family:宋体;"Times New Roman"'>目标设备上下文，在上面的程序里，为屏幕设备上下文，如果改成打印设备上下文，就不是显示位图，而是打印；</span><span
+lang=EN-US>2.</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>目标矩形左上角点</span><span lang=EN-US>x</span><span
+style='font-family:宋体;"Times New Roman"'>坐标；</span><span lang=EN-US>3. </span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>目标矩形左上角点</span><span
+lang=EN-US>y</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>坐标，在上面的程序中，</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>为</span><span
+lang=EN-US>(0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>0)</span><span
+style='font-family:宋体;"Times New Roman"'>，表示显示在窗口的左上角；</span><span lang=EN-US>4.</span><span
+style='font-family:宋体;"Times New Roman"'>目标矩形的宽度；</span><span lang=EN-US>5. </span><span
+style='font-family:宋体;"Times New Roman"'>目标矩形的高度；</span><span lang=EN-US>6. </span><span
+style='font-family:宋体;"Times New Roman"'>源设备上下文，在上面的程序里，为内存设备上下文；</span><span lang=EN-US>7. 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>源矩形左上角点</span><span lang=EN-US>x</span><span
+style='font-family:宋体;"Times New Roman"'>坐标；</span><span lang=EN-US>8. </span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>源矩形左上角点</span><span
+lang=EN-US>y</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>坐标；</span><span lang=EN-US>9.</span><span
+style='font-family:宋体;"Times New Roman"'>操作方式，在这里为</span><span lang=EN-US>SRCCOPY</span><span
+style='font-family:宋体;"Times New Roman"'>，表示直接将源矩形拷贝到目标矩形。还可以是反色，擦除，做“与”运算等操作，具体细节见</span><span
+lang=EN-US>VC++</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>帮助。你可以试着改改第</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>、</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>5</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>7</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>、</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>9</span><span
+style='font-family:宋体;"Times New Roman"'>项参数，就能体会到它们的含义了。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>哇，终于讲完了。是不是觉得有点枯燥？这一章是有点儿枯燥，特别是当你对</span><span lang=EN-US>Windows</span><span
+style='font-family:宋体;"Times New Roman"'>的编程并不清楚时，就更觉得如此。不过，当一幅漂亮的</span><span lang=EN-US>bmp</span><span
+style='font-family:宋体;"Times New Roman"'>图显示在屏幕上时，你还是会兴奋地大叫“</span><span lang=EN-US>Yeah!</span><span
+style='font-family:宋体;"Times New Roman"'>”，至少当年我是这样。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在本书的附盘中包含所有的源程序，包括头文件和资源文件和例图。特别要注意的是，退出时，别忘了释放内存和资源，这是每个程序员应该养成的习惯。这些个程序并不是很完善，例如，如果一幅图很大，屏幕显示不下怎么办？你可以试着自己加上滚动条。另外，为了节省篇幅，</span><span
+lang=EN-US>.bmp</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>文件名被固定为</span><span lang=EN-US>c:\test.bmp</span><span
+style='font-family:宋体;"Times New Roman"'>，可以自己加入打开文件对话框，任意选择你要显示的文件。图</span><span lang=EN-US>1.4</span><span
+style='font-family:宋体;"Times New Roman"'>为程序运行时的画面。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=287 height=207
+src="./chap01.files/image005.jpg" v:shapes="_x0000_i1027"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>1.4&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>运行时的画面</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>最后，再介绍一个命令行编译的窍门。为什么要用命令行编译呢？主要有两个好处：第一，不用进入</span><span
+lang=EN-US>IDE(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>集成开发环境</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，节省了时间，而且编译速度也比较快；第二，对于简单的程序，不用生成项目文件</span><span
+lang=EN-US>.mdp</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>或</span><span lang=EN-US>.mak</span><span
+style='font-family:宋体;"Times New Roman"'>，直接就能生成</span><span lang=EN-US>.exe</span><span
+style='font-family:宋体;"Times New Roman"'>文件，这一点，在下面的例子中可以看到。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在安装完</span><span lang=EN-US>Visual C++</span><span
+style='font-family:宋体;"Times New Roman"'>时，在</span><span lang=EN-US>bin</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>目录下会产生一个</span><span
+lang=EN-US>VCVARS32.BAT</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>文件，它的作用是在命令行编译时设置正确的环境变量，如存放头文件的</span><span
+lang=EN-US>INCLUDE</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>目录，存放库文件的</span><span
+lang=EN-US>LIB</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>目录等。如果你没找到这个批处理文件，可以参考下面的例子，自己做一个批处理。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>@echo off</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>set MSDevDir=d:\MSDEV</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>set VcOsDir=WIN95</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>set PATH=&quot;%MSDevDir%\BIN&quot;;&quot;%MSDevDir%\BIN\%VcOsDir%&quot;;&quot;%PATH%&quot;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>set INCLUDE=%MSDevDir%\INCLUDE;%MSDevDir%\MFC\INCLUDE;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>%INCLUDE%</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>set LIB=%MSDevDir%\LIB;%MSDevDir%\MFC\LIB;%LIB%</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>set VcOsDir=</span><span
+lang=EN-US style='font-size:9.0pt;'></span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>只要把上面的“</span><span lang=EN-US>d:\MSDEV</span><span
+style='font-family:宋体;"Times New Roman"'>”改成你自己的</span><span lang=EN-US>VC</span><span
+style='font-family:宋体;"Times New Roman"'>目录就可以了。在</span><span lang=EN-US>DOS PROMPT</span><span
+style='font-family:宋体;"Times New Roman"'>下执行该批处理文件，执行</span><span lang=EN-US>set</span><span
+style='font-family:宋体;"Times New Roman"'>命令，你就能看到新设置的环境变量了。如下所示：</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>PATH=D:\MSDEV\BIN;D:\MSDEV\BIN\WIN95;C:\WIN95;C:\WIN95\COMMAND;C:\WIN95\SYSTEM;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>INCLUDE=d:\msdev\INCLUDE;d:\msdev\MFC\INCLUDE;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>LIB=d:\msdev\LIB;d:\msdev\MFC\LIB;</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>现在我们就可以进行命令行编译了。首先编译资源文件，输入</span><span lang=EN-US>rc 
+    bmp.rc</span><span
+style='font-family:宋体;"Times New Roman"'>，将生成</span><span lang=EN-US>bmp.res</span><span
+style='font-family:宋体;"Times New Roman"'>文件，接着输入</span><span lang=EN-US>cl bmp.c 
+    bmp.res user32.lib gdi32.lib</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，就生成</span><span lang=EN-US>bmp.exe </span><span
+style='font-family:宋体;"Times New Roman"'>了。可以看到，我们并没有用到项目文件，所以，对于这种简单的程序来说，使用命令行编译还是非常方便的。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>有时命令行编译会出现“</span><span lang=EN-US>Out 
+    of enviroment space</span><span
+style='font-family:宋体;"Times New Roman"'>”的错误</span><span lang=EN-US>,</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>那是因为</span><span
+lang=EN-US>command.com</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>缺省的初始环境变量内存太小，首先执行</span><span
+lang=EN-US>command /e:2048 (</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>或更大</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>命令即可解决改问题。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>使用</span><span lang=EN-US>ide</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的方法是：</span><span
+lang=EN-US>new project</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，类型是</span><span
+lang=EN-US>win32 application-&gt;empty project</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，然后把</span><span
+lang=EN-US>.h,.rc,.c</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>文件</span><span
+lang=EN-US>add to project</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>编译即可。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>好了，运行</span><span lang=EN-US>bmp.exe</span><span
+style='font-family:宋体;"Times New Roman"'>，欣赏一下你今天的劳动成果。</span></p>
+</div>
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+USC does not screen or control the content herein and does not take responsibility for any inaccurate, offensive, infringing, or objectionable content, all of which is the sole responsibility of the author or the users who post content on this website.
+</div>
+</body>
+</html>

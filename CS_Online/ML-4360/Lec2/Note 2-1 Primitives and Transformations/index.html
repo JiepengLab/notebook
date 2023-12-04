@@ -1,0 +1,2748 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS_Online/ML-4360/Lec2/Note%202-1%20Primitives%20and%20Transformations/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../Note%202-2%20Geometric%20Image%20Formation/">
+      
+      
+      <link rel="icon" href="../../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>Note 2-1 Primitives and Transformations - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-primitives-and-transformations" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Note 2-1 Primitives and Transformations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Fundemental/" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../CS/" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Friends/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朋友们！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CurrentStudy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正在学习的课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Fundemental/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            基础课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Fundemental/Mathematical%20Modeling/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数学建模
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Fundemental/Probability%20and%20Mathematical%20Statistics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Fundemental/Physics-II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大学物理（乙）II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../CS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            校内CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../CS/NA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数值分析
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../CS/AI_Start/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    人工智能初步
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../CS/DigitalDesign/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数字逻辑设计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../CS/DIP/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    图像信息处理
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../CS/FDS/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数据结构基础
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            校外CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            ML-4360
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lec1/Note_1_introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Note 01 introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Note 02 Image Formation
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2_3" id="__nav_4_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Note 02 Image Formation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Note 2-1 Primitives and Transformations
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Note 2-1 Primitives and Transformations
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#211-2d-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1 2D Primitives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 2D Primitives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2d-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Lines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-line-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Line Arithmetic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-conics" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Conics(二次曲线)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#212-3d-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.2 3D Primitives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.2 3D Primitives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3d-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-planes" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D Planes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D Lines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-quadrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D Quadrics(二次曲面)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#213-2d-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.3 2D Transformations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.3 2D Transformations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      平移 | Translation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euclidean" class="md-nav__link">
+    <span class="md-ellipsis">
+      欧氏变换 | Euclidean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      相似变换 | Similarity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#affine" class="md-nav__link">
+    <span class="md-ellipsis">
+      仿射 | Affine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projective" class="md-nav__link">
+    <span class="md-ellipsis">
+      投影 | Projective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-transformations-on-co-vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      辅助矢量的变换 | 2D Transformations on Co-vectors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#214-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.4 2D坐标变换层次结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#215-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.5 3D坐标变换层次结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#216-direct-linear-transform-for-homography-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.6 Direct Linear Transform for Homography Estimation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Note%202-2%20Geometric%20Image%20Formation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Note 2-2 Geometric Image Formation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Note%202-3%20Photometric%20Image%20Formation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Note 2-3 Photometric Image Formation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Note%202-4%20Image%20Sensing%20Pipeline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Note 2-4 Image Sensing Pipeline
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Math%20Basic%20SVD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maths Basic-SVD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HW1.1%20Pen%20and%20Paper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HW1.1 Pen and Paper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../Lec3/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Note 03 Structure from Motion
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ML_Lhy/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    李宏毅《机器学习》
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Mess/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            杂项
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Mess/DIP-C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    《数字图像处理编程入门》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Mess/ESG/Paper/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ESG商赛
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Mess/Marxism/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    马原
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#211-2d-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1 2D Primitives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 2D Primitives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2d-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Lines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-line-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Line Arithmetic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-conics" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Conics(二次曲线)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#212-3d-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.2 3D Primitives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.2 3D Primitives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3d-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-planes" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D Planes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D Lines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-quadrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D Quadrics(二次曲面)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#213-2d-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.3 2D Transformations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.3 2D Transformations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      平移 | Translation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euclidean" class="md-nav__link">
+    <span class="md-ellipsis">
+      欧氏变换 | Euclidean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      相似变换 | Similarity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#affine" class="md-nav__link">
+    <span class="md-ellipsis">
+      仿射 | Affine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projective" class="md-nav__link">
+    <span class="md-ellipsis">
+      投影 | Projective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-transformations-on-co-vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      辅助矢量的变换 | 2D Transformations on Co-vectors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#214-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.4 2D坐标变换层次结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#215-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.5 3D坐标变换层次结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#216-direct-linear-transform-for-homography-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.6 Direct Linear Transform for Homography Estimation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="21-primitives-and-transformations">2.1 Primitives and Transformations<a class="headerlink" href="#21-primitives-and-transformations" title="点击此处可置顶内容">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">单元概述</p>
+<ul>
+<li>介绍了点、线和面在齐次坐标系下的表示。</li>
+<li>介绍了基本的转换。</li>
+<li>用DLT方法计算单应性矩阵。</li>
+</ul>
+</div>
+<h2 id="211-2d-primitives">2.1.1 2D Primitives<a class="headerlink" href="#211-2d-primitives" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="2d-points">2D Points<a class="headerlink" href="#2d-points" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>2D上的点</strong> 可以用 <strong>非齐次坐标(inhomogeneous coordinates)</strong> 写成</p>
+<div class="arithmatex">\[\mathbf{x} =(x,y)^T\in \mathbb{R}^2\]</div>
+<p>或者用 <strong>齐次坐标(inhomogeneous coordinates)</strong> 写成</p>
+<div class="arithmatex">\[\widetilde{\mathbf{x} } =\left(\widetilde{x},\widetilde{y},\widetilde{w}\right)^T\in \mathbb{P}^2\]</div>
+<p>这里的 <span class="arithmatex">\(\mathbb{P}^2=\mathbb{R}^2\backslash(0,0,0)\)</span> 指的是<strong>射影空间(projective space)</strong>。<span class="arithmatex">\(\widetilde{\mathbf{x}}\)</span> 是<strong>投影点(projective point)</strong>。</p>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<ul>
+<li>齐次坐标的最后一个元素通常为1，但是也可以是其他值。</li>
+<li>波浪号(~)是齐次坐标的约定。</li>
+<li>齐次向量只定义到尺度(scale)。</li>
+</ul>
+</div>
+<details class="question">
+<summary>为什么要用齐次坐标？</summary>
+<div class="admonition note">
+<p class="admonition-title">1. 齐次坐标允许表达平行线的交点，无穷远的向量, </p>
+<p><span class="arithmatex">\(\widetilde{w} = 0\)</span> 的齐次点称为理想点(ideal points)或无穷远点(points at infinity)</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">2. 引入齐次坐标的作用，把各种变换都统一了起来，即：把缩放，旋转，平移等变换都统一起来，都表示成一连串的矩阵相乘的形式。保证了形式上的线性一致性。</p>
+<p>例如：<strong>仿射变换(Affine Transformations)</strong> 主要包括两个部分，即线性变换和平移（换言之，仿射变换并不是线性变换），其数学表述为：</p>
+<div class="arithmatex">\[\begin{bmatrix}x'\\y'\end{bmatrix}=
+\begin{bmatrix} 
+    a &amp; b \\ 
+    c &amp; d
+\end{bmatrix} 
+\begin{bmatrix} 
+    x \\ 
+    y 
+\end{bmatrix}
++
+\begin{bmatrix} 
+    t_x \\ 
+    t_y 
+\end{bmatrix}\]</div>
+<p>为了让仿射变换也能写成 <span class="arithmatex">\(a=Mb\)</span> 的形式以简化运算，我们可以用 <span class="arithmatex">\(n+1\)</span> 维向量来表示 <span class="arithmatex">\(n\)</span> 维点，即使用<strong>齐次坐标(homogenous coordinates)</strong>：</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+    x'\\
+    y'\\
+    1
+\end{bmatrix}
+\cong
+\begin{bmatrix}
+    a &amp; b &amp; t_x \\
+    c &amp; d &amp; t_y \\
+    0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+    x \\
+    y \\
+    1
+\end{bmatrix}
+\]</div>
+</div>
+</details>
+<details class="note" open="open">
+<summary>齐次坐标添加的最后一个维度是什么意思？</summary>
+<p>其实就是用 <span class="arithmatex">\(n+1\)</span> 维空间中 从原点发出的一条 <u>射线</u> 来<u>描述</u> <span class="arithmatex">\(n\)</span> 维空间中的一个<u>点</u>。 </p>
+<p>引入这种想法后，我们就知道为什么通过齐次坐标化就能把平移变成线性变换——我们可以将 <span class="arithmatex">\(n\)</span> 维<strong>点</strong>的<strong>平移</strong>看作 <span class="arithmatex">\(n+1\)</span> 维<strong>射线</strong>的<strong>旋转</strong>，而旋转显然是一个线性变换。
+<img alt="射线" src="../images/image-2.png" /></p>
+</details>
+<p><strong>非齐次向量</strong> <span class="arithmatex">\(\mathbf{x}\)</span> 可以这样转换为<strong>齐次向量</strong> <span class="arithmatex">\(\widetilde{\mathbf{x}}\)</span> :</p>
+<div class="arithmatex">\[\widetilde{\mathbf{x} }=\begin{pmatrix}\widetilde{x}\\\widetilde{y}\\\widetilde{w}\end{pmatrix}=\begin{pmatrix}x\\y\\1\end{pmatrix}=\begin{pmatrix}\mathbf{x}\\1\end{pmatrix}= \overline{\mathbf{x} }\]</div>
+<p>我们称所有齐次向量的<strong>增广向量(augmented vector)</strong> ́<span class="arithmatex">\(\overline{\mathbf{x} }\)</span> 为最后一个坐标等于 1 的向量。</p>
+<h3 id="2d-lines">2D Lines<a class="headerlink" href="#2d-lines" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>2D 的线段</strong> 也可以用齐次坐标表示为 <span class="arithmatex">\(\mathbf{\widetilde{l}}=(a,b,c)^T\)</span>，我们用 <span class="arithmatex">\(\mathbf{\widetilde{l}}\)</span> 与点 <span class="arithmatex">\(\mathbf{\overline{x}}\)</span> 的内积为 <span class="arithmatex">\(0\)</span> 来表示点 <span class="arithmatex">\(\mathbf{\overline{x}}\)</span> 在线段 <span class="arithmatex">\(\mathbf{\widetilde{l}}\)</span>上 ：</p>
+<div class="arithmatex">\[\{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{\widetilde{l}}=0\} \Leftrightarrow (x,y,1)\begin{pmatrix}a\\b\\c\end{pmatrix}=0\Leftrightarrow \{x,y | ax+by+c=0\}\]</div>
+<p>将 <span class="arithmatex">\(\mathbf{\widetilde{l}}\)</span> 标准化为 <span class="arithmatex">\(\mathbf{\widetilde{l}}=(n_x,n_y,d)^T=(\mathbf{n},d)^T\)</span>，其中 <span class="arithmatex">\(||\mathbf{n}||=n_x^2+n_y^2=1\)</span>。此时<span class="arithmatex">\(\mathbf{n}\)</span> 是 <span class="arithmatex">\(\mathbf{\widetilde{l}}\)</span> 的<strong>法向量</strong>(normal vector) ，<span class="arithmatex">\(d\)</span> 是 <span class="arithmatex">\(\mathbf{\widetilde{l}}\)</span> 到原点的距离.</p>
+<p>和之前提到的无穷原点一样，我们也可以定义<strong>无穷线(infinite line)</strong> <span class="arithmatex">\(\mathbf{\widetilde{l}}_{\infty}=(0,0,1)^T\)</span>，它包含所有的理想点(因为保证了<span class="arithmatex">\(\widetilde{w}=0\)</span>)。</p>
+<h3 id="2d-line-arithmetic">2D Line Arithmetic<a class="headerlink" href="#2d-line-arithmetic" title="点击此处可置顶内容">&para;</a></h3>
+<details class="note" open="open">
+<summary>叉乘的另一种计算方式</summary>
+<div class="arithmatex">\[\mathbf{a}\times \mathbf{b}=[\mathbf{a}]_{\times}\mathbf{b}=\begin{bmatrix}0&amp;-a_3&amp;a_2\\a_3&amp;0&amp;-a_1\\-a_2&amp;a_1&amp;0\end{bmatrix}\begin{bmatrix}b_1\\b_2\\b_3\end{bmatrix}= \begin{bmatrix}a_2b_3-a_3b_2\\a_3b_1-a_1b_3\\a_1b_2-a_2b_1\end{bmatrix}\]</div>
+</details>
+<p>在齐次坐标系中，我们可以用<strong>叉乘(cross product)</strong> 来表示两条线的交点：</p>
+<div class="arithmatex">\[\mathbf{\overline{x}}=\mathbf{\widetilde{l}}_1\times \mathbf{\widetilde{l}}_2\]</div>
+<details class="note">
+<summary>证明<span class="arithmatex">\(\mathbf{\widetilde{l}}_1\)</span>和<span class="arithmatex">\(\mathbf{\widetilde{l}}_2\)</span>的交点为<span class="arithmatex">\(\mathbf{\widetilde{l}}_1\times \mathbf{\widetilde{l}}_2\)</span></summary>
+<p>假设两条直线分别为<span class="arithmatex">\(\tilde{l}_1 = (a_1, b_1, c_1)^T\)</span>和<span class="arithmatex">\(\tilde{l}_2 = (a_2, b_2, c_2)^T\)</span>，记 <span class="arithmatex">\(\overline{x}\)</span> 为两条直线的交点，即：
+$$
+\begin{aligned}
+a_1x + b_1y + c_1 &amp;= 0 \
+a_2x + b_2y + c_2 &amp;= 0
+\end{aligned}
+$$
+解这个方程组，得到：
+$$
+x = \frac{b_1c_2 - b_2c_1}{a_1b_2 - a_2b_1}, y = \frac{a_2c_1 - a_1c_2}{a_1b_2 - a_2b_1}
+$$
+计算两个直线的叉乘：
+$$
+\begin{aligned}
+&amp; \tilde{l}_1 \times \tilde{l}_2 \
+=&amp; \begin{pmatrix} a_1 \ b_1 \ c_1 \end{pmatrix} \times \begin{pmatrix} a_2 \ b_2 \ c_2 \end{pmatrix} \
+=&amp; \begin{pmatrix} b_1c_2 - b_2c_1 \ a_2c_1 - a_1c_2 \ a_1b_2 - a_2b_1 \end{pmatrix}
+\end{aligned}
+$$</p>
+<p>所以<span class="arithmatex">\(\overline{x} = \begin{pmatrix} \frac{b_1c_2 - b_2c_1}{a_1b_2 - a_2b_1} \\ \frac{a_2c_1 - a_1c_2}{a_1b_2 - a_2b_1} \\ 1 \end{pmatrix} \sim \begin{pmatrix} b_1c_2 - b_2c_1 \\ a_2c_1 - a_1c_2 \\ a_1b_2 - a_2b_1 \end{pmatrix} = \tilde{l}_1 \times \tilde{l}_2\)</span>。，即<span class="arithmatex">\(\overline{x} = \tilde{l}_1 \times \tilde{l}_2\)</span>。</p>
+<p><span class="arithmatex">\(Q.E.D.\)</span></p>
+</details>
+<div class="admonition note">
+<p class="admonition-title">两条平行线的叉积</p>
+<p>记两条平行线分别为<span class="arithmatex">\(\tilde{l}_1 = (a_1, b_1, c_1)^T\)</span>和<span class="arithmatex">\(\tilde{l}_2 = (a_2, b_2, c_2)^T\)</span>，则<span class="arithmatex">\(a_1b_2 = a_2b_1\)</span>，叉积后第三个分量为0，满足之前的定义。</p>
+</div>
+<p>同样地，我们可以用叉乘来表示两个点落在的线段：</p>
+<div class="arithmatex">\[\mathbf{\widetilde{l}}=\mathbf{\overline{x}}_1\times \mathbf{\overline{x}}_2\]</div>
+<details class="note">
+<summary>证明<span class="arithmatex">\(\mathbf{\overline{x}}_1\)</span>和<span class="arithmatex">\(\mathbf{\overline{x}}_2\)</span>落在线段<span class="arithmatex">\(\mathbf{\overline{x}}_1\times \mathbf{\overline{x}}_2\)</span>上</summary>
+<p>Proof:
+假设两个点分别为<span class="arithmatex">\(\tilde{x}_1 = (x_1, y_1, 1)^T\)</span>和<span class="arithmatex">\(\tilde{x}_2 = (x_2, y_2, 1)^T\)</span>，则
+$$
+\begin{aligned}
+&amp; \tilde{x}_1 \times \tilde{x}_2 \
+=&amp; \begin{pmatrix} x_1 \ y_1 \ 1 \end{pmatrix} \times \begin{pmatrix} x_2 \ y_2 \ 1 \end{pmatrix} \
+=&amp; \begin{pmatrix} y_1 - y_2 \ x_2 - x_1 \ x_1y_2 - x_2y_1 \end{pmatrix}
+\end{aligned}
+$$
+由于<span class="arithmatex">\(\tilde{l}\)</span>是点<span class="arithmatex">\(\tilde{x}_1\)</span>和<span class="arithmatex">\(\tilde{x}_2\)</span>的连线，因此<span class="arithmatex">\(\tilde{l}\)</span>必然同时满足点<span class="arithmatex">\(\tilde{x}_1\)</span>和<span class="arithmatex">\(\tilde{x}_2\)</span>的方程，即：
+$$
+\begin{aligned}
+x_1x + y_1y + 1 &amp;= 0 \
+x_2x + y_2y + 1 &amp;= 0
+\end{aligned}
+$$
+解这个方程组，得到：
+$$
+x = \frac{y_1 - y_2}{x_2y_1 - x_1y_2}, y = \frac{x_2 - x_1}{x_2y_1 - x_1y_2}
+$$
+所以<span class="arithmatex">\(\tilde{l} = (x, y, 1)^T = \tilde{x}_1 \times \tilde{x}_2\)</span>。</p>
+</details>
+<h3 id="2d-conics">2D Conics(二次曲线)<a class="headerlink" href="#2d-conics" title="点击此处可置顶内容">&para;</a></h3>
+<p>更复杂的代数对象可以使用多项式齐次方程(polynomial homogeneous equations)来表示。例如，圆锥曲线（conic sections，作为平面和 3D 圆锥体的交点而出现）可以使用二次方程来写。</p>
+<div class="arithmatex">\[\{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{Q}\mathbf{\overline{x}}=0\}\]</div>
+<p><img alt="conics" src="../images/image.png" /></p>
+<details class="note">
+<summary>二次型回顾</summary>
+<div class="arithmatex">\[\mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0 \Leftrightarrow \begin{bmatrix}x&amp;y&amp;1\end{bmatrix}\begin{bmatrix}a&amp;c&amp;d\\c&amp;b&amp;e\\d&amp;e&amp;f\end{bmatrix}\begin{bmatrix}x\\y\\1\end{bmatrix}=ax^2+by^2+2cxy+2dx+2ey+f=0\]</div>
+</details>
+<h2 id="212-3d-primitives">2.1.2 3D Primitives<a class="headerlink" href="#212-3d-primitives" title="点击此处可置顶内容">&para;</a></h2>
+<p>跟2D类似，3D图元也可以用齐次坐标表示。其中，3D点和3D平面的表示方式与2D点和2D线的表示类似。</p>
+<details class="note">
+<summary>3D Points and 3D Planes</summary>
+<h3 id="3d-points">3D Points<a class="headerlink" href="#3d-points" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>3D上的点</strong> 可以用 <strong>非齐次坐标</strong> 写成</p>
+<div class="arithmatex">\[\mathbf{x}=(x,y,z)^T\in \mathbb{R}^3\]</div>
+<p>或者用 <strong>齐次坐标</strong> 写成</p>
+<div class="arithmatex">\[\widetilde{\mathbf{x}}=(\widetilde{x},\widetilde{y},\widetilde{z},\widetilde{w})^T\in \mathbb{P}^3\]</div>
+<p>其中 <span class="arithmatex">\(\mathbb{P}^3 (=\mathbb{R}^4\backslash(0,0,0,0))\)</span> .</p>
+<h3 id="3d-planes">3D Planes<a class="headerlink" href="#3d-planes" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>3D 的平面</strong> 也可以用齐次坐标表示为 <span class="arithmatex">\(\mathbf{\widetilde{m}}=(a,b,c,d)^T\)</span>，我们用 <span class="arithmatex">\(\mathbf{\widetilde{m}}\)</span> 与点 <span class="arithmatex">\(\mathbf{\overline{x}}\)</span> 的内积为 <span class="arithmatex">\(0\)</span> 来表示点 <span class="arithmatex">\(\mathbf{\overline{x}}\)</span> 在平面 <span class="arithmatex">\(\mathbf{\widetilde{m}}\)</span>上 ：</p>
+<div class="arithmatex">\[\{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{\widetilde{m}}=0\} \Leftrightarrow \{x,y,z | ax+by+cz+d=0\}\]</div>
+<p>将 <span class="arithmatex">\(\mathbf{\widetilde{m}}\)</span> 标准化为 <span class="arithmatex">\(\mathbf{\widetilde{m}}=(n_x,n_y,n_z,d)^T=(\mathbf{n},d)^T\)</span>，其中 <span class="arithmatex">\(||\mathbf{n}||=n_x^2+n_y^2+n_z^2=1\)</span>。此时<span class="arithmatex">\(\mathbf{n}\)</span> 是 <span class="arithmatex">\(\mathbf{\widetilde{m}}\)</span> 的<strong>法向量</strong> ，<span class="arithmatex">\(d\)</span> 是 <span class="arithmatex">\(\mathbf{\widetilde{m}}\)</span> 到原点的距离.</p>
+<p>和之前提到的无穷原点一样，我们也可以定义<strong>无穷平面(infinite plane)</strong> <span class="arithmatex">\(\mathbf{\widetilde{m}}_{\infty}=(0,0,0,1)^T\)</span>，它包含所有的理想点(因为保证了<span class="arithmatex">\(\widetilde{w}=0\)</span>)。</p>
+</details>
+<h3 id="3d-lines">3D Lines<a class="headerlink" href="#3d-lines" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>3D 线段</strong> 显得就不太好看了。 一种表示方法是用直线上两个点<span class="arithmatex">\(\mathbf{p}\)</span>、<span class="arithmatex">\(\mathbf{q}\)</span>的线性组合来表示：</p>
+<div class="arithmatex">\[\{\mathbf{x}|\mathbf{x}=(1-\lambda)\mathbf{p}+\lambda\mathbf{q},\lambda\in \mathbb{R}\}\]</div>
+<p>然而，这种表示方法使用了6个参数(<span class="arithmatex">\(\mathbf{p}\)</span> 和<span class="arithmatex">\(\mathbf{q}\)</span> 各三个参数)来表示本来直线的4个自由度</p>
+<p>可替代的方案有两平面参数化(two-plane parameterization)和普吕克坐标系(Plucker coordinates)，此处不展开讨论</p>
+<h3 id="3d-quadrics">3D Quadrics(二次曲面)<a class="headerlink" href="#3d-quadrics" title="点击此处可置顶内容">&para;</a></h3>
+<p>二维曲线在三维中可类比为二次曲面(quadric surface)。它们在多视角几何学(multi-view geometry)研究中很有用处。类似于二维情况，二次曲面可以表示为</p>
+<div class="arithmatex">\[\mathbf{\overline{x}}^T\mathbf{Q}\mathbf{\overline{x}}=0\]</div>
+<p><img alt="quadrics" src="../images/image-1.png" /></p>
+<p>超二次曲面(Superquadrics)是二次曲面的组合，例如：</p>
+<p><img alt="Superquadrics" src="../images/image-3.png" /></p>
+<h2 id="213-2d-transformations">2.1.3 2D Transformations<a class="headerlink" href="#213-2d-transformations" title="点击此处可置顶内容">&para;</a></h2>
+<p><img alt="2D transformations" src="../images/image-6.png" /></p>
+<p>上面这张图清晰地说明了各种变换的关系。从左到右，变换的自由度(DoF-degree of freedom)越来越多。</p>
+<h3 id="translation">平移 | Translation<a class="headerlink" href="#translation" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Translation</strong>: 2D 平移, 2 DoF - <span class="arithmatex">\(t_x+t_y\)</span></p>
+<div class="arithmatex">\[\mathbf{x}'=\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}1&amp;0&amp;t_x\\0&amp;1&amp;t_y\\0&amp;0&amp;1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{I}&amp;\mathbf{t}\\\mathbf{0}^T&amp;1\end{bmatrix}\mathbf{\overline{x}}\]</div>
+<p>其中的增广向量 <span class="arithmatex">\(\mathbf{\overline{x}}\)</span> 总可替代为一般的齐次向量 <span class="arithmatex">\(\mathbf{\widetilde{x}}\)</span> :</p>
+<div class="admonition note">
+<p class="admonition-title">用齐次坐标系表达的好处</p>
+<ul>
+<li>不用齐次表达的话，平移就不是线性的了，而是仿射的。</li>
+</ul>
+<details class="note">
+<summary>线性变换 vs 仿射变换</summary>
+<p>线性变换从几何直观上:</p>
+<ul>
+<li>变换前是直线的，变换后依然是直线</li>
+<li>直线比例保持不变</li>
+<li>变换前是原点的，变换后依然是原点</li>
+</ul>
+<p>仿射变换少了第三条，即：</p>
+<ul>
+<li>变换前是直线的，变换后依然是直线</li>
+<li>直线比例保持不变</li>
+</ul>
+</details>
+<ul>
+<li>用齐次表达，可以轻易地求出逆变换，以及链接多个变换。</li>
+</ul>
+</div>
+<h3 id="euclidean">欧氏变换 | Euclidean<a class="headerlink" href="#euclidean" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Euclidean</strong>: 2D 平移 + 2D 旋转, 3 DoF- <span class="arithmatex">\((t_x+t_y)+(\theta)\)</span></p>
+<div class="arithmatex">\[\mathbf{x}'=\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}\cos\theta&amp;-\sin\theta&amp;t_x\\\sin\theta&amp;\cos\theta&amp;t_y\\0&amp;0&amp;1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{R}&amp;\mathbf{t}\\\mathbf{0}^T&amp;1\end{bmatrix}\mathbf{\overline{x}}\]</div>
+<p>其中<span class="arithmatex">\(\mathbf{R} \in SO(2)\)</span></p>
+<div class="admonition note">
+<p class="admonition-title"><span class="arithmatex">\(SO(2)\)</span>的定义</p>
+<p><span class="arithmatex">\(SO(2)\)</span>表示平面旋转群(special orthogonal group of 2D rotations),有着 <span class="arithmatex">\(\mathbf{R}^T\mathbf{R}=\mathbf{I}\)</span>(正交) and <span class="arithmatex">\(\det(\mathbf{R})=1\)</span>(单位化)的性质，也就是</p>
+<div class="arithmatex">\[\mathbf{R}=\begin{bmatrix}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{bmatrix}\]</div>
+<p>的形式</p>
+</div>
+<details class="question">
+<summary>假设该矩阵让目标图形顺时针旋转<span class="arithmatex">\(θ\)</span>，则其表达式为？</summary>
+<p><img align="left" alt="顺时针旋转\(θ\)" src="../images/image-4.png" width="28.8%" /></p>
+<p>我们做此分析：</p>
+<ul>
+<li>对于参考点 <span class="arithmatex">\((1,0)\)</span>，经过旋转后位置变化为 <span class="arithmatex">\((\cos\theta,-\sin\theta)\)</span>；</li>
+<li>对于参考点 <span class="arithmatex">\((0,1)\)</span>，经过旋转后位置变化为 <span class="arithmatex">\((\sin\theta,\cos\theta)\)</span>；</li>
+</ul>
+<p>因此，旋转对应的变换矩阵为：</p>
+<div class="arithmatex">\[
+R_{\theta,clockwise} = 
+\begin{bmatrix}
+    \cos\theta &amp; \sin\theta \\ 
+    -\sin\theta &amp; \cos\theta
+\end{bmatrix}
+\]</div>
+<p>特别的，如果是逆时针，结果就是：</p>
+<div class="arithmatex">\[
+R_{\theta,anti-clockwise} = 
+\begin{bmatrix}
+    \cos\theta &amp; -\sin\theta \\ 
+    \sin\theta &amp; \cos\theta
+\end{bmatrix}
+\]</div>
+</details>
+<h3 id="similarity">相似变换 | Similarity<a class="headerlink" href="#similarity" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Similarity</strong>: 2D 平移 + 2D 旋转 + 2D 缩放, 4 DoF - <span class="arithmatex">\((t_x+t_y)+(\theta)+(s)\)</span></p>
+<div class="arithmatex">\[\mathbf{x}'=s\mathbf{R}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}s\cos\theta&amp;-s\sin\theta&amp;t_x\\s\sin\theta&amp;s\cos\theta&amp;t_y\\0&amp;0&amp;1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}s\mathbf{R}&amp;\mathbf{t}\\\mathbf{0}^T&amp;1\end{bmatrix}\mathbf{\overline{x}}\]</div>
+<p>其中<span class="arithmatex">\(s\)</span> 是<strong>缩放因子</strong>(scale factor)</p>
+<h3 id="affine">仿射 | Affine<a class="headerlink" href="#affine" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Affine</strong>: 2D仿射变换, 6 DoF - <span class="arithmatex">\((t_x+t_y)+(a_{11}+a_{12}+a_{21}+a_{22})\)</span></p>
+<div class="arithmatex">\[\mathbf{x}'=\mathbf{A}\mathbf{x}+\mathbf{t} \Leftrightarrow \begin{pmatrix}x'\\y'\\1\end{pmatrix}=\begin{bmatrix}a_{11}&amp;a_{12}&amp;t_x\\a_{21}&amp;a_{22}&amp;t_y\\0&amp;0&amp;1\end{bmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix} \Leftrightarrow \mathbf{\overline{x}}'=\begin{bmatrix}\mathbf{A}&amp;\mathbf{t}\\\mathbf{0}^T&amp;1\end{bmatrix}\mathbf{\overline{x}}\]</div>
+<p>这里的<span class="arithmatex">\(\mathbf{A}\)</span> 是一个任意的 <span class="arithmatex">\(2\times 2\)</span> 矩阵.</p>
+<p>仿射变换矩阵为 <span class="arithmatex">\(\begin{bmatrix}\mathbf{A}&amp;\mathbf{t}\end{bmatrix}_{2\times 3}\)</span>。</p>
+<h3 id="projective">投影 | Projective<a class="headerlink" href="#projective" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>Projective</strong>: 投影变换，也被称为<strong>透视变换</strong>(perspective transform)或<strong>单应性变换</strong>(homography)，8 DoF - 下面解释</p>
+<div class="arithmatex">\[\mathbf{\widetilde{x}}'=\mathbf{\widetilde{H}}\mathbf{\widetilde{x}} \Leftrightarrow \begin{pmatrix}\widetilde{x}'\\\widetilde{y}'\\\widetilde{w}'\end{pmatrix}=\begin{bmatrix}h_{11}&amp;h_{12}&amp;h_{13}\\h_{21}&amp;h_{22}&amp;h_{23}\\h_{31}&amp;h_{32}&amp;h_{33}\end{bmatrix}\begin{pmatrix}\widetilde{x}\\\widetilde{y}\\\widetilde{w}\end{pmatrix} \]</div>
+<p>这里的<span class="arithmatex">\(\mathbf{\widetilde{H}}\)</span> 是一个任意的 <span class="arithmatex">\(3\times 3\)</span> 齐次矩阵，而由于它的齐次性，所以最后的<span class="arithmatex">\(h_{33}\)</span>可以被任意设置，因此总共有8个自由度。</p>
+<div class="admonition note">
+<p>实际上，可以理解为它是在三维空间下，相机不平移只旋转的一个视角变化，即 change projection plane；</p>
+</div>
+<h3 id="2d-transformations-on-co-vectors">辅助矢量的变换 | 2D Transformations on Co-vectors<a class="headerlink" href="#2d-transformations-on-co-vectors" title="点击此处可置顶内容">&para;</a></h3>
+<p>我们之前所列的那些变换其实都是作用在点上的，但是我们也可以把它们作用在<strong>辅助矢量</strong>(co-vectors)上，例如，2D上的一条线可以用一个辅助矢量表示为 <span class="arithmatex">\(\mathbf{\widetilde{l}}=(a,b,c)^T\)</span>，它在2D变换<span class="arithmatex">\(\mathbf{H}\)</span>下如何变换？</p>
+<div class="admonition question">
+<p class="admonition-title">记 <strong>辅助矢量(co-vector)</strong> <span class="arithmatex">\(\mathbf{\widetilde{l}}=(a,b,c)^T\)</span> 表示2D上的一条线. 它在2D变换<span class="arithmatex">\(\mathbf{H}\)</span>下如何变换？</p>
+<p><strong>Answer</strong>: <span class="arithmatex">\(\mathbf{\widetilde{l}'}=\mathbf{H}^{-T}\mathbf{\widetilde{l}}\)</span></p>
+<p><strong>Solution</strong>: 在<span class="arithmatex">\(\mathbf{\widetilde{l}}\)</span>上任取一点<span class="arithmatex">\(\mathbf{\widetilde{x}}\)</span>，则</p>
+<div class="arithmatex">\[\mathbf{\widetilde{l}}^T\mathbf{\widetilde{x}}=0\]</div>
+<p>对<span class="arithmatex">\(\mathbf{\widetilde{x}}\)</span>进行2D变换<span class="arithmatex">\(\mathbf{H}\)</span>得到<span class="arithmatex">\(\mathbf{\widetilde{x}}'\)</span>，则</p>
+<div class="arithmatex">\[\mathbf{\widetilde{x}}'=\mathbf{H}\mathbf{\widetilde{x}}\]</div>
+<p>由于<span class="arithmatex">\(\mathbf{\widetilde{x}}'\)</span>落在<span class="arithmatex">\(\mathbf{\widetilde{l}}'\)</span>上，所以</p>
+<div class="arithmatex">\[\mathbf{\widetilde{l}'}^T\mathbf{\widetilde{x}}'=0=\mathbf{\widetilde{l}}^T\mathbf{\widetilde{x}}\]</div>
+<p>则</p>
+<div class="arithmatex">\[\mathbf{\widetilde{l}'}^T\mathbf{H}\mathbf{\widetilde{x}}=\mathbf{\widetilde{l}}^T\mathbf{\widetilde{x}}\]</div>
+<p>由于<span class="arithmatex">\(\mathbf{\widetilde{x}}\)</span>是任意的，所以</p>
+<div class="arithmatex">\[\mathbf{\widetilde{l}'}=\mathbf{H}^{-T}\mathbf{\widetilde{l}}\]</div>
+</div>
+<p>因此，作用在注入2D直线或3D法向的辅助矢量上的投影变换可以用矩阵的转置逆<span class="arithmatex">\(\mathbf{H}^{-T}\)</span>来表示。</p>
+<h2 id="214-2d">2.1.4 2D坐标变换层次结构<a class="headerlink" href="#214-2d" title="点击此处可置顶内容">&para;</a></h2>
+<p><img alt="2D transformations" src="../images/image-6.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Transformation</th>
+<th style="text-align: center;">DoF</th>
+<th style="text-align: center;">Preserves</th>
+<th style="text-align: center;">Matrix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Translation</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Orientation</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}\mathbf{I}&amp;\mathbf{t}\end{bmatrix}_{2\times 3}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Rigid(Euclidean)</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Length</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}\mathbf{R}&amp;\mathbf{t}\end{bmatrix}_{2\times 3}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Similarity</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Angles</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}s\mathbf{R}&amp;\mathbf{t}\end{bmatrix}_{2\times 3}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Affine</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">Parallelism</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}\mathbf{A}&amp;\mathbf{t}\end{bmatrix}_{2\times 3}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Projective</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">Straight lines</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}\mathbf{\widetilde{H}}\end{bmatrix}_{3\times 3}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="215-3d">2.1.5 3D坐标变换层次结构<a class="headerlink" href="#215-3d" title="点击此处可置顶内容">&para;</a></h2>
+<p>与2D类似，3D变换可以如下表示</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Transformation</th>
+<th style="text-align: center;">DoF</th>
+<th style="text-align: center;">Preserves</th>
+<th style="text-align: center;">Matrix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Translation</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Orientation</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}\mathbf{I}&amp;\mathbf{t}\end{bmatrix}_{3\times 4}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Rigid(Euclidean)</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">Length</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}\mathbf{R}&amp;\mathbf{t}\end{bmatrix}_{3\times 4}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Similarity</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">Angles</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}s\mathbf{R}&amp;\mathbf{t}\end{bmatrix}_{3\times 4}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Affine</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">Parallelism</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}\mathbf{A}&amp;\mathbf{t}\end{bmatrix}_{3\times 4}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Projective</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">Straight lines</td>
+<td style="text-align: center;"><span class="arithmatex">\(\begin{bmatrix}\mathbf{\widetilde{H}}\end{bmatrix}_{4\times 4}\)</span></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>3D transformations are defined analogously(类似的) to 2D transformations</li>
+<li><span class="arithmatex">\(3 × 4\)</span> matrices are extended with a fourth <span class="arithmatex">\(\begin{bmatrix}\mathbf{0}^T&amp;1\end{bmatrix}\)</span> row for homogeneous transforms.</li>
+<li>Transformations preserve properties below (similarity: parallelism, straight lines)</li>
+</ul>
+</blockquote>
+<h2 id="216-direct-linear-transform-for-homography-estimation">2.1.6 Direct Linear Transform for Homography Estimation<a class="headerlink" href="#216-direct-linear-transform-for-homography-estimation" title="点击此处可置顶内容">&para;</a></h2>
+<div class="admonition question">
+<p>怎么从一系列2D对应点中估计出单应性矩阵<span class="arithmatex">\(\mathbf{\widetilde{H}}\)</span>，也就是之后会提到的相机参数(camera parameters)呢？</p>
+<p>对于 homography，有八个自由度就需要八个方程四对匹配关系</p>
+</div>
+<p>记 <span class="arithmatex">\(\mathcal{X}=\{\mathbf{\widetilde{x}_i,\widetilde{x}'_i}\}_{i=1}^N\)</span>为 <span class="arithmatex">\(N\)</span> 组2D对应点(这意味着<span class="arithmatex">\(\mathbf{\widetilde{x}}'_i=\mathbf{\widetilde{H}}\mathbf{\widetilde{x}}_i\)</span>)，我们可以得到<span class="arithmatex">\(\mathbf{\widetilde{x}}'_i\times\mathbf{\widetilde{H}}\mathbf{\widetilde{x}}_i=0\)</span>，记<span class="arithmatex">\(\mathbf{\widetilde{H}}\)</span>的第<span class="arithmatex">\(k\)</span>行为<span class="arithmatex">\(\mathbf{\widetilde{h}}^T_k\)</span>，则</p>
+<p>展开叉乘运算:</p>
+<p><span class="arithmatex">\(\begin{aligned}
+&amp;\mathbf{\widetilde{x}}'_i \times (\mathbf{\widetilde{H}}\mathbf{\widetilde{x}}_i) = 0\\
+\Leftrightarrow &amp; \begin{bmatrix}
+0 &amp; -\widetilde{w}'_i &amp; \widetilde{y}'_i \\
+\widetilde{w}'_i &amp; 0 &amp; -\widetilde{x}'_i\\
+-\widetilde{y}'_i &amp; \widetilde{x}'_i &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+\mathbf{\widetilde{h}}^T_1\\
+\mathbf{\widetilde{h}}^T_2\\
+\mathbf{\widetilde{h}}^T_3
+\end{bmatrix}\mathbf{\widetilde{x}}_i = 0\\
+\Leftrightarrow &amp; \begin{bmatrix}
+0^T_{1\times 3} &amp; -\widetilde{w}'_i\mathbf{\widetilde{x}}_i^T &amp; \widetilde{y}'_i\mathbf{\widetilde{x}}_i^T\\
+\widetilde{w}'_i\mathbf{\widetilde{x}}_i^T &amp; 0^T_{1\times 3} &amp; -\widetilde{x}'_i\mathbf{\widetilde{x}}_i^T\\
+-\widetilde{y}'_i\mathbf{\widetilde{x}}_i^T &amp; \widetilde{x}'_i\mathbf{\widetilde{x}}_i^T &amp; 0^T_{1\times 3}
+\end{bmatrix}_{3\times 9}
+\begin{bmatrix}
+\mathbf{\widetilde{h}}_1\\
+\mathbf{\widetilde{h}}_2\\
+\mathbf{\widetilde{h}}_3
+\end{bmatrix}_{9\times 1} = 0
+\end{aligned}\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{a}\times\mathbf{b}=\begin{bmatrix}0&amp;-a_3&amp;a_2\\a_3&amp;0&amp;a_1\\-a_2&amp;a_1&amp;0\end{bmatrix} \begin{pmatrix}b_1\\b_2\\b_3\end{pmatrix}=\begin{pmatrix}a_2b_3-a_3b_2\\a_3b_1-a_1b_3\\a_1b_2-a_2b_1\end{pmatrix}\)</span></li>
+<li>第二步到第三步是因为 <span class="arithmatex">\(\mathbf{h}_i^T \mathbf{\widetilde{x} }_i\)</span>是一个数，所以<span class="arithmatex">\(\mathbf{h}_i^T \mathbf{\widetilde{x} }_i = \mathbf{\widetilde{x} }_i^T \mathbf{h}_i\)</span>。</li>
+<li>这样就可以用左边的数据来估计 <span class="arithmatex">\(\mathbf{H}\)</span> 了。</li>
+<li>最后一行的三个方程是冗余的，因为<span class="arithmatex">\(-\widetilde{w}'_iR_3 = \widetilde{x}'_i R_1 + \widetilde{y}'_i R_2\)</span>。</li>
+</ul>
+</div>
+<p>所以从这个式子可以知道，每一组点产生两个方程。把<span class="arithmatex">\(\mathcal{X}\)</span>中的<span class="arithmatex">\(n\)</span>组点放在一起，就可以得到一个<span class="arithmatex">\(2n\times 9\)</span>的矩阵<span class="arithmatex">\(\mathbf{A}\)</span>，即<span class="arithmatex">\(\mathbf{A}_{2N\times 9}\begin{bmatrix}
+\mathbf{\widetilde{h}}_1\\
+\mathbf{\widetilde{h}}_2\\
+\mathbf{\widetilde{h}}_3
+\end{bmatrix}_{9\times 1}=0\)</span>，记<span class="arithmatex">\(\widetilde{\mathbf{h}}=(\mathbf{\widetilde{h}}_1,\mathbf{\widetilde{h}}_2,\mathbf{\widetilde{h}}_3)^T\)</span>，则<span class="arithmatex">\(\mathbf{A}\widetilde{\mathbf{h}}=0\)</span>。</p>
+<p>由于误差的存在，上式可能不等于0，我们采用最小二乘法来估计 <span class="arithmatex">\(\mathbf{H}\)</span>:</p>
+<p>令</p>
+<div class="arithmatex">\[\mathbf{A} \widetilde{\mathbf{h}} = \omega\]</div>
+<div class="arithmatex">\[\Omega = \omega^T \omega \]</div>
+<p>求解 <span class="arithmatex">\(\widetilde{\mathbf{h}}\)</span> 使得 <span class="arithmatex">\(\Omega\)</span> 最小也就是</p>
+<div class="arithmatex">\[\widetilde{\mathbf{h}}^*=\arg\min_{\widetilde{\mathbf{h}}}\Omega + \lambda (\|\widetilde{\mathbf{h}}\|^2-1)=\arg\min_{\widetilde{\mathbf{h}}}\|\mathbf{A}\widetilde{\mathbf{h}}\|^2+\lambda (\|\widetilde{\mathbf{h}}\|^2-1)\]</div>
+<p>其中 <span class="arithmatex">\(\widetilde{\mathbf{h}}^*\)</span> 是 <span class="arithmatex">\(\mathbf{H}\)</span> 的最小二乘解。</p>
+<p>为了方便，我们限制 <span class="arithmatex">\(\widetilde{\mathbf{h}}\)</span> 的范数为1。这里的 <span class="arithmatex">\(\lambda\)</span> 是一个拉格朗日乘子(Lagrange multiplier)，就是用来强制满足约束条件 <span class="arithmatex">\(\|\widetilde{\mathbf{h}}\|^2=1\)</span>。</p>
+<p>上述优化问题的解是与 <span class="arithmatex">\(\mathbf{A}\)</span> 的最小奇异值对应的奇异向量(singular vector)（即用奇异值分解 <span class="arithmatex">\(A = UDV^T\)</span> 时 V 的最后一列，<a href="../Math%20Basic%20SVD/#ax0-v">为什么？</a>）</p>
+<p>由此产生的算法称为<strong>直接线性变换</strong>。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一页: Lec2 Image Formation">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Lec2 Image Formation
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Note%202-2%20Geometric%20Image%20Formation/" class="md-footer__link md-footer__link--next" aria-label="下一页: Note 2-2 Geometric Image Formation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Note 2-2 Geometric Image Formation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>

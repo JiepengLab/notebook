@@ -1,0 +1,1394 @@
+
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link rel=Edit-Time-Data href="./chap07.files/editdata.mso">
+<link rel=OLE-Object-Data href="./chap07.files/oledata.mso">
+<title>第7章 边沿检测与提取，轮廓跟踪</title>
+<style><!--
+.Normal
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:0pt;
+	line-height:normal;
+	font-size:10.5pt;
+	font-family:"Times New Roman";}
+.a
+	{text-align:center;
+	text-indent:0pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+-->
+</style>
+</head>
+<body lang=ZH-CN link=blue vlink=purple class="Normal" bgcolor="#FFFFFF">
+<div style='layout-grid:15.6pt'> 
+  <h1><a name="_Toc486331897"></a><a name="_Toc486332897"></a><a
+name="_Toc486339006"></a><a name="_Toc454810871"></a><a name="_Toc454856645"><span><span>第<span
+lang=EN-US>7</span></span></span></a><span><span><span style='font-family:黑体;"Times New Roman"'>章</span> 
+    </span></span><span><span><span
+style='font-family:黑体;"Times New Roman"'>边沿检测与提取，轮廓跟踪</span></span></span></h1>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们在第三章介绍平滑与锐化时引入了模板操作，今天还要用到它。</span></p>
+  <h2> <span
+lang=EN-US>7.1</span> <span lang=EN-US> </span><a name="_Toc486331898"></a><a
+name="_Toc486332898"></a><a name="_Toc486339007"></a><a name="_Toc454810872"></a><a
+name="_Toc454856646"><span><span>边沿检测</span></span></a></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们给出一个模板</span><span lang=EN-US><sub> 
+    <img width=76 height=23
+src="./chap07.files/image002.gif" v:shapes="_x0000_i1025"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>和一幅图象</span><span
+lang=EN-US><sub> <img width=228 height=96
+src="./chap07.files/image004.gif" v:shapes="_x0000_i1026"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。不难发现原图中左边暗，右边亮，中间存在着一条明显的边界。进行模板操作后的结果如下：</span><span
+lang=EN-US><sub> <img width=229 height=96
+src="./chap07.files/image006.gif" v:shapes="_x0000_i1027"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>可以看出，第</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>、</span><span lang=EN-US>4</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>列比其他列的灰度值高很多，人眼观察时，就能发现一条很明显的亮边，其它区域都很暗，这样就起到了边沿检测的作用。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>为什么会这样呢？仔细看看那个模板就明白了，它的意思是将右邻点的灰度值减左邻点的灰度值作为该点的灰度值。在灰度相近的区域内，这么做的结果使得该点的灰度值接近于</span><span
+lang=EN-US>0</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>；而在边界附近，灰度值有明显的跳变，这么做的结果使得该点的灰度值很大，这样就出现了上面的结果。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这种模板就是一种边沿检测器，它在数学上的涵义是一种基于梯度的滤波器，又称边沿算子，你没有必要知道梯度的确切涵义，只要有这个概念就可以了。梯度是有方向的，和边沿的方向总是正交</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>垂直</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>的，例如，对于上面那幅图象的转置图象，边是水平方向的，我们可以用梯度是垂直方向的模板</span><span
+lang=EN-US><sub> <img width=36 height=75
+src="./chap07.files/image008.gif" v:shapes="_x0000_i1035"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>检测它的边沿。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>例如，一个梯度为</span><span lang=EN-US>45</span><span
+style='font-family:宋体;"Times New Roman"'>度方向模板</span><span lang=EN-US><sub> <img width=91 height=75
+src="./chap07.files/image010.gif" v:shapes="_x0000_i1036"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，可以检测出</span><span
+lang=EN-US>135</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>度方向的边沿。</span></p>
+  <p style='line-height:
+18.0pt;'> <b><span
+lang=EN-US>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span></b> <b><span lang=EN-US>Sobel</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>算子</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在边沿检测中，常用的一种模板是</span><span lang=EN-US>Sobel 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>算子。</span><span lang=EN-US>Sobel </span><span
+style='font-family:宋体;"Times New Roman"'>算子有两个，一个是检测水平边沿的</span><span lang=EN-US><sub> 
+    <img width=103 height=75
+src="./chap07.files/image012.gif" v:shapes="_x0000_i1037"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>；另一个是检测垂直平边沿的</span><span
+lang=EN-US><sub> <img width=88 height=75
+src="./chap07.files/image014.gif" v:shapes="_x0000_i1038"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。与</span><span
+lang=EN-US><sub> <img width=100 height=75
+src="./chap07.files/image016.gif" v:shapes="_x0000_i1039"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>和</span><span
+lang=EN-US><sub> <img width=81 height=75
+src="./chap07.files/image018.gif" v:shapes="_x0000_i1040"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>相比，</span><span
+lang=EN-US>Sobel</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>算子对于象素的位置的影响做了加权，因此效果更好。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>Sobel</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>算子另一种形式是各向同性</span><span lang=EN-US>Sobel(Isotropic 
+    Sobel)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>算子，也有两个，一个是检测水平边沿的</span><span
+lang=EN-US><sub> <img width=115 height=80
+src="./chap07.files/image020.gif" v:shapes="_x0000_i1041"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，另一个是检测垂直平边沿的</span><span
+lang=EN-US><sub> <img width=112 height=75
+src="./chap07.files/image022.gif" v:shapes="_x0000_i1042"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。各向同性</span><span
+lang=EN-US>Sobel</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>算子和普通</span><span lang=EN-US>Sobel</span><span
+style='font-family:宋体;"Times New Roman"'>算子相比，它的位置加权系数更为准确，在检测不同方向的边沿时梯度的幅度一致。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面的几幅图中，图</span><span lang=EN-US>7.1</span><span
+style='font-family:宋体;"Times New Roman"'>为原图；图</span><span lang=EN-US>7.2</span><span
+style='font-family:宋体;"Times New Roman"'>为普通</span><span lang=EN-US>Sobel</span><span
+style='font-family:宋体;"Times New Roman"'>算子处理后的结果图；图</span><span lang=EN-US>7.3</span><span
+style='font-family:宋体;"Times New Roman"'>为各向同性</span><span lang=EN-US>Sobel</span><span
+style='font-family:宋体;"Times New Roman"'>算子处理后的结果图。可以看出</span><span lang=EN-US>Sobel</span><span
+style='font-family:宋体;"Times New Roman"'>算子确实把图象中的边沿提取了出来。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=319 height=202
+src="./chap07.files/image024.jpg" v:shapes="_x0000_i1043"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>7.1&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>原图</span><span lang=EN-US></span></b></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=319 height=201
+src="./chap07.files/image026.jpg" v:shapes="_x0000_i1044"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>7.2&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>普通</span><span lang=EN-US>Sobel</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>算子处理后的结果图</span><span lang=EN-US></span></b></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+lang=EN-US> <img width=316 height=200
+src="./chap07.files/image028.jpg" v:shapes="_x0000_i1045"> </span></b></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>7.3&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>各向同性</span><span lang=EN-US>Sobel</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>算子处理后的结果图</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在程序中仍然要用到第</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>章介绍的通用</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>模板操作函数</span><span
+lang=EN-US>TemplateOperation</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，所做的操作只是增加几个常量标识及其对应的模板数组，这里就不再给出了。</span></p>
+  <p style='line-height:
+18.0pt;'> <b><span
+lang=EN-US>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span></span></b> <b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>高斯拉普拉斯算子</span><span
+lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>由于噪声点</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>灰度与周围点相差很大的点</span><span
+lang=EN-US>)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>对边沿检测有一定的影响，所以效果更好的边沿检测器是高斯拉普拉斯</span><span
+lang=EN-US>(LOG)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>算子。它把我们在第</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>章中介绍的高斯平滑滤波器和拉普拉斯锐化滤波器结合了起来，先平滑掉噪声，再进行边沿检测，所以效果会更好。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>常用的</span><span lang=EN-US>LOG</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>算子是</span><span
+lang=EN-US>5</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>5</span><span
+style='font-family:宋体;"Times New Roman"'>的模板，如下所示</span><span lang=EN-US><sub> 
+    <img width=187 height=120
+src="./chap07.files/image030.gif" v:shapes="_x0000_i1046"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。到中心点的距离与位置加权系数的关系用曲线表示为图</span><span
+lang=EN-US>7.4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。是不是很象一顶墨西哥草帽？所以，</span><span
+lang=EN-US>LOG</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>又叫墨西哥草帽滤波器。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=268 height=148
+src="./chap07.files/image032.jpg" v:shapes="_x0000_i1047"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>7.4&nbsp;&nbsp;&nbsp;&nbsp; LOG</b><b><span
+style='font-family:宋体;"Times New Roman"'>到中心点的距离与位置加权系数的关系曲线</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span><span
+lang=EN-US>7.5</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为图</span><span lang=EN-US>7.1</span><span
+style='font-family:宋体;"Times New Roman"'>用</span><span lang=EN-US>LOG</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>滤波器处理后的结果。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=303 height=192
+src="./chap07.files/image034.jpg" v:shapes="_x0000_i1048"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>7.5&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>7.1</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>用</span><span lang=EN-US>LOG</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>滤波器处理后的结果图</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>LOG</span><span
+style='font-family:宋体;"Times New Roman"'>的算法和普通模板操作的算法没什么不同，只不过把</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>改成了</span><span
+lang=EN-US>5</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>5</span><span
+style='font-family:宋体;"Times New Roman"'>，这里就不再给出了。读者可以参照第</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>章的源程序自己来完成。</span></p>
+  <h2> <span
+lang=EN-US>7.2</span> <a name="_Toc486331899"></a><a
+name="_Toc486332899"></a><a name="_Toc486339008"></a><a name="_Toc454810873"></a><a
+name="_Toc454856647"><span><span>Hough</span></span></a><span><span><span style='font-family:黑体;'>变换</span></span></span></h2>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>Hough</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>变换用来在图象中查找直线。它的原理很简单：假设有一条与原点距离为</span><span
+lang=EN-US>s</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，方向角为θ的一条直线，如图</span><span lang=EN-US>7.6</span><span
+style='font-family:宋体;"Times New Roman"'>所示。</span></p>
+  <p align=center style='text-align:center;
+line-height:18.0pt'><span lang=EN-US> <img width=232 height=178
+src="./chap07.files/image036.jpg" v:shapes="_x0000_i1049"> </span></p>
+  <p align=center style='text-align:center;
+line-height:18.0pt'><b><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span>7.6&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>一条与原点距离为</span><span lang=EN-US>s</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>，方向角为θ的一条直线</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>直线上的每一点都满足方程</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US><sub> <img width=128 height=21
+src="./chap07.files/image038.gif" v:shapes="_x0000_i1050"> </sub> </span></p>
+  <p align=right style='text-align:right;line-height:18.0pt'><span
+lang=EN-US>(7.1)</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>利用这个事实，我们可以找出某条直线来。下面将给出一段程序，用来找出图象中最长的直线</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>见图</span><span lang=EN-US>7.7)</span><span
+style='font-family:宋体;"Times New Roman"'>。找到直线的两个端点，在它们之间连一条红色的直线。为了看清效果，将结果描成粗线，如图</span><span
+lang=EN-US>7.8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所示。</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=276 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span lang=EN-US> <img width=239 height=193
+  src="./chap07.files/image040.gif" v:shapes="_x0000_i1051"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>7.7 </span></b><b><span
+  style='font-family:宋体;"Times New Roman"'>原图</span><span lang=EN-US></span></b></p>
+      </td>
+      <td width=276 valign=top class="Normal"> 
+        <p style='line-height:18.0pt'><span lang=EN-US> <img width=243 height=193
+  src="./chap07.files/image042.jpg" v:shapes="_x0000_i1052"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>7.8 Hough</span></b><b><span
+  style='font-family:宋体;"Times New Roman"'>变换的结果</span><span lang=EN-US></span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>可以看出，找到的确实是最长的直线。方法是，开一个二维数组做为计数器，第一维是角度，第二维是距离。先计算可能出现的最大距离为</span><span
+lang=EN-US><sub> <img width=125 height=29
+src="./chap07.files/image044.gif" v:shapes="_x0000_i1053"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，用来确定数组第二维的大小。对于每一个黑色点，角度的变化范围从</span><span
+lang=EN-US>0<sup>0</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>到</span><span
+lang=EN-US>178<sup>0</sup>(</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为了减少存储空间和计算时间，角度每次增加</span><span
+lang=EN-US>2<sup>0</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>而不是</span><span
+lang=EN-US>1<sup>0</sup>)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，按方程</span><span
+lang=EN-US>(7.1)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>求出对应的距离</span><span lang=EN-US>s</span><span
+style='font-family:宋体;"Times New Roman"'>来，相应的数组元素</span><span lang=EN-US>[s][<sub> 
+    <img width=13 height=19
+src="./chap07.files/image046.gif" v:shapes="_x0000_i1054"> </sub> ]</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>加</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。同时开一个数组</span><span lang=EN-US>Line</span><span
+style='font-family:宋体;"Times New Roman"'>，计算每条直线的上下两个端点。所有的象素都算完后，找到数组元素中最大的，就是最长的那条直线。直线的端点可以在</span><span
+lang=EN-US>Line</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>中找到。要注意的是，我们处理的虽然是二值图，但实际上是</span><span
+lang=EN-US>256</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种颜色。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL Hough(HWND hWnd)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>定义一个自己的直线结构</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>typedef struct{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;int topx; //<span
+style='font-family:宋体;"Times New Roman"'>最高点的</span><span lang=EN-US>x</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>坐标</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;int topy; //<span
+style='font-family:宋体;"Times New Roman"'>最高点的</span><span lang=EN-US>y</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>坐标</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;int botx; //<span
+style='font-family:宋体;"Times New Roman"'>最低点的</span><span lang=EN-US>x</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>坐标</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;int boty; //<span
+style='font-family:宋体;"Times New Roman"'>最低点的</span><span lang=EN-US>y</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>坐标</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;}MYLINE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    lpPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hDc;</p>
+  <p style='line-height:18.0pt'>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    x,y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>long&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    i,maxd;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; k;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dist,Alpha;</p>
+  <p style='line-height:18.0pt'>HGLOBAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hDistAlpha,hMyLine;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; Int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; *lpDistAlpha;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MYLINE 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *lpMyLine,*TempLine,MaxdLine;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; static LOGPEN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rlp={PS_SOLID,1,1,RGB(255,0,0)};</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; HPEN &nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    rhp;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>我们处理的实际上是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种颜色。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if( NumColors!=256){ </span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MessageBox(hWnd,&quot;Must 
+    be a mono bitmap with grayscale palette!&quot;,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>&quot;Error Message&quot;,MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>计算最大距离</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Dist=(int)(sqrt((double)bi.biWidth*bi.biWidth+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(double)bi.biHeight*bi.biHeight)+0.5);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Alpha=180 
+    /2 ;&nbsp; //0 <span
+style='font-family:宋体;"Times New Roman"'>到</span><span lang=EN-US> to 178 </span><span
+style='font-family:宋体;"Times New Roman"'>度，步长为</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>度</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>为距离角度数组分配内存</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if((hDistAlpha=GlobalAlloc(GHND,(DWORD)Dist*Alpha*</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(int)))==NULL){</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error 
+    Message&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>为记录直线端点的数组分配内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp; </span>&nbsp;&nbsp;&nbsp; if((hMyLine=GlobalAlloc(GHND,(DWORD)Dist*Alpha*</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(MYLINE)))==NULL){</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    GlobalFree(hDistAlpha);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    return&nbsp; FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//BufSize</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>BufSize=OffBits+bi.biHeight*LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; lpDistAlpha=(int 
+    *)GlobalLock(hDistAlpha);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpMyLine=(MYLINE 
+    *)GlobalLock(hMyLine);</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>for (i=0;i&lt;(long)Dist*Alpha;i++){</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempLine=(MYLINE*)(lpMyLine+i);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>(*TempLine).boty=32767; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>初始化最低点的</span><span lang=EN-US>y</span><span
+style='font-family:宋体;"Times New Roman"'>坐标为一个很大的值</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for 
+    (y=0;y&lt;bi.biHeight;y++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//lpPtr<span
+style='font-family:宋体;"Times New Roman"'>指向位图数据</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for (x=0;x&lt;bi.biWidth;x++)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*(lpPtr++)==0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是个黑点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for (k=0;k&lt;180;k+=2){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>计算距离</span><span lang=EN-US>i</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    i=(long)fabs((x*cos(k*PI/180.0)+y*sin(k*PI/180.0)));</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>相应的数组元素加</span><span lang=EN-US>1</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; *(lpDistAlpha+i*Alpha+k/2)=*(lpDistAlpha+i*Alpha+k/2)+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempLine=(MYLINE*)(lpMyLine+i*Alpha+k/2);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(y&gt; (*TempLine).topy){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>记录该直线最高点的</span><span lang=EN-US>x,y</span><span
+style='font-family:宋体;"Times New Roman"'>坐标</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>(*TempLine).topx=x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>(*TempLine).topy=y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(y&lt; (*TempLine).boty){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>记录该直线最低点的</span><span lang=EN-US>x,y</span><span
+style='font-family:宋体;"Times New Roman"'>坐标</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>(*TempLine).botx=x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>(*TempLine).boty=y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>maxd=0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for 
+    (i=0;i&lt;(long)Dist*Alpha;i++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempLine=(MYLINE*)(lpMyLine+i);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>k=*(lpDistAlpha+i);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(k &gt; maxd){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>找到数组元素中最大的，及相应的直线端点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>maxd=k;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MaxdLine.topx=(*TempLine).topx;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MaxdLine.topy=(*TempLine).topy;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MaxdLine.botx=(*TempLine).botx;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MaxdLine.boty=(*TempLine).boty;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hDc 
+    = GetDC(hWnd);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>rhp 
+    = CreatePenIndirect(&amp;rlp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SelectObject(hDc,rhp);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MoveToEx(hDc,MaxdLine.botx,MaxdLine.boty,NULL);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>在两端点之间画一条红线用来标识</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LineTo(hDc,MaxdLine.topx,MaxdLine.topy);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; DeleteObject(rhp);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>释放内存及资源</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>GlobalUnlock(hDistAlpha);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalFree(hDistAlpha);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; GlobalUnlock(hMyLine);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalFree(hMyLine);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span><span
+lang=EN-US style='font-size:9.0pt;'></span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如果</span><span
+lang=EN-US><sub> <img width=13 height=19
+src="./chap07.files/image047.gif" v:shapes="_x0000_i1055"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>是给定的，用上述方法，我们可以找到该方向上最长的直线。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>其实</span><span
+lang=EN-US>Hough</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>变换能够查找任意的曲线，只要你给定它的方程。这里，我们就不详述了。</span></p>
+  <h2> <span
+lang=EN-US>7.3</span> <span lang=EN-US> </span><a name="_Toc486331900"></a><a
+name="_Toc486332900"></a><a name="_Toc486339009"></a><a name="_Toc454810874"></a><a
+name="_Toc454856648"><span><span>轮廓提取</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>轮廓提取的实例如图</span><span
+lang=EN-US>7.9</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、图</span><span lang=EN-US>7.10</span><span
+style='font-family:宋体;"Times New Roman"'>所示。</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=276 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  lang=EN-US> <img width=224 height=148
+  src="./chap07.files/image049.gif" v:shapes="_x0000_i1056"> </span></b></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>7.9&nbsp;&nbsp;&nbsp;&nbsp; 
+          </b><b><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>原图</span><span
+  lang=EN-US></span></b></p>
+      </td>
+      <td width=276 valign=top class="Normal"> 
+        <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=224 height=148
+  src="./chap07.files/image051.gif" v:shapes="_x0000_i1057"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>7.10&nbsp;&nbsp; </b><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>轮廓提取</span><span
+  lang=EN-US></span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>轮廓提取的算法非常简单，就是掏空内部点：如果原图中有一点为黑，且它的</span><span
+lang=EN-US>8</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个相邻点都是黑色时</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>此时该点是内部点</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，则将该点删除。要注意的是，我们处理的虽然是二值图，但实际上是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种颜色。源程序如下：</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL Outline(HWND hWnd)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; lpPtr;</p>
+  <p style='line-height:18.0pt'>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; lpTempPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HDC&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hDc;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hf;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; x,y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    nw,n,ne,w,e,sw,s,se;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>我们处理的实际上是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种颜色。</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if( NumColors!=256){ </span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Must be a mono bitmap with grayscale 
+    palette!&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>&quot;Error Message&quot;,MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//BufSize</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>BufSize=OffBits+bi.biHeight*LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>为新图缓冲区分配内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error Message&quot;,MB_OK|</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>拷贝头信息和位图数据</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memcpy(lpTempImgData,lpImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for 
+    (y=1;y&lt;bi.biHeight-1;y++){ //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>注意</span><span
+lang=EN-US>y</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的范围是从</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>到高度</span><span lang=EN-US>-2</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//lpPtr<span
+style='font-family:宋体;"Times New Roman"'>指向原图数据，</span><span lang=EN-US>lpTempPtr</span><span
+style='font-family:宋体;"Times New Roman"'>指向新图数据</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char *)lpTempImgData+(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for (x=1;x&lt;bi.biWidth-1;x++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*(lpPtr+x)==0){ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>是个黑点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>查找八个相邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>nw=(unsigned char)*(lpPtr+x+LineBytes-1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>n=(unsigned char)*(lpPtr+x+LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>ne=(unsigned char)*(lpPtr+x+LineBytes+1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>w=(unsigned char)*(lpPtr+x-1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>e=(unsigned char)*(lpPtr+x+1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>sw=(unsigned char)*(lpPtr+x-LineBytes-1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>s=(unsigned char)*(lpPtr+x-LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>se=(unsigned char)*(lpPtr+x-LineBytes+1);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>num=nw+n+ne+w+e+sw+s+se;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(num==0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>说明都是黑点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*(lpTempPtr+x)=(unsigned char)255; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>删除该黑点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; if(hBitmap!=NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp; 
+    DeleteObject(hBitmap);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hDc=GetDC(hWnd);&nbsp;&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>创立一个新的位图</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hf=_lcreat(&quot;c:\\outline.bmp&quot;,0);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>释放内存和资源</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <h2> <span
+lang=EN-US>7.4</span> <span lang=EN-US> </span><a name="_Toc486331901"></a><a
+name="_Toc486332901"></a><a name="_Toc486339010"></a><a name="_Toc454810875"></a><a
+name="_Toc454856649"><span><span>种子填充</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>种子填充算法用来在封闭曲线形成的环中填充某中颜色，在这里我们只填充黑色。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>种子填充其实上是图形学中的算法，其原理是：准备一个堆栈，先将要填充的点</span><span
+lang=EN-US>push</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>进堆栈中；以后，每</span><span lang=EN-US>pop</span><span
+style='font-family:宋体;"Times New Roman"'>出一个点，将该点涂成黑色，然后按左上右下的顺序查看它的四个相邻点，若为白</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>表示还没有填充</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，则将该邻点</span><span lang=EN-US>push</span><span
+style='font-family:宋体;"Times New Roman"'>进栈。一直循环，直到堆栈为空。此时，区域内所有的点都被涂成了黑色。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>这里，我们自己定义了一些堆栈的数据结构和操作，实现了堆栈的初始化、</span><span
+lang=EN-US>push</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>、</span><span lang=EN-US>pop</span><span
+style='font-family:宋体;"Times New Roman"'>、判断是否为空、及析构。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//</span><span
+style='font-family:宋体;"Times New Roman"'>堆栈结构</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>typedef struct{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp; HGLOBAL hMem; //<span
+style='font-family:宋体;"Times New Roman"'>堆栈全局内存句柄</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;POINT *lpMyStack; //<span
+style='font-family:宋体;"Times New Roman"'>指向该句柄的指针</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp; LONG&nbsp; ElementsNum; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>堆栈的大小</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp; LONG&nbsp; ptr; //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>指向栈顶的指针</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp; }MYSTACK;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//</span><span
+style='font-family:宋体;"Times New Roman"'>初始化堆栈的操作，第二个参数指定堆栈的大小</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL InitStack(HWND hWnd,LONG 
+    StackLen)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SeedFillStack.ElementsNum=StackLen; 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>将堆栈的大小赋值</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((SeedFillStack.hMem=GlobalAlloc(GHND,SeedFillStack.ElementsNum*</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(POINT)))==NULL)</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>内存分配错误，返回</span><span lang=EN-US>FALSE;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; MessageBox(hWnd,&quot;Error 
+    alloc memory!&quot;,&quot;ErrorMessage&quot;,MB_OK|</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>return FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SeedFillStack.lpMyStack=(POINT 
+    *)GlobalLock(SeedFillStack.hMem);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>缓冲区全部清零</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>memset(SeedFillStack.lpMyStack,0,SeedFillStack.ElementsNum*</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(POINT));</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>堆顶指针为零</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SeedFillStack.ptr=0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>成功，返回</span><span lang=EN-US>TRUE</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//</span><span
+style='font-family:宋体;"Times New Roman"'>析构函数</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>void DeInitStack()</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>释放内存，重置堆栈大小及栈顶指针。</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(SeedFillStack.hMem);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalFree(SeedFillStack.hMem);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SeedFillStack.ElementsNum=0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SeedFillStack.ptr=0;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//push</span><span
+style='font-family:宋体;"Times New Roman"'>操作</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL MyPush(POINT p)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>POINT 
+    *TempPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(SeedFillStack.ptr&gt;=SeedFillStack.ElementsNum) 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>return FALSE; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>栈已满，返回</span><span lang=EN-US>FALSE</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>进栈，栈顶指针加</span><span lang=EN-US>1</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>TempPtr=(POINT 
+    *)(SeedFillStack.lpMyStack+SeedFillStack.ptr++);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>(*TempPtr).x=p.x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>(*TempPtr).y=p.y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//pop</span><span
+style='font-family:宋体;"Times New Roman"'>操作</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>POINT MyPop()</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>POINT 
+    InvalidP;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>InvalidP.x=-1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>InvalidP.y=-1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(SeedFillStack.ptr&lt;=0)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>return InvalidP; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>栈为空，返回无效点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SeedFillStack.ptr--; 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>栈顶指针减</span><span lang=EN-US>1</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>返回栈顶点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    *(SeedFillStack.lpMyStack+SeedFillStack.ptr);</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//</span><span
+style='font-family:宋体;"Times New Roman"'>判断堆栈是否为空</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL IsStackEmpty()</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    (SeedFillStack.ptr==0)?TRUE:FALSE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span><span
+lang=EN-US style='font-size:9.0pt;'></span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如果读者对堆栈的概念还不清楚，请参阅有关数据结构方面的书籍，这里就不详述了。</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>要注意的是：</span><span
+lang=EN-US>(1)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>要填充的区域是封闭的；</span><span lang=EN-US>(2)</span><span
+style='font-family:宋体;"Times New Roman"'>我们处理的虽然是二值图，但实际上是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种颜色；</span><span
+lang=EN-US>(3)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>在菜单中选择种子填充命令时，提示用户用鼠标点取一个要填充区域中的点，处理是在</span><span
+lang=EN-US>WM_LBUTTONDOWN</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>中。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>MYSTACK SeedFillStack;</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL SeedFill(HWND hWnd)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; hTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; lpTempPtr,lpTempPtr1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hDc;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hf;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; CurP,NeighborP;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>我们处理的实际上是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种颜色。</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if( 
+    NumColors!=256){</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Must be a mono bitmap with grayscale 
+    palette!&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>&quot;Error Message&quot;,MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//BufSize</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>BufSize=OffBits+bi.biHeight*LineBytes;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为新图缓冲区分配内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error Message&quot;,MB_OK|</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>拷贝头信息和位图数据</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memcpy(lpTempImgData,lpImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(!InitStack(hWnd,(LONG)bi.biHeight*bi.biWidth)){&nbsp; 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>初始化堆栈</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>若失败，释放内存，返回</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>return FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempPtr=(char*)lpTempImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(BufSize-LineBytes-SeedPoint.y*LineBytes)+SeedPoint.x;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(*lpTempPtr==0){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>鼠标点到了黑点上，提示用户不能选择边界上的点，返回</span><span lang=EN-US>FALSE</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;The point you select is a contour 
+    point!&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>&quot;Error Message&quot;,MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>DeInitStack();</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//push<span
+style='font-family:宋体;"Times New Roman"'>该点</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>用户用鼠标选择的，处理是在</span><span
+lang=EN-US>WM_LBUTTONDOWN</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>中</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MyPush(SeedPoint);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>while(!IsStackEmpty()) 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>堆栈不空则一直处理</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>CurP=MyPop(); //pop<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>栈顶的点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char*)lpTempImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(BufSize-LineBytes-CurP.y*LineBytes)+CurP.x;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>将该点涂黑</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*lpTempPtr=(unsigned char)0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>左邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(CurP.x&gt;0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>注意判断边界</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NeighborP.x=CurP.x-1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NeighborP.y=CurP.y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr1=lpTempPtr-1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*lpTempPtr1!=0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如果为白，表示还没有填，进栈</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MyPush(NeighborP);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>上邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(CurP.y&gt;0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>注意判断边界</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NeighborP.x=CurP.x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NeighborP.y=CurP.y-1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr1=lpTempPtr+LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*lpTempPtr1!=0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如果为白，表示还没有填，进栈</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MyPush(NeighborP);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>右邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(CurP.x&lt;bi.biWidth-1) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>注意判断边界</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NeighborP.x=CurP.x+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NeighborP.y=CurP.y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr1=lpTempPtr+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*lpTempPtr1!=0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如果为白，表示还没有填，进栈</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MyPush(NeighborP);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>下邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(CurP.y&lt;bi.biHeight-1) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>注意判断边界</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NeighborP.x=CurP.x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>NeighborP.y=CurP.y+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr1=lpTempPtr-LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*lpTempPtr1!=0) //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如果为白，表示还没有填，进栈</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>MyPush(NeighborP);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>析构堆栈，释放内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DeInitStack();</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(hBitmap!=NULL)</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp; 
+    DeleteObject(hBitmap);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hDc=GetDC(hWnd);&nbsp;&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>创建新的位图</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hf=_lcreat(&quot;c:\\seed.bmp&quot;,0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>释放内存和资源</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <h2> <span
+lang=EN-US>7.5</span> <span lang=EN-US> </span><a name="_Toc486331902"></a><a
+name="_Toc486332902"></a><a name="_Toc486339011"></a><a name="_Toc454810876"></a><a
+name="_Toc454856650"><span><span>轮廓跟踪</span></span></a></h2>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>轮廓跟踪，顾名思义就是通过顺序找出边缘点来跟踪出边界。图</span><span
+lang=EN-US>7.9</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>经轮廓跟踪后得到的结果如图</span><span lang=EN-US>7.11</span><span
+style='font-family:宋体;"Times New Roman"'>所示。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=224 height=148
+src="./chap07.files/image053.gif" v:shapes="_x0000_i1058"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>7.11&nbsp;&nbsp;&nbsp; </b><b><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>图</span><span
+lang=EN-US>7.9</span></b><b><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>轮廓跟踪后的结果</span><span
+lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>一个简单二值图象闭合边界的轮廓跟踪算法很简单：首先按从上到下，从左到右的顺序搜索，找到的第一个黑点一定是最左上方的边界点，记为</span><span
+lang=EN-US>A</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。它的右，右下，下，左下四个邻点中至少有一个是边界点，记为</span><span
+lang=EN-US>B</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。从开始</span><span lang=EN-US>B</span><span
+style='font-family:宋体;"Times New Roman"'>找起，按右，右下，下，左下，左，左上，上，右上的顺序找相邻点中的边界点</span><span lang=EN-US>C</span><span
+style='font-family:宋体;"Times New Roman"'>。如果</span><span lang=EN-US>C</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>就是</span><span
+lang=EN-US>A</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>点，则表明已经转了一圈，程序结束；否则从</span><span
+lang=EN-US>C</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>点继续找，直到找到</span><span lang=EN-US>A</span><span
+style='font-family:宋体;"Times New Roman"'>为止。判断是不是边界点很容易：如果它的上下左右四个邻居都是黑点则不是边界点，否则是边界点。源程序如下，其中函数</span><span
+lang=EN-US>IsContourP</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>用来判断某点是不是边界点。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL Contour(HWND hWnd)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OffBits<span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>BufSize;</span></p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; lpImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; lpPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; hTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; lpTempPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hDc;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hf;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; x,y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; StartP,CurP;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>BOOL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; found;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i;</p>
+  <p style='line-height:18.0pt'>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; direct[8][2]={{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}};</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>我们处理的实际上是</span><span lang=EN-US>256</span><span
+style='font-family:宋体;"Times New Roman"'>级灰度图，不过只用到了</span><span lang=EN-US>0</span><span
+style='font-family:宋体;"Times New Roman"'>和</span><span lang=EN-US>255</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>两种颜色。</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if( 
+    NumColors!=256){</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Must be a mono bitmap with grayscale 
+    palette!&quot;,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>&quot;Error Message&quot;,MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>到位图数据的偏移值</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>缓冲区大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>BufSize=OffBits+bi.biHeight*LineBytes;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为新图缓冲区分配内存</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; {</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MessageBox(hWnd,&quot;Error 
+    alloc memory!&quot;,&quot;Error Message&quot;,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_OK|MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp; </span>&nbsp;&nbsp;&nbsp; lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>新图缓冲区初始化为</span><span lang=EN-US>255</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memset(lpTempImgData,(BYTE)255,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>拷贝头信息</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memcpy(lpTempImgData,lpImgData,OffBits);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>找到标志置为假</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>found=FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for 
+    (y=0;y&lt;bi.biHeight &amp;&amp; !found; y++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes-y*LineBytes);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for (x=0;x&lt;bi.biWidth &amp;&amp; !found; x++)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if (*(lpPtr++) ==0) found=TRUE; </p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>找到了最左上的黑点，一定是个边界点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(found){ 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>如果找到了，才做处理</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>从循环退出时，</span><span
+lang=EN-US>x</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>y</span><span
+style='font-family:宋体;"Times New Roman"'>坐标都做了加</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>的操作。在这里把它们减</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>，得到</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>起始点坐标</span><span
+lang=EN-US>StartP</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>StartP.x=x-1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>StartP.y=y-1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char*)lpTempImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(BufSize-LineBytes-StartP.y*LineBytes)+StartP.x;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*lpTempPtr=(unsigned char)0; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>起始点涂黑</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>右邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    CurP.x=StartP.x+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>CurP.y=StartP.y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes-CurP.y*LineBytes)+CurP.x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*lpPtr!=0){ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>若右邻点为白，则找右下邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CurP.x=StartP.x+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>CurP.y=StartP.y+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char*)lpImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(BufSize-LineBytes-CurP.y*LineBytes)+CurP.x;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(*lpPtr!=0){ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>若仍为白，则找下邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    CurP.x=StartP.x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>CurP.y=StartP.y+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else{ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>若仍为白，则找左下邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    CurP.x=StartP.x-1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>CurP.y=StartP.y+1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>while (! ( (CurP.x==StartP.x) &amp;&amp;(CurP.y==StartP.y))){ //<span
+style='font-family:宋体;"Times New Roman"'>知道找到起始点，</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>循环才结束</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char*)lpTempImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(BufSize-LineBytes-CurP.y*LineBytes)+CurP.x;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*lpTempPtr=(unsigned char)0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(i=0;i&lt;8;i++){ </p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>按右，右上，上，左上，左，左下，下，右下的顺序找相邻点</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>//direct[i]</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>中存放的是该方向</span><span
+lang=EN-US>x,y</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>的偏移值</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>x=CurP.x+direct[i][0];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>y=CurP.y+direct[i][1];</p>
+  <p style='line-height:
+18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//lpPtr<span
+style='font-family:宋体;"Times New Roman"'>指向原图数据，</span><span lang=EN-US>lpTempPtr</span><span
+style='font-family:宋体;"Times New Roman"'>指向新图数据</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char*)lpTempImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(BufSize-LineBytes-y*LineBytes)+x;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes-y*LineBytes)+x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(((*lpPtr==0)&amp;&amp;(*lpTempPtr!=0))||</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>((x==StartP.x)&amp;&amp;(y==StartP.y)))</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>原图中为黑点，且新图中为白点</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>表示还没搜索过</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>时才处理</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>另一种可能是找到了起始点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(IsContourP(x,y,lpPtr)){ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>若是个边界点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //<span
+style='font-family:宋体;"Times New Roman"'>记住当前点的位置</span></p>
+  <p style='line-height:
+18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>CurP.x=x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>CurP.y=y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>break;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp; </span>&nbsp;&nbsp;if(hBitmap!=NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp; 
+    DeleteObject(hBitmap);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hDc=GetDC(hWnd);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>创立一个新的位图</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    (LPBITMAPINFO)lpTempImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>hf=_lcreat(&quot;c:\\contour.bmp&quot;,0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>释放内存和资源</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>//</span><span
+style='font-family:宋体;"Times New Roman"'>判断某点是不是边界点，参数</span><span lang=EN-US>x,y 
+    </span><span
+style='font-family:宋体;"Times New Roman"'>为该点坐标，</span><span lang=EN-US>lpPtr</span><span
+style='font-family:宋体;"Times New Roman"'>为指向原数据的指针</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL IsContourP(LONG x,LONG y, 
+    char *lpPtr)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp;&nbsp;&nbsp; 
+    num,n,w,e,s;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>n=(unsigned 
+    char)*(lpPtr+LineBytes); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>上邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>w=(unsigned 
+    char)*(lpPtr-1); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>左邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>e=(unsigned 
+    char)*(lpPtr+1); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>右邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>s=(unsigned 
+    char)*(lpPtr-LineBytes); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>下邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>num=n+w+e+s;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(num==0) 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>全是黑点，说明是个内部点而不是边界点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>return FALSE;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+</div>
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+USC does not screen or control the content herein and does not take responsibility for any inaccurate, offensive, infringing, or objectionable content, all of which is the sole responsibility of the author or the users who post content on this website.
+</div>
+</body>
+</html>

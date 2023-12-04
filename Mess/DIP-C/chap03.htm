@@ -1,0 +1,891 @@
+
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link rel=Edit-Time-Data href="./chap03.files/editdata.mso">
+<link rel=OLE-Object-Data href="./chap03.files/oledata.mso">
+<title>第3章 图象的平滑(去噪声)、锐化</title>
+<style><!--
+.Normal
+	{text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:0pt;
+	line-height:normal;
+	font-size:10.5pt;
+	font-family:"Times New Roman";}
+.a
+	{text-align:center;
+	text-indent:0pt;
+	line-height:20.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+-->
+</style>
+</head>
+<body lang=ZH-CN link=blue vlink=purple class="Normal" bgcolor="#FFFFFF">
+<div style='layout-grid:15.6pt'> 
+  <h1><a name="_Toc486331873"></a><a name="_Toc486332873"></a><a
+name="_Toc486338982"></a><a name="_Toc454810847"></a><a name="_Toc454856621"><span><span>第<span
+lang=EN-US>3</span></span></span></a><span><span><span style='font-family:黑体;"Times New Roman"'>章</span> 
+    </span></span><span><span><span
+style='font-family:黑体;"Times New Roman"'>图象的平滑</span><span
+lang=EN-US>(</span></span></span><span><span><span style='font-family:黑体;"Times New Roman"'>去噪声</span><span
+lang=EN-US>)</span></span></span><span><span><span style='font-family:黑体;"Times New Roman"'>、锐化</span></span></span></h1>
+  <h2> <span
+lang=EN-US>3.1</span> <span lang=EN-US> </span><a name="_Toc486331874"></a><a
+name="_Toc486332874"></a><a name="_Toc486338983"></a><a name="_Toc454810848"></a><a
+name="_Toc454856622"><span><span>平滑</span></span></a></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>先举个例子说明一下什么是平滑</span><span lang=EN-US>(smoothing)</span><span
+style='font-family:宋体;"Times New Roman"'>，如下面两幅图所示：可以看到，图</span><span lang=EN-US>3.2</span><span
+style='font-family:宋体;"Times New Roman"'>比图</span><span lang=EN-US>3.1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>柔和一些</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>也模糊一些</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。是不是觉得很神奇？其实实现起来很简单。我们将原图中的每一点的灰度和它周围八个点的灰度相加，然后除以</span><span
+lang=EN-US>9</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，作为新图中对应点的灰度，就能实现上面的效果。</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=276 valign=top class="Normal"> 
+        <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=170 height=189
+  src="./chap03.files/image001.gif" v:shapes="_x0000_i1043"> </span></p>
+        <p class=a style='line-height:18.0pt'><b><span style='font-family:宋体;
+  &quot;Times New Roman&quot;'>图</span>3.1&nbsp;&nbsp;&nbsp; </b><b><span
+  style='font-family:宋体;"Times New Roman"'>原图</span><span lang=EN-US></span></b></p>
+      </td>
+      <td width=276 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US> <img width=168 height=188
+  src="./chap03.files/image003.gif" v:shapes="_x0000_i1042"> </span></p>
+        <p align=center style='text-align:center;line-height:18.0pt'><b><span
+  style='font-family:宋体;"Times New Roman"'>图</span>3.2&nbsp;&nbsp;&nbsp;&nbsp; 
+          </b><b><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>经过平滑处理后的图</span><span
+  lang=EN-US></span></b></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这么做并非瞎蒙，而是有其道理的。大概想一想，也很容易明白。举个例子，就象和面一样，先在中间加点水，然后不断把周围的面和进来，搅拌几次，面就均匀了。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>用信号处理的理论来解释，这种做法实现的是一种简单的低通滤波器</span><span lang=EN-US>(low 
+    pass filter)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。哇，好深奥呀！不要紧，这些理论的内容并不多，而且知道一些理论也是很有好处的。在灰度连续变化的图象中，如果出现了与相邻象素的灰度相差很大的点，比如说一片暗区中突然出现了一个亮点，人眼能很容易觉察到。就象看老电影时，由于胶片太旧，屏幕上经常会出现一些亮斑。这种情况被认为是一种噪声。灰度突变在频域中代表了一种高频分量，低通滤波器的作用就是滤掉高频分量，从而达到减少图象噪声的目的。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>为了方便地叙述上面所说的“将原图中的每一点的灰度和它周围八个点的灰度相加，然后除以</span><span
+lang=EN-US>9</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，作为新图中对应点的灰度”这一操作，我们采用如下的表示方法：</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+lang=EN-US><sub> <img width=92 height=75
+src="./chap03.files/image005.gif" v:shapes="_x0000_i1044"> </sub> </span></b></p>
+  <p align=right style='text-align:right;line-height:18.0pt'><span
+lang=EN-US>(3.1)<b></b></span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这种表示方法有点象矩阵，我们称其为模板</span><span lang=EN-US>(template)</span><span
+style='font-family:宋体;"Times New Roman"'>。中间的黑点表示中心元素，即，用哪个元素做为处理后的元素。例如</span><span lang=EN-US>[2. 
+    1]</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>表示将自身的</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>倍加上右边的元素作为新值，而</span><span lang=EN-US>[2 
+    1.]</span><span
+style='font-family:宋体;"Times New Roman"'>表示将自身加上左边元素的</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>倍作为新值。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>通常，模板不允许移出边界，所以结果图象会比原图小，例如模板是</span><span lang=EN-US><sub> 
+    <img width=51 height=48
+src="./chap03.files/image007.gif" v:shapes="_x0000_i1045"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，原图是</span><span
+lang=EN-US><sub> <img width=119 height=96
+src="./chap03.files/image009.gif" v:shapes="_x0000_i1046"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，经过模板操作后的图象为</span><span
+lang=EN-US><sub> <img width=120 height=96
+src="./chap03.files/image011.gif" v:shapes="_x0000_i1047"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>；其中数字代表灰度，</span><span
+lang=EN-US>x</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>表示边界上无法进行模板操作的点，通常的做法是复制原图的灰度，不进行任何处理。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>模板操作实现了一种邻域运算</span><span lang=EN-US>(Neighborhood 
+    Operation)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，即某个象素点的结果灰度不仅和该象素灰度有关，而且和其邻域点的值有关。在以后介绍的细化算法中，我们还将接触到邻域运算。模板运算的数学涵义是一种卷积</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>或互相关</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>运算，你不需要知道卷积的确切含义，只要有这么一个概念就可以了。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>模板运算在图象处理中经常要用到，可以看出，它是一项非常耗时的运算。以</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US><sub> <img width=107 height=75
+src="./chap03.files/image013.gif" v:shapes="_x0000_i1069"> </sub> </span></p>
+  <p align=right style='text-align:right;line-height:18.0pt'><span
+lang=EN-US>(3.2)</span></p>
+  <p style='line-height:18.0pt'><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为例，每个象素完成一次模板操作要用</span><span
+lang=EN-US>9</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个乘法、</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>个加法、</span><span lang=EN-US>1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个除法。对于一幅</span><span
+lang=EN-US>n</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>n(</span><span
+style='font-family:宋体;"Times New Roman"'>宽度×高度</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的图象，就是</span><span
+lang=EN-US>9n<sup>2</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个乘法，</span><span
+lang=EN-US>8n<sup>2</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个加法和</span><span
+lang=EN-US>n<sup>2</sup></span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>个除法，算法复杂度为</span><span
+lang=EN-US>O(n<sup>2</sup>)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，这对于大图象来说，是非常可怕的。所以，一般常用的模板并不大，如</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>，</span><span lang=EN-US>4</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>×</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>。有很多专用的图象处理系统，用硬件来完成模板运算，大大提高了速度。另外，可以设法将二维模板运算转换成一维模板运算，对速度的提高也是非常可观的。例如，</span><span
+lang=EN-US>(3.2)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>式可以分解成一个水平模板和一个垂直模板，即，</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US><sub> <img width=107 height=75
+src="./chap03.files/image014.gif" v:shapes="_x0000_i1070"> </sub> =<sub> <img width=88 height=41
+src="./chap03.files/image016.gif" v:shapes="_x0000_i1071"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>×</span> 
+    <span
+lang=EN-US><sub> <img width=55 height=75
+src="./chap03.files/image018.gif" v:shapes="_x0000_i1072"> </sub> =<sub> <img width=133 height=75
+src="./chap03.files/image020.gif" v:shapes="_x0000_i1073"> </sub> </span></p>
+  <p align=right style='text-align:right;line-height:18.0pt'><span
+lang=EN-US>(3.3)</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>我们来验证一下。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>设图象为</span><span lang=EN-US><sub> <img width=96 height=96
+src="./chap03.files/image022.gif" v:shapes="_x0000_i1074"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，经过</span><span
+lang=EN-US>(3.2)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>式处理后变为</span><span lang=EN-US><sub> <img width=136 height=96
+src="./chap03.files/image024.gif" v:shapes="_x0000_i1075"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，经过</span><span
+lang=EN-US>(3.3)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>式处理后变为</span><span lang=EN-US><sub> <img width=136 height=96
+src="./chap03.files/image026.gif" v:shapes="_x0000_i1076"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，两者完全一样。如果计算时不考虑周围一圈的象素，前者做了</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>(9</span><span
+style='font-family:宋体;"Times New Roman"'>个乘法，</span><span lang=EN-US>8</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个加法，</span><span
+lang=EN-US>1</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个除法</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，共</span><span lang=EN-US>36</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个乘法，</span><span
+lang=EN-US>32</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个加法，</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>个除法；后者做了</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>(3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个乘法，</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个加法</span><span lang=EN-US>)+4</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>(3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个乘法，</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个加法</span><span lang=EN-US>)+4</span><span
+style='font-family:宋体;"Times New Roman"'>个除法，共</span><span lang=EN-US>24</span><span
+style='font-family:宋体;"Times New Roman"'>个乘法，</span><span lang=EN-US>16</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>个加法，</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个除法，运算简化了不少，如果是大图，效率的提高将是非常客观的。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>平滑模板的思想是通过将一点和周围</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>个点作平均，从而去除突然变化的点，滤掉噪声，其代价是图象有一定程度的模糊。上面提到的模板</span><span
+lang=EN-US>(3.1)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，就是一种平滑模板，称之为</span><span lang=EN-US>Box</span><span
+style='font-family:宋体;"Times New Roman"'>模板。</span><span lang=EN-US>Box</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>模板虽然考虑了邻域点的作用，但并没有考虑各点位置的影响，对于所有的</span><span
+lang=EN-US>9</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>个点都一视同仁，所以平滑的效果并不理想。实际上我们可以想象，离某点越近的点对该点的影响应该越大，为此，我们引入了加权系数，将原来的模板改造成</span><span
+lang=EN-US><sub> <img width=107 height=75
+src="./chap03.files/image027.gif" v:shapes="_x0000_i1077"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，可以看出，距离越近的点，加权系数越大。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>新的模板也是一个常用的平滑模板，称为高斯</span><span lang=EN-US>(Gauss)</span><span
+style='font-family:宋体;"Times New Roman"'>模板。为什么叫这个名字，这是因为这个模板是通过采样</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>维高斯函数得到的。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>设图象为</span><span lang=EN-US><sub> <img width=96 height=96
+src="./chap03.files/image028.gif" v:shapes="_x0000_i1078"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，分别用两种平滑模板处理</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>周围一圈象素直接从原图拷贝</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。采用</span><span lang=EN-US>Box</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>模板的结果为</span><span
+lang=EN-US><sub> <img width=135 height=96
+src="./chap03.files/image030.gif" v:shapes="_x0000_i1079"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，采用高斯模板的结果为</span><span
+lang=EN-US><sub> <img width=136 height=96
+src="./chap03.files/image032.gif" v:shapes="_x0000_i1080"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>可以看到，原图中出现噪声的区域是第</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>行第</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>列和第</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行第</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>列，灰度从</span><span lang=EN-US>2</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>一下子跳到了</span><span
+lang=EN-US>6</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，用</span><span lang=EN-US>Box</span><span
+style='font-family:宋体;"Times New Roman"'>模板处理后，灰度从</span><span lang=EN-US>3.11</span><span
+style='font-family:宋体;"Times New Roman"'>跳到</span><span lang=EN-US>4.33</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>；用高斯模板处理后，灰度从</span><span
+lang=EN-US>3.</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>跳到</span><span lang=EN-US>4.56,</span><span
+style='font-family:宋体;"Times New Roman"'>都缓和了跳变的幅度，从这一点上看，两者都达到了平滑的目的。但是，原图中的第</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，第</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>行总的来说，灰度值是比较高的，经模板</span><span lang=EN-US>1</span><span
+style='font-family:宋体;"Times New Roman"'>处理后，第</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>行第</span><span
+lang=EN-US>2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>列元素的灰度变成了</span><span lang=EN-US>4.33</span><span
+style='font-family:宋体;"Times New Roman"'>，与第</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>，第</span><span
+lang=EN-US>4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行的总体灰度相比偏小，另外，原图中第</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>行第</span><span lang=EN-US>2</span><span
+style='font-family:宋体;"Times New Roman"'>列元素的灰度为</span><span lang=EN-US>6</span><span
+style='font-family:宋体;"Times New Roman"'>，第</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>行第</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>列元素的灰度为</span><span lang=EN-US>4</span><span
+style='font-family:宋体;"Times New Roman"'>，变换后，后者</span><span lang=EN-US>4.56</span><span
+style='font-family:宋体;"Times New Roman"'>反而比前者</span><span lang=EN-US>4.33</span><span
+style='font-family:宋体;"Times New Roman"'>大了。而采用高斯模板没有出现这些问题，究其原因，就是因为它考虑了位置的影响。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>举个实际的例子：下图中，从左到右分别是原图，用高斯模板处理的图，用</span><span lang=EN-US>Box</span><span
+style='font-family:宋体;"Times New Roman"'>模板处理的图，可以看出，采用高斯模板，在实现平滑效果的同时，要比</span><span lang=EN-US>Box</span><span
+style='font-family:宋体;"Times New Roman"'>模板清晰一些。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>在学习锐化后，我们将给出一个通用的</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>模板操作的程序。</span></p>
+  <p class=a style='line-height:18.0pt'><span lang=EN-US> <img width=537 height=193
+src="./chap03.files/image033.gif" v:shapes="_x0000_i1039"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>3.3&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>高斯模板和</span><span lang=EN-US>Box</span></b><b><span
+style='font-family:宋体;"Times New Roman"'>模板的对比图</span><span lang=EN-US></span></b></p>
+  <h2> <span
+lang=EN-US>3.2</span> <span lang=EN-US> </span><a name="_Toc486331875"></a><a
+name="_Toc486332875"></a><a name="_Toc486338984"></a><a name="_Toc454810849"></a><a
+name="_Toc454856623"><span><span>中值滤波</span></span></a></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>中值滤波也是一种典型的低通滤波器，它的目的是保护图象边缘的同时去除噪声。所谓中值滤波，是指把以某点</span><span
+lang=EN-US>(x,y)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>为中心的小窗口内的所有象素的灰度按从大到小的顺序排列，将中间值作为</span><span
+lang=EN-US>(x,y)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>处的灰度值</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>若窗口中有偶数个象素，则取两个中间值的平均</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。中值滤波是如何去除噪声的呢？举个例子就很容易明白了。</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=276 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>原图</span></p>
+      </td>
+      <td width=276 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>处理后的图</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=276 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=149 height=141
+  src="./chap03.files/image035.gif" v:shapes="_x0000_i1040"> </sub> </span></p>
+      </td>
+      <td width=276 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=104 height=141
+  src="./chap03.files/image037.gif" v:shapes="_x0000_i1041"> </sub> </span></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>图中数字代表该处的灰度。可以看出原图中间的</span><span lang=EN-US>6</span><span
+style='font-family:宋体;"Times New Roman"'>和周围的灰度相差很大，是一个噪声点。经过</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>窗口</span><span
+lang=EN-US>(</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>即水平</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>个象素取中间值</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>的中值滤波，得到右边那幅图，可以看出，噪声点被去除了。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面将中值滤波和上面介绍的两种平滑模板作个比较，看看中值滤波有什么特点。我们以一维模板为例，只考虑水平方向，大小为</span><span
+lang=EN-US>3</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>×</span><span lang=EN-US>1(</span><span
+style='font-family:宋体;"Times New Roman"'>宽×高</span><span lang=EN-US>)</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>。</span><span
+lang=EN-US>Box</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>模板为</span><span lang=EN-US><sub> <img width=85 height=41
+src="./chap03.files/image039.gif" v:shapes="_x0000_i1033"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>，高斯模板为</span><span
+lang=EN-US><sub> <img width=88 height=41
+src="./chap03.files/image041.gif" v:shapes="_x0000_i1034"> </sub> </span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>先考察第一幅图：</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=141 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>原图</span></p>
+      </td>
+      <td width=137 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经</span><span lang=EN-US>Box</span><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>模板处理后</span></p>
+      </td>
+      <td width=137 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经</span><span lang=EN-US>Gauss</span><span
+  style='font-family:宋体;"Times New Roman"'>模板处理后</span></p>
+      </td>
+      <td width=136 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经中值滤波处理后</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=141 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=127 height=112
+  src="./chap03.files/image043.gif" v:shapes="_x0000_i1035"> </sub> </span></p>
+      </td>
+      <td width=137 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=104 height=155
+  src="./chap03.files/image045.gif" v:shapes="_x0000_i1036"> </sub> </span></p>
+      </td>
+      <td width=137 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=117 height=155
+  src="./chap03.files/image047.gif" v:shapes="_x0000_i1037"> </sub> </span></p>
+      </td>
+      <td width=136 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=84 height=112
+  src="./chap03.files/image049.gif" v:shapes="_x0000_i1038"> </sub> </span></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>从原图中不难看出左边区域灰度值低，右边区域灰度值高，中间有一条明显的边界</span><span lang=EN-US>,</span><span
+style='font-family:宋体;"Times New Roman"'>这一类图象称之为</span><span lang=EN-US>“step”(</span><span
+style='font-family:宋体;"Times New Roman"'>就象灰度上了个台阶</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>。应用平滑模板后，图象平滑了，但是也使边界模糊了。应用中值滤波，就能很好地保持原来的边界。所以说，中值滤波的特点是保护图象边缘的同时去除噪声。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>再看第二幅图：</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=138 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>原图</span></p>
+      </td>
+      <td width=138 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经</span><span lang=EN-US>Box</span><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>模板处理后</span></p>
+      </td>
+      <td width=138 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经</span><span lang=EN-US>Gauss</span><span
+  style='font-family:宋体;"Times New Roman"'>模板处理后</span></p>
+      </td>
+      <td width=138 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经中值滤波处理后</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=138 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=159 height=99
+  src="./chap03.files/image051.gif" v:shapes="_x0000_i1025"> </sub> </span></p>
+      </td>
+      <td width=138 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=100 height=131
+  src="./chap03.files/image053.gif" v:shapes="_x0000_i1026"> </sub> </span></p>
+      </td>
+      <td width=138 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=59 height=93
+  src="./chap03.files/image055.gif" v:shapes="_x0000_i1027"> </sub> </span></p>
+      </td>
+      <td width=138 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=91 height=99
+  src="./chap03.files/image057.gif" v:shapes="_x0000_i1028"> </sub> </span></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>不难看出，原图中有很多噪声点</span><span lang=EN-US>(</span><span
+style='font-family:宋体;"Times New Roman"'>灰度为正代表灰度值高的点，灰度为负代表灰度值低的点</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，而且是杂乱无章，随机分布的。这也是一类很典型的图，称之为高斯噪声。经过</span><span lang=EN-US>Box</span><span
+style='font-family:宋体;"Times New Roman"'>平滑，噪声的程度有所下降。</span><span lang=EN-US>Gauss</span><span
+style='font-family:宋体;"Times New Roman"'>模板对付高斯噪声非常有效。而中值滤波对于高斯噪声则无能为力。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>最后看第三幅图：</span></p>
+  <table border=0 cellspacing=0 cellpadding=0>
+    <tr> 
+      <td width=138 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>原图</span></p>
+      </td>
+      <td width=138 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经</span><span lang=EN-US>Box</span><span style='font-family:
+  宋体;&quot;Times New Roman&quot;'>模板处理后</span></p>
+      </td>
+      <td width=138 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经</span><span lang=EN-US>Gauss</span><span
+  style='font-family:宋体;"Times New Roman"'>模板处理后</span></p>
+      </td>
+      <td width=138 valign=top class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  style='font-family:宋体;"Times New Roman"'>经中值滤波处理后</span></p>
+      </td>
+    </tr>
+    <tr> 
+      <td width=138 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=105 height=71
+  src="./chap03.files/image059.gif" v:shapes="_x0000_i1029"> </sub> </span></p>
+      </td>
+      <td width=138 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=85 height=116
+  src="./chap03.files/image061.gif" v:shapes="_x0000_i1030"> </sub> </span></p>
+      </td>
+      <td width=138 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=76 height=116
+  src="./chap03.files/image063.gif" v:shapes="_x0000_i1031"> </sub> </span></p>
+      </td>
+      <td width=138 class="Normal"> 
+        <p align=center style='text-align:center;line-height:18.0pt'><span
+  lang=EN-US><sub> <img width=59 height=71
+  src="./chap03.files/image065.gif" v:shapes="_x0000_i1032"> </sub> </span></p>
+      </td>
+    </tr>
+  </table>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>从原图中不难看出，中间的灰度要比两边高许多。这也是一类很典型的图，称之为脉冲</span><span
+lang=EN-US> (impulse)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。可见，中值滤波对脉冲噪声非常有效。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>综合以上三类图，不难得出下面的结论：中值滤波容易去除孤立点，线的噪声同时保持图象的边缘；它能很好的去除二值噪声，但对高斯噪声无能为力。要注意的是，当窗口内噪声点的个数大于窗口宽度的一半时，中值滤波的效果不好。这是很显然的。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面的程序实现了中值滤波，参数</span><span lang=EN-US>Hori</span><span
+style='font-family:宋体;"Times New Roman"'>是一个布尔变量，若为真，做水平中值滤波，否则，做垂直中值滤波。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL MedianFilter(HWND hWnd,BOOL 
+    Hori)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; lpImgData;</p>
+  <p style='line-height:18.0pt'>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpPtr;</p>
+  <p style='line-height:18.0pt'>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hTempImgData;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; lpTempImgData;</p>
+  <p style='line-height:18.0pt'>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpTempPtr;</p>
+  <p style='line-height:18.0pt'>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hDc;</p>
+  <p style='line-height:18.0pt'>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hf;</p>
+  <p style='line-height:18.0pt'>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x,y;</p>
+  <p style='line-height:18.0pt'>int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; g,g1,g2,g3;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//OffBits</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>为</span><span
+lang=EN-US>BITMAPINFOHEADER</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>结构长度加调色板的大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>BufSize=OffBits+bi.biHeight*LineBytes;//</span><span
+style='font-family:宋体;"Times New Roman"'>要开的缓冲区的大小</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error 
+    Message&quot;,MB_OK|</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'>lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>拷贝头信息及位图数据</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>memcpy(lpTempImgData,lpImgData,BufSize);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>注意边界点不处理，所以</span><span lang=EN-US>y</span><span
+style='font-family:宋体;"Times New Roman"'>从</span><span lang=EN-US>1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>到高度</span><span
+lang=EN-US>-2</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>，</span><span lang=EN-US>x</span><span
+style='font-family:宋体;"Times New Roman"'>类似</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>for(y=1;y&lt;bi.biHeight-1;y++)</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(x=1;x&lt;bi.biWidth-1;x++){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes-y*LineBytes)+x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char*)lpTempImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(BufSize-LineBytes-y*LineBytes)+x;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>g2=(unsigned char)*(lpPtr);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(Hori){ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>水平方向</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>g1=(unsigned char)*(lpPtr-1); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>左邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>g3=(unsigned char)*(lpPtr+1); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>右邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else{ //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>垂直方向</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    g1=(unsigned char)*(lpPtr+LineBytes); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>上邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>g3=(unsigned char)*(lpPtr-LineBytes); //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>下邻点</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>三者取中</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(g1&gt;g2){</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(g2&gt;g3) g=g2;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else{</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(g1&gt;g3) g=g3;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else g=g1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else{ //g1&lt;=g2</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(g1&gt;g3) g=g1;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else{ </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(g2&gt;g3) g=g3;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else g=g2;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*lpTempPtr=(BYTE)g; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>存入新的缓冲区内</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hDc=GetDC(hWnd);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; if(hBitmap!=NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp; </span>DeleteObject(hBitmap);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//<span
+style='font-family:宋体;"Times New Roman"'>产生新的位图</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (LPBITMAPINFO)lpTempImgData,</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>if(Hori) //</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>取不同的结果文件名</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>hf=_lcreat(&quot;c:\\hmedian.bmp&quot;,0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>else</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>hf=_lcreat(&quot;c:\\vmedian.bmp&quot;,0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>释放内存及资源</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span></p>
+  <h2> <span
+lang=EN-US>3.3</span> <span lang=EN-US> </span><a name="_Toc486331876"></a><a
+name="_Toc486332876"></a><a name="_Toc486338985"></a><a name="_Toc454810850"></a><a
+name="_Toc454856624"><span><span>锐化</span></span></a></h2>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>锐化</span><span lang=EN-US>(sharpening)</span><span
+style='font-family:宋体;"Times New Roman"'>和平滑恰恰相反，它是通过增强高频分量来减少图象中的模糊，因此又称为高通滤波</span><span
+lang=EN-US>(high pass filter)</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>。锐化处理在增强图象边缘的同时增加了图象的噪声。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>常用的锐化模板是拉普拉斯</span><span lang=EN-US>(Laplacian)</span><span
+style='font-family:宋体;"Times New Roman"'>模板</span><span lang=EN-US>(</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>见</span><span
+lang=EN-US>(3.4)</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>式</span><span lang=EN-US>)</span><span
+style='font-family:宋体;"Times New Roman"'>，又是个数学家的名字，可见学好数学，走遍天下都不怕。</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US><sub> <img width=100 height=75
+src="./chap03.files/image067.gif" v:shapes="_x0000_i1081"> </sub> </span></p>
+  <p align=right style='text-align:right;line-height:18.0pt'><span
+lang=EN-US>(3.4)</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>容易看出拉普拉斯模板的作法：先将自身与周围的</span><span lang=EN-US>8</span><span
+style='font-family:宋体;"Times New Roman"'>个象素相减，表示自身与周围象素的差别；再将这个差别加上自身作为新象素的灰度。可见，如果一片暗区出现了一个亮点，那么锐化处理的结果是这个亮点变得更亮，增加了图象的噪声。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>因为图象中的边缘就是那些灰度发生跳变的区域，所以锐化模板在边缘检测中很有用，这一点将在后面详细介绍。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>图</span><span lang=EN-US>3.1</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>经过拉普拉斯模板处理后，如图</span><span
+lang=EN-US>3.4</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>所示</span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><span
+lang=EN-US> <img width=174 height=193
+src="./chap03.files/image068.gif" v:shapes="_x0000_i1082"> </span></p>
+  <p align=center style='text-align:center;line-height:18.0pt'><b><span
+style='font-family:宋体;"Times New Roman"'>图</span>3.4&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+style='font-family:宋体;"Times New Roman"'>锐化</span><span lang=EN-US></span></b></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>下面给出的程序是一个通用的</span><span lang=EN-US>3</span><span
+style='font-family:宋体;"Times New Roman"'>×</span><span lang=EN-US>3</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>模板的函数，其中第二参数为模板类型，为如下定义的常量：</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>#define TEMPLATE_SMOOTH_BOX 1 
+    //Box</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>平滑模板</span></p>
+  <p style='line-height:18.0pt'>#define TEMPLATE_SMOOTH_GAUSS&nbsp; 2 //<span
+style='font-family:宋体;"Times New Roman"'>高斯平滑模板</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>#define TEMPLATE_SHARPEN_LAPLACIAN 
+    3 //</span><span style='font-family:宋体;"Times New Roman";"Times New Roman"'>拉普拉斯锐化模板</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>对应的模板数组如下</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>int Template_Smooth_Box[9]={1,1,1,1,1,1,1,1,1};</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>int Template_Smooth_Gauss[9]={1,2,1,2,4,2,1,2,1};</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>int Template_Sharpen_Laplacian[9]={-1,-1,-1,-1,9,-1,-1,-1,-1};</span><span
+lang=EN-US style='font-size:9.0pt;'></span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>以后我们碰到其它的模板，仍然要用这个函数，所做的操作只是增加一个常量标识，及其对应的模板数组。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>要注意的是，运算后如果出现了大于</span><span lang=EN-US>255</span><span
+style='font-family:宋体;"Times New Roman"'>或者小于</span><span lang=EN-US>0</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>的点，称为溢出，溢出点的处理通常是截断，即大于</span><span
+lang=EN-US>255</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>时，令其等于</span><span lang=EN-US>255</span><span
+style='font-family:宋体;"Times New Roman"'>；小于</span><span lang=EN-US>0</span><span style='font-family:
+宋体;&quot;Times New Roman&quot;'>时，取其绝对值。</span></p>
+  <p style='line-height:18.0pt'><span
+style='font-family:宋体;"Times New Roman"'>这段程序和前几章介绍的代码许多地方是很相似的，所以注释简单一些。程序中并没有用到那种分解成两个一维模板的快速算法，你如果有兴趣，可以自己编着试试。</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>BOOL TemplateOperation(HWND hWnd, 
+    int TemplateType)</span></p>
+  <p style='line-height:18.0pt'><span lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>DWORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OffBits,BufSize;</p>
+  <p style='line-height:18.0pt'>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; lpImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; lpPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HLOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp; hTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPBITMAPINFOHEADER&nbsp;&nbsp;&nbsp; 
+    lpTempImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LPSTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp; lpTempPtr;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HDC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp; hDc;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>HFILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    hf;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    x,y;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    coef;&nbsp; //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>模板前面所乘的系数</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>int&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp; CoefArray[9]; //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>模板数组</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TempNum;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; filename[80];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>switch(TemplateType){ 
+    //<span style='font-family:宋体;
+&quot;Times New Roman&quot;'>判断模板类型</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>case 
+    TEMPLATE_SMOOTH_BOX: //Box<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>平滑模板</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>coef=(float)(1.0/9.0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>memcpy(CoefArray,Template_Smooth_Box,9*sizeof(int));</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>strcpy(filename,&quot;c:\\smbox.bmp&quot;); </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>break;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>case 
+    TEMPLATE_SMOOTH_GAUSS: //<span style='font-family:宋体;"Times New Roman";"Times New Roman"'>高斯平滑模板</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>coef=(float)(1.0/16.0);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>memcpy(CoefArray,Template_Smooth_Gauss,9*sizeof(int));</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>strcpy(filename,&quot;c:\\smgauss.bmp&quot;);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>break;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>case 
+    TEMPLATE_SHARPEN_LAPLACIAN:&nbsp; //<span
+style='font-family:宋体;"Times New Roman"'>拉普拉斯锐化模板</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>coef=(float)1.0;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>memcpy(CoefArray,Template_Sharpen_Laplacian,9*sizeof(int));</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>strcpy(filename,&quot;c:\\shlaplac.bmp&quot;);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>break;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>OffBits=bf.bfOffBits-sizeof(BITMAPFILEHEADER);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>BufSize=OffBits+bi.biHeight*LineBytes;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if((hTempImgData=LocalAlloc(LHND,BufSize))==NULL)</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>{</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    MessageBox(hWnd,&quot;Error alloc memory!&quot;,&quot;Error Message&quot;,MB_OK|</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>MB_ICONEXCLAMATION);</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>return FALSE;</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>}</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; lpImgData=(LPBITMAPINFOHEADER)GlobalLock(hImgData);&nbsp;&nbsp;&nbsp; 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempImgData=(LPBITMAPINFOHEADER)LocalLock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpPtr=(char 
+    *)lpImgData;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>lpTempPtr=(char 
+    *)lpTempImgData;</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>//</span><span style='font-family:宋体;
+&quot;Times New Roman&quot;'>先将原图直接拷贝过来，其实主要是拷贝周围一圈的象素</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>memcpy(lpTempPtr,lpPtr,BufSize); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for(y=1;y&lt;bi.biHeight-1;y++) 
+    //<b><span style='font-family:黑体'>注意<span lang=EN-US>y的范围是从1到bi.biHeight-2</span></span></b></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>for(x=1;x&lt;bi.biWidth-1;x++){ //<b><span style='font-family:黑体'>注意<span lang=EN-US>x的范围是从1到bi.biWidth-2</span></span></b></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpPtr=(char *)lpImgData+(BufSize-LineBytes-y*LineBytes)+x;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>lpTempPtr=(char*)lpTempImgData+</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(BufSize-LineBytes-y*LineBytes)+x;</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>TempNum=(float)((unsigned char)*(lpPtr+LineBytes-1))*</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>CoefArray[0];</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempNum+=(float)((unsigned char)*(lpPtr+LineBytes))*</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>CoefArray[1];</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempNum+=(float)((unsigned char)*(lpPtr+LineBytes+1))*</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>CoefArray[2];</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempNum+=(float)((unsigned char)*(lpPtr-1))*CoefArray[3];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempNum+=(float)((unsigned char)*lpPtr)*CoefArray[4];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempNum+=(float)((unsigned char)*(lpPtr+1))*CoefArray[5];</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempNum+=(float)((unsigned char)*(lpPtr-LineBytes-1))*</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>CoefArray[6];</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempNum+=(float)((unsigned char)*(lpPtr-LineBytes))*</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>CoefArray[7];</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>TempNum+=(float)((unsigned char)*(lpPtr-LineBytes+1))*</p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>CoefArray[8];</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<span
+style='font-family:宋体;"Times New Roman"'>最后乘以系数</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>TempNum*=coef;</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>//<b><span
+style='font-family:黑体;"Times New Roman"'>注意对溢出点的处理</span></b></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>if(TempNum&gt;255.0) *lpTempPtr=(BYTE)255;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else if(TempNum&lt;0.0) </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>*lpTempPtr=(unsigned char)fabs(TempNum);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>else *lpTempPtr=(BYTE)TempNum;</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>}</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hDc=GetDC(hWnd);</span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp; </span>&nbsp; if(hBitmap!=NULL)</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp; 
+    DeleteObject(hBitmap);</p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hBitmap=CreateDIBitmap(hDc,(LPBITMAPINFOHEADER)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LONG)CBM_INIT,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPSTR)lpTempImgData+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>sizeof(BITMAPINFOHEADER)+</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>NumColors*sizeof(RGBQUAD),</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>(LPBITMAPINFO)lpTempImgData,</span></p>
+  <p style='line-height:
+18.0pt'><span lang=EN-US>DIB_RGB_COLORS);</span></p>
+  <p style='line-height:18.0pt'><span
+lang=EN-US>hf=_lcreat(filename,0); </span></p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)&amp;bf,sizeof(BITMAPFILEHEADER)); 
+  </p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lwrite(hf,(LPSTR)lpTempImgData,BufSize);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>_lclose(hf);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; ReleaseDC(hWnd,hDc);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalUnlock(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LocalFree(hTempImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>GlobalUnlock(hImgData);</p>
+  <p style='line-height:18.0pt'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return 
+    TRUE;</p>
+  <p style='line-height:18.0pt'><span lang=EN-US>}</span><span
+lang=EN-US style='font-size:9.0pt;'></span></p>
+</div>
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+USC does not screen or control the content herein and does not take responsibility for any inaccurate, offensive, infringing, or objectionable content, all of which is the sole responsibility of the author or the users who post content on this website.
+</div>
+</body>
+</html>

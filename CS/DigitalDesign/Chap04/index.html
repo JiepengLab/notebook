@@ -1,0 +1,2169 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/DigitalDesign/Chap04/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>Chap 4 Sequential Circuits - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chap-4-sequential-circuits" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chap 4 Sequential Circuits
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Fundemental/" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Friends/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朋友们！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CurrentStudy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正在学习的课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Fundemental/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            基础课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/Mathematical%20Modeling/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数学建模
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/Probability%20and%20Mathematical%20Statistics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Fundemental/Physics-II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大学物理（乙）II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            校内CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../NA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数值分析
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../AI_Start/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    人工智能初步
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数字逻辑设计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../DIP/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    图像信息处理
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../FDS/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数据结构基础
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS_Online/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            校外CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML-4360/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML_Lhy/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    李宏毅《机器学习》
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Mess/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            杂项
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Mess/DIP-C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    《数字图像处理编程入门》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/ESG/Paper/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ESG商赛
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/Marxism/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    马原
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      锁存器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="锁存器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sr-sr" class="md-nav__link">
+    <span class="md-ellipsis">
+      SR &amp; S'R' 锁存器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    <span class="md-ellipsis">
+      D 锁存器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      触发器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="触发器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sr" class="md-nav__link">
+    <span class="md-ellipsis">
+      SR 主从触发器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      边沿触发式触发器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      标准图形符号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      直接输入
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      时序电路分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="时序电路分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      触发器的输入方程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      等价状态
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      时序电路的设计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态机
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      延时分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="延时分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      组合电路延时
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      触发器延时
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      松弛时间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      时序电路延时
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="chap-4-sequential-circuits">Chap 4 Sequential Circuits<a class="headerlink" href="#chap-4-sequential-circuits" title="点击此处可置顶内容">&para;</a></h1>
+<p>上一章讲的是组合电路，虽然组合电路能够实现诸多功能，但是它依然存在一些的问题：</p>
+<ol>
+<li>对于复杂的逻辑，抽象层级多，导致硬件层面开销大、耗时长，一方面提高成本，一方面降低效率；</li>
+<li>组合电路没法实现信息的存储，所有的功能模块对于特定的输入给出相同的输出；</li>
+</ol>
+<p>而时序电路则拥有存储信息的能力，对于时序电路来说，输出除了与输入有关（甚至可以没有输入），也可以与自身 <strong>状态(state)</strong> 有关。</p>
+<p>时序电路主要分为两类（主要分类依据是输入信号的时间和内部状态改变的时间）：<strong>同步时序电路(synchronous sequential circuit)</strong> 和 <strong>异步时序电路(asynchronous sequential circuit)</strong>。</p>
+<blockquote>
+<p>The behavior of a synchronous sequential circuit can be defined from the knowledge of its signals at discrete instants of time. The behavior of an asynchronous sequential circuit depends upon the inputs at any instant of time and the order in continuous time in which the inputs change.</p>
+</blockquote>
+<p>一般来说，异步电路的设计相对困难（行为与门的传播延迟和输入信号变化的时间序列密切相关），但仍然十分必要，比如触发器就是以一部锁存器为模块设计的；而同步电路的使用更加广泛，通常这些“离散的时刻”都是由 <strong>时钟发生器(clock generator)</strong> 这种时序器件产生周期性的 <strong>时钟脉冲(clock pulse)</strong> 序列来实现的（这种电路一般被称为 <strong>钟控时序电路(clocked sequential circuit)</strong>，由于设计相对容易，鲁棒性强，所以被广泛应用）。</p>
+<div class="admonition summary">
+<p class="admonition-title">缓冲</p>
+<p>缓冲器(buffer) 一般通过两个非门串联，并将输入连通输出实现，这样能够实现信息的存储，然而无法修改。而锁存器就是在缓冲器的基础上，将非门替换为或非门或与非门实现的。</p>
+<p><img alt="" src="../img/79.png" /></p>
+<blockquote>
+<p>其中，从给定输入到更新输出有一个 <span class="arithmatex">\(t_G\)</span> 的延时。</p>
+</blockquote>
+</div>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">引入</p>
+<p>显然，根据上面的概述，时序电路中最重要的就是信息存储元件。当输入信号不发生变化时（重点是变化，即输入和存储信息未必存在对应关系）存储元件就能够保持其内部存储的二进制数据。</p>
+<p>存储元件主要由 <strong>锁存器(latch)</strong> 和 <strong>触发器(flip-flop)</strong> 两种，其中前者是后者的基础，或者说多数情况下我们使用后者，但后者由前者构成。</p>
+</div>
+<hr />
+<h2 id="_1">锁存器<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="sr-sr">SR &amp; S'R' 锁存器<a class="headerlink" href="#sr-sr" title="点击此处可置顶内容">&para;</a></h3>
+<p>SR 锁存器和 S'R' 锁存器的基本原理是一致的，只不过前者用的是或非门，后者用的是与非门。</p>
+<p>SR 锁存器和 S'R' 锁存器的输入都是 S(Set) 和 R(Reset) 两个部分，输出都是 Q 和 Q' 两个部分。</p>
+<blockquote>
+<p><strong>名称上</strong> 的共同点是，当 S 为 <code>1</code> 时，Q 都会是 <code>1</code>；对于 R 和 Q' 也是这样，只不过要注意，S'R'锁存器输入的并不是这里所说的 S，而是将 S' 作为输入。</p>
+</blockquote>
+<div class="admonition note">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">SR 锁存器</label><label for="__tabbed_1_2">S'R' 锁存器</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="" src="../img/80.png" />
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="" src="../img/81.png" />
+</figure></p>
+</div>
+</div>
+</div>
+</div>
+<p>一个记忆方法是，SR 的门元件对 <code>1</code> 敏感，所以是 或非门 的实现；而 S'R' 的门元件对 <code>0</code> 敏感，所以是 与非门 的实现。而通过 「当 S 为 <code>1</code> 时，Q 都会是 <code>1</code>」可以得到 S、R 与 Q、Q' 的位置。</p>
+<p>但是实际的存储元件并不是单纯的 SR/S'R' Latches，所以它们当然是存在问题的。由于电路存在延时，所以 S 和 R 的输入很难同时到达，所以我们可以在前面加一个控制端，当确保两个输入都到位的时候再使能。</p>
+<p>于是我们得到了，<strong>带控制输入的 SR 锁存器(SR Latch with Control Input)</strong>（S'R'略）：</p>
+<p><img alt="" src="../img/82.png" /></p>
+<blockquote>
+<p>注意！SR 锁存器通过 或非门 实现，但带输入控制的 SR 锁存器则通过 <strong>与非门</strong> 实现！</p>
+</blockquote>
+<hr />
+<h3 id="d">D 锁存器<a class="headerlink" href="#d" title="点击此处可置顶内容">&para;</a></h3>
+<p>D 锁存器实际上是带控制输入的 SR 锁存器的改进。其中我们关注到，虽然 S 和 R 起作用的有三种状态</p>
+<p>我们关注到，即使是带控制输入的 SR 锁存器，也存在一个「undefined」状态，而这是我们不希望出现的，于是我们想，能不能避免这种情况的发生。这时候我们观察到，由于可以通过 C 来控制是否保持，所以可以直接强制要求 <span class="arithmatex">\(S = \overline R\)</span>，于是就避免了 undefined 情况的出现，这就是 D 锁存器。</p>
+<p><img alt="" src="../img/83.png" /></p>
+<p>只有当 C 为 <code>1</code> 时，D 锁存器才能写入数据；而当 C 为 <code>0</code> 时，D 锁存器的数据就不会变化。</p>
+<hr />
+<div class="admonition warning">
+<p class="admonition-title">透明的危害：空翻</p>
+<p>当然，D 锁存器也存在问题。如果我门将 <span class="arithmatex">\(\overline Q\)</span> 接到 <span class="arithmatex">\(D\)</span> 上，就会发现 D 锁存器将不停的变化其中的数据，出现 <strong>空翻</strong>，导致我们无法确定 C 置 <code>0</code> 时 Q 的输出究竟是什么，而这是非常危险的。</p>
+<p>这主要是因为 D 锁存器的输入和输出都是直接暴露出来、同时允许变化的（不是同时变化，是指在 Input 可以变的时候 Output 也能变），即 <strong>透明(transparent)</strong> 的。这就导致了在一个时钟周期里，同时存在 <strong>可以互相影响</strong> 的两个东西。这也是触发器所解决的问题。</p>
+</div>
+<hr />
+<h2 id="_2">触发器<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h2>
+<p>为了解决上面提到的，由「透明」引发的问题，而采用触发器的设计。通过组合两个锁存器，主要有两种实现方法：</p>
+<ol>
+<li>在有脉冲（高电平）时，修改第一个锁存器的值，保持第二个锁存器的值；在没有脉冲（低电平）时候保持第一个锁存器的值，修改第二个锁存器的值，更新触发器的状态，即 <strong>主从式(master-slave)触发器</strong>；</li>
+<li>仅在时钟的边缘触发，即在特定时刻仅接受一个输入，即 <strong>边沿触发式(edge-triggered)触发器</strong>；</li>
+</ol>
+<blockquote>
+<p>边沿触发式 D 触发器是目前使用最广泛的触发器。</p>
+</blockquote>
+<hr />
+<h3 id="sr">SR 主从触发器<a class="headerlink" href="#sr" title="点击此处可置顶内容">&para;</a></h3>
+<p><img alt="" src="../img/84.png" /></p>
+<blockquote>
+<p>虽然它叫 FF，但它并不符合 FF 的特征，然而分类上又属于 pulse-triggered FF。</p>
+</blockquote>
+<p>SR 触发器知所以是所谓的 pulse-triggered 的，是因为在 S 和 R 输入都为 <code>0</code> 时，如果出现噪音，就会导致 Slave 写入异常数据。</p>
+<blockquote>
+<p>但是我个人认为这是 SR 自身有两个保持态导致的弊端，而在实际使用过程中我们就不应该有输入为 S 和 R 都为 <code>0</code> 的情况。</p>
+</blockquote>
+<hr />
+<h3 id="_3">边沿触发式触发器<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h3>
+<p>上面已经说过了，边沿触发式触发器主要对脉冲的 上升沿 或 下降沿 敏感。</p>
+<p>下图为正边沿触发 D 触发器的大致原理图。</p>
+<p><img alt="" src="../img/85.png" /></p>
+<blockquote>
+<p>关注上升沿前后，上升沿前一刻，主锁存器可写，从锁存器只读；上升沿后一刻，主锁存器只读，从锁存器只写，且写入的是主锁存器存储的值——换句话来说，存的是上升沿前一刻写入主锁存器的内容。</p>
+</blockquote>
+<p>需要注意的一点是，D 触发器没有「保持」态。如果要使 D 触发器保持，可以使时钟脉冲失效或通过 <code>MUX</code> 将输出接到输入实现。其中前者不太常用，因为受门控的时钟脉冲进入触发器时有延迟，即 <strong>时钟偏移(clock skew)</strong></p>
+<hr />
+<h3 id="_4">标准图形符号<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h3>
+<p><img alt="" src="../img/86.png" /></p>
+<blockquote>
+<p>带圆圈表示负逻辑。</p>
+</blockquote>
+<hr />
+<h3 id="_5">直接输入<a class="headerlink" href="#_5" title="点击此处可置顶内容">&para;</a></h3>
+<p>这些直接输入往往是异步的，一般用来异步置位（直接置位或预置）或异步复位（直接复位或清零）。</p>
+<p>对于时序电路来说，「复位」或「置位」这种输入常常作为初始化，即确定各个触发器的「初始状态」。</p>
+<hr />
+<h2 id="_6">时序电路分析<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h2>
+<p>为了分析时序电路，我们需要一些工具来表示时序电路的一些特征与逻辑。观察时序电路和组合电路的区别，发现最核心的就是逻辑运算过程中出现了「状态」参与运算。因此，我们需要在各个组合电路分析中采用的表示方法中，添加表示「状态」的信息。</p>
+<p>除此之外，如果只是单纯的将「状态」作为一个新的输入，作为增量添加到表达方式中，会发现这些表述会显得很重。所以我们也需要寻找一种更好的办法来表达时序电路中的逻辑，这就是「状态图」。</p>
+<hr />
+<h3 id="_7">触发器的输入方程<a class="headerlink" href="#_7" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>触发器的输入方程(flip-flop input equation)</strong> 主要是为其提供一个代数表达方式。它的主要想法是⓵表达每一个触发器的输入与输出之间的关系；⓶表达每一个直接输出的逻辑表达式。其中，触发器的输出符号表示了其类型（即符号）与输出（即下标）。</p>
+<p>具体来说，例如下面这个电路：</p>
+<p><img alt="" src="../img/87.png" /></p>
+<p>可以发现，其中包含两个触发器 <span class="arithmatex">\(D_A\)</span> 和 <span class="arithmatex">\(D_B\)</span>，以及一个组合逻辑输出 <span class="arithmatex">\(Y\)</span>，因而可以根据电路的特征，得到下面这几个式子：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    D_A &amp; = AX + BX \\
+    D_B &amp; = \overline{A}X \\
+    Y   &amp; = (A + B)\overline{X}
+\end{aligned}
+\]</div>
+<hr />
+<h3 id="_8">状态表<a class="headerlink" href="#_8" title="点击此处可置顶内容">&para;</a></h3>
+<p>当然，时序电路的逻辑有时候也可以通过状态表来描述，只不过与组合电路的 真值表 不同，<strong>状态表(state table)</strong> 有四栏：当前状态(present state)、输入(input)、下一状态(next state)、输出(output)。其含义是比较显然的，只不过需要通过电路图得到状态表，需要首先得到「当前状态」向「下一状态」转移的方程，即对于某个时刻 <span class="arithmatex">\(t\)</span> 的触发器 <span class="arithmatex">\(A\)</span> 的输出 <span class="arithmatex">\(A(t)\)</span>，需要得到它下一刻的状态 <span class="arithmatex">\(A(t+1) = f(A(t), ...)\)</span>。</p>
+<p>同样以这个电路为 🌰：</p>
+<p><img alt="" src="../img/87.png" /></p>
+<p>首先我们对 <span class="arithmatex">\(D_A\)</span> 得到转移方程：<span class="arithmatex">\(A(t+1) = D_A = A(t)X + B(t)X\)</span>，可以简写为 <span class="arithmatex">\(A(t+1) = D_A = AX+BX\)</span>。类似地也能得到 <span class="arithmatex">\(B\)</span> 的转移方程。</p>
+<p>于是，根据这些信息，我们可以写出它的状态表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Present State<br><code>AB</code></th>
+<th style="text-align: center;">Input<br><code>X</code></th>
+<th style="text-align: center;">Next State<br><code>AB</code></th>
+<th style="text-align: center;">Output<br><code>Y</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>00</code></td>
+<td style="text-align: center;"><code>0</code></td>
+<td style="text-align: center;"><code>00</code></td>
+<td style="text-align: center;"><code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>00</code></td>
+<td style="text-align: center;"><code>1</code></td>
+<td style="text-align: center;"><code>01</code></td>
+<td style="text-align: center;"><code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>01</code></td>
+<td style="text-align: center;"><code>0</code></td>
+<td style="text-align: center;"><code>00</code></td>
+<td style="text-align: center;"><code>1</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>01</code></td>
+<td style="text-align: center;"><code>1</code></td>
+<td style="text-align: center;"><code>11</code></td>
+<td style="text-align: center;"><code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>10</code></td>
+<td style="text-align: center;"><code>0</code></td>
+<td style="text-align: center;"><code>00</code></td>
+<td style="text-align: center;"><code>1</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>10</code></td>
+<td style="text-align: center;"><code>1</code></td>
+<td style="text-align: center;"><code>10</code></td>
+<td style="text-align: center;"><code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>11</code></td>
+<td style="text-align: center;"><code>0</code></td>
+<td style="text-align: center;"><code>00</code></td>
+<td style="text-align: center;"><code>1</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>11</code></td>
+<td style="text-align: center;"><code>1</code></td>
+<td style="text-align: center;"><code>10</code></td>
+<td style="text-align: center;"><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Mealy model circuit &amp; Moore model circuit</p>
+<p>如果输出既依赖于当前状态，也依赖于输入的时序电路，则称为 <strong>米勒型电路(Mealy model circuit)</strong>；而如果输出只依赖于当前状态，则称为 <strong>摩尔型电路(Moore model circuit)</strong>。</p>
+<p>在 <strong><a href="#状态图">状态图</a></strong> 中，我们还将再一次遇到这两个人名。</p>
+</div>
+<hr />
+<h3 id="_9">状态图<a class="headerlink" href="#_9" title="点击此处可置顶内容">&para;</a></h3>
+<p>可以发现，状态表比较清晰的表达了不同的状态和输入得到的结果，但是对于「不同状态之间是如何转换的」这件事的描述并不清晰。而对于「联系」这件事，有向图是一个非常好的形式，所以我们将介绍 <strong>状态图(state diagram)</strong>。</p>
+<p>状态图承载的信息量和状态表是一样的，所以也是需要表达 当前状态(present state)、输入(input)、下一状态(next state)、输出(output) 这四个东西。只不过「下一状态」是通过有向边来表示的。当前状态作为一个 node 的属性；而输入作为 edge 的一个属性；至于输出，根据它是放在 edge 上还是 node 上，分为 <strong>米勒型(Mealy)</strong> 和 <strong>摩尔型(Moore)</strong> 两种。</p>
+<div class="admonition example">
+<p class="admonition-title">Mealy</p>
+<p>例如，这是一个 米勒型 的状态图，以及对应的状态表。</p>
+<p><img alt="" src="../img/89.png" /></p>
+<blockquote>
+<p>因为米勒型电路的 <strong>输出与当前状态和输入都有关</strong>，所以输出会和输入放在一起，即放在 edge 里。</p>
+<p>对于米勒型，node 内的二进制为 present state 中的 <code>AB</code>；edge 上分别为 input 和 output：<code>X</code>/<code>Y</code>；有向边表达了每个状态在特定输入下的下一个状态。</p>
+<p>例如，关注 node <code>00</code>，它有一条自环 <code>0</code>/<code>0</code>，对应 状态表 的第一行；它有一条 edge <code>1</code>/<code>0</code> 指向 node <code>01</code>，对应 状态表的第二行。</p>
+</blockquote>
+<p>当然，米勒型是有 <strong>缺陷</strong> 的，在时序电路设计之后的步骤中，我们需要根据它来对每一个状态设计输出方程。此时由于两个输出共享同一个目标状态，所以我们需要将两个输出结合到同一个式子中，这将提高设计难度和组合电路成本。</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Moore</p>
+<p>而下面是一个 摩尔型 的状态图，以及对应的状态表。</p>
+<p><img alt="" src="../img/88.png" /></p>
+<blockquote>
+<p>因为摩尔型电路的 <strong>输出只与当前状态有关</strong>，所以输出会和当前状态放在一起，即放在 node 里。</p>
+<p>对于摩尔型，node 内的二进制表示 present state 和 output：<code>A</code>/<code>Z</code>；edge 上列举了这种转移可能的 inputs：<code>XY</code>。</p>
+<p>例如，关注 node <code>0</code>/<code>0</code>，它有两条自环 <code>00</code> 和 <code>11</code>，分别对应 状态表 的第一行和第四行；它有两条 edge <code>01</code> 和 <code>10</code> 指向 node <code>1</code>/<code>1</code>，对应 状态表 的第二行和第三行。</p>
+</blockquote>
+<p>摩尔型也存在 <strong>缺陷</strong> 的，非常显然，相比于米勒型，摩尔型需要更多的状态。</p>
+</div>
+<p>换句话来说，米勒型倾向于表达「在特定状态下，特定输入将导致某种结果，以及状态转移」；而摩尔型倾向于表达「特定输入将导致某个状态向另外一个状态转移，而输出更像是一种状态的结果」。</p>
+<p>状态图还有进阶形态，之后会提及，就是 <strong><a href="#状态机">状态机</a></strong>。</p>
+<hr />
+<h3 id="_10">等价状态<a class="headerlink" href="#_10" title="点击此处可置顶内容">&para;</a></h3>
+<p>暂略</p>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">延时分析</p>
+<p>延时分析是一个重难点，对于时序电路的延时分析，将在之后单独开一个小结重点介绍。</p>
+<p>请参考 <strong><a href="#延时分析">延时分析</a></strong>。</p>
+</div>
+<hr />
+<h2 id="_11">时序电路的设计<a class="headerlink" href="#_11" title="点击此处可置顶内容">&para;</a></h2>
+<p>类比组合逻辑电路通过真值表设计电路，（同步）时序电路主要依据状态表（或等价表达，如状态图）来设计电路。实际设计中，我们需要考虑触发器以及其它组合电路的选择与设计：</p>
+<ul>
+<li>触发器的数量基本取决于整个需求中 状态 的数量，<span class="arithmatex">\(n\)</span> 个触发器能够表达 <span class="arithmatex">\(2^n\)</span> 个二进制状态；</li>
+<li>组合电路的主要设计围绕 触发器 的 输入 和 输出 展开；</li>
+</ul>
+<p>而主要的设计过程和组合逻辑电路的设计是类似的，如下：</p>
+<ol>
+<li>确定系统的行为；<ol>
+<li>描述系统行为过程中，要注意状态的复用（不过并非状态越少成本就越小，这里有触发器数量和组合逻辑电路的 trade-off）；</li>
+<li>确定电路的初始状态（<strong>复位状态(reset state)</strong>，通过给定复位(reset)信号实现）；<ul>
+<li>复位一般可以是异步的；</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>阐述输入和输出之间的逻辑关系，并用真值表或逻辑表达式表达出来；</li>
+<li>给设计好的状态编码赋值，得到具体的状态表；<ol>
+<li>我们可以使用 按计数顺序、 按格雷码、用独热码 来给状态赋值，更系统的方法比较复杂，不做讨论；</li>
+<li>其中还有一种情况是所需要的状态不能完整填充 <span class="arithmatex">\(2^n\)</span> 种情况，需要设计无效状态，这种时候可以不考虑它们；</li>
+</ol>
+</li>
+<li>根据状态表确定使用的触发器及其输入方程；</li>
+<li>根据状态表确定输出方程；</li>
+<li>优化输入方程和输出方程；</li>
+<li>将优化后的逻辑设计工艺映射到硬件实现上；</li>
+<li>验证正确性（在仿真环境中）；<ul>
+<li>主要就是看能不能复现状态图；</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="_12">状态机<a class="headerlink" href="#_12" title="点击此处可置顶内容">&para;</a></h2>
+<p>尽管在小规模的设计中，状态图表现良好，但是随着设计的系统规模变大，我们需要一个更加泛用的方式来表达类似的时序逻辑。</p>
+<p>于是，我们在状态图的基础上进行修改，设计了 <strong>状态机(State-Machine Diagram)</strong> 来做这件事。</p>
+<p>状态机混用了米勒型和摩尔型的输出格式，优劣在 <strong><a href="#状态图">状态图</a></strong> 中有所提及。并且，有限图将状态转移方程也写入，总体上对电路设计更友好。下图是状态机的一个“范式”。</p>
+<div class="admonition note">
+<p class="admonition-title">Generic State Diagram Template</p>
+<p><img alt="" src="../img/90.png" /></p>
+<p>首先解释一下这个“范式”：</p>
+<blockquote>
+<p>具体解释状态机有哪些内容，以及各个部分之间的逻辑。关于各个部分出现的位置，请参考 Template。</p>
+<p>另外，为了简化语句，下面的说法省略了时钟，请记得考虑。</p>
+</blockquote>
+<p>状态机模型主要有三要素：<strong>输入条件(Input Conditions)</strong>、<strong>状态转移(Transitions)</strong> 和 <strong>输出行为(Output Actions)</strong>。总体来说，输入条件告诉我们整个状态机要如何变化；状态转移描述了状态机的内部转移行为，即图论上的有向联通关系；输出行为描述动态变化过程中状态机的对外表达。其中，状态转移和输出行为是我们需要关注的状态机的两个维度，输入条件是我们用来做实时判断的外部依据。</p>
+<hr />
+<p>「输入条件」是由输入变量形成的一个布尔方程，在整个状态机中，输入是变化的“因变量”，换句话来说，无论是状态转移还是输出，都取决于输入条件。而导致特定行为的输入条件则被分类为 <strong>转移条件(Transition Condition, TC)</strong> 和 <strong>输出条件(Output Condition, OC)</strong>。</p>
+<hr />
+<p>「状态转移」在图中表现为有向边，当 TC 成立时，状态转移发生；或者对于无条件转移，只要得到时钟脉冲就会转移到下一个状态。</p>
+<hr />
+<p>「输出行为」在状态机中有四种触发方法（即四种 OC）：<strong>Moore</strong>、<strong>不依赖转移(Transition-condition Independent, TCI)</strong> Mealy、<strong>依赖转移(Transition-condition Dependent, TCD)</strong> Mealy 和 <strong>依赖转移和输出条件(Transition and Output-condition Dependent, TOCD)</strong> Mealy。根据字面意思来看：</p>
+<ul>
+<li>Moore 只与状态有关，所以在图中从状态节点引出；</li>
+<li>TCI Mealy 与状态和输出条件有关，所以在图中从状态节点引出写在 OC 后面（<code>OC</code>/<code>TCI OA</code>）；</li>
+<li>TCD Mealy 与转移条件有关，当转移成立的时候发生 Output Action，所以直接写在 TC 后面（<code>TC</code>/<code>TCD OA</code>）；</li>
+<li>TOCD Mealy 在转移发生时候才可能条件成立，即当 TC 和 OC 都成立时才发生 Output Action，所以需要从 TC 引出 OC，并跟在 OC 后面（<code>TC</code>——<code>OC</code>/<code>TOCD OA</code>）；
+        - 如果出现复数的 TOCD OA，则使用 <code>,</code> 分隔；</li>
+</ul>
+<blockquote>
+<p>In a given state, an output action occurs if: (a) it is unconditional (Moore), (b)  TCI and its output condition OC = 1, (c) TCD and its transition condition TD = 1, and (d) TOCD and its transition condition TC and output condition OC are both equal to 1, i.e, TC·OC = 1. Note that Moore and TCI output actions attached to a state, apply to all transitions from the state as well.</p>
+</blockquote>
+<p>回到输出行为本身，当 OC 成立时输出行为发生，一般会将输出变量标出，如果写的是 NOT X，表示 OC 成立时 X 应为 <code>0</code>；如果写的是 X，则表示 OC 成立时 X 为 <code>1</code>。</p>
+<div class="admonition warning">
+<p class="admonition-title">注意点</p>
+<p>此外，还有一个点需要辨析，由于「Transition」表示的是“下一个”状态，所以对于当前时刻，当前节点的输出和出度的输出不能冲突。例如，下图因为 Moore 输出行为的 Z 和 TC=AB 那条边的 Z' 冲突，所以非法。</p>
+<p><img alt="" src="../img/92.png" /></p>
+<hr />
+<p>当然，非法状态机并不只有这一个判据。不过核心思想就是 <strong>不能有歧义或冲突且需要充分</strong>，更数学的表达是，必须满足如下两个条件：</p>
+<p>1.非交：对于每一个状态 <span class="arithmatex">\(S_i\)</span>，它的任意两个出度 <span class="arithmatex">\((T_{ij},T_{jk})\)</span> 都不能同时成立，即应有：</p>
+<div class="arithmatex">\[
+\forall (T_{ij},T_{ik})\;,\;\;T_{ij}\cdot T_{ik} = 0
+\]</div>
+<p>2.充分：对于每一个状态 <span class="arithmatex">\(S_i\)</span>，它的所有出度条件应该涵盖所有可能，即应有：</p>
+<div class="arithmatex">\[
+\sum_{j}T_{ij} = 1
+\]</div>
+<p>Tips: 上面是对 Transition Condition 的约束，<strong>将 TC 换成 OC 也需要成立</strong>。</p>
+</div>
+<hr />
+<details class="summary" open="open">
+<summary>缩写对照表</summary>
+<table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>含义</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC</td>
+<td>Transition Condition</td>
+<td>转移条件：导致 Transition 的 Input Condition</td>
+</tr>
+<tr>
+<td>OC</td>
+<td>Output Condition</td>
+<td>输出条件：导致 Output Actions 的 Input Condition</td>
+</tr>
+<tr>
+<td>TCI</td>
+<td>Transition-condition Independent</td>
+<td>不依赖转移：只与 State 有关的 Output Actions</td>
+</tr>
+<tr>
+<td>TCD</td>
+<td>Transition-condition Dependent</td>
+<td>依赖转移：Transition Condition 成立才有 Output Actions</td>
+</tr>
+<tr>
+<td>TOCD</td>
+<td>Transition and Output-condition Dependent</td>
+<td>依赖转移和输出方程：Transition Condition 和 Output Condition 都成立才有 Output Actions</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="example" open="open">
+<summary>State Machine Diagram 🌰</summary>
+<p><img alt="" src="../img/91.png" /></p>
+<blockquote>
+<p>注意，图中有一个错误（大概），右侧 <span class="arithmatex">\(S_1\)</span> 的 OC 应为 <span class="arithmatex">\((\overline{A}\cdot\overline{B})\)</span>。</p>
+</blockquote>
+</details>
+</div>
+<hr />
+<h2 id="_13">延时分析<a class="headerlink" href="#_13" title="点击此处可置顶内容">&para;</a></h2>
+<p>首先，自上而下的给出观念，时序电路的延时分析有两个主要部分和一个次要部分：</p>
+<ol>
+<li>组合电路导致的延时；</li>
+<li>触发器导致的延时；</li>
+<li>电路的松弛时间；</li>
+</ol>
+<p>并且往往是根据触发器的类型，计算一个时钟周期的时间。最核心的问题就是计算电路能够正常工作的最短时钟周期。接下来，自下而上的进行细节补充。</p>
+<hr />
+<h3 id="_14">组合电路延时<a class="headerlink" href="#_14" title="点击此处可置顶内容">&para;</a></h3>
+<p>这一部分的详细内容已经在 <strong><a href="Chap03.md#传播延迟">上一章</a></strong> 介绍过了，在这里，为了简化计算过程，我们全部采用 <span class="arithmatex">\(t_{pd}\)</span>。</p>
+<hr />
+<h3 id="_15">触发器延时<a class="headerlink" href="#_15" title="点击此处可置顶内容">&para;</a></h3>
+<p>触发器延时相比组合电路延时复杂很多，主要目的是为了保证采样。也就是说它的“延时”并不仅仅是因为电信号传播的延迟，还有为了保证信号稳定设计的一些内容。</p>
+<p>大致来说有三个部分：</p>
+<ul>
+<li>Setup Time：采样边缘前输入信号需要保持稳定的时间；</li>
+<li>Hold Time：采样边缘后输入信号需要保持稳定的时间；</li>
+<li>Propagation Time：触发器的采样边缘到输出稳定的时间（传播时间）；</li>
+</ul>
+<div class="admonition note">
+<p>一篇介绍 Setup Time 和 Hold Time 的 <strong><a href="https://nandland.com/lesson-12-setup-and-hold-time/">文章</a></strong>。</p>
+</div>
+<p>根据触发器的类型不同，主要的 Setup Time 也不同：</p>
+<p><img alt="" src="../img/93.png" /></p>
+<p>其中比较重要的一些点是：</p>
+<ol>
+<li>这几个时间点起点/终点都是触发边缘；</li>
+<li>Propagation Time 一定长于 Hold Time，因此在计算电路延迟时只考虑 Propagation Time；</li>
+<li>Pulse-trigger 和 Edge-trigger 在表现上的区别在于 Setup Time，前者需要覆盖整个 pulse(<code>pos</code> or <code>neg</code>)；</li>
+</ol>
+<hr />
+<h3 id="_16">松弛时间<a class="headerlink" href="#_16" title="点击此处可置顶内容">&para;</a></h3>
+<p>实际上这就是给整个电路的一个“容差”时间，给定一个误差，但是由于通过前两者计算出来的是最短时间，所以松弛时间必定非负。（不能倒扣！）</p>
+<hr />
+<h3 id="_17">时序电路延时<a class="headerlink" href="#_17" title="点击此处可置顶内容">&para;</a></h3>
+<p>时序电路的延时计算实际上是为了计算时序电路运作的最大频率以设计时钟频率。所以我们需要算出电路能够稳定工作的最小时钟期。</p>
+<p>其计算遵循一定方法：</p>
+<p><img alt="" src="../img/94.png" /></p>
+<blockquote>
+<p>图中 <span class="arithmatex">\(t_{pd,FF}\)</span> 指触发器的 propagation time，<span class="arithmatex">\(t_{COMB}\)</span> 指组合电路的总传播时间（一般情况下 <span class="arithmatex">\(t_{COMB} = \max{\sum_i t_{pd,gate_i}}\)</span>），<span class="arithmatex">\(t_{s}\)</span> 指触发器的 setup time，<span class="arithmatex">\(t_{slack}\)</span> 表示电路的松弛时间。</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">（假）经验之谈</p>
+<p>一般从一个 FF 的输出出发到 FF 的输入结束。</p>
+</div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 我觉得这里应该是需要有例题的，但是我现在还没做题，所以做了再写。</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>
