@@ -8,6 +8,10 @@ body {
   /* font-family: "LXGW WenKai Screen", sans-serif; */
 }
 
+.md-typeset div.arithmatex {
+  overflow-y: hidden;
+}
+
 h1~p {
   text-indent: 30px;
 }
