@@ -1,20 +1,12 @@
 # Model 11 蛛网模型
 
-!!! warning ""
-    - [ ] TODO
-
 !!! question "问题背景"
-
 
     如何解释某些生产周期较长的商品在失去均衡时发生的不同波动情况？
 
 ## 差分方程
 
-### 差分
-
 设 $y(n)=y_n$，是依赖于整数变量 $n = 0,\pm 1,\pm 2,\cdots$ 的函数，则称$\Delta y(n) = y(n+1)-y(n)$ 为 $y(n)$ 的**一阶差分**，$\Delta^2 y(n) = \Delta[\Delta y(n)] = \Delta y(n+1)-\Delta y(n)$ 为 $y(n)$ 的**二阶差分**，以此类推，$\Delta^k y(n)$ 为 $y(n)$ 的 **$k$ 阶差分**。
-
-### 差分方程
 
 含有未知函数的有限差分的方程称为**差分方程**：
 
@@ -176,3 +168,114 @@ $$
 ## 蛛网模型
 
 **蛛网模型**是研究某些生产周期较长且不宜储存的商品均衡价格的动态稳定性的模型
+
+- 当商品的市场实际价格偏离均衡价格后，在市场机制的作用下，实际价格是否能回到原有的均衡价格水平，即均衡价格是否动态稳定，并考察它所需要具备的条件
+
+记在周期 $n$ 中，某种商品的供求量为 $x_n$，价格为 $y_n$
+
+!!! note ""
+    这里的供求量是指周期 $n$ 中的供给量与需求量，此时的供给量是由周期 $n-1$ 的价格决定的，需求量是由周期 $n$ 的价格决定的，设此时二者相等。
+
+- 需求由当前价格决定，有需求函数 $x_n = f(y_n)$，其反函数为 $y_n = h(x_n)$
+- 供给由周期 $n-1$ 的价格决定，有供给函数 $x_{n+1} = g(y_n)$
+- 均衡点 $(x_0,y_0)$ 满足 $x_0 = g(y_0)$ 和 $y_0 = h(x_0)$，即需求函数与供给函数的交点
+
+假设需求函数与供给函数为线性函数，其过均衡点 $(x_0,y_0)$ 的方程为
+
+$$
+y_n-y_0 = -\alpha(x_n-x_0),\quad x_{n+1}-x_0 = \beta(y_n-y_0)
+$$
+
+其中，$\alpha$ 是商品需求量减少一个单位时价格的上涨量，$1/\alpha$ 是商品价格上涨一个单位时需求量的减少量。$\beta$ 是商品价格上涨一个单位时（下一周期）供给量的增加量。  
+
+由此可得，递推关系为
+
+$$
+x_{n+1} -x_0 = \beta(y_n-y_0) = -\alpha\beta(x_n-x_0)
+$$
+
+所以
+
+$$
+x_{n}-x_0 = (-\alpha\beta)^{n-1}(x_1-x_0)
+$$
+
+所以，数列 $\{x_n\}$ 收敛的充要条件为 $\alpha\beta < 1$。
+
+!!! note ""
+
+    若需求函数 $h$ 或供给函数 $g$ 不为线性函数，可在均衡点附近用线性函数近似，即令 $a = -h'(x_0)$ 与 $b = g'(y_0)$。
+
+### 均衡的稳定性
+
+当一个均衡价格体系在受到干扰而偏离均衡点时，如果这个体系在市场机制的作用下能回到均衡点，则称这个均衡价格体系是稳定均衡，否则是不稳定均衡。
+
+根据以上分析，均衡价格体系的稳定性取决于 $\alpha\beta$ 的大小，我们可以得到三种情况：
+
+![Alt text](images/image-46.png)
+
+## 改进的蛛网模型
+
+假设商品的供求量由前两个周期的价格决定
+
+- 记需求函数为 $x_n = f(y_n)$，其反函数为 $y_n = h(x_n)$
+- 记供给函数为 $x_{n+2} = g_2(y_{n+1},y_n)$
+    - 供给函数简化为 $x_{n+2} =g(\frac{y_{n+1}+y_n}{2})$，即供给量由前两个周期的价格的平均值决定
+- 均衡点 $(x_0,y_0)$ 满足 $y_0 = h(x_0)$ 和 $x_0 = g(y_0)$
+
+假设需求函数与供给函数为线性函数，其过均衡点 $(x_0,y_0)$ 的方程为
+
+$$
+y_n-y_0 = -\alpha(x_n-x_0),\quad x_{n+2}-x_0 = \beta(\frac{y_{n+1}+y_n}{2}-y_0)
+$$
+
+则递推关系为
+
+$$
+\begin{aligned}
+2x_{n+2}-2x_0 &= \beta(y_{n+1}+y_n-2y_0) \\
+&= \beta(y_{n+1}-y_0+y_n-y_0) \\
+&= \beta(-\alpha(x_{n+1}-x_0)-\alpha(x_n-x_0))
+\end{aligned}
+$$
+
+记 $z_n = x_n-x_0$，则
+
+$$
+2z_{n+2} = -\alpha\beta(z_{n+1}+z_n)
+$$
+
+可以发现 $\lim\limits_{n\to\infty}z_n = 0$ 当且仅当 $\lim\limits_{n\to\infty}x_n = x_0$。
+
+### 通项求解
+
+我们现在得到了差分方程
+
+$$
+2z_{n+2} + \alpha\beta z_{n+1} + \alpha\beta z_n = 0
+$$
+
+其特征方程为
+
+$$
+2\lambda^2 + \alpha\beta\lambda + \alpha\beta = 0
+$$
+
+解得
+
+$$
+\lambda_1 = \frac{-\alpha\beta+\sqrt{\alpha^2\beta^2-8\alpha\beta}}{4},\quad \lambda_2 = \frac{-\alpha\beta-\sqrt{\alpha^2\beta^2-8\alpha\beta}}{4}
+$$
+
+!!! note ""
+    - $\lambda_1$ 和 $\lambda_2$ 可以是虚数
+
+要使得 $\lim\limits_{n\to\infty}z_n = 0$，则 $\lambda_1$ 和 $\lambda_2$ 的模都小于 $1$，即
+
+- $\alpha\beta \geq 8$ 时，$\lambda_1$ 和 $\lambda_2$ 都是实数，此时$\lambda_2 = \frac{-\alpha\beta-\sqrt{\alpha^2\beta^2-8\alpha\beta}}{4} < \frac{-\alpha\beta}{4} < -1$，所以不收敛
+- $0 < \alpha\beta < 8$ 时，$\lambda_1$ 和 $\lambda_2$ 都是复数，此时 $\lambda_{1,2} = \frac{-\alpha\beta}{4}\pm\frac{\sqrt{8\alpha\beta-\alpha^2\beta^2}}{4}i$，其模 $|\lambda_{1,2}| = \sqrt{(\frac{-\alpha\beta}{4})^2+(\frac{\sqrt{8\alpha\beta-\alpha^2\beta^2}}{4})^2} = \frac{\sqrt{8\alpha\beta}}{4} $。
+- 所以当 $0<\alpha\beta<2$ 时，$\lim\limits_{n\to\infty}z_n = 0$，即 $\lim\limits_{n\to\infty}x_n = x_0$，此时均衡价格是稳定的；
+- 当 $2<\alpha\beta$ 时，$\lim\limits_{n\to\infty}z_n \neq 0$，即 $\lim\limits_{n\to\infty}x_n \neq x_0$，此时均衡价格是不稳定的。
+
+!!! note ""
+    与供给量由前一个周期的价格决定相比，价格体系是稳定均衡的条件有所放宽。
