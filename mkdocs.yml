@@ -210,7 +210,8 @@ theme:
   favicon: ./images/icon.jpg
 
 plugins:
-  # - statistics
+  - statistics:
+      words_per_minute: 200
   - search:
       lang:
         - zh
@@ -218,16 +219,15 @@ plugins:
         - ja
       separator: '[\s\u200b\-]'
 #  - glightbox #git action跑不起来
-#  - git-revision-date-localized:
-#      type: datetime
-#      timezone: Asia/Shanghai
-#      locale: zh
-#      enable_creation_date: true
-
-#  - heti: #git action跑不起来
-#      extra_skipped_class:
-#        - arithmatex
-#      disable_serve: false
+  - git-revision-date-localized:
+      type: datetime
+      timezone: Asia/Shanghai
+      locale: zh
+      enable_creation_date: true
+  # - heti: 
+  #   disable_serve: false
+  #   extra_skipped_class:
+  #     - arithmatex
 
 
 extra:

@@ -57,3 +57,7 @@ statistics: True
     <script src="./assets/javascripts/chase.js">
     </script>
 </html>
+
+!!! info ""
+
+    本站共有 {{ pages }} 个页面，{{ words }} 个字，{{ codes }} 行代码。
