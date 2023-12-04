@@ -210,7 +210,7 @@ theme:
   favicon: ./images/icon.jpg
 
 plugins:
-  - statistics
+  # - statistics
   - search:
       lang:
         - zh

@@ -57,7 +57,3 @@ statistics: True
     <script src="./assets/javascripts/chase.js">
     </script>
 </html>
-
-!!! info ""
-
-    页面总数：{{pages}} 总字数：{{words}} 
