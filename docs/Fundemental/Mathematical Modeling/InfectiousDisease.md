@@ -63,3 +63,103 @@ $$I(t)=S_0+I_0-S(t)+\frac{1}{\sigma}\ln\frac{S(t)}{S_0}$$
 
 ### $I$ 总会衰减到0吗？
 
+因为 $S(t)\geq 0,\frac{dS}{dt}\leq0$，所以 $S(t)$ 单调递减有下界，$\lim\limits_{t\to\infty}S(t)$存在，记为 $S_\infty$。
+
+因为 $R(t)\leq N,\frac{dR}{dt}\geq0$，所以 $R(t)$ 单调递增有上界，$\lim\limits_{t\to\infty}R(t)$存在，记为 $R_\infty$。
+
+因为 $I(t)=N-S(t)-R(t)$，所以 $\lim\limits_{t\to\infty}I(t)=N-S_\infty-R_\infty=I_\infty$存在。
+
+若 $I_\infty=\epsilon >0 $，则对充分大的 $t$，$\frac{\mathrm{d}R}{\mathrm{d}t}=\alpha I(t)\geq \alpha \epsilon$，所以 $R(t)\geq \alpha \epsilon t$，$\lim\limits_{t\to\infty}R(t)=\infty$，矛盾。
+
+所以 $I_\infty=0$，即 $I(t)$ 会衰减到0。
+
+!!! note ""
+    但是，$I(t)$ 会衰减到0，不代表一定是好事，可能是因为所有人都痊愈了，也可能是因为所有人都寄了。
+
+### 估计 $\sigma$
+
+![Alt text](images/image-66.png){width=50%}
+
+由该图可知，$S_\infty$ 即为 $S_0+I_0-S(t)+\frac{1}{\sigma}\ln\frac{S(t)}{S_0}=0$ 的根
+
+我们可以用 $\sigma \approx \frac{\ln S_0 - \ln S_\infty}{S_0-S_\infty}$ 来估计 $\sigma$。
+
+### $I(t)$ 的增减性
+
+!!! note ""
+    
+    $$\begin{cases}
+    \frac{\mathrm{d}S}{\mathrm{d}t}=-\beta SI\\
+    \frac{\mathrm{d}I}{\mathrm{d}t}=\beta (S-\sigma )I\\
+    \frac{\mathrm{d}R}{\mathrm{d}t}=\alpha I
+    \end{cases}$$
+
+若 $S_0 > \frac{1}{\sigma}$
+
+-   $\frac{1}{\sigma}<S(t)<S_0$，$\frac{\mathrm{d}I}{\mathrm{d}t}>0$，$I(t)$ 单调递增
+-   $S(t)=\frac{1}{\sigma}$，$\frac{\mathrm{d}I}{\mathrm{d}t}=0$，$I(t)$ 达到最大值 $S_0+I_0-\frac{1}{\sigma}(1+\ln\sigma S_0)$
+-   $S(t)<\frac{1}{\sigma}$，$\frac{\mathrm{d}I}{\mathrm{d}t}<0$，$I(t)$ 单调递减至0
+
+若 $S_0 \leq \frac{1}{\sigma}$，$I(t)$ 单调递减至0，传染病不会爆发。
+
+### 基本再生数
+
+将上述增减性的分析应用过来，记 $\mathcal{R}_0=S_0\sigma$，则前文分析情况就对应 $\mathcal{R}_0>1$ 和 $\mathcal{R}_0\leq 1$。
+
+$$\mathcal{R}_0=S_0\sigma=S_0\frac{\beta}{\alpha}=\frac{1}{\alpha}\cdot \beta N \cdot \frac{S_0}{N}$$
+
+- $\frac{1}{\alpha}$：每个感染者感染时间的期望值
+- $\beta N$：单位时间内一个感染者接触的人数
+- $\frac{S_0}{N}$：易感者占总人数的比例
+
+所以这个式子表示每个感染者在感染期内感染的易感者平均数。
+
+我们称 $\mathcal{R}_0$ 为**基本再生数**。
+
+## SIS模型
+
+假设疾病传播期内所考察地区总人数保持不变，没有新增人口和因疾病以外的原因造成的死亡。
+
+我们将人群分为两类：
+
+- 易感者（Susceptible）：未得病者，但缺乏免疫力，与感染者接触后会被感染
+- 感染者（Infectious）：已经感染病原体的人，可以传播疾病
+
+假设单位时间内每人与 $\beta N$ 个人接触，并使其中的易感者受到感染。单位时间内 $\gamma I(t)$ 个感染者被治愈，重新成为易感者。
+
+!!! note ""
+    其中，$\beta$ 和 $\gamma$ 为常数，$S(0)=S_0$，$I(0)=I_0$，$S_0+I_0=N$
+
+我们给出微分方程组
+
+$$\begin{cases}
+\frac{\mathrm{d}S}{\mathrm{d}t}=-\beta SI+\gamma I\\
+\frac{\mathrm{d}I}{\mathrm{d}t}=\beta SI-\gamma I
+\end{cases}$$
+
+所以
+
+$$\frac{\mathrm{d}I}{\mathrm{d}t}=\beta (N-I)I-\gamma I=(\beta N-\gamma-\beta I)I=(\beta N-\gamma)I(1-\frac{\beta}{\beta N-\gamma}I)$$
+
+感觉是不是和 Logistic 模型很像？
+
+!!! note "Logistic 模型"
+    $$\frac{\mathrm{d}x}{\mathrm{d}t}=rx\left(1-\frac{x}{K}\right)$$
+
+- 若 $\beta N-\gamma>0$，$\forall I_0\in (0,N)$，$I(t)$ 单调递增趋向于 $N-\frac{\gamma}{\beta}$
+- 若 $\beta N-\gamma<0$，$\forall I_0\in (0,N)$，$I(t)$ 单调递减趋向于 $0$
+
+记 $\mathcal{R}_0=N\frac{\beta}{\gamma}$。
+
+### 平衡点
+
+自治系统有两个可能平衡点 $P_1=(N,0)$ 和 $P_2=(\frac{\gamma}{\beta},N-\frac{\gamma}{\beta})$
+
+- 当 $\mathcal{R}_0>1$ 时，$(S(t),I(t))$ 趋向于 $P_1$，人群中不再有感染者
+- 当 $\mathcal{R}_0<1$ 时，$(S(t),I(t))$ 趋向于 $P_2$，传染病成为地方性疾病
+
+## 防控传染病对策
+
+- 减少人群接触，减小 $\beta$ 值
+- 提高治疗水平，使感染者尽早治愈，即增大 $\gamma$值
+- 在存在移出者情况下，通过预防免疫办法提高初始移出者 $R_{0}$ 至 $N-\frac{\alpha}{\beta}$
