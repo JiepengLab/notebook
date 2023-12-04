@@ -1906,6 +1906,9 @@
 
 
 <h1 id="svd">SVD<a class="headerlink" href="#svd" title="点击此处可置顶内容">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 922 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 5 分钟</p>
+</div>
 <h2 id="svd_1">SVD要干什么？<a class="headerlink" href="#svd_1" title="点击此处可置顶内容">&para;</a></h2>
 <p>奇异值分解就是在低维空间中寻找最接近原矩阵 <span class="arithmatex">\(A\)</span> 的低维矩阵 <span class="arithmatex">\(M\)</span> ,说白了就是数据降维。</p>
 <p>就像这样：</p>
@@ -2011,6 +2014,21 @@ x&amp;=V\Sigma^+U^Tb
 \]</div>
 <p>因为在<span class="arithmatex">\(\Sigma\)</span>上， <span class="arithmatex">\(\sigma_1 \geq \cdots \geq \sigma_r\)</span>，因此，要<span class="arithmatex">\(||Ax||^2\)</span> 达到最小，即<span class="arithmatex">\(\sum_{i=1}^r\sigma_i^2y_i^2\)</span> 达到最小，不妨限制 <span class="arithmatex">\(y\)</span> 的模长为<span class="arithmatex">\(a\neq 0\)</span>，即<span class="arithmatex">\(\|y\|=a\)</span>，那么一定有<span class="arithmatex">\(y=(0,\cdots,0,a)^T\)</span></p>
 <p>所以<span class="arithmatex">\(x=V(0,\cdots,0,a)^T\)</span>，又因为对于齐次线性方程组而言，如果向量 <span class="arithmatex">\(x\)</span> 是解，那么任意线性组合如 <span class="arithmatex">\(kx\)</span> ，仍是它的解。所以，<span class="arithmatex">\(x\)</span> 的解空间是 <span class="arithmatex">\(V\)</span> 的最后一列。</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年11月29日 05:08:02</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年10月3日 11:40:43</span>
+      
+    
+  </small>
+</div>
 
 
 
