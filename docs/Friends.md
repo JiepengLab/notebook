@@ -107,8 +107,8 @@
             ![Alt text](images/friends/kjgg.jpg)
         </div>
         <a href="https://hovnysilence.github.io/" title="kjgg" target="_blank">
-            <div class="flink-item-name">白茫茫的一片</div>
-            <div class="flink-item-desc">催kjgg快修网站</div>
+            <div class="flink-item-name">h^ovny's blog</div>
+            <div class="flink-item-desc">\kjgg/\kjgg/\kjgg/</div>
         </a>
     </div>
     <div class="flink-list-item">
