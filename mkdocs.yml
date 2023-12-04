@@ -24,9 +24,9 @@ nav:
       - 09 常微分方程模型: 
         - 追逐问题: ./Fundemental/Mathematical Modeling/Chase.md
         - 最速降线问题: ./Fundemental/Mathematical Modeling/Brachistochrone.md
-      - 10 生物数学模型:
-        - 种群数量变化模型: ./Fundemental/Mathematical Modeling/PopulationChange.md
-        - 传染病模型: ./Fundemental/Mathematical Modeling/InfectiousDisease.md
+        - 生物数学模型:
+          - 种群数量变化模型: ./Fundemental/Mathematical Modeling/PopulationChange.md
+          - 传染病模型: ./Fundemental/Mathematical Modeling/InfectiousDisease.md
     #  - HW01: ./Fundemental/Mathematical Modeling/HW01.md
     # - 离散数学及其应用:
     #   - ./Fundemental/Discrete Mathematics And Its Applications/index.md
