@@ -61,6 +61,7 @@ nav:
       - Chapter 9 Approximating Eigenvalues: ./CS/NA/Chapter_09.md
       - Chapter 3 Interpolation and Polynomial Approximation: ./CS/NA/Chapter_03.md
       - Chapter 8 Approximation Theory: ./CS/NA/Chapter_08.md
+      - Chapter 4 Numerical Differentiation and Integration: ./CS/NA/Chapter_04.md
     - 人工智能初步:
       - ./CS/AI_Start/index.md
       - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
