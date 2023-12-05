@@ -104,7 +104,7 @@
 
 所以会有类似于超前进位加法器之类的东西来解决这个问题。
 
-更多的内容可以看**[咸鱼暄的计组笔记](https://xuan-insr.github.io/computer_organization/3_arithmetic/#311-1-bit-alu)**。（数逻中最多了解到超前进位加法器即可。）
+更多的内容可以看 **[咸鱼暄的计组笔记](https://xuan-insr.github.io/computer_organization/3_arithmetic/#311-1-bit-alu)**。（数逻中最多了解到超前进位加法器即可。）
 
 ---
 
@@ -335,23 +335,84 @@ $$V = C_{in} \oplus C_{out}$$
 
 ![Alt text](images/image-46.png)
 
-## 其他算术函数
+## 其他算术功能模块
 
-- 自增（incrementing）与自减（decrementing）
-    - 自增与自减运算可以通过对加减法器进行收缩（contraction）得到
-    - 具体而言就是把加减法器的其中一个输入设为常量（自增自减的步长）
-- 乘法与除法
-    - 与 $2^n$ 的乘数是最简单的，只需要通过移位就可以实现
-    !!! note "逻辑移位和算术移位 | Logic shift and Arithmetic shift"
+### 压缩 | Contraction
 
-        ![Alt text](images/image-48.png)
+在已有的电路或函数表达式上采用相同的技术实现新的功能块，针对特定应用
+将已有电路简化成一个简单电路，
 
-        逻辑移位：直接补零
+### 自增与自减 | Increment & Decrement
 
-        算术移位：移位后把原符号位再赋给首位
+- 自增与自减运算可以通过对加减法器进行收缩（contraction）得到
+- 具体而言就是把加减法器的其中一个输入设为常量（自增自减的步长）
 
-        !!! note ""
-            除此，移位的方法还有循环移位（barrel shifter）
+![Alt text](images/image-49.png)
 
-    - 任意常数的乘除的一种实现思路是，拆分成与若干个 $2^n$ 的乘除
-- （移位时）零扩展（zero fill）与符号位扩展（extension）
+### 乘法与除法 | Multiplication & Division
+
+- 与 $2^n$ 的乘数是最简单的，只需要通过移位就可以实现
+
+![Alt text](images/image-51.png)
+
+- 任意常数的乘除的一种实现思路是，拆分成与若干个 $2^n$ 的乘除
+
+### 零填充与符号扩展 | Zero Fill & Extension
+
+零填充，用于增加操作数的位数。符号扩展 (sign extension) 用来增加用补码表示的有符号数的位数。
+
+### 逻辑移位和算术移位 | Logic shift and Arithmetic shift"
+
+![Alt text](images/image-48.png)
+
+逻辑移位：直接补零
+
+算术移位：移位后把原符号位再赋给首位
+
+!!! note ""
+    除此，移位的方法还有循环移位（barrel shifter）
+
+#### 逻辑移位 | Logic shift
+
+##### 两级逻辑设计 | Two-level Logic design
+
+两级逻辑设计，就是用真值表来设计电路，然后用逻辑门来实现。
+
+![Alt text](images/image-52.png)
+
+##### 基于多路选择器的设计 | Mux-based design
+
+![Alt text](images/image-53.png)
+
+#### 循环移位 | Barrel shifter
+
+![Alt text](images/image-54.png)
+
+### 算术逻辑单元 | Arithmetic Logic Unit
+
+![Alt text](images/image-55.png){: width=70%}
+
+特性：
+
+- Two n-bit input: $A_0-A_{n-1}, B_0-B_{n-1}$
+- mode selection (arithmetic/logical): $S_2$
+- operation selection :$S_0, S_1$
+    - signed arithmetic: add/sub/inc/dec
+    - logical operation: and/or/not/xor
+- 1-bit carry input: $C_{in}$
+
+![Alt text](images/image-59.png){: width=50%}
+
+#### 逻辑功能实现
+
+一个 `Mux` 来选择四路逻辑运算。
+
+![Alt text](images/image-58.png)
+
+#### 算术功能实现
+
+![Alt text](images/image-57.png)
+
+我们通过 $S_0, S_1$ 来选择操作。
+
+![Alt text](images/image-56.png)

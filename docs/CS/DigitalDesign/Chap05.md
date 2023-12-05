@@ -61,22 +61,16 @@
     在可编程逻辑电路中，线的连接不再只有单纯的连通和不连通的关系：
 
     对于两条相交导线：
+
+    ![Alt text](images/image-24.png)
     
     - 如果没有特殊符号，则表示这个交叉点 is not connected ；
-
-    ![](img/53.png)
-
     - 如果有一个 ❌，则表示这个交叉点 programmable；
-
-    ![](img/55.png)
-
     - 如果只有一个加粗的点，则表示这个交叉点 not programmable；
-
-    ![](img/54.png)
 
 特别的，如果一个元器件的所有输入都是 programmable，我们也可以选择把这个 ❌ 画到逻辑门上（如下图 e 和 f）。
 
-![](img/56.png)
+![Alt text](images/image-25.png)
 
 ---
 
@@ -95,7 +89,8 @@ $$
 \end{aligned}
 $$
 
-???+ example "eg"
+!!! example "eg"
+
     更清晰的表示其内部逻辑的，可以将 ROM 写成这样：
 
     ![](img/58.png)
