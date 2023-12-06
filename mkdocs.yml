@@ -6,45 +6,45 @@ nav:
   - 基础课程:
     - ./Fundemental/index.md
     - 离散数学及其应用:
-      - ./Fundemental/Discrete Mathematics And Its Applications/index.md
-      - Chapter.1-The Foundations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter1.md
-      - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete Mathematics And Its Applications/Chapter4.md
-      - Chapter.5-Induction and Recursion: ./Fundemental/Discrete Mathematics And Its Applications/Chapter5.md
-      - Chapter.6-Counting: ./Fundemental/Discrete Mathematics And Its Applications/Chapter6.md
-      - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete Mathematics And Its Applications/Chapter8.md
-      - Chapter.9-Relations: ./Fundemental/Discrete Mathematics And Its Applications/Chapter9.md
-      - Chapter.10-Graphs: ./Fundemental/Discrete Mathematics And Its Applications/Chapter10.md
-      - Chapter.11-Trees: ./Fundemental/Discrete Mathematics And Its Applications/Chapter11.md
+      - ./Fundemental/Discrete-Mathematics-And-Its-Applications/index.md
+      - Chapter.1-The Foundations: ./Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter1.md
+      - Chapter.4-The Number Theory and Cryptography: ./Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter4.md
+      - Chapter.5-Induction and Recursion: ./Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter5.md
+      - Chapter.6-Counting: ./Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter6.md
+      - Chapter.8-Advanced Counting Techniques: ./Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter8.md
+      - Chapter.9-Relations: ./Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter9.md
+      - Chapter.10-Graphs: ./Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter10.md
+      - Chapter.11-Trees: ./Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter11.md
     - 数学建模:
-      - ./Fundemental/Mathematical Modeling/index.md
-      - 01 秘密共享: ./Fundemental/Mathematical Modeling/Secret.md
-      - 02 搜索引擎的PageRank模型: ./Fundemental/Mathematical Modeling/PageRank.md
-      - 03 Nim游戏: ./Fundemental/Mathematical Modeling/NimGame.md
-      - 04 组合群式 - 伪币辨识: ./Fundemental/Mathematical Modeling/FakeCoin.md
+      - ./Fundemental/Mathematical-Modeling/index.md
+      - 01 秘密共享: ./Fundemental/Mathematical-Modeling/01-Secret.md
+      - 02 搜索引擎的PageRank模型: ./Fundemental/Mathematical-Modeling/02-PageRank.md
+      - 03 Nim游戏: ./Fundemental/Mathematical-Modeling/03-NimGame.md
+      - 04 组合群式 - 伪币辨识: ./Fundemental/Mathematical-Modeling/04-FakeCoin.md
       - 05 随机模型:
-        - 概率群式 - 疾病检测: ./Fundemental/Mathematical Modeling/Disease.md
-        - 概率论 - MontyHall: ./Fundemental/Mathematical Modeling/MontyHall.md
-        - 期望 - 赠券收集: ./Fundemental/Mathematical Modeling/Coupon.md
-        - 随机过程 - 赌徒破产 & Pascal: ./Fundemental/Mathematical Modeling/Gambler.md
-      - 06 秘书问题: ./Fundemental/Mathematical Modeling/Secretary.md
-      - 07 安全观演: ./Fundemental/Mathematical Modeling/Show.md
+        - 概率群式 - 疾病检测: ./Fundemental/Mathematical-Modeling/05-Disease.md
+        - 概率论 - MontyHall: ./Fundemental/Mathematical-Modeling/06-MontyHall.md
+        - 期望 - 赠券收集: ./Fundemental/Mathematical-Modeling/07-Coupon.md
+        - 随机过程 - 赌徒破产 & Pascal: ./Fundemental/Mathematical-Modeling/08-Gambler.md
+      - 06 秘书问题: ./Fundemental/Mathematical-Modeling/09-Secretary.md
+      - 07 安全观演: ./Fundemental/Mathematical-Modeling/10-Show.md
       - 08 差分方程模型:
-        - 蛛网模型: ./Fundemental/Mathematical Modeling/Spider.md
-        - 种群增长模型: ./Fundemental/Mathematical Modeling/Population.md
+        - 蛛网模型: ./Fundemental/Mathematical-Modeling/11-Spider.md
+        - 种群增长模型: ./Fundemental/Mathematical-Modeling/12-Population.md
       - 09 常微分方程模型: 
-        - 追逐问题: ./Fundemental/Mathematical Modeling/Chase.md
-        - 最速降线问题: ./Fundemental/Mathematical Modeling/Brachistochrone.md
+        - 追逐问题: ./Fundemental/Mathematical-Modeling/13-Chase.md
+        - 最速降线问题: ./Fundemental/Mathematical-Modeling/14-Brachistochrone.md
         - 生物数学模型:
-          - 种群数量变化模型: ./Fundemental/Mathematical Modeling/PopulationChange.md
-          - 传染病模型: ./Fundemental/Mathematical Modeling/InfectiousDisease.md
-    #  - HW01: ./Fundemental/Mathematical Modeling/HW01.md
+          - 种群数量变化模型: ./Fundemental/Mathematical-Modeling/15-PopulationChange.md
+          - 传染病模型: ./Fundemental/Mathematical-Modeling/16-InfectiousDisease.md
+          - 种间关系模型: ./Fundemental/Mathematical-Modeling/17-Interactions.md
 
     - 概率论与数理统计: 
-      - ./Fundemental/Probability and Mathematical Statistics/index.md
-      - 1. 概率论的基本概念: ./Fundemental/Probability and Mathematical Statistics/Chap01.md
-      - 2. 随机变量及其概率分布: ./Fundemental/Probability and Mathematical Statistics/Chap02.md
-      - 3. 多维随机变量及其分布: ./Fundemental/Probability and Mathematical Statistics/Chap03.md
-      - 4. 随机变量的数字特征: ./Fundemental/Probability and Mathematical Statistics/Chap04.md
+      - ./Fundemental/Probability-and-Mathematical-Statistics/index.md
+      - 1. 概率论的基本概念: ./Fundemental/Probability-and-Mathematical-Statistics/Chap01.md
+      - 2. 随机变量及其概率分布: ./Fundemental/Probability-and-Mathematical-Statistics/Chap02.md
+      - 3. 多维随机变量及其分布: ./Fundemental/Probability-and-Mathematical-Statistics/Chap03.md
+      - 4. 随机变量的数字特征: ./Fundemental/Probability-and-Mathematical-Statistics/Chap04.md
     - 大学物理（乙）II: ./Fundemental/Physics-II/index.md
   - 校内CS课程: 
     - ./CS/index.md
