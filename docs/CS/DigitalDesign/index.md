@@ -15,3 +15,5 @@
     - [Chap 0 Introduction](Chap00.md)
     - [Chap 1 Digital Systems and Information](Chap01.md)
     - [Chap 2 Combinational Logic Circuits](./Chap02/index.md)
+    - [Chap 3 Combinational Logic Design](./Chap03/index.md)
+    - [Chap 4 Sequential Circuits](./Chap04.md)

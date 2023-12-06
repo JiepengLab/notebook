@@ -67,6 +67,7 @@ nav:
       - Note 01-AI数学基础: ./CS/AI_Start/Note01.md
     - 数字逻辑设计:
       - ./CS/DigitalDesign/index.md
+      - Glossary: ./CS/DigitalDesign/glossary.md
       - Chap 00-Introduction: ./CS/DigitalDesign/Chap00.md
       - Chap 01-Digital Systems and Information: ./CS/DigitalDesign/Chap01.md
       - Chap 02-Combinational Logic Circuits: 

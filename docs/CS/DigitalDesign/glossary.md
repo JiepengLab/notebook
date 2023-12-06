@@ -123,7 +123,7 @@ degenerate: 退化, e.g., A NAND gate with one input degenerates to an inverter.
 
 Hi-Impedance Outputs: 高阻态输出
 
-## 4) ch3. 1-2
+## 4) Ch3.1-2
 
 rudimentary:基础的；基本的；未充分发展的；原始的
 
@@ -155,7 +155,7 @@ cell library：元件库
 
 schematic：原理图，简图
 
-## 5) ch3. 3-9
+## 5) Ch3.3-9
 
 decoder：译码器
 
@@ -169,7 +169,7 @@ anode: 阳极，正极
 
 cathode: 阴极，负极
 
-## 6) Ch3. 8-10
+## 6) Ch3.8-10
 
 Iterative array：迭代阵列
 
@@ -194,7 +194,7 @@ Signed-Complement：符号—补码表示法
 
 contraction：(n.) 收缩、紧缩；contract：(v.) 收缩
 
-## 8) Ch5. 2
+## 8) Ch5.2
 
 fuse intact：熔丝保留
 
@@ -204,7 +204,7 @@ volatile：易失性的
 
 non-volatile：非易失性的
 
-## 9) Ch4. 1-4
+## 9) Ch4.1-4
 
 tractable: (adj.) 易处理的；易驾驭的
 
@@ -238,7 +238,7 @@ self-recovery capability：自恢复能力
 
 equivalent state：等价状态
 
-## 10) Ch6. 1-5
+## 10) Ch6.1-5
 
 register：寄存器
 
@@ -264,7 +264,7 @@ data path：数据通道
 
 control unit：控制单元
 
-## 11) Ch7. 1-7
+## 11) Ch7.1-7
 
 strobe：选通；选通脉冲；闸门
 
