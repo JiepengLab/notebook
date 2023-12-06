@@ -1,0 +1,2671 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/Fundemental/Discrete-Mathematics-And-Its-Applications/Chapter11/">
+      
+      
+        <link rel="prev" href="../Chapter10/">
+      
+      
+        <link rel="next" href="../../Mathematical-Modeling/">
+      
+      
+      <link rel="icon" href="../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>Chapter.11-Trees - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-11-trees" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter.11-Trees
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS/" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Friends/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朋友们！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CurrentStudy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正在学习的课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            基础课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    离散数学及其应用
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            离散数学及其应用
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter.1-The Foundations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter.4-The Number Theory and Cryptography
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter.5-Induction and Recursion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter.6-Counting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter.8-Advanced Counting Techniques
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter.9-Relations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chapter10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter.10-Graphs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Chapter.11-Trees
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Chapter.11-Trees
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#111-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 - Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#112-applications-of-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 - Applications of Trees
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#113-tree-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 - Tree Traversal(树的遍历)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#114-spanning-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.4 - Spanning Trees
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.4 - Spanning Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建生成树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="构建生成树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Depth-first search（深度优先搜索）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breadth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Breadth-first search（广度优先搜索）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backtracking-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backtracking scheme（回溯方案）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimum-spanning-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimum Spanning Trees（最小生成树）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Minimum Spanning Trees（最小生成树）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prims-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prim's Algorithm（普里姆算法）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kruskals-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kruskal's Algorithm（克鲁斯卡尔算法）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../Mathematical-Modeling/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数学建模
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../Probability-and-Mathematical-Statistics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Physics-II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大学物理（乙）II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            校内CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/NA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数值分析
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/AI_Start/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    人工智能初步
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/DigitalDesign/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数字逻辑设计
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/DIP/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    图像信息处理
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS/FDS/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    数据结构基础
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CS_Online/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            校外CS课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML-4360/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ML-4360
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/ML_Lhy/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    李宏毅《机器学习》
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Mess/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            杂项
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Mess/DIP-C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    《数字图像处理编程入门》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/ESG/Paper/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    ESG商赛
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/Marxism/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    马原
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#111-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 - Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#112-applications-of-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 - Applications of Trees
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#113-tree-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 - Tree Traversal(树的遍历)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#114-spanning-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.4 - Spanning Trees
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.4 - Spanning Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建生成树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="构建生成树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Depth-first search（深度优先搜索）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breadth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Breadth-first search（广度优先搜索）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backtracking-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backtracking scheme（回溯方案）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimum-spanning-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimum Spanning Trees（最小生成树）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Minimum Spanning Trees（最小生成树）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prims-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prim's Algorithm（普里姆算法）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kruskals-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kruskal's Algorithm（克鲁斯卡尔算法）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="chapter-11-trees">Chapter 11 - Trees<a class="headerlink" href="#chapter-11-trees" title="点击此处可置顶内容">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 3102 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 156 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 17 分钟</p>
+</div>
+<h2 id="111-introduction">11.1 - Introduction<a class="headerlink" href="#111-introduction" title="点击此处可置顶内容">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Tree</strong>:  a connected undirected graph with no simple circuits.</p>
+<ul>
+<li>Any tree must be <strong>a simple graph</strong>.</li>
+<li>Every tree is a <strong>bipartite graph</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>forest</strong>: a graph with no simple circuits, but not necessarily connected.</p>
+</li>
+</ul>
+<p><strong>[Theorem 1]</strong>:  An undirected graph is a tree if and only if there is a unique simple path between any two of its vertices.</p>
+<ul>
+<li>
+<p><strong>rooted tree</strong>: A rooted tree is a tree in which one vertex has been designated as the root and every edge is directed away from the root.
+（有向树）</p>
+<ul>
+<li>An <strong>unrooted tree</strong> is converted into different rooted trees when different vertices are chosen as the root.</li>
+<li>注意区分<strong>rooted tree</strong>和<strong>unrooted tree</strong>，题目让你枚举时，<strong>rooted tree</strong>可以由同一个<strong>unrooted tree</strong>转化为不同的<strong>rooted tree</strong>。</li>
+<li><strong>parent</strong>: a vertex adjacent to a vertex <span class="arithmatex">\(v\)</span> on the unique path from <span class="arithmatex">\(v\)</span> to the root.</li>
+</ul>
+</li>
+<li>
+<p><strong>child</strong>: a vertex adjacent to a vertex <span class="arithmatex">\(v\)</span> that is the parent of <span class="arithmatex">\(v\)</span>.</p>
+</li>
+<li>
+<p><strong>sibling</strong>: vertices that have the same parent.</p>
+</li>
+<li>
+<p><strong>ancestor</strong>: a vertex <span class="arithmatex">\(w\)</span> that lies on the unique path from the root to <span class="arithmatex">\(v\)</span>.</p>
+</li>
+<li>
+<p><strong>descendant</strong>: a vertex <span class="arithmatex">\(w\)</span> that has <span class="arithmatex">\(v\)</span> as an ancestor.</p>
+</li>
+<li>
+<p><strong>leaf</strong>: a vertex of degree 1.</p>
+</li>
+<li>
+<p><strong>internal vertex</strong>: a vertex of degree at least 2.</p>
+</li>
+<li>
+<p><strong>subtree</strong>: the tree consisting of a vertex and its descendants.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p><strong>m-ary tree</strong>: a rooted tree in which each internal vertex has no more than <span class="arithmatex">\(m\)</span> children.</p>
+<ul>
+<li>If <span class="arithmatex">\(m = 2\)</span>, the tree is called a <strong>binary tree</strong>.</li>
+<li>If each internal vertex has exactly <span class="arithmatex">\(m\)</span> children, the tree is called a <strong>full m-ary tree</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Ordered rooted tree</strong>: a rooted tree in which the children of each internal vertex are ordered.</p>
+<ul>
+<li>In an ordered binary tree, the two possible children of a vertex are called the left child and the right child, if they exist.（顶点的两个可能的子节点称为左子节点和右子节点。）</li>
+<li>The tree rooted at the left child is called the left subtree, and that rooted at the right child is called the right subtree.（以左子节点为根的树称为左子树，以右子节点为根的树称为右子树。）
+  -有序树的同构，要求节点的子节点的顺序也相同。</li>
+</ul>
+</li>
+</ul>
+<p><strong>[Theorem 2]</strong>:  A tree with <span class="arithmatex">\(n\)</span> vertices has <span class="arithmatex">\(n-1\)</span> edges</p>
+<blockquote>
+<p>〖Example〗A tree has two vertices of degree 2, one vertex of degree 3, three vertices of degree 4. How many leafs does this tree has?</p>
+<ol>
+<li>假设有 <span class="arithmatex">\(x\)</span> 个leaf，那么树的总顶点数</li>
+</ol>
+<div class="arithmatex">\[v = x+2+1+3 = x+6\]</div>
+<p>总度数为</p>
+<div class="arithmatex">\[x+2×2+1×3+3×4=x+19\]</div>
+<ol>
+<li>因为边的总数为总度数的一半，所以</li>
+</ol>
+<div class="arithmatex">\[x+19=2e\]</div>
+<ol>
+<li>根据定理2，我们有</li>
+</ol>
+<div class="arithmatex">\[e=v-1\]</div>
+<p>所以</p>
+<div class="arithmatex">\[x+19=2(v-1)=2(x+5)\]</div>
+<p>解得</p>
+<div class="arithmatex">\[n=9\]</div>
+</blockquote>
+<p><strong>[Theorem 3]</strong>:  A <strong>full m-ary tree</strong> with <span class="arithmatex">\(i\)</span> internal vertices contains <span class="arithmatex">\(n = mi + 1\)</span> vertices and <span class="arithmatex">\(l = (m-1)i + 1\)</span> leaves.</p>
+<ul>
+<li>由此可以构建出一棵full m-ary tree中的internal vertices, leaves, vertices的关系。</li>
+</ul>
+<p><strong>Level of a vertex</strong>: the number of edges on the unique path from the root to the vertex.</p>
+<blockquote>
+<p>Root的Level为0，其余顶点的Level为其父节点的Level+1。</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>Height of a tree</strong>: the maximum level of any vertex in the tree.</p>
+</li>
+<li>
+<p><strong>Balanced m-ary tree</strong>: a full m-ary tree of height <span class="arithmatex">\(h\)</span> is balanced if all leaves are at level <span class="arithmatex">\(h\)</span> <strong><em>or</em></strong> <span class="arithmatex">\(h-1\)</span>.</p>
+</li>
+</ul>
+<p><strong>[Theorem 4]</strong>:  There are at most <span class="arithmatex">\(m^h\)</span> leaves in <strong>an m-ary tree</strong> of height <span class="arithmatex">\(h\)</span>.</p>
+<p><strong>[Corollary]</strong>:  If an m-ary tree of height <span class="arithmatex">\(h\)</span> has <span class="arithmatex">\(l\)</span> leaves, then <span class="arithmatex">\(h \geq \lceil \log_m l \rceil\)</span>, and <span class="arithmatex">\(h = \lceil \log_m l \rceil\)</span> if the tree is balanced and full.</p>
+<h2 id="112-applications-of-trees">11.2 - Applications of Trees<a class="headerlink" href="#112-applications-of-trees" title="点击此处可置顶内容">&para;</a></h2>
+<p><strong>Binary Search Tree</strong>: a binary tree in which the key in each node is greater than all keys in its left subtree and less than all keys in its right subtree.(二叉搜索树中每个节点的键值大于其左子树中的所有键值，小于其右子树中的所有键值。)</p>
+<blockquote>
+<p><strong>复杂度</strong>：如果这个二分搜索树是balanced，那么定位或增加一个元素的比较次数不超过<span class="arithmatex">\(\lceil \log (n+1) \rceil\)</span></p>
+</blockquote>
+<p><strong>Decision Tree</strong>: A rooted tree in which each internal vertex corresponds to a decision, with a subtree at these vertices for each possible outcome of the decision.(决策树是一种有根树，其中每个内部顶点对应一个决策，每个决策的可能结果在这些顶点处有一个子树。)</p>
+<p><strong>Prefix Codes</strong>: 是一种特殊的编码方式，每个字符对应一个编码，且任意一个字符的编码都不是另一个字符编码的前缀。
+重要例子：<strong>霍夫曼编码</strong>。</p>
+<blockquote>
+<ol>
+<li>从频率最低的开始，每次取出两个频率最低的，合并成一个新的频率，直到只剩一个频率。</li>
+<li>从根节点开始，左子节点编码为0，右子节点编码为1，直到叶子节点。</li>
+<li>从根节点到叶子节点的路径就是该叶子节点的编码。</li>
+</ol>
+<blockquote>
+<p>〖Example 1〗 Use Huffman coding to encode the following symbols with the frequencies listed: <span class="arithmatex">\(A:0.08,~B:0.10,~C:0.12,~D:0.15,~E:0.20,~F:0.35\)</span>. What is the average number of bits used to encode a character?
+该例子中，频率小的在右边</p>
+</blockquote>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+a(初始频率:)
+A(A:0.08) ;
+B(B:0.10) ;
+C(C:0.12) ;
+D(D:0.15) ;
+E(E:0.20) ;
+F(F:0.35) ;</code></pre>
+<p>开始合并：</p>
+<pre class="mermaid"><code>graph TD
+C(C:0.12) ;
+D(D:0.15) ;
+BA(0.18)--- B(B:0.10) &amp; A(A:0.08) ;
+E(E:0.20) ;
+F(F:0.35) ;</code></pre>
+<pre class="mermaid"><code>graph TD
+BA(0.18)--- B(B:0.10) &amp; A(A:0.08) ;
+E(E:0.20) ;
+DC(0.27)--- D(D:0.15) &amp; C(C:0.12) ;
+F(F:0.35) ;</code></pre>
+<pre class="mermaid"><code>graph TD
+DC(0.27)--- D(D:0.15) &amp; C(C:0.12) ;
+F(F:0.35) ;
+EBA(0.38)--- E(E:0.20) &amp; BA(0.18) ;
+BA(0.18)--- B(B:0.10) &amp; A(A:0.08) ;</code></pre>
+<pre class="mermaid"><code>graph TD
+EBA(0.38)--- E(E:0.20) &amp; BA(0.18) ;
+BA(0.18)--- B(B:0.10) &amp; A(A:0.08) ;
+FDC(0.62)--- F(F:0.35) &amp; DC(0.27) ;
+DC(0.27)--- D(D:0.15) &amp; C(C:0.12) ;</code></pre>
+<pre class="mermaid"><code>graph TD
+ALL(1.00)---  FDC(0.62) &amp; EBA(0.38) ;
+EBA(0.38)--- E(E:0.20) &amp; BA(0.18) ;
+BA(0.18)--- B(B:0.10) &amp; A(A:0.08) ;
+FDC(0.62)--- F(F:0.35) &amp; DC(0.27) ;
+DC(0.27)--- D(D:0.15) &amp; C(C:0.12) ;</code></pre>
+<blockquote>
+<p>向左为零，向右为一，得到编码：
+F:00,D:010,C:011,E:10,B:110,A:111
+所以平均编码长度为：<span class="arithmatex">\(0.35×2+0.15×3+0.12×3+0.20×2+0.10×3+0.08×3=2.45\)</span></p>
+</blockquote>
+<h2 id="113-tree-traversal">11.3 - Tree Traversal(树的遍历)<a class="headerlink" href="#113-tree-traversal" title="点击此处可置顶内容">&para;</a></h2>
+<ul>
+<li>
+<p><strong>preorder traversal(前序遍历)</strong>: 先访问<em>根节点</em>，然后递归地前序遍历<em>左子树</em>，最后递归地前序遍历<em>右子树</em>。</p>
+</li>
+<li>
+<p><strong>inorder traversal(中序遍历)</strong>: 递归地中序遍历<em>左子树</em>，然后访问<em>根节点</em>，最后递归地中序遍历<em>右子树</em>。</p>
+</li>
+<li>
+<p><strong>postorder traversal(后序遍历)</strong>:递归地后序遍历<em>左子树</em>，然后递归地后序遍历<em>右子树</em>，最后访问<em>根节点</em>。</p>
+</li>
+</ul>
+<blockquote>
+<p>〖Example〗: 用前序遍历、中序遍历、后序遍历的方式遍历下面的树。</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+A(a)--- B(b) &amp; C(c) ;
+B--- D(d) &amp; J(j) ;
+C--- E(e) &amp; F(f) ;
+E--- G(g) &amp; K(k) ;
+F--- H(h) &amp; I(i) ;</code></pre>
+<blockquote>
+<p>Preorder: a,b,d,j,c,e,g,k,f,h,i
+Inorder: d,b,j,a,g,e,k,c,h,f,i
+Postorder: d,j,b,g,k,e,h,i,f,c,a</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>〖Example〗 There is a binary tree. Its preorder traversal is ABDECF，and its
+inorder traversal is DBEACF. Its postorder traversal is _____________?</p>
+<ol>
+<li>根据前序遍历，我们知道A是根节点。</li>
+<li>根据中序遍历，我们知道BDE在A的左子树，CF在A的右子树。</li>
+<li>根据前序遍历，我们知道BDE在A的左子树，所以B是A的左子节点，D是B的左子节点，E是D的右子节点。</li>
+<li>根据前序遍历，我们知道CF在A的右子树，所以C是A的右子节点，F是C的右子节点。</li>
+<li>所以，该树的后序遍历为：DEBFCA</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>Expression Tree</strong>: a binary tree in which each internal node corresponds to an operator and each leaf node corresponds to an operand.(表达式树是一种二叉树，其中每个内部节点对应一个运算符，每个叶节点对应一个操作数。)<ul>
+<li>Each leaf node contains a single operand(每个叶节点包含一个操作数).</li>
+<li>Each nonleaf node contains an operator(每个非叶节点包含一个运算符，并且有两个子节点).</li>
+<li>The left and right subtrees of an operator node represent subexpressions that must be evaluated before applying the operator at the root of the subtree(运算符节点的左子树和右子树表示必须在应用子树根处的运算符之前计算的子表达式).</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>〖Example〗: What is the odered tree that represents the expression <span class="arithmatex">\(3*\ln(x+1)+\frac{a}{x^2}\)</span>?</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+A(+)--- B(*) &amp; C(/) ;
+B--- D(3) &amp; E(ln) ;
+C--- F(a) &amp; G(^) ;
+E--- M(+);
+M--- H(x) &amp; I(1) ;
+G--- J(x) &amp; K(2) ;</code></pre>
+<ul>
+<li><strong>Infix Form(中缀表达式)</strong>: the operator is between the operands.<blockquote>
+<p>〖Example〗: <span class="arithmatex">\(3*\ln(x+1)+\frac{a}{x^2}\)</span></p>
+</blockquote>
+</li>
+<li><strong>Prefix Form(前缀表达式)</strong>: the operator is before the operands.<blockquote>
+<p>〖Example〗: <span class="arithmatex">\(+*3\ln+x1/a\hat~x2\)</span></p>
+</blockquote>
+</li>
+<li><strong>Postfix Form(后缀表达式)</strong>: the operator is after the operands.<blockquote>
+<p>〖Example〗: <span class="arithmatex">\(3x1+\ln*ax2\hat~/+\)</span></p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>〖Example〗: The string <span class="arithmatex">\(2~~3~~a~~\cdot~~x~~+~~4~~\wedge~~+~~7~~\wedge\)</span> is <strong>postfix</strong> notation for an algebraic expression.
+Write the expression in prefix notation</p>
+<ol>
+<li><strong>从左往右</strong>，遇到第一个运算符，将其与其前的两个操作数组成一个新的表达式。
+在本例中，第一个运算符是<span class="arithmatex">\(~~\cdot~~\)</span>，其前的两个操作数是<span class="arithmatex">\(3\)</span>和<span class="arithmatex">\(a\)</span>，所以新的表达式为<span class="arithmatex">\(3\cdot a\)</span>。</li>
+<li>将新的表达式替换原来的两个操作数，得到新的表达式<span class="arithmatex">\(2~~(3\cdot a)~x + 4 \wedge + 7 \wedge\)</span>。</li>
+<li>重复步骤1和2，得到新的表达式<span class="arithmatex">\(2~~((3\cdot a) +x~) 4 \wedge + 7 \wedge\)</span>。</li>
+<li>重复步骤1和2，得到新的表达式<span class="arithmatex">\(2~~(((3\cdot a) +x~)\wedge 4)  + 7\wedge~\)</span>。</li>
+<li>重复步骤1和2，得到新的表达式<span class="arithmatex">\((2+(((3\cdot a) +x~)\wedge 4) ) 7\wedge~\)</span>。</li>
+<li>重复步骤1和2，得到新的表达式<span class="arithmatex">\((2+(((3\cdot a) +x~)\wedge 4) ) \wedge 7\)</span>。</li>
+<li>最终得到的表达式为<span class="arithmatex">\((2+(((3\cdot a) +x~)\wedge 4) ) \wedge 7\)</span>。</li>
+</ol>
+<pre class="mermaid"><code>graph TD
+A(^)--- B(+) &amp; C(7) ;
+B--- D(2) &amp; E(^) ;
+E--- F(+) &amp; G(4) ;
+F--- H(*) &amp; I(x) ;
+H--- J(3) &amp; K(a) ;</code></pre>
+<ol>
+<li>其前缀表达式为<span class="arithmatex">\(\wedge +2\wedge +\cdot 3~a~x~4~7\)</span></li>
+</ol>
+</blockquote>
+<hr />
+<blockquote>
+<p>〖Example〗Find the value of <span class="arithmatex">\(-~~\wedge~~x~~*~~5~~t~~/~~4~~-~~7~~c\)</span> (in <strong>prefix</strong> notation) when <span class="arithmatex">\(x = 2,~t = 1,~c = 5\)</span>.</p>
+<ol>
+<li><strong>从右往左</strong>，遇到第一个运算符，将其与其后的两个操作数组成一个新的表达式。
+在本例中，第一个运算符是<span class="arithmatex">\(~~-~~\)</span>，其后的两个操作数是<span class="arithmatex">\(7\)</span>和<span class="arithmatex">\(c\)</span>，所以新的表达式为<span class="arithmatex">\(7-c\)</span>。</li>
+<li>将新的表达式替换原来的两个操作数，得到新的表达式<span class="arithmatex">\(-~~\wedge~~x~~*~~5~~t~~/~~4~~(7-c)\)</span>。</li>
+<li>重复步骤1和2，得到新的表达式<span class="arithmatex">\(-~~\wedge~~x~~*~~5~~t~~(4/(7-c))\)</span>。</li>
+<li>重复步骤1和2，得到新的表达式<span class="arithmatex">\(-~~\wedge~~x~~(5*t)~~(4/(7-c))\)</span>。</li>
+<li>重复步骤1和2，得到新的表达式<span class="arithmatex">\(-~~(x\wedge(5*t))~~(4/(7-c))\)</span>。</li>
+<li>重复步骤1和2，得到新的表达式<span class="arithmatex">\((x\wedge(5*t))-(4/(7-c))\)</span>。</li>
+<li>也就是<span class="arithmatex">\(x^{5t}-\frac{4}{7-c}\)</span>。</li>
+<li>将<span class="arithmatex">\(x = 2,~t = 1,~c = 5\)</span>代入，得到<span class="arithmatex">\(x^{5t}-\frac{4}{7-c}=2^5-\frac{4}{7-5}=32-2=30\)</span>。
+</li>
+</ol>
+</blockquote>
+<p>总结：<strong>prefix</strong>和<strong>postfix</strong>的区别在于运算符的位置：</p>
+<ul>
+<li><strong>prefix</strong>的运算符在操作数的前面，所以<strong>从右往左</strong>遍历</li>
+<li><strong>postfix</strong>的运算符在操作数的后面，所以<strong>从左往右</strong>遍历</li>
+</ul>
+<h2 id="114-spanning-trees">11.4 - Spanning Trees<a class="headerlink" href="#114-spanning-trees" title="点击此处可置顶内容">&para;</a></h2>
+<ul>
+<li><strong>Spanning Tree</strong>: a spanning tree of a graph <span class="arithmatex">\(G\)</span> is a subgraph of <span class="arithmatex">\(G\)</span> that is a tree containing every vertex of <span class="arithmatex">\(G\)</span>.<ul>
+<li>A graph may have many different spanning trees.</li>
+<li>A graph may have no spanning trees, if it is disconnected.</li>
+<li>A graph may have spanning trees with different numbers of edges.</li>
+</ul>
+</li>
+</ul>
+<p><strong>[Theorem 1]</strong>:  A simple graph is connected if and only if it has a spanning tree.</p>
+<h3 id="_1">构建生成树<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>Theorem 1 gives an algorithm for finding spanning trees by removing edges from simple circuits.</li>
+</ul>
+<p>Instead of constructing spanning trees by removing edges, spanning trees can be built up by successively adding edges.</p>
+<h4 id="depth-first-search">Depth-first search（深度优先搜索）<a class="headerlink" href="#depth-first-search" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>Depth-first search(DFS/backtracking)</strong>: this procedure forms a rooted tree, and the underlying undirected graph is a spanning tree(这个过程形成一个有根树，底层的无向图是一棵生成树).</li>
+</ul>
+<blockquote>
+<ol>
+<li>任意选择一个顶点作为根。</li>
+<li>从这个顶点开始，通过不断添加边来形成一条路径，其中每条新边与路径中的最后一个顶点和尚未在路径中的顶点相邻。</li>
+<li>只要可能，就继续向这条路径添加边。</li>
+<li>如果路径经过图的所有顶点，则由该路径组成的树是一棵生成树。</li>
+<li>如果路径没有经过所有顶点，则必须添加更多边。如果可能的话，回到路径中的倒数第二个顶点，在这个顶点开始形成一条新的路径，通过尚未访问的顶点。如果不能这样做，就回到路径中的另一个顶点。</li>
+<li>重复这个过程</li>
+</ol>
+</blockquote>
+<hr />
+<blockquote>
+<p>〖Example〗: Use depth-first search to find a spanning tree for the directed graph below.</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+a --&gt; b &amp; e;
+b --&gt; c &amp; f;
+c --&gt; g;
+d --&gt; c &amp; h;
+f --&gt; e &amp; g;
+h --&gt; l;
+i --&gt; e &amp; j;
+j --&gt; f;
+k --&gt; g;
+l --&gt; k;</code></pre>
+<blockquote>
+<ol>
+<li>从没有入度的顶点开始，这里有三个：<span class="arithmatex">\(a\)</span>，<span class="arithmatex">\(d\)</span>，<span class="arithmatex">\(i\)</span>，我们从<span class="arithmatex">\(a\)</span>开始。</li>
+<li>因为<span class="arithmatex">\(e\)</span>已经被访问过了，所以<span class="arithmatex">\(a\)</span>没有其他的child，以<span class="arithmatex">\(a\)</span>为根的树已经构建完成，开始构建以<span class="arithmatex">\(d\)</span>为根的树。</li>
+<li>以<span class="arithmatex">\(d\)</span>为根的树构建完成，开始构建以<span class="arithmatex">\(i\)</span>为根的树。</li>
+</ol>
+<pre class="mermaid"><code>graph TD
+第一步:;
+a --&gt; b;
+b --&gt; f;
+f --&gt; e;
+b --&gt; c;
+c --&gt; g;
+第二步:;
+d --&gt; h;
+h --&gt; l;
+l --&gt; k;
+k --&gt; j;
+第三步:;
+i;</code></pre>
+</blockquote>
+<h4 id="breadth-first-search">Breadth-first search（广度优先搜索）<a class="headerlink" href="#breadth-first-search" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>Breadth-first search(BFS)</strong>:</li>
+</ul>
+<blockquote>
+<ol>
+<li>任意选择一个顶点作为根，将与该顶点相邻的所有边添加到树中。</li>
+<li>在这个阶段添加的新顶点成为生成树中的第一级顶点。任意排序它们。</li>
+<li>对于每个在第一级的顶点，按顺序访问，将与该顶点相邻的每条边添加到树中，只要它不产生一个回路。任意排序每个第一级顶点的子顶点。这样就得到了树中的第二级顶点。</li>
+<li>重复相同的过程，直到树中的所有顶点都被添加。</li>
+</ol>
+</blockquote>
+<hr />
+<blockquote>
+<p>〖Example〗: Use breadth-first search to find a spanning tree for the graph below.</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+a --- b &amp; d;
+b --- c &amp; e;
+c --- f;
+d --- e &amp; h;
+e --- f &amp; i;
+f --- g &amp; j;
+g --- l &amp; j;
+h --- i &amp; k;
+i --- j &amp; k;
+k --- m;</code></pre>
+<blockquote>
+<p>任意选择一个顶点作为根，这里选择<span class="arithmatex">\(e\)</span>。</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+第一步:;
+e;</code></pre>
+<pre class="mermaid"><code>graph TD
+第二步:;
+e --- b &amp; d &amp; f &amp; i;</code></pre>
+<pre class="mermaid"><code>graph TD
+第三步:;
+e --- b &amp; d &amp; f &amp; i;
+b --- a &amp; c;
+d --- h;
+f --- g &amp; j;
+i --- k;</code></pre>
+<pre class="mermaid"><code>graph TD
+第四步:;
+e --- b &amp; d &amp; f &amp; i;
+b --- a &amp; c;
+d --- h;
+f --- g &amp; j;
+i --- k;
+g --- l;
+k --- m;</code></pre>
+<h3 id="backtracking-scheme">Backtracking scheme（回溯方案）<a class="headerlink" href="#backtracking-scheme" title="点击此处可置顶内容">&para;</a></h3>
+<blockquote>
+<p>应用：</p>
+<ul>
+<li>Graph coloring</li>
+<li>The Q-queens problem</li>
+<li>
+<p>Sums of subsets</p>
+</li>
+<li>
+<p><strong>Backtracking scheme</strong>: to search systematically for a solution is to use a decision tree, where each internal vertex represents a decision and each leaf a possible solution.(系统地搜索解决方案的方法是使用决策树，其中每个内部顶点表示一个决策，每个叶子表示一个可能的解决方案。)</p>
+</li>
+</ul>
+</blockquote>
+<p>其实就是枚举，例如：</p>
+<blockquote>
+<p>用三种颜色对下面的图进行着色，使得相邻的顶点颜色不同。</p>
+</blockquote>
+<pre class="mermaid"><code>graph TB
+a --- b &amp; e;
+b --- c &amp; e;
+c --- d ;
+d --- e;
+A(a-1) --- B(a-1,b-2);
+B --- C(a-1,b-2,c-1) &amp; D(a-1,b-2,c-3);
+C --- E(a-1,b-2,c-1,d-3);
+E --- END(不合法);
+D --- G(a-1,b-2,c-3,d-1);
+G --- H(a-1,b-2,c-3,d-1,e-3);
+H --- GOOD(合法);</code></pre>
+<h3 id="minimum-spanning-trees">Minimum Spanning Trees（最小生成树）<a class="headerlink" href="#minimum-spanning-trees" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li><strong>Minimum Spanning Trees</strong>: a spanning tree of a connected weighted graph <span class="arithmatex">\(G\)</span> is a spanning tree whose sum of edge weights is as small as possible.</li>
+</ul>
+<h4 id="prims-algorithm">Prim's Algorithm（普里姆算法）<a class="headerlink" href="#prims-algorithm" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>Prim's algorithm</strong>:</li>
+</ul>
+<blockquote>
+<p>Example: Use Prim's algorithm to find a minimum spanning tree for the graph below.</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+A --1200--- B;
+A --2000--- C;
+A --900--- D;
+A --2200--- E;
+B --1000--- C;
+B --1300--- D;
+B --700--- E;
+C --1600--- D;
+C --800--- E;
+D --1400--- E;</code></pre>
+<blockquote>
+<p>任意选择一个顶点作为根，这里选择<span class="arithmatex">\(A\)</span>。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">已选择的顶点</th>
+<th style="text-align: center;">未选择的顶点</th>
+<th style="text-align: center;">最小权重的边</th>
+<th style="text-align: center;">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">B,C,D,E</td>
+<td style="text-align: center;">A-D</td>
+<td style="text-align: center;">900</td>
+</tr>
+<tr>
+<td style="text-align: center;">A,D</td>
+<td style="text-align: center;">B,C,E</td>
+<td style="text-align: center;">A-B</td>
+<td style="text-align: center;">1200</td>
+</tr>
+<tr>
+<td style="text-align: center;">A,D,B</td>
+<td style="text-align: center;">C,E</td>
+<td style="text-align: center;">B-E</td>
+<td style="text-align: center;">700</td>
+</tr>
+<tr>
+<td style="text-align: center;">A,D,B,E</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">C-E</td>
+<td style="text-align: center;">800</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>所以最小生成树为：</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+A --900--- D;
+A --1200--- B;
+B --700--- E;
+C --800--- E;</code></pre>
+<h4 id="kruskals-algorithm">Kruskal's Algorithm（克鲁斯卡尔算法）<a class="headerlink" href="#kruskals-algorithm" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>Kruskal's algorithm</strong>:</li>
+</ul>
+<blockquote>
+<p>Example: Use Kruskal's algorithm to find a minimum spanning tree for the graph below.</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+A --1200--- B;
+A --2000--- C;
+A --900--- D;
+A --2200--- E;
+B --1000--- C;
+B --1300--- D;
+B --700--- E;
+C --1600--- D;
+C --800--- E;
+D --1400--- E;</code></pre>
+<blockquote>
+<p>从最小权重的边开始，这里是<span class="arithmatex">\(B-E\)</span>。</p>
+<p>然后是<span class="arithmatex">\(E-C\)</span>, <span class="arithmatex">\(A-D\)</span>,</p>
+<p>下一个应该是<span class="arithmatex">\(B-C\)</span>，但是这样会产生回路，所以跳过。</p>
+<p>然后是<span class="arithmatex">\(B-A\)</span>,所有的顶点都已经被访问过了，所以最小生成树为：</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+B --700--- E;
+E --800--- C;
+A --900--- D;
+A --1200--- B;</code></pre>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年12月6日 19:49:46</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年9月14日 20:00:40</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../Chapter10/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Chapter.10-Graphs">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Chapter.10-Graphs
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../Mathematical-Modeling/" class="md-footer__link md-footer__link--next" aria-label="下一页: 数学建模">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                数学建模
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>
