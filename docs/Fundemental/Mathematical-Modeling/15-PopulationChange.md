@@ -1,7 +1,7 @@
 # Model 15 种群数量变化模型
 
 !!! warning ""
-    - [ ] TODO
+   - [ ] TODO
 
 ## 指数增长模型
 
@@ -10,7 +10,7 @@
 - 环境承载容量无限，所有个体独立生活，彼此间不存在竞争
 - 种群处于封闭（closed）状态，不存在迁入（immigration）和迁出（emigration）
 - 记人均出生/死亡/增长率为：$b, \mu, r=b-\mu$
-    - 存在常数 $b$ 和 $\mu$，对任意 $t$ ，在自 $t$ 至 $t+\Delta t $内，出生的个体数量为 $bx(t)\Delta t$，死亡的个体数量为 $\mu x(t)\Delta t$
+   - 存在常数 $b$ 和 $\mu$，对任意 $t$ ，在自 $t$ 至 $t+\Delta t $内，出生的个体数量为 $bx(t)\Delta t$，死亡的个体数量为 $\mu x(t)\Delta t$
   
 所以
 
@@ -71,4 +71,43 @@ $$
 
 可用线性化（linearization）方法研究平衡点附近解的性态
 
-## 
+## 随机模型
+
+记 $x(t)$ 为 $t$ 时刻一种群个体数量
+
+- $x(t)$ 是一个取非负整数值的随机变量，$\{x(t),t\geq0\}$为一随机过程
+- $x(t)$为连续时间齐次 Markov 链
+
+    - $P\{x(t+s)=j\mid x(s)=i,x(u)=x_u,0\leq u<s\}=P\{x(t+s)=j\mid x(s)=i\}$ 
+    - $P\{x(t+s)=j\mid x(s)=i\}$值与 s 无关，记其为 $p_{ij}(t)$
+
+- 设 $x(t)=n$ , 种群在$(t,t+\Delta t)$ 时段内
+    - 出生 1 人的概率为 $\lambda_n\Delta t+o\left(\Delta t\right)$
+    - 死亡 1 人的概率为 $\mu_n\Delta t+o\left(\Delta t\right)$
+    - 出生和死亡事件总发生两次或以上的概率很小，忽略不计
+
+### 生灭过程
+
+生灭过程
+
+离散状态空间连续时间齐次Markov链称为**生灭过程**(birth-death process),若对充分小的 $\Delta t$ ,
+
+!!! note ""
+    $p_{i,j}$表示在$\Delta t$时间内，从状态 $i$ 转移到状态 $j$ 的概率
+
+$\begin{cases}p_{i,i+1}(\Delta t)=\lambda_i\Delta t+o(\Delta t),\quad\lambda_i\geq0,i\geq0\\p_{i,i-1}(\Delta t)=\mu_i\Delta t+o(\Delta t),\quad\mu_i\geq0,i\geq1
+\\p_{i,i}\left(\Delta t\right)=1-(\lambda_i+\mu_i)\Delta t+o(\Delta t)\end{cases}\Rightarrow\sum\limits_{|j-i|\geq2}p_{ij}(\Delta t)=o(\Delta t)$ 
+
+- 纯生过程 (pure birth process) : $\mu_i=0,i\geq0$ 
+- 纯灭过程 (pure death process) : $\lambda_i=0,i\geq0$ 
+- Poisson过程： $\mu_i=0,i\geq0$ , $\lambda_i=\lambda,i\geq0$
+
+## 家族消亡问题
+
+假设：
+
+![Alt text](images/image-73.png)
+
+我们有
+
+![Alt text](images/image-74.png)

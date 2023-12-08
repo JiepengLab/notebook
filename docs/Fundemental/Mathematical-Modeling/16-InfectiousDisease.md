@@ -4,7 +4,9 @@
 
 传染病得以在某一人群中发生和传播，必须具备**传染源**、**传播途径**和**易感人群**三个基本环节
 
-## SIR模型
+## 基本模型
+
+### SIR模型
 
 假设疾病传播期内所考察地区总人数保持不变，没有新增人口和因疾病以外的原因造成的死亡。
 
@@ -16,7 +18,7 @@
 
 记 $t$ 时刻易感者、感染者、移出者的人数分别为 $S(t)$、$I(t)$、$R(t)$
 
-### 接触和移出
+#### 接触和移出
 
 - 接触率：记为 $\beta$，表示单位时间内一个感染者与易感者接触的人数
 - 移出率：记为 $\alpha$，表示单位时间内一个感染者被移出的人数
@@ -61,7 +63,7 @@ $$I(t)=S_0+I_0-S(t)+\frac{1}{\sigma}\ln\frac{S(t)}{S_0}$$
 
 其中，横坐标为 $S$，纵坐标为 $I$。斜线上的点为 $S_0$ 和 $I_0$，是初始点。上图所述的先增后减，实际上可以理解为疫情的爆发和衰退。
 
-### $I$ 总会衰减到0吗？
+#### $I$ 总会衰减到0吗？
 
 因为 $S(t)\geq 0,\frac{dS}{dt}\leq0$，所以 $S(t)$ 单调递减有下界，$\lim\limits_{t\to\infty}S(t)$存在，记为 $S_\infty$。
 
@@ -76,7 +78,7 @@ $$I(t)=S_0+I_0-S(t)+\frac{1}{\sigma}\ln\frac{S(t)}{S_0}$$
 !!! note ""
     但是，$I(t)$ 会衰减到0，不代表一定是好事，可能是因为所有人都痊愈了，也可能是因为所有人都寄了。
 
-### 估计 $\sigma$
+#### 估计 $\sigma$
 
 ![Alt text](images/image-66.png){width=50%}
 
@@ -84,7 +86,7 @@ $$I(t)=S_0+I_0-S(t)+\frac{1}{\sigma}\ln\frac{S(t)}{S_0}$$
 
 我们可以用 $\sigma \approx \frac{\ln S_0 - \ln S_\infty}{S_0-S_\infty}$ 来估计 $\sigma$。
 
-### $I(t)$ 的增减性
+#### $I(t)$ 的增减性
 
 !!! note ""
     
@@ -102,7 +104,7 @@ $$I(t)=S_0+I_0-S(t)+\frac{1}{\sigma}\ln\frac{S(t)}{S_0}$$
 
 若 $S_0 \leq \frac{1}{\sigma}$，$I(t)$ 单调递减至0，传染病不会爆发。
 
-### 基本再生数
+#### 基本再生数
 
 将上述增减性的分析应用过来，记 $\mathcal{R}_0=S_0\sigma$，则前文分析情况就对应 $\mathcal{R}_0>1$ 和 $\mathcal{R}_0\leq 1$。
 
@@ -116,7 +118,7 @@ $$\mathcal{R}_0=S_0\sigma=S_0\frac{\beta}{\alpha}=\frac{1}{\alpha}\cdot \beta N 
 
 我们称 $\mathcal{R}_0$ 为**基本再生数**。
 
-## SIS模型
+### SIS模型
 
 假设疾病传播期内所考察地区总人数保持不变，没有新增人口和因疾病以外的原因造成的死亡。
 
@@ -151,7 +153,7 @@ $$\frac{\mathrm{d}I}{\mathrm{d}t}=\beta (N-I)I-\gamma I=(\beta N-\gamma-\beta I)
 
 记 $\mathcal{R}_0=\frac{\beta}{\gamma}N$，即当 $\mathcal{R}_0>1$ 时，$I(t)$ 单调递增趋向于 $N-\frac{\gamma}{\beta}$，当 $\mathcal{R}_0<1$ 时，$I(t)$ 单调递减趋向于 $0$。
 
-### 平衡点
+#### 平衡点
 
 自治系统有两个可能平衡点 $P_1=(N,0)$ 和 $P_2=(\frac{\gamma}{\beta},N-\frac{\gamma}{\beta})$
 
@@ -162,7 +164,10 @@ $$\frac{\mathrm{d}I}{\mathrm{d}t}=\beta (N-I)I-\gamma I=(\beta N-\gamma-\beta I)
 
 - 减少人群接触，减小 $\beta$ 值
 - 提高治疗水平，使感染者尽早治愈，即增大 $\gamma$值
-- 在存在移出者情况下，通过预防免疫办法提高初始移出者 $R_{0}$ 至 $N-\frac{\gamma}{\beta}$
+- 在存在移出者 (SIR) 情况下，通过预防免疫办法提高初始移出者 $R_{0}$ 至 $N-\frac{\alpha}{\beta}$
+
+!!! note "为什么是 $N-\frac{\alpha}{\beta}$"
+    因为 $\frac{\mathrm{d}I}{\mathrm{d}t}=(\beta S-\alpha) I$，所以我们让未被感染的人群 $S<\frac{\alpha}{\beta}$，这样就可以让 $\frac{\mathrm{d}I}{\mathrm{d}t}<0$，即 $I$ 单调递减，疾病不会爆发。
 
 ## Ross疟疾传播模型
 

@@ -38,6 +38,7 @@ nav:
           - 种群数量变化模型: ./Fundemental/Mathematical-Modeling/15-PopulationChange.md
           - 传染病模型: ./Fundemental/Mathematical-Modeling/16-InfectiousDisease.md
           - 种间关系模型: ./Fundemental/Mathematical-Modeling/17-Interactions.md
+      - X - 神经网络模型: ./Fundemental/Mathematical-Modeling/Neural-Networks.md
 
     - 概率论与数理统计: 
       - ./Fundemental/Probability-and-Mathematical-Statistics/index.md
