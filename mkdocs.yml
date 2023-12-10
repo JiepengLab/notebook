@@ -229,6 +229,8 @@ plugins:
       timezone: Asia/Shanghai
       locale: zh
       enable_creation_date: true
+      exclude:
+        - index.md
   # - heti: 
   #   disable_serve: false
   #   extra_skipped_class:

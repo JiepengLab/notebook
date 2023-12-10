@@ -411,7 +411,7 @@ $$\hat{h}_i(x)=\left(x-x_i\right)\left(L_{n,i}(x)\right)^2$$
 
 $$f(x)-P_n(x)=\frac{f^{(2n+2)}(\xi(x))}{(2n+2)!}\prod\limits_{i=0}^n(x-x_i)^2$$
 
-## 3.4 Cubic Spline I           nterpolation | 三次样条插值
+## 3.4 Cubic Spline Interpolation | 三次样条插值
 
 ### Piecewise-polynomial approximation | 分段多项式逼近
 
@@ -527,7 +527,7 @@ $$
 
 我们有 $n+1$ 个未知数，$n-1$个方程 → 由边界条件增加两个方程
 
-#### Clamped boundary | 固支边界
+##### Clamped boundary | 固支边界
 
 此时我们知道 $S'(x_0)=f'(x_0)$，$S'(x_n)=f'(x_n)$，所以
 
@@ -573,7 +573,7 @@ g_n
 \end{bmatrix}
 $$
 
-#### Natural boundary | 自由边界
+##### Natural boundary | 自由边界
 
 !!! note ""
     如果 $S''(x_0)=y''_0=M_0$，$S''(x_n)=y''_n=M_n$，则
@@ -607,6 +607,16 @@ g_n
 $$
 
 自由边界的情况下，有 $S''(x_0)=S''(x_n)=0$。
+
+#### 书上的方法
+
+我们介绍另一种构造三次样条插值的方法：
+
+给定在 $[a,b]$ 上的 $n+1$ 个点 $x_0,x_1,\cdots,x_n$，$a=x_0<x_1<\cdots<x_n=b$，设三次多项式 $S_j(x)$ 为
+
+$$S_j(x)=a_j+b_j(x-x_{j})+c_j(x-x_{j})^2+d_j(x-x_{j})^3,\quad j=0,1,\cdots,n-1$$
+
+记 $h_j=x_j-x_{j-1}$，
 
 ### Properties of cubic splines | 三次样条的性质
 
