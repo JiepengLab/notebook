@@ -282,7 +282,7 @@
         $$\frac{\partial \vec{x}^T\vec{a}}{\partial \vec{x}} = \frac{\partial \vec{a}^T\vec{x}}{\partial \vec{x}} = \vec{a}$$
         
         $$
-        \frac{\text{d} (\vec{x}^T\vec{x})}{\text{d} \vec{x}} = 2\vec{x},\frac{\text{d} (\vec{x}^TA\vec{x})}{\text{d} \vec{x}} = (A+A^T)\vec{x}
+        \frac{\text{d} \|\vec{x}\|_2^2}{\text{d} \vec{x}}=\frac{\text{d} (\vec{x}^T\vec{x})}{\text{d} \vec{x}} = 2\vec{x},\frac{\text{d} (\vec{x}^TA\vec{x})}{\text{d} \vec{x}} = (A+A^T)\vec{x}
         $$
     
     !!! warning "注意"
@@ -415,22 +415,25 @@
 
 !!! note "重要结论"
     $$
-    \frac{\partial \text{tr}(X)}{\partial X} = \frac{\partial \text{tr}(X)^T}{\partial X} =\frac{\partial \text{tr}(X)}{\partial X^T} = I
+    \begin{aligned}
+    \frac{\partial \text{tr}(X)}{\partial X} = \frac{\partial \text{tr}(X)^T}{\partial X} &=\frac{\partial \text{tr}(X)}{\partial X^T} = I\\
+    \frac{\partial \text{tr}(AX)}{\partial X} = \frac{\partial \text{tr}(XA)}{\partial X} = A^T&, \frac{\partial \text{tr}(AX^T)}{\partial X} = \frac{\partial \text{tr}(X^TA)}{\partial X} = A\\
+    \frac{\partial \text{tr}(AXB)}{\partial X} = \frac{\partial \text{tr}(XBA)}{\partial X} =(BA)^T&, \frac{\partial \text{tr}(AX^TB)}{\partial X} = \frac{\partial \text{tr}(X^TBA)}{\partial X} = BA\\
+    \frac{\partial \text{tr}(X^2)}{\partial X} = 2X^T&,
+    \frac{\partial \text{tr}(X^2B)}{\partial X} = (XB+BX)^T\\
+    \frac{\partial \text{tr}(X^TBX)}{\partial X} = (B+B^T)X&, \frac{\partial \text{tr}(XBX^T)}{\partial X} = X(B^T+B)\\
+    \frac{\partial \text{tr}(BXX^T)}{\partial X} = (B+B^T)X&, \frac{\partial \text{tr}(AXBX)}{\partial X} = A^TX^TB^T+B^TX^TA^T\\
+    \frac{\partial \text{tr}(XX^T)}{\partial X} = \frac{\partial \text{tr}(X^TX)}{\partial X} &=\frac{\partial \|X\|^2_F}{\partial X}= 2X\\
+    \nabla_X tr(AXAXAX)=3(AXAXA)^T&, \nabla_X tr(YX^k)=\sum_{i=0}^{k-1}(X^iYX^{k-1-i})^T\\
+    \end{aligned}
     $$
 
-    $$
-    \frac{\partial \text{tr}(AX)}{\partial X} = \frac{\partial \text{tr}(XA)}{\partial X} = A^T，     \frac{\partial \text{tr}(AX^T)}{\partial X} = \frac{\partial \text{tr}(X^TA)}{\partial X} = A
-    $$
-    
-    $$
-    \frac{\partial \text{tr}(AXB)}{\partial X} = \frac{\partial \text{tr}(XBA)}{\partial X} =(BA)^T， 
-    \frac{\partial \text{tr}(AX^TB)}{\partial X} = \frac{\partial \text{tr}(X^TBA)}{\partial X} = BA
-    $$
+### 1.1.8
 
-    $$
-    \frac{\partial \text{tr}(X^2)}{\partial X} = 2X
-    $$
-    
-    $$
-    \frac{\partial \text{tr}(X^2B)}{\partial X} = (XB+BX)^T
-    $$
+$$
+\begin{aligned}\nabla_{X}\ln\bigl|X\bigr|&=(X^{-1}\bigr)^{T}=X^{-T} \\
+\nabla_X\ln\bigl|X^{-1}\bigr|&=-\bigl(X^{-1}\bigr)^T=-X^{-T} \\
+\nabla_X\ln\bigl|AX+B\bigr|&=A^T\bigl(AX+B\bigr)^{-T} \\
+\nabla_X\ln\left|I+A^TXA\right| &=A(I+A^TXA)^{-T}A^T  \\
+\nabla_{X}\ln\bigl|I-A^{T}XA\bigr|&=-A(I-A^{T}XA)^{-T}A^{T}\end{aligned} 
+$$

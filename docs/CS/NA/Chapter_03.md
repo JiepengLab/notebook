@@ -741,7 +741,7 @@ $$
 
 ##### 伪代码
 
-![Alt text](images/image-57.png)
+![Alt text](images/image-59.png)
 
 ##### 固支边界
 
@@ -802,13 +802,10 @@ $$
 
 ##### 伪代码
 
-![Alt text](images/image-58.png)
+![Alt text](images/image-60.png)
 
 ### Properties of cubic splines | 三次样条的性质
 
 - 只要系数矩阵严格对角占优（实际上是确保可逆），三次样条就可以由其边界条件唯一确定。
 - 如果 $\frac{\max h_i}{\min h_i}$ 有界，那么 $S(x)$ 是收敛的。
 - 增加点可以更贴近原函数。
-
-
-
