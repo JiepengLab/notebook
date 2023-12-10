@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/AI_Start/Note01/">
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/AI_Start/Note01-diff/">
       
       
         <link rel="prev" href="../">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Note 01-AI数学基础 - Jiepeng's notes</title>
+        <title>矩阵导数运算 - Jiepeng's notes</title>
       
     
     
@@ -158,7 +158,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Note 01-AI数学基础
+              矩阵导数运算
             
           </span>
         </div>
@@ -984,6 +984,51 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_2" id="__nav_3_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Note 01-AI数学基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Note 01-AI数学基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -996,7 +1041,7 @@
           
   
   <span class="md-ellipsis">
-    Note 01-AI数学基础
+    矩阵导数运算
   </span>
   
 
@@ -1007,7 +1052,7 @@
         
   
   <span class="md-ellipsis">
-    Note 01-AI数学基础
+    矩阵导数运算
   </span>
   
 
@@ -1191,6 +1236,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#118" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1.8
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1199,6 +1253,35 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Note01-prob.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概率论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -1933,6 +2016,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#118" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1.8
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1958,7 +2050,7 @@
 
 <h1 id="1-ai">1. AI的数学基础<a class="headerlink" href="#1-ai" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 5013 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 25 分钟</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 5162 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 26 分钟</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">本章主要内容</p>
@@ -2219,7 +2311,7 @@ u_m
 <p class="admonition-title">重要结论</p>
 <div class="arithmatex">\[\frac{\partial \vec{x}^T\vec{a}}{\partial \vec{x}} = \frac{\partial \vec{a}^T\vec{x}}{\partial \vec{x}} = \vec{a}\]</div>
 <div class="arithmatex">\[
-\frac{\text{d} (\vec{x}^T\vec{x})}{\text{d} \vec{x}} = 2\vec{x},\frac{\text{d} (\vec{x}^TA\vec{x})}{\text{d} \vec{x}} = (A+A^T)\vec{x}
+\frac{\text{d} \|\vec{x}\|_2^2}{\text{d} \vec{x}}=\frac{\text{d} (\vec{x}^T\vec{x})}{\text{d} \vec{x}} = 2\vec{x},\frac{\text{d} (\vec{x}^TA\vec{x})}{\text{d} \vec{x}} = (A+A^T)\vec{x}
 \]</div>
 </div>
 <div class="admonition warning">
@@ -2323,22 +2415,27 @@ u_m
 <div class="admonition note">
 <p class="admonition-title">重要结论</p>
 <div class="arithmatex">\[
-\frac{\partial \text{tr}(X)}{\partial X} = \frac{\partial \text{tr}(X)^T}{\partial X} =\frac{\partial \text{tr}(X)}{\partial X^T} = I
-\]</div>
-<div class="arithmatex">\[
-\frac{\partial \text{tr}(AX)}{\partial X} = \frac{\partial \text{tr}(XA)}{\partial X} = A^T，     \frac{\partial \text{tr}(AX^T)}{\partial X} = \frac{\partial \text{tr}(X^TA)}{\partial X} = A
-\]</div>
-<div class="arithmatex">\[
-\frac{\partial \text{tr}(AXB)}{\partial X} = \frac{\partial \text{tr}(XBA)}{\partial X} =(BA)^T， 
-\frac{\partial \text{tr}(AX^TB)}{\partial X} = \frac{\partial \text{tr}(X^TBA)}{\partial X} = BA
-\]</div>
-<div class="arithmatex">\[
-\frac{\partial \text{tr}(X^2)}{\partial X} = 2X
-\]</div>
-<div class="arithmatex">\[
-\frac{\partial \text{tr}(X^2B)}{\partial X} = (XB+BX)^T
+\begin{aligned}
+\frac{\partial \text{tr}(X)}{\partial X} = \frac{\partial \text{tr}(X)^T}{\partial X} &amp;=\frac{\partial \text{tr}(X)}{\partial X^T} = I\\
+\frac{\partial \text{tr}(AX)}{\partial X} = \frac{\partial \text{tr}(XA)}{\partial X} = A^T&amp;, \frac{\partial \text{tr}(AX^T)}{\partial X} = \frac{\partial \text{tr}(X^TA)}{\partial X} = A\\
+\frac{\partial \text{tr}(AXB)}{\partial X} = \frac{\partial \text{tr}(XBA)}{\partial X} =(BA)^T&amp;, \frac{\partial \text{tr}(AX^TB)}{\partial X} = \frac{\partial \text{tr}(X^TBA)}{\partial X} = BA\\
+\frac{\partial \text{tr}(X^2)}{\partial X} = 2X^T&amp;,
+\frac{\partial \text{tr}(X^2B)}{\partial X} = (XB+BX)^T\\
+\frac{\partial \text{tr}(X^TBX)}{\partial X} = (B+B^T)X&amp;, \frac{\partial \text{tr}(XBX^T)}{\partial X} = X(B^T+B)\\
+\frac{\partial \text{tr}(BXX^T)}{\partial X} = (B+B^T)X&amp;, \frac{\partial \text{tr}(AXBX)}{\partial X} = A^TX^TB^T+B^TX^TA^T\\
+\frac{\partial \text{tr}(XX^T)}{\partial X} = \frac{\partial \text{tr}(X^TX)}{\partial X} &amp;=\frac{\partial \|X\|^2_F}{\partial X}= 2X\\
+\nabla_X tr(AXAXAX)=3(AXAXA)^T&amp;, \nabla_X tr(YX^k)=\sum_{i=0}^{k-1}(X^iYX^{k-1-i})^T\\
+\end{aligned}
 \]</div>
 </div>
+<h3 id="118">1.1.8<a class="headerlink" href="#118" title="点击此处可置顶内容">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}\nabla_{X}\ln\bigl|X\bigr|&amp;=(X^{-1}\bigr)^{T}=X^{-T} \\
+\nabla_X\ln\bigl|X^{-1}\bigr|&amp;=-\bigl(X^{-1}\bigr)^T=-X^{-T} \\
+\nabla_X\ln\bigl|AX+B\bigr|&amp;=A^T\bigl(AX+B\bigr)^{-T} \\
+\nabla_X\ln\left|I+A^TXA\right| &amp;=A(I+A^TXA)^{-T}A^T  \\
+\nabla_{X}\ln\bigl|I-A^{T}XA\bigr|&amp;=-A(I-A^{T}XA)^{-T}A^{T}\end{aligned} 
+\]</div>
 
 
 
@@ -2361,7 +2458,7 @@ u_m
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年10月14日 05:55:53</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年12月11日 04:58:06</span>
   </span>
 
     
