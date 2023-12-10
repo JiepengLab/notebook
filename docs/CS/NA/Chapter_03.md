@@ -612,14 +612,203 @@ $$
 
 我们介绍另一种构造三次样条插值的方法：
 
+
+
+
 给定在 $[a,b]$ 上的 $n+1$ 个点 $x_0,x_1,\cdots,x_n$，$a=x_0<x_1<\cdots<x_n=b$，设三次多项式 $S_j(x)$ 为
 
 $$S_j(x)=a_j+b_j(x-x_{j})+c_j(x-x_{j})^2+d_j(x-x_{j})^3,\quad j=0,1,\cdots,n-1$$
 
-记 $h_j=x_j-x_{j-1}$，
+且满足
+
+!!! note ""
+
+      1. $S(x)$ 在每个子区间 $[x_i,x_{i+1}]$ 上是一个三次多项式，$i=0,1,\cdots,n-1$
+      2. $S(x_i)=f(x_i)$，$i=0,1,\cdots,n$
+      3. $S_{i+1}(x_{i+1})=S_i(x_{i+1})$，$i=0,1,\cdots,n-2$
+      4. $S'_{i+1}(x_{i+1})=S'_i(x_{i+1})$，$i=0,1,\cdots,n-2$
+      5. $S''_{i+1}(x_{i+1})=S''_i(x_{i+1})$，$i=0,1,\cdots,n-2$
+      6. 下列的边界条件之一成立：
+          1. $S''(x_0)=S''(x_n)=0$，称为**自由或自然边界(free or natural boundary)**
+          2. $S'(x_0)=f'(x_0)$，$S'(x_n)=f'(x_n)$，称为**固支边界(clamped boundary)**
+          3. 其他边界条件（上面两个条件其实已经足以满足目的了）
+
+记 $h_j=x_j-x_{j-1}$，由条件3，可得
+
+$$a_{j+1}=S_{j+1}(x_{j+1})=S_j(x_{j+1})=a_j+b_jh_j+c_jh_j^2+d_jh_j^3,\quad j=0,1,\cdots,n-1$$
+
+又由条件4，因为 $S'(x)=b_j+2c_j(x-x_j)+3d_j(x-x_j)^2$，所以
+
+$$b_{j+1}=S'_{j+1}(x_{j+1})=S'_j(x_{j+1})=b_j+2c_jh_j+3d_jh_j^2,\quad j=0,1,\cdots,n-1$$
+
+又由条件5，因为 $S''(x)=2c_j+6d_j(x-x_j)$，所以
+
+$$c_{j+1}=\frac{S''_{j+1}(x_{j+1})}{2}=c_j+3d_jh_j,\quad j=0,1,\cdots,n-1$$
+
+所以
+
+$$\begin{cases}
+a_{j+1}=a_j+b_jh_j+c_jh_j^2+d_jh_j^3\\
+b_{j+1}=b_j+2c_jh_j+3d_jh_j^2\\
+c_{j+1}=c_j+3d_jh_j
+\end{cases},\quad j=0,1,\cdots,n-1$$
+
+把最后一个式子代入前两个式子，消去 $d_j$，得到
+
+$$\begin{cases}
+a_{j+1}=a_j+b_jh_j+\frac{h_j^2}{3}(2c_j+c_{j+1})\\
+b_{j+1}=b_j+h_j(c_j+c_{j+1})\\
+\end{cases},\quad j=0,1,\cdots,n-1$$
+
+为了减少未知数，我们有
+
+$$
+\begin{aligned}
+a_{j+1}=a_j+b_jh_j+\frac{h_j^2}{3}(2c_j+c_{j+1})&\Rightarrow
+\begin{cases}
+b_j=\frac{1}{h_j}(a_{j+1}-a_j)-\frac{h_j}{3}(2c_j+c_{j+1})\\
+b_{j-1}=\frac{1}{h_{j-1}}(a_{j}-a_{j-1})-\frac{h_{j-1}}{3}(2c_{j-1}+c_{j})
+\end{cases}\\
+b_{j+1}=b_j+h_j(c_j+c_{j+1})&\Rightarrow b_j=b_{j-1}+h_{j-1}(c_{j-1}+c_j)
+\end{aligned}
+$$
+
+所以
+
+$$
+\begin{aligned}
+&\begin{cases}
+b_j&=\frac{1}{h_j}(a_{j+1}-a_j)-\frac{h_j}{3}(2c_j+c_{j+1})\\
+b_{j-1}&=\frac{1}{h_{j-1}}(a_{j}-a_{j-1})-\frac{h_{j-1}}{3}(2c_{j-1}+c_{j})\\
+b_j&=b_{j-1}+h_{j-1}(c_{j-1}+c_j)
+\end{cases}\\
+&\Rightarrow
+\frac{1}{h_j}(a_{j+1}-a_j)-\frac{h_j}{3}(2c_j+c_{j+1})
+=\frac{1}{h_{j-1}}(a_{j}-a_{j-1})-\frac{h_{j-1}}{3}(2c_{j-1}+c_{j})+h_{j-1}(c_{j-1}+c_j)\\
+&\Rightarrow 
+h_{j-1}c_{j-1}+2(h_{j-1}+h_j)c_j+h_jc_{j+1}
+=\frac{3}{h_j}(a_{j+1}-a_j)-\frac{3}{h_{j-1}}(a_{j}-a_{j-1}) \quad (j=1,2,\cdots,n-1)\\
+\end{aligned}
+$$
+
+因为 $a_j$, $h_j$ 已知，所以上式未知量仅为 $c_j$，而且求出 $c_j$ 后，$b_j$ 也就求出了。（$b_j=\frac{1}{h_j}(a_{j+1}-a_j)-\frac{h_j}{3}(2c_j+c_{j+1})$）
+
+所以我们有 $n-1$ 个方程，$n+1$ 个未知数，所以我们需要额外的两个方程。
+
+##### Natural boundary | 自由边界
+
+书上给的是 $S''(a)=S''(b)=0$，实际上，我们在做题中扩展到了 $S''(a)=s_0$，$S''(b)=s_n$，此时
+
+$$
+c_0=\frac{S''(a)}{2}=\frac{s_0}{2},\quad c_n=\frac{S''(b)}{2}=\frac{s_n}{2}$$
+
+所以，我们可以将上面的方程组写成 $\mathbf{Ax}=\mathbf{b}$ 的形式，其中 $\mathbf{A}$ 为 $(n+1)\times(n+1)$ 的矩阵
+
+$$
+\mathbf{A}=\begin{bmatrix}
+1&0&0&\cdots&0&0&0\\
+h_0&2(h_0+h_1)&h_1&\cdots&0&0&0\\
+0&h_1&2(h_1+h_2)&\cdots&0&0&0\\
+\vdots&\vdots&\vdots&\ddots&\vdots&\vdots&\vdots\\
+0&0&0&\cdots&h_{n-2}&2(h_{n-2}+h_{n-1})&h_{n-1}\\
+0&0&0&\cdots&0&0&1
+\end{bmatrix}
+$$
+
+$\mathbf{b}$ 和 $\mathbf{x}$ 为 $(n+1)\times1$ 的向量
+
+$$
+\mathbf{b}=\begin{bmatrix}
+\frac{s_0}{2}\\
+\frac{3}{h_1}(a_{2}-a_1)-\frac{3}{h_0}(a_{1}-a_0)\\
+\frac{3}{h_2}(a_{3}-a_2)-\frac{3}{h_1}(a_{2}-a_1)\\
+\vdots\\
+\frac{3}{h_{n-1}}(a_{n}-a_{n-1})-\frac{3}{h_{n-2}}(a_{n-1}-a_{n-2})\\
+\frac{s_n}{2}
+\end{bmatrix}
+,\quad
+\mathbf{x}=\begin{bmatrix}
+c_0\\
+c_1\\
+c_2\\
+\vdots\\
+c_{n-1}\\
+c_n
+\end{bmatrix}
+$$
+
+因为矩阵 $\mathbf{A}$ 是严格对角占优的，所以该方程组有唯一解。
+
+##### 伪代码
+
+![Alt text](images/image-57.png)
+
+##### 固支边界
+
+固支边界要求 $S'(a)=f'(a)$，$S'(b)=f'(b)$。
+
+因为 $f'(a)=S'(a)=S'(x_0)=b_0$，$f'(b)=S'(b)=S'(x_n)=b_n$，所以
+
+$$
+\begin{aligned}
+&\begin{cases}
+f'(a)&=b_0=\frac{1}{h_0}(a_1-a_0)-\frac{h_0}{3}(2c_0+c_1)\\
+f'(b)&=b_n=b_{n-1}+h_{n-1}(c_{n-1}+c_n)=\frac{1}{h_{n-1}}(a_{n}-a_{n-1})+\frac{h_{n-1}}{3}(c_{n-1}+2c_n)
+\end{cases}\\
+\Rightarrow&
+\begin{cases}
+2h_0c_0+h_0c_1&=\frac{3}{h_0}(a_1-a_0)-3f'(a)\\
+h_{n-1}c_{n-1}+2h_{n-1}c_n&=3f'(b)-\frac{3}{h_{n-1}}(a_n-a_{n-1})
+\end{cases}
+\end{aligned}
+$$
+
+所以，我们可以将上面的方程组写成 $\mathbf{Ax}=\mathbf{b}$ 的形式，其中 $\mathbf{A}$ 为 $(n+1)\times(n+1)$ 的矩阵
+
+$$
+\mathbf{A}=\begin{bmatrix}
+2h_0&h_0&0&\cdots&0&0&0\\
+h_0&2(h_0+h_1)&h_1&\cdots&0&0&0\\
+0&h_1&2(h_1+h_2)&\cdots&0&0&0\\
+\vdots&\vdots&\vdots&\ddots&\vdots&\vdots&\vdots\\
+0&0&0&\cdots&h_{n-2}&2(h_{n-2}+h_{n-1})&h_{n-1}\\
+0&0&0&\cdots&0&h_{n-1}&2h_{n-1}
+\end{bmatrix}
+$$
+
+$\mathbf{b}$ 和 $\mathbf{x}$ 为 $(n+1)\times1$ 的向量
+
+$$
+\mathbf{b}=\begin{bmatrix}
+\frac{3}{h_0}(a_1-a_0)-3f'(a)\\
+\frac{3}{h_1}(a_{2}-a_1)-\frac{3}{h_0}(a_{1}-a_0)\\
+\frac{3}{h_2}(a_{3}-a_2)-\frac{3}{h_1}(a_{2}-a_1)\\
+\vdots\\
+\frac{3}{h_{n-1}}(a_{n}-a_{n-1})-\frac{3}{h_{n-2}}(a_{n-1}-a_{n-2})\\
+3f'(b)-\frac{3}{h_{n-1}}(a_n-a_{n-1})
+\end{bmatrix}
+,\quad
+\mathbf{x}=\begin{bmatrix}
+c_0\\
+c_1\\
+c_2\\
+\vdots\\
+c_{n-1}\\
+c_n
+\end{bmatrix}
+$$
+
+因为矩阵 $\mathbf{A}$ 是严格对角占优的，所以该方程组有唯一解。
+
+##### 伪代码
+
+![Alt text](images/image-58.png)
 
 ### Properties of cubic splines | 三次样条的性质
 
 - 只要系数矩阵严格对角占优（实际上是确保可逆），三次样条就可以由其边界条件唯一确定。
 - 如果 $\frac{\max h_i}{\min h_i}$ 有界，那么 $S(x)$ 是收敛的。
 - 增加点可以更贴近原函数。
+
+
+
