@@ -150,7 +150,7 @@ nav:
       - 论文阅读: ./Mess/ESG/Paper.md
       - APP: ./Mess/ESG/APP.md
     - 马原:
-      - 双十一: ./Mess/Marxism/11.md
+      # - 双十一: ./Mess/Marxism/11.md
       - 评价体系: ./Mess/Marxism/Max.md
 
 
