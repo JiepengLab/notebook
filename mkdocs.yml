@@ -38,6 +38,7 @@ nav:
           - 种群数量变化模型: ./Fundemental/Mathematical-Modeling/15-PopulationChange.md
           - 传染病模型: ./Fundemental/Mathematical-Modeling/16-InfectiousDisease.md
           - 种间关系模型: ./Fundemental/Mathematical-Modeling/17-Interactions.md
+      - 10 数学规划: ./Fundemental/Mathematical-Modeling/18-MathematicalProgramming.md
       - X - 神经网络模型: ./Fundemental/Mathematical-Modeling/Neural-Networks.md
 
     - 概率论与数理统计: 
@@ -149,7 +150,9 @@ nav:
       - 论文阅读: ./Mess/ESG/Paper.md
       - APP: ./Mess/ESG/APP.md
     - 马原:
-      - 马原展示: ./Mess/Marxism/index.md
+      - 双十一: ./Mess/Marxism/11.md
+      - 评价体系: ./Mess/Marxism/Max.md
+
 
 
 copyright: Copyright &copy; 2023 Jiepeng Jin

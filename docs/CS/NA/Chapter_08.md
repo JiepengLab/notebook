@@ -283,7 +283,7 @@ $$
 
 #### 伪代码
 
-![Alt text](images/image-48.png)
+![Alt text](images/image-61.png)
 
 其中误差的计算推导如下：
 
