@@ -9,7 +9,7 @@
     - **时序电路(Sequential Logic Cirtuit)**
         - 与之对应的，时序电路具有记忆功能，即它的输出可能会依赖之前的结果；
 
-而本章将着眼于组合电路的相关内容，时序电路的相关内容将在 **[下一章](Chap04.md)** 介绍。
+而本章将着眼于组合电路的相关内容，时序电路的相关内容将在 **[下一章](../Chap04/index.md)** 介绍。
 
 !!! note "单元概述"
     - [技术实现和逻辑设计 | Implementation Technology and Logic Design](./Chap03_1.md)

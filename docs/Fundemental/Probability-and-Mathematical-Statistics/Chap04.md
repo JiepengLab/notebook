@@ -58,9 +58,9 @@ $$\begin{aligned}E(X)=\int_{-\infty}^{+\infty}xf(x)\mathrm{d}x=\int_{0}^{+\infty
 
     这里的 $p_{ij}$ 和 $f(x,y)$ 都是 $X,Y$ 本来的联合分布率，而不是 $Z$ 的联合分布率。
 
-二元离散型： $Z = h(X,Y)$，则 $E(Z) = E[h(X,Y)] = \sum_{i=1}^{+\infty}\sum_{j=1}^{+\infty}h(x_i,y_j)p_{ij}$
+二元离散型： $Z = h(X,Y)$，则 $E(Z) = E[h(X,Y)] = \sum\limits_{i=1}^{+\infty}\sum\limits_{j=1}^{+\infty}h(x_i,y_j)p_{ij}$
 
-二元连续型： $Z = h(X,Y)$，则 $E(Z) = E[h(X,Y)] = \int \int h(x,y)f(x,y)\mathrm{d}x\mathrm{d}y$
+二元连续型： $Z = h(X,Y)$，则 $E(Z) = E[h(X,Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} h(x,y)f(x,y)\mathrm{d}x\mathrm{d}y$
 
 !!! note ""
 

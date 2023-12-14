@@ -84,8 +84,13 @@ nav:
         - 技术实现和逻辑设计: ./CS/DigitalDesign/Chap03/Chap03_1.md
         - 组合功能模块: ./CS/DigitalDesign/Chap03/Chap03_2.md
         - 算术函数: ./CS/DigitalDesign/Chap03/Chap03_3.md
-      - Chap 04-Sequential Circuits: ./CS/DigitalDesign/Chap04.md
+      - Chap 04-Sequential Circuits: 
+        - ./CS/DigitalDesign/Chap04/index.md
+        - 存储元件与时序电路分析: ./CS/DigitalDesign/Chap04/Chap04_1.md
+        # - 时序电路设计: ./CS/DigitalDesign/Chap04/Chap04_2.md
       - Chap 05-Digital Hardware Implementation: ./CS/DigitalDesign/Chap05.md
+      # - Chap 06-Registers & Register Transfers: ./CS/DigitalDesign/Chap06.md
+      # - Chap 07-Memory Basics: ./CS/DigitalDesign/Chap07.md
     - 图像信息处理:
       - ./CS/DIP/index.md
       - 01-成像与图像的基本属性: ./CS/DIP/dip1.md

@@ -2,9 +2,9 @@
 
 ## 寄存器
 
-**寄存器(registers)**粗略的来说就是一堆触发器以及对应的状态控制电路，用来实现多位数据的存储等操作。
+**寄存器(registers)** 粗略的来说就是一堆触发器以及对应的状态控制电路，用来实现多位数据的存储等操作。
 
-其中有一种特殊的寄存器叫**[计数器(counter)](#计数器)**，非常直白的，它的行为就是随着时钟周期不断在固定的状态序列中循环。更形象的，一般是实现自动的计数功能，像电子时钟那样。
+其中有一种特殊的寄存器叫 **[计数器(counter)](#计数器)**，非常直白的，它的行为就是随着时钟周期不断在固定的状态序列中循环。更形象的，一般是实现自动的计数功能，像电子时钟那样。
 
 > Registers are useful for storing and manipulating information; counters are employed in circuits that sequence and control operations in a digital system.
 
