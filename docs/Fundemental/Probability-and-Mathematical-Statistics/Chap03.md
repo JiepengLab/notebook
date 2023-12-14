@@ -62,8 +62,6 @@ $$F_{Y|X}(y|x_i)=P\{Y\leq y | X = x_i\}$$
 
 ## 二维连续型随机变量
 
-
-
 ### 联合分布
 
 设二元随机变量$(X,Y)$的联合分布函数为$F(x,y)$，若存在二元函数$f(x,y)\geq0$，则对于任意的实数$x$，$y$有
@@ -123,8 +121,8 @@ $$F_{Y|X}(y|x)=\lim\limits_{\delta\rightarrow 0^+}P\{Y\leq y|x<X\leq x+\delta\}$
 $$\begin{aligned}
 F_{Y|X}(y|x)&=\lim\limits_{\delta\rightarrow 0^+}P\{Y\leq y|x<X\leq x+\delta\}\\
 &=\lim\limits_{\delta\rightarrow 0^+}\frac{P\{Y\leq y,x<X\leq x+\delta\}}{P\{x<X\leq x+\delta\}}\\
-&=\lim\limits_{\delta\rightarrow 0^+}\frac{F(x+\delta,y)-F(x,y)}{F_X(x+\delta)-F_X(x)}\\ 
-&=\lim\limits_{\delta\rightarrow 0^+}\frac{(F(x+\delta,y)-F(x,y))/\delta}{(F_X(x+\delta)-F_X(x))/\delta}\\ 
+&=\lim\limits_{\delta\rightarrow 0^+}\frac{F(x+\delta,y)-F(x,y)}{F_X(x+\delta)-F_X(x)}\\
+&=\lim\limits_{\delta\rightarrow 0^+}\frac{(F(x+\delta,y)-F(x,y))/\delta}{(F_X(x+\delta)-F_X(x))/\delta}\\
 \end{aligned}$$
 
 且
@@ -162,7 +160,6 @@ $$f(x,y)=\left\{
 则称$(X,Y)$服从$D$上的**均匀分布**。
 
 得到：$P\{(X,Y)\in D_1\}=\frac{D_1\text{的面积}}{D\text{的面积}}\;,\;\;\text{且}D_1\subset  D$。
-
 
 ### 正态分布
 

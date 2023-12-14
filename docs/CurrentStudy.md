@@ -309,7 +309,7 @@
 
     - 智云课堂：[🔗](https://classroom.zju.edu.cn/coursedetail?course_id=53195&tenant_code=112)
     - 学在浙大：[🔗](https://courses.zju.edu.cn/course/60855/content#/)
-    - 笔记：[📙](../Fundemental/Probability%20and%20Mathematical%20Statistics)
+    - 笔记：[📙](../Fundemental/Probability-and-Mathematical-Statistics)
 
 !!! note "考核方式"
 
@@ -412,7 +412,7 @@
 !!! note "基本信息："
     - 智云课堂：[🔗](https://classroom.zju.edu.cn/coursedetail?course_id=55596&tenant_code=112)
     - 学在浙大：[🔗](https://courses.zju.edu.cn/course/63322/content#/)
-    - 笔记：[📙](../Fundemental/Mathematical%20Modeling)
+    - 笔记：[📙](../Fundemental/Mathematical-Modeling)
 
 !!! example "额外链接："
     [lhmd作业参考](https://github.com/lhmd/ZJU-course/tree/master/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1)
