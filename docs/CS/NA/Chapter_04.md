@@ -105,3 +105,12 @@ $$f^{\prime\prime}(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}-\frac{h^2}{12}f^{(
 
 ## 4.3 数值积分基础 | Elements of Numerical Integration
 
+## 4.4 复合数值积分 | Composite Numerical Integration
+
+## 4.5 Romberg 积分 | Romberg Integration
+
+## 4.2 Richardson 外推法 | Richardson's Extrapolation
+
+## 4.6 自适应求积方法 | Adaptive Quadrature Methods
+
+## 4.7 Gauss 求积 | Gauss Quadrature
