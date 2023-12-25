@@ -1,4 +1,4 @@
-# Model 03 Nim游戏
+# 03 Nim游戏
 
 !!! question "问题背景"
 

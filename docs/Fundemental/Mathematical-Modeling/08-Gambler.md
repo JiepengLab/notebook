@@ -1,4 +1,4 @@
-# Model 08 赌徒破产问题与Pascal问题
+# 08 赌徒破产问题与Pascal问题
 
 !!! question "问题背景"
 
