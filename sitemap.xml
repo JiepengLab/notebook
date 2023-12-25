@@ -661,6 +661,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jiepenglab.github.io/notebook/Fundemental/Mathematical-Modeling/20-SVM/</loc>
+         <lastmod>2023-12-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://jiepenglab.github.io/notebook/Fundemental/Mathematical-Modeling/21-Solve/</loc>
+         <lastmod>2023-12-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jiepenglab.github.io/notebook/Fundemental/Mathematical-Modeling/Neural-Networks/</loc>
          <lastmod>2023-12-25</lastmod>
          <changefreq>daily</changefreq>
