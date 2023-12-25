@@ -5,7 +5,6 @@
     - Breaks(出现连续的客场或主场比赛--这是我们不愿看到的)
     - The carry-over effect
 
-
 ## 图的因子分解
 
 图 $G$ 的因子分解，指将 $G$ 分解为若干边不重的因子之并——因子指至少包含G的一条边的生成子图。
@@ -79,7 +78,7 @@
 
 ## 数学规划
 
-设有 $n$ 支队伍：
+我们来到实际问题：有 $10$ 支队伍，每阶段两场比赛
 
 **决策变量**：$x_{ijk}=\begin{cases}1,&\text{第}k\text{轮第}i\text{支队伍在主场对阵第}j\text{支队伍}\\0,&\text{其他}\end{cases}$
 
@@ -88,7 +87,47 @@
 
 **约束条件（部分）**：
 
-- 每轮各队恰有一场比赛：$\sum\limits_{i=1}^n (x_{ijk}+x_{jik})=1$，$j=1,2,\cdots,n$，$k=1,2,\cdots,2(n-1)$
-- 任意两队在前后半程各交手一次：$\sum\limits_{k=1}^{2(n-1)}x_{ijk}=1$，$i,j=1,2,\cdots,n$，$i\neq j$
-- 任意两队之间的两场比赛中每队均有一个主场：$\sum\limits_{k=1}^{n-1}(x_{ijk}+x_{jik})=1$,$\sum\limits_{k=n-1}^{2(n-1)}(x_{ijk}+x_{jik})=1$，$i,j=1,2,\cdots,n$，$i\neq j$
-- 任一队不连续与种子队（用 $I_s$ 表示）对阵：$\sum_{j\in I_s}\left(x_{ijk}+x_{jik}+x_{i,j,k+1}+x_{j,i,k+1}\right)\leq1,\mathrm{~}i\in I\setminus I_s,k=1,\cdots,2(n-1)$
+- 每轮各队恰有一场比赛：$\sum\limits_{i=1}^{10} (x_{ijk}+x_{jik})=1$，$j=1,2,\cdots,{10}$，$k=1,2,\cdots,18$
+- 任意两队在前后半程各交手一次：$\sum\limits_{k=1}^{18}x_{ijk}=1$，$i,j=1,2,\cdots,10$，$i\neq j$
+- 任意两队之间的两场比赛中每队均有一个主场：$\sum\limits_{k=1}^{9}(x_{ijk}+x_{jik})=1$,$\sum\limits_{k={9}}^{18}(x_{ijk}+x_{jik})=1$，$i,j=1,2,\cdots,10$，$i\neq j$
+- 任一队不连续与种子队（用 $I_s$ 表示）对阵：$\sum\limits_{j\in I_s}\left(x_{ijk}+x_{jik}+x_{i,j,k+1}+x_{j,i,k+1}\right)\leq1,\mathrm{~}i\in I\setminus I_s,k=1,\cdots,18$
+
+### 均衡各阶段主场次数
+
+每支队伍各阶段先主后客（先客后主）的次数尽可能均衡：
+
+定义辅助变量 $y_{il}=\begin{cases}1,&\text{第}l\text{阶段第}i\text{支队伍先主后客}\\0,&\text{第}l\text{阶段第}i\text{支队伍先客后主}\end{cases}$
+
+$x_{ijk}$ 与 $y_{il}$ 之间的关系：
+
+$$y_{il}=1\Leftrightarrow\sum\limits_{j=1}^{10}x_{i,j,2l-1}=1\text{且}\sum\limits_{j=1}^{10}x_{j,i,2l}=1$$
+
+改写一下就是：
+
+$$
+\begin{cases}\sum\limits_{j=1}^{10}\left(x_{i,j,2l-1}+x_{j,i,2l}\right)\leq1+y_{il}\\y_{il}\leq\sum\limits_{j=1}^{10}x_{i,j,2l-1}\\y_{il}\leq\sum\limits_{j=1}^{10}x_{j,i,2l}\end{cases}
+$$
+
+每支队伍先主后客的总次数尽可能均衡时，$4\leq\sum\limits_{l=1}^{9}y_{il}\leq5$，$i=1,2,\cdots,10$
+
+### 各阶段连续客场的次数尽可能少
+
+在法制双循环赛制中 $x_{i,j,1}=x_{j,i,18}$, $x_{i,j,k}=x_{j,i,k+8}$, $k=2,3,\cdots,9$，$i,j=1,2,\cdots,10$，$i\neq j$
+
+定义辅助变量 $w_{il}=\begin{cases}1,&\text{第}l\text{阶段第}i\text{支队伍两场比赛均为客场}\\0,&\text{其他}\end{cases}$，$i=1,2,\cdots,10$，$l=1,2,\cdots,9$
+
+$x_{i,j,k}$ 与 $w_{il}$ 之间的关系：
+
+$$w_{il}=1\Leftrightarrow\sum\limits_{j=1}^{10}x_{j,i,2l-1}=1 \text{且} \sum\limits_{j=1}^{10}x_{j,i,2l}=1$$
+
+改写一下就是：
+
+$$
+\begin{cases}\sum\limits_{j=1}^{10}\left(x_{j,i,2l-1}+x_{j,i,2l}\right)\leq1+w_{il}\\w_{il}\leq\sum\limits_{j=1}^{10}x_{j,i,2l-1}\\w_{il}\leq\sum\limits_{j=1}^{10}x_{j,i,2l}\end{cases}
+$$
+
+**目标函数** 为：$\min \sum\limits_{i=1}^{10}\sum\limits_{l=1}^{9}w_{il}$
+
+最后的结果为：
+
+![Alt text](images/image-93.png){width=70%}
