@@ -15,3 +15,44 @@
     inclass-quiz(4): 两次（各两分），可用回答问题补分（一分/次）
     
     Reseacher Topics(15): 组队完成，18个topic选一个，进行5~10min展示
+
+!!! note "课程架构"
+
+    !!! note "Basic Knowledge"
+        - [x] [Chapter 1](./Chapter_01.md)
+            - Mean value theorem
+            - Taylor expansion
+            - Roundoff  error
+    
+    !!! note "Solution of Equations"
+
+        - [x] [Chapter 2](./Chapter_02.md)
+            - Solution of equations with one variable
+        - [x] [Chapter 6](./Chapter_06.md)
+            - Direct Matrix Solver
+        - [x] [Chapter 7](./Chapter_07.md)
+            - Iterative Matrix Solver
+        - [x] [Chapter 5](./Chapter_05.md)
+            - Initial value problem
+              - Euler, Runge-kutta, multi-step
+
+        !!! note ""
+            Convergence + Stability
+
+    !!! note "Interpolation and approximation"
+
+        - [x] [Chapter 3:  interpolation](./Chapter_03.md)
+            - Lagrange polynomial
+            - Piecewise polynomial
+
+        - [x] [Chapter 4](./Chapter_04.md)
+            - Numerical differentiation
+            - Numerical integration
+  
+        - [x] [Chapter 8:  approximation](./Chapter_08.md)
+            - Orthogonal polynomials
+            - Least squares
+            - Chebyshev polynomial
+
+        !!! note ""
+            Error
