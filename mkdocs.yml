@@ -43,6 +43,7 @@ nav:
         - 案例一：赛程编制: ./Fundemental/Mathematical-Modeling/19-Schedule.md
         - 案例二：支持向量机: ./Fundemental/Mathematical-Modeling/20-SVM.md
         - 数学规划求解: ./Fundemental/Mathematical-Modeling/21-Solve.md
+        - 多目标规划: ./Fundemental/Mathematical-Modeling/22-MultiObjective.md
       - X - 神经网络模型: ./Fundemental/Mathematical-Modeling/Neural-Networks.md
 
     - 概率论与数理统计: 
