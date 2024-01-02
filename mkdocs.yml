@@ -56,6 +56,9 @@ nav:
       - 3. 多维随机变量及其分布: ./Fundemental/Probability-and-Mathematical-Statistics/Chap03.md
       - 4. 随机变量的数字特征: ./Fundemental/Probability-and-Mathematical-Statistics/Chap04.md
       - 5. 大数定律与中心极限定理: ./Fundemental/Probability-and-Mathematical-Statistics/Chap05.md
+      - 6. 统计量与抽样分布: ./Fundemental/Probability-and-Mathematical-Statistics/Chap06.md
+      - 7. 参数估计: ./Fundemental/Probability-and-Mathematical-Statistics/Chap07.md
+      - 8. 假设检验: ./Fundemental/Probability-and-Mathematical-Statistics/Chap08.md
     - 大学物理（乙）II: ./Fundemental/Physics-II/index.md
   - 校内CS课程: 
     - ./CS/index.md
