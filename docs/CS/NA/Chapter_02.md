@@ -185,7 +185,6 @@ $$
 !!! note "$\Delta$"
     对于给定的序列，向前差分(forward difference)定义为$\Delta p_n = p_{n+1}-p_n$，对于更高的幂，我们有$\Delta^k p_n = \Delta(\Delta^{k-1}p_n)$，比如$\Delta^2 p_n = \Delta(\Delta p_n)= \Delta(p_{n+1}-p_n) = (p_{n+2}-p_{n+1}) -(p_{n+1}-p_n)$
 
-
 假设$\{p_n\}_{n=0}^\infty$是线性收敛的，其极限为$p$。
 
 为了便于构造比$\{p_n\}_{n=0}^\infty$收敛更快的序列$\{\hat{p}_n\}_{n=0}^\infty$，我们假设$p_n-p, p_{n+1}-p, p_{n+2}-p$的符号一致，又假设$n$足够大，有

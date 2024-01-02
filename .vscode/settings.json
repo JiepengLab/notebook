@@ -1,3 +1,4 @@
 {
-    "editor.inlineSuggest.showToolbar": "always"
+    "editor.inlineSuggest.showToolbar": "always",
+    "liveServer.settings.port": 5501
 }

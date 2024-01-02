@@ -268,4 +268,3 @@ $$\begin{cases}a_{11}=l_{11}\\a_{i,i-1}=l_{i,i-1}\\a_{i,i}=l_{i,i-1}u_{i-1,i}+l_
 在求解部分，我们可以先解$\mathbf{L}\mathbf{z}=\mathbf{b}$，然后再解$\mathbf{U}\mathbf{x}=\mathbf{z}$。有伪代码：
 
 ![Alt text](images/image-22.png)
-
