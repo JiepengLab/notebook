@@ -203,17 +203,6 @@ $$
 
     泰勒方法需要计算 $f(t,y)$ 的导数并求值，这是一个复杂、耗时的过程。Runge-Kutta 方法具有 Taylor 方法的高阶局部截断误差，但是不需要计算 $f(t,y)$ 的导数。
 
-### 改进欧拉法 | Modified Euler Method
-
-$$\begin{cases}w_0=\alpha\\
-w_{i+1}=w_i+h(\frac12K_1+\frac12K_2)\\
-K_1=f(t_i,w_i)\\
-K_2=f(t_{i}+h,w_i+hK_1)\end{cases}$$
-
-!!! note "是不是感觉和梯形法很像？"
-
-    梯形法是用 $f(t_i,w_i)$ 和 $f(t_{i+1},w_{i+1})$ 的平均值来代替 $f(t,y)$，而改进欧拉法是用 $f(t_i,w_i)$ 和 $f(t_{i}+h,w_i+hK_1)$ 的平均值来代替 $f(t,y)$。区别在于前者是隐式的，后者是显式的。
-
 ### 二阶 Runge-Kutta 法 | Runge-Kutta method of order 2
 
 我们考察改进欧拉法 $K$ 前面的系数以及 $K_2$ 的步长，使局部截断误差为 $O(h^2)$：
@@ -226,7 +215,30 @@ $$
 这有无穷多种可能，我们称其为 **二阶 Runge-Kutta 方法**（Runge-Kutta method of order 2）。
 
 !!! note ""
-    实际上，改进欧拉法就是二阶 Runge-Kutta 方法的一个特例
+    以下三个是二阶 Runge-Kutta 方法的特例
+
+#### 中点法 | Midpoint Method
+
+$$\begin{cases}w_0=\alpha\\
+w_{i+1}=w_i+hf(t_i+\frac{h}{2},w_i+\frac{h}{2}f(t_i,w_i))\end{cases}$$
+
+#### 改进欧拉法 | Modified Euler Method
+
+$$\begin{cases}w_0=\alpha\\
+w_{i+1}=w_i+h(\frac12K_1+\frac12K_2)\\
+K_1=f(t_i,w_i)\\
+K_2=f(t_{i}+h,w_i+hK_1)\end{cases}$$
+
+!!! note "是不是感觉和梯形法很像？"
+
+    梯形法是用 $f(t_i,w_i)$ 和 $f(t_{i+1},w_{i+1})$ 的平均值来代替 $f(t,y)$，而改进欧拉法是用 $f(t_i,w_i)$ 和 $f(t_{i}+h,w_i+hK_1)$ 的平均值来代替 $f(t,y)$。区别在于前者是隐式的，后者是显式的。
+
+#### Heun 法 | Heun's Method
+
+$$\begin{cases}w_0=\alpha\\
+w_{i+1}=w_i+h(\frac{1}{4}K_1+\frac{3}{4}K_2)\\
+K_1=f(t_i,w_i)\\
+K_2=f(t_{i}+\frac{2}{3}h,w_i+\frac{2}{3}hK_1)\end{cases}$$
 
 ### 高阶 Runge-Kutta 法 | Runge-Kutta methods of order $m$
 
@@ -237,7 +249,6 @@ K_2=f(t_i+{\color{red}{\alpha_2}}h,w_i+{\color{red}{\beta_{21}}}hK_1)\\
 K_3=f(t_i+{\color{red}{\alpha_3}}h,w_i+{\color{red}{\beta_{31}}}hK_1+{\color{red}{\beta_{32}}}hK_2)\\
 \vdots\\
 K_m=f(t_i+{\color{red}{\alpha_m}}h,w_i+{\color{red}{\beta_{m1}}}hK_1+{\color{red}{\beta_{m2}}}hK_2+\cdots+{\color{red}{\beta_{m,m-1}}}hK_{m-1})\end{cases}$$
-\end{cases}$$
 
 !!! note "Order 4-the most popular one"
 
