@@ -1,5 +1,8 @@
 # 数值分析
 
+!!! tip "纯净版"
+    前往链接：[ALL-SUM.html](./ALL-SUM.html)
+
 !!! note "课程架构"
 
     !!! note "Basic Knowledge"
@@ -54,7 +57,7 @@
 
     - 理论：$e=\sum\limits_{n=0}^{\infty} \frac{1}{n!} $
 
-    - 计算机: $e=\sum\limits_{n=0}^{N} \frac{1}{n!} $-
+    - 计算机: $e=\sum\limits_{n=0}^{N} \frac{1}{n!} $
   
 - **舍入误差**: 当计算机执行实数计算时产生的误差。这是因为计算机中的算术运算涉及到的数字只有有限位数。
     - 理论：$0.3333333\cdots$
