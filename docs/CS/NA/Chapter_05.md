@@ -482,6 +482,26 @@ $$\begin{cases}
 
 除了这两个概念，我们还需要一个概念：**稳定性**。如果初始条件的小变化或扰动会导致后续近似值的相应小变化，则该方法被称为**稳定**。
 
+#### 特征方程与稳定性
+
+已知方程
+
+$$\begin{aligned}
+w_0&=\alpha,w_1=\alpha_1,\cdots,w_{m-1}=\alpha_{m-1}\\
+w_{i+1}&=a_{m-1}w_i+a_{m-2}w_{i-1}+\cdots+a_0w_{i+1-m}+hF(t_i,h,w_{i+1},w_i,\cdots,w_{i+1-m})
+\end{aligned}$$
+
+我们给出一个相关的多项式，称为**特征多项式**（characteristic polynomial）：
+
+$$P(\lambda)=\lambda^m-a_{m-1}\lambda^{m-1}-a_{m-2}\lambda^{m-2}-\cdots-a_0$$
+
+!!! note ""
+
+   - 如果 $P(\lambda)$ 的所有根的模都小于等于 1，且取等时为单根，则称该方法满足**根条件**（root condition）
+       - 如果有且仅有一个根的模等于 1，则该方法是**强稳定**（strongly stable）的
+       - 如果有多个根的模等于 1，则该方法是**弱稳定**（weakly stable）的
+   - 如果方法不满足**根条件**，则该方法是不稳定的
+
 #### 测试方程 | Test Equation
 
 我们将一个特定的方法应用于一个简单的测试方程：

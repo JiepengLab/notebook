@@ -2184,27 +2184,47 @@ $$\begin{cases}
     !!! note "第二次迭代："
         ![Alt text](images/image-97.png){width=50%}
 
-### 5.10 稳定性 | Stability
+## 5.10 稳定性 | Stability
 
-#### 相容 | Consistency
+### 相容 | Consistency
 
 ![Alt text](images/image-98.png)
 
 !!! note ""
     注意到这个定义是在**局部**上的定义
 
-#### 收敛 | Convergence
+### 收敛 | Convergence
 
 ![Alt text](images/image-99.png)
 
 !!! note ""
     这是对**整体**而言
 
-#### 稳定性 | Stability
+### 稳定性 | Stability
 
 除了这两个概念，我们还需要一个概念：**稳定性**。如果初始条件的小变化或扰动会导致后续近似值的相应小变化，则该方法被称为**稳定**。
 
-##### 测试方程 | Test Equation
+#### 特征方程与稳定性
+
+已知方程
+
+$$\begin{aligned}
+w_0&=\alpha,w_1=\alpha_1,\cdots,w_{m-1}=\alpha_{m-1}\\
+w_{i+1}&=a_{m-1}w_i+a_{m-2}w_{i-1}+\cdots+a_0w_{i+1-m}+hF(t_i,h,w_{i+1},w_i,\cdots,w_{i+1-m})
+\end{aligned}$$
+
+我们给出一个相关的多项式，称为**特征多项式**（characteristic polynomial）：
+
+$$P(\lambda)=\lambda^m-a_{m-1}\lambda^{m-1}-a_{m-2}\lambda^{m-2}-\cdots-a_0$$
+
+!!! note ""
+
+   - 如果 $P(\lambda)$ 的所有根的模都小于等于 1，且取等时为单根，则称该方法满足**根条件**（root condition）
+       - 如果有且仅有一个根的模等于 1，则该方法是**强稳定**（strongly stable）的
+       - 如果有多个根的模等于 1，则该方法是**弱稳定**（weakly stable）的
+   - 如果方法不满足**根条件**，则该方法是不稳定的
+
+#### 测试方程 | Test Equation
 
 我们将一个特定的方法应用于一个简单的测试方程：
 
@@ -2216,7 +2236,7 @@ $$y’ = \lambda y,  y(0) = \alpha,  \text{where } Re(\lambda) < 0$$
 
 如果方法 A 的绝对稳定域比方法 B 的大，那么方法 A 就比方法 B 更稳定
 
-###### 显式 Euler 法的稳定性
+##### 显式 Euler 法的稳定性
 
 在显式 Euler 法中，我们有
 
@@ -2236,7 +2256,7 @@ $$\epsilon_{i+1}=(1+H)^{i+1}\epsilon$$
 
 要确保稳定性，我们需要 $|(1+H)^{i+1}|<1$，即 $|1+H|<1$。
 
-###### 隐式 Euler 法的稳定性
+##### 隐式 Euler 法的稳定性
 
 在隐式 Euler 法中，我们有
 
@@ -2260,7 +2280,7 @@ $$\epsilon_{i+1}=(\frac{1}{1-H})^{i+1}\epsilon$$
 
 要确保稳定性，我们需要 $|(\frac{1}{1-H})^{i+1}|<1$，即 $|\frac{1}{1-H}|<1$。
 
-###### 二阶 隐式 Runge-Kutta 法的稳定性
+##### 二阶 隐式 Runge-Kutta 法的稳定性
 
 在二阶 隐式 Runge-Kutta 法中，我们有
 
@@ -2291,7 +2311,7 @@ $$\epsilon_{i+1}=(\frac{2+H}{2-H})^{i+1}\epsilon$$
 
 要确保稳定性，我们需要 $|\frac{2+H}{2-H}|<1$。
 
-###### 四阶 显式 Runge-Kutta 法的稳定性
+##### 四阶 显式 Runge-Kutta 法的稳定性
 
 在四阶 显式 Runge-Kutta 法中，我们有
 
@@ -2330,7 +2350,7 @@ $$\epsilon_{i+1}=(1+H+\frac{1}{2}H^2+\frac{1}{6}H^3+\frac{1}{24}H^4)^{i+1}\epsil
 
 要确保稳定性，我们需要 $|1+H+\frac{1}{2}H^2+\frac{1}{6}H^3+\frac{1}{24}H^4|<1$。
 
-##### 微分方程组
+#### 微分方程组
 
 考虑一个微分方程组
 
