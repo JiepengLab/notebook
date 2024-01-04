@@ -4466,7 +4466,7 @@ Cournot 模型与Bertrand 模型
 
 #### 推广 - 稳定室友问题
 
-!!! note ''
+!!! note ""
     关系变多了~
 
 ![Alt text](images/image-196.png){width=50%}
