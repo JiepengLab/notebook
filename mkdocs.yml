@@ -48,6 +48,9 @@ nav:
       - 12 图论模型: ./Fundemental/Mathematical-Modeling/24-GraphTheory.md
       - 13 博弈论模型: ./Fundemental/Mathematical-Modeling/25-GameTheory.md
       - X - 神经网络模型: ./Fundemental/Mathematical-Modeling/Neural-Networks.md
+      - Chapter * ALL: 
+        - ./Fundemental/Mathematical-Modeling/ALL-SUM_index.md
+        - 网页版（较为卡顿）: ./Fundemental/Mathematical-Modeling/ALL-SUM.md
 
     - 概率论与数理统计: 
       - ./Fundemental/Probability-and-Mathematical-Statistics/index.md
