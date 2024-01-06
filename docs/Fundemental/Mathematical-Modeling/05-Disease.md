@@ -8,7 +8,7 @@
 记 $A$ 为患病，$B$ 为检测结果为阳性，疾病检测方法的性能指标为
 
 - **灵敏度（sensitivity）**$p=P(B|A)$ ：患病者被检测为阳性（positive）的概率
-- **特异度（specificity）**$p=P(\overline{B}|\overline{A})$ ：未患病者被检测为阴性（negative）的概率
+- **特异度（specificity）**$q=P(\overline{B}|\overline{A})$ ：未患病者被检测为阴性（negative）的概率
 
 设疾病的发病率为 $r$ ，则被检测出阳性的情况下患病的概率为
 
