@@ -151,7 +151,9 @@ $$|F(h)-L| \leq K|G(h)|$$
 我们通常取$G(h)=h^p,(p>0)$，并对最大的$p$值感兴趣。
 
 !!! example "求当$h\to 0$时下列函数的收敛速度"
-     $\lim_{h\to 0}\frac{\sin h}{h} = 1$
+
+    $F(h) = \frac{\sin h}{h}$, $\lim_{h\to 0}\frac{\sin h}{h} = 1$
+
     解: $F(h)-L=\frac{\sin h}{h}-1 = \frac{\sin h-h}{h} \sim \frac{h-\frac{h^3}{6}+o(h^3)-h}{h} \sim-\frac{h^2}{6}\leq K|h^2|$
 
     所以收敛速度为$O(h^2)$。
