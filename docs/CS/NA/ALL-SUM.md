@@ -1,25 +1,22 @@
 # 数值分析
 
-!!! tip "纯净版"
-    前往链接：[ALL-SUM.html](./ALL-SUM.html)
-
 !!! note "课程架构"
 
     !!! note "Basic Knowledge"
-        - [x] [Chapter 1](./Chapter_01.md)
+        - [x] Chapter 1
             - Mean value theorem
             - Taylor expansion
             - Roundoff  error
     
     !!! note "Solution of Equations"
 
-        - [x] [Chapter 2](./Chapter_02.md)
+        - [x] Chapter 2
             - Solution of equations with one variable
-        - [x] [Chapter 6](./Chapter_06.md)
+        - [x] Chapter 6
             - Direct Matrix Solver
-        - [x] [Chapter 7](./Chapter_07.md)
+        - [x] Chapter 7
             - Iterative Matrix Solver
-        - [x] [Chapter 5](./Chapter_05.md)
+        - [x] Chapter 5
             - Initial value problem
               - Euler, Runge-kutta, multi-step
 
@@ -28,15 +25,15 @@
 
     !!! note "Interpolation and approximation"
 
-        - [x] [Chapter 3:  interpolation](./Chapter_03.md)
+        - [x] Chapter 3:  interpolation
             - Lagrange polynomial
             - Piecewise polynomial
 
-        - [x] [Chapter 4](./Chapter_04.md)
+        - [x] Chapter 4
             - Numerical differentiation
             - Numerical integration
   
-        - [x] [Chapter 8:  approximation](./Chapter_08.md)
+        - [x] Chapter 8:  approximation
             - Orthogonal polynomials
             - Least squares
             - Chebyshev polynomial
@@ -2511,7 +2508,7 @@ $$s_{i}=\max_{1\leq j\leq n}|a_{ij}|$$
 
     ![Alt text](images/image-11.png)
 
-    ![Alt text](images/image-12.png)
+    ![Alt text](images/image-103.png)
 
 #### 全主元选取策略 | Complete Pivoting
 
@@ -2714,7 +2711,9 @@ $\mathbf{R}^n$上的向量序列$\{\mathbf{x}^{(k)}\}_{k=1}^\infty$按照向量�
 
 !!! note "$\|\cdot\|_2$和$\|\cdot\|_\infty$的等价性"
 
-    设$\|\mathbf{x}\|_\infty=\max\limits_{1\leq i\leq n}|x_i|=|x_j|$。那么$$\|\mathbf{x}\|_2=\sqrt{\sum\limits_{i=1}^n|x_i|^2}\geq\sqrt{|x_j|^2}=|x_j|=\|\mathbf{x}\|_\infty$$
+    设$\|\mathbf{x}\|_\infty=\max\limits_{1\leq i\leq n}|x_i|=|x_j|$。那么
+    
+    $$\|\mathbf{x}\|_2=\sqrt{\sum\limits_{i=1}^n|x_i|^2}\geq\sqrt{|x_j|^2}=|x_j|=\|\mathbf{x}\|_\infty$$
     
     并且
     

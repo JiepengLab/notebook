@@ -27,8 +27,8 @@ $$
 用 $n+1$ 个点，构造 $n$ 次 Lagrange 插值多项式：
 
 $$
-\begin{aligned}f(x)&=\sum_{k=0}^nf(x_k)L_k(x)+\frac{(x-x_0)\cdots(x-x_n)}{(n+1)!}f^{(n+1)}(\xi_x)\\
-f^{\prime}(x_j)&=\sum_{k=0}^nf(x_k)L_k^{\prime}(x_j)+\frac{f^{(n+1)}(\xi_j)}{(n+1)!}\prod_{k = 0,k\neq j}^n(x_j-x_k)
+\begin{aligned}f(x)&=\sum\limits_{k=0}^nf(x_k)L_k(x)+\frac{(x-x_0)\cdots(x-x_n)}{(n+1)!}f^{(n+1)}(\xi_x)\\
+f^{\prime}(x_j)&=\sum\limits_{k=0}^nf(x_k)L_k^{\prime}(x_j)+\frac{f^{(n+1)}(\xi_j)}{(n+1)!}\prod_{k = 0,k\neq j}^n(x_j-x_k)
 \end{aligned}$$
 
 !!! note ""
@@ -111,15 +111,15 @@ $$f^{\prime\prime}(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}-\frac{h^2}{12}f^{(
 
 以第三章中给出的[插值多项式](./Chapter_03.md/#31-lagrange-interpolation-and-lagrange-polynomials)为基础，得到 Lagrange 插值多项式：
 
-$$P_n(x)=\sum_{i=0}^nf(x_i)L_i(x)$$
+$$P_n(x)=\sum\limits_{i=0}^nf(x_i)L_i(x)$$
 
 所以
 
-$$\int_a^b f(x)\mathrm{d}x\approx\int_a^b P_n(x)\mathrm{d}x=\sum_{i=0}^nf(x_i)\int_a^b L_i(x)\mathrm{d}x=\sum_{i=0}^n f(x_i)a_i$$
+$$\int_a^b f(x)\mathrm{d}x\approx\int_a^b P_n(x)\mathrm{d}x=\sum\limits_{i=0}^nf(x_i)\int_a^b L_i(x)\mathrm{d}x=\sum\limits_{i=0}^n f(x_i)a_i$$
 
 误差项为
 
-$$\int_a^b f(x)\mathrm{d}x-\sum_{i=0}^n f(x_i)a_i=\int_a^b (f(x)-P_n(x))\mathrm{d}x=\int_a^b \frac{f^{(n+1)}(\xi)}{(n+1)!}\prod_{i=0}^n(x-x_i)\mathrm{d}x$$
+$$\int_a^b f(x)\mathrm{d}x-\sum\limits_{i=0}^n f(x_i)a_i=\int_a^b (f(x)-P_n(x))\mathrm{d}x=\int_a^b \frac{f^{(n+1)}(\xi)}{(n+1)!}\prod_{i=0}^n(x-x_i)\mathrm{d}x$$
 
 ### 精确度 | Precision
 
@@ -230,7 +230,7 @@ Newton-Cotes 以等距节点的插值多项式为基础。由于高次多项式�
 
 $$\int_{x_{k-1}}^{x_k}f(x)dx\approx\frac{x_k-x_{k-1}}2[f(x_{k-1})+f(x_k)],\mathrm{~}k=1,...,n$$
 
-$$\int_a^b f(x)\mathrm{d}x = \sum_{i=0}^{n-1}\int_{x_i}^{x_{i+1}}f(x)\mathrm{d}x=\frac{h}{2}[f(a)+2\sum_{j=1}^{n-1}f(x_j)+f(b)]=\color{blue}{T_n}$$
+$$\int_a^b f(x)\mathrm{d}x = \sum\limits_{i=0}^{n-1}\int_{x_i}^{x_{i+1}}f(x)\mathrm{d}x=\frac{h}{2}[f(a)+2\sum\limits_{j=1}^{n-1}f(x_j)+f(b)]=\color{blue}{T_n}$$
 
 其中，$x_i = a+ih$，$\xi\in[a,b]$。
 
@@ -247,7 +247,7 @@ $$\int_a^b f(x)\mathrm{d}x-T_n=\frac{h^2}{12}(b-a)f''(\xi)$$
 
 $$\int_{x_k}^{x_{k+1}}f(x)dx\approx\frac h6[f(x_k)+4f(x_{k+\frac12})+f(x_{k+1})]$$
 
-$$\int_a^bf(x)dx\approx\frac h6[f(a)+4\sum_{k=0}^{n-1}f(x_{k+\frac12})+2\sum_{k=0}^{n-2}f(x_{k+1})+f(b)]=\color{blue}{S_n}$$
+$$\int_a^bf(x)dx\approx\frac h6[f(a)+4\sum\limits_{k=0}^{n-1}f(x_{k+\frac12})+2\sum\limits_{k=0}^{n-2}f(x_{k+1})+f(b)]=\color{blue}{S_n}$$
 
 其中，$x_i = a+ih$，$\xi\in[a,b]$。
 
@@ -257,7 +257,7 @@ $$\int_a^b f(x)\mathrm{d}x-S_n=-\frac{b-a}{180}(\frac{h}2)^4f^{(4)}(\xi)$$
 
 为简化表达，我们取 $n'=2n$，则 $h' = \frac{b-a}{n'} = \frac{h}{2}$，$x_{2k} = x_k$，$x_{2k+1} = x_k+\frac{h}{2}$，则
 
-$$\int_a^bf(x)dx\approx\frac{h'}3[f(a)+4\sum_{odd\;k}f(x_{k})+2\sum_{even\;k}f(x_{k})+f(b)]=\color{blue}{S_{n'}}$$
+$$\int_a^bf(x)dx\approx\frac{h'}3[f(a)+4\sum\limits_{odd\;k}f(x_{k})+2\sum\limits_{even\;k}f(x_{k})+f(b)]=\color{blue}{S_{n'}}$$
 
 ### 例题
 
