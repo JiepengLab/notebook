@@ -1723,37 +1723,36 @@
 <p class="admonition-title">图像成像的各种形式</p>
 <p>可见光、X射线、超声波、红外线</p>
 </div>
-<p>!!! note "图像信息处理涵盖的方面(what is image processing)</p>
-<div class="language-text highlight"><pre><span></span><code>1. Image acquisition(图像获取)
-
-    Automatic aperture correction and color balance(自动光圈校准和颜色平衡)
-
-    Image reconstruction（图像修复）
-
-2. Display and print
-
-    Automatic size adjustment（自动大小调整）
-
-    Color correction (CMYK vs. RGB)（颜色校正）
-
-3. Storage and Transmission（存储和传输）
-
-    High efficient storing: less temporal-spatial  cost（高效的存储以及较低的时空消耗）
-
-    Convenient transmission: Lossless, efficient, and secure（便利的传输）
-
-4. Enhancement and restoration（增强与修复）
-
-    Image restoration：Inpainting（图像的修补）
-
-    Improve visual effect：dehazing, retinex, deblur, super-resolution（增强可视性）
-
-5. Recognition and understanding
-
-    Character recognition：OCR，object detection: face detection（物体探测，文字识别）
-
-    Scene understanding：image  retrieval, scene classification（场景理解，图像检索，场景分类）
-</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">图像信息处理涵盖的方面(what is image processing)</p>
+<ol>
+<li>
+<p>Image acquisition(图像获取)</p>
+<p>Automatic aperture correction and color balance(自动光圈校准和颜色平衡)</p>
+<p>Image reconstruction（图像修复）</p>
+</li>
+<li>
+<p>Display and print</p>
+<p>Automatic size adjustment（自动大小调整）</p>
+<p>Color correction (CMYK vs. RGB)（颜色校正）</p>
+</li>
+<li>
+<p>Storage and Transmission（存储和传输）</p>
+<p>High efficient storing: less temporal-spatial  cost（高效的存储以及较低的时空消耗）</p>
+<p>Convenient transmission: Lossless, efficient, and secure（便利的传输）</p>
+</li>
+<li>
+<p>Enhancement and restoration（增强与修复）</p>
+<p>Image restoration：Inpainting（图像的修补）</p>
+<p>Improve visual effect：dehazing, retinex, deblur, super-resolution（增强可视性）</p>
+</li>
+<li>
+<p>Recognition and understanding</p>
+<p>Character recognition：OCR，object detection: face detection（物体探测，文字识别）</p>
+<p>Scene understanding：image  retrieval, scene classification（场景理解，图像检索，场景分类）</p>
+</li>
+</ol>
+</div>
 <div class="admonition note">
 <p class="admonition-title">图像的压缩</p>
 <p>目的：存储图像信息</p>
@@ -1814,19 +1813,15 @@
 <p>优先程度：同等条件下，人们往往会注意到色调（Hue, H）的变化，然后是饱和度（Saturation, S），然后是亮度（Value, V）。</p>
 <p>敏感度：人眼对于亮度的变化最为敏感，分辨能力最强。恰好与人眼的高动态能力相匹配。</p>
 </div>
-<p>!!! note "颜色空间的定义</p>
-<div class="language-text highlight"><pre><span></span><code>与设备相关：RGB, CMY, HSV
-
-与设备无关：
-
-(1) CIE XYZ: XYZ 三刺激值的概念是以色视觉的三元理论为根据的，它说明人眼具有接受三原色(红、绿、蓝)的接受器，而所有的颜色均被视作该三原色的混合色。1931年CIE制定了一种假想的标准观察者，设置配色函数.XYZ三刺激值是利用这些标准观察者配色函数计算得来的。在此基础上，CIE于1931年规定了Yxy颜色空间，其中Y为亮度，x,y是从三刺激值XYZ计算得来的色坐标。它代表人类可见的颜色范围。
-
-(2) CIE L\*a\*b: L\*a\*b\* 颜色空间是在1976年制定的，它是CIE XYZ颜色模型的改进型，以便克服原来的Yxy颜色空间存在的在x，y色度图上相等的距离并不相当于我们所觉察到的相等色差的问题。它的“L”（明亮度），“a”（绿色到红色）和“b”(蓝色到黄色)代表许多的值。与XYZ比较，CIE L\*a\*b\*颜色更适合于人眼的感觉。利用CIE L\*a\*b\*，颜色的亮度（L）、灰阶和饱和度（a,b）可以单独修正，这样，图像的整个颜色都可以在不改变图像或其亮度的情况下，发生改变。
-
-(3) CIE YUV: 在现代彩色电视系统中，通常采用三管彩色摄像机或彩色CCD（电荷耦合器件）摄像机，它把摄得的彩色图像信号，经分色，分别放大校正得到RGB，再经过矩阵变换电路得到亮度信号Y和两个色差信号R－Y、B－Y，最后发送端将亮度和色差三个信号分别进行编码，用同一信道发送出去。这就是我们常用的YUV颜色空间。采用YUV颜色空间的重要性是它的亮度信号Y和色度信号U、V是分离的。如果只有Y信号分量而没有U、V分量，那么这样表示的图就是黑白灰度图。
-
-更接近人的对颜色的感知差异：HSV
-</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">颜色空间的定义</p>
+<p>与设备相关：RGB, CMY, HSV</p>
+<p>与设备无关：</p>
+<p>(1) CIE XYZ: XYZ 三刺激值的概念是以色视觉的三元理论为根据的，它说明人眼具有接受三原色(红、绿、蓝)的接受器，而所有的颜色均被视作该三原色的混合色。1931年CIE制定了一种假想的标准观察者，设置配色函数.XYZ三刺激值是利用这些标准观察者配色函数计算得来的。在此基础上，CIE于1931年规定了Yxy颜色空间，其中Y为亮度，x,y是从三刺激值XYZ计算得来的色坐标。它代表人类可见的颜色范围。</p>
+<p>(2) CIE L*a*b: L*a*b* 颜色空间是在1976年制定的，它是CIE XYZ颜色模型的改进型，以便克服原来的Yxy颜色空间存在的在x，y色度图上相等的距离并不相当于我们所觉察到的相等色差的问题。它的“L”（明亮度），“a”（绿色到红色）和“b”(蓝色到黄色)代表许多的值。与XYZ比较，CIE L*a*b*颜色更适合于人眼的感觉。利用CIE L*a*b*，颜色的亮度（L）、灰阶和饱和度（a,b）可以单独修正，这样，图像的整个颜色都可以在不改变图像或其亮度的情况下，发生改变。</p>
+<p>(3) CIE YUV: 在现代彩色电视系统中，通常采用三管彩色摄像机或彩色CCD（电荷耦合器件）摄像机，它把摄得的彩色图像信号，经分色，分别放大校正得到RGB，再经过矩阵变换电路得到亮度信号Y和两个色差信号R－Y、B－Y，最后发送端将亮度和色差三个信号分别进行编码，用同一信道发送出去。这就是我们常用的YUV颜色空间。采用YUV颜色空间的重要性是它的亮度信号Y和色度信号U、V是分离的。如果只有Y信号分量而没有U、V分量，那么这样表示的图就是黑白灰度图。</p>
+<p>更接近人的对颜色的感知差异：HSV</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">RGB颜色空间</p>
 <p>RBG颜色模型是三维直角坐标颜色系统中的一个单位正方体，在正方体的主对角线上，各原色的量相等，产生由暗到亮的白色，即灰度。（0，0，0）为黑，（1，1，1）为白，正方体的其他6个角点分别为红、黄、绿、青、蓝和品红。RGB颜色模型构成的颜色空间是CIE原色空间的一个真子集。RGB颜色模型通常用于彩色阴极射线管和彩色光栅图形显示器（计算机和电视机采用）。</p>
@@ -1902,7 +1897,9 @@
 <p>假设连续两个灰度级之间的亮度差异就是韦伯定律中的可视临界值，那么</p>
 <p><img alt="Alt text" src="../images/image-136.png" /></p>
 <p>正常人眼所能看到的灰度级约为156</p>
-<p>!!! note "可视化增强：以对数操作为例</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">可视化增强：以对数操作为例</p>
 <p><img alt="Alt text" src="../images/image-137.png" /></p>
 <p>为了增强图像的可视信息，对图像中的像素进行基于对数的操作</p>
 <p>Ld是显示亮度，Lw是真实世界亮度，Lmax是场景中的最亮值。</p>
@@ -1965,7 +1962,9 @@
 <p><img alt="Alt text" src="../images/image-154.png" /></p>
 <p>中值滤波（不会变的那么糊）：</p>
 <p><img alt="Alt text" src="../images/image-155.png" /></p>
-<p>!!! note "拉普拉斯（优点缺点）</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">拉普拉斯（优点缺点）</p>
 <p>拉普拉斯算子：</p>
 <p><img alt="Alt text" src="../images/image-156.png" /></p>
 <p><img alt="Alt text" src="../images/image-157.png" /></p>
@@ -1979,7 +1978,9 @@
 <p>高斯滤波仅考虑了空间域，而双边滤波由于考虑了intensity domain，因此具有保边的作用</p>
 <p>式子中每个符号的意思：</p>
 <p><img alt="Alt text" src="../images/image-159.png" /></p>
-<p>!!! note "双边滤波的加速</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">双边滤波的加速</p>
 <p><img alt="Alt text" src="../images/image-160.png" /></p>
 </div>
 <div class="admonition note">
@@ -2095,7 +2096,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 19:42:48</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 19:51:14</span>
   </span>
 
     
