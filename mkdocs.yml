@@ -117,6 +117,9 @@ nav:
       - 03-图像灰度变换: ./CS/DIP/dip3.md
       - 04-几何变换: ./CS/DIP/dip4.md
       - 05-卷积和滤波: ./CS/DIP/dip5.md
+      - 06-傅里叶变换: ./CS/DIP/dip6.md
+      - 07-图像特征检测和提取: ./CS/DIP/dip7.md
+      - 08-深度学习: ./CS/DIP/dip8.md
       - Final: ./CS/DIP/dip-final.md
     - 数据结构基础:
       - ./CS/FDS/index.md

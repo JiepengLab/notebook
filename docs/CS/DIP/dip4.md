@@ -182,7 +182,7 @@ $$g_3=\dfrac{g_2-g_1}{x_2-x_1}(x_3-x_1)+g_1$$
 
 ### RBF interpolation
 
-$G(x)=\sum_{i=1}^n w_iG(c_i)$ where $w_i=\dfrac{\phi(|x-c_i|)}{\sum_{i=1}^n\phi(|x-c_i|)}$  
+$G(x)=\sum\limits_{i=1}^n w_iG(c_i)$ where $w_i=\dfrac{\phi(|x-c_i|)}{\sum\limits_{i=1}^n\phi(|x-c_i|)}$  
 
 其中 $x$ 可以是一个标量，也可以是一个向量，也就是说既可以是一维插值，也可以是二维、多维插值，取决于 $x$ 的维度。
 

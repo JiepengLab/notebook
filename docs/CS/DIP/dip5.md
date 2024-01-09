@@ -451,8 +451,8 @@ $$
 $$
 \begin{aligned}
 I_{\mathbf{p}}^{\mathrm{b}}&=\frac{1}{W_{\mathbf{p}}^{\mathrm{b}}}
-\sum_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{\mathbf{s}}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)I_{\mathbf{q}}\\
-\text{with }\;W_{\mathbf{p}}^{\mathrm{b}}&=\sum_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{s}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)
+\sum\limits_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{\mathbf{s}}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)I_{\mathbf{q}}\\
+\text{with }\;W_{\mathbf{p}}^{\mathrm{b}}&=\sum\limits_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{s}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)
 \end{aligned}
 $$
 
@@ -575,7 +575,7 @@ $\epsilon$ 决定了我们保边的程度，越大保边能力越强
 
 对边缘的定义不清淅，而且边缘是 context-dependent 的。肉眼中的边界，可能不被认为是边界，最终还是会出现 halo 的现象。
 
-#### 稀疏范数滤波 | Sparse Norm Filtering
+#### (TODO)稀疏范数滤波 | Sparse Norm Filtering
 
 ##### Core Algorithm
 

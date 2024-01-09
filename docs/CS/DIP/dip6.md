@@ -2,71 +2,169 @@
 counter: True  
 ---
 
-# 6 增维型快速双边滤波 | A Fast Approximation of the Bilateral Filter using a Signal Processing Approach
+# Fourier Transform
 
-!!! Abstract
+!!! Abstract  
+    * Fourier and his work
+    * Background of Fourier Transform
+    * Fourier Transform
+    * Discrete Fourier Transform (1D)
+    * FFT
+    * Discrete Fourier Transform (2D)
+    * FFT for Image in Matlab
 
-    双边滤波非常有用，但速度很慢，因为它是非线性的，传统的加速算法例如在FFT之后执行卷积，是不适用的。
+## Fourier Transform
 
-    课外资源: [http://people.csail.mit.edu/sparis/bf/#code](http://people.csail.mit.edu/sparis/bf/#code)
+### Expansion of a Function
 
-## 双边滤波的定义
-
-双边滤波可以使图像平滑，同时能保边。其**本质**是近邻的加权平均。原始的bilateral filter方程，权重包括：
-
-* 空间域上的高斯函数
-* 色彩域上的高斯函数
-* 归一化因子
+英国数学家泰勒在17世纪找到了用幂函数的无限线性组合表示一般的解析函数的方法。
 
 $$
-\begin{aligned}
-I_{\mathbf{p}}^{\mathrm{b}}&=\frac{1}{W_{\mathbf{p}}^{\mathrm{b}}}
-\sum_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{\mathbf{s}}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)I_{\mathbf{q}}\\
-\text{with }\;W_{\mathbf{p}}^{\mathrm{b}}&=\sum_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{s}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)
-\end{aligned}
+f(x)=f(a)+f'(a)(x-a)+\dfrac{f''(a)}{2!}(x-a)^2+\dfrac{f'''(a)}{3!}(x-a)^3+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n+\ldots
 $$
 
-## 加速处理
+### Fourier Series
 
-我们将其与线性滤波相联系起来
+18世纪中叶，法国数学家傅里叶在研究热传导问题时，找到了三角函数的无限线性组合表示有限区间上的一般函数的方法，即把函数展开成三角级数。
 
-加速后可以做到快、且准确的**近似**（有误差，并不是相等）
+$$
+\begin{align*}
+f(x) & =\dfrac{1}{2}a_0+\sum\limits_{n=1}^{\infty}a_n\cos(nx)+\sum\limits_{n=1}^{\infty}b_n\sin(nx)\\
+a_0 & = \dfrac{1}{\pi}\int_{-\pi}^{\pi}f(x)dx\\
+a_n & =\dfrac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(nx)dx\\
+b_n & =\dfrac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin(nx)dx
+\end{align*}
+$$
 
-## Intuition on 1D Signal
+简单的周期现象，简谐振动: $y=A\sin(\omega t+\phi)$  
+一个周期运动，物理学上可以分成若干个简谐振动的叠加: $y=\sum\limits_{k=1}^n y_k=\sum\limits_{k=1}^n A_k\sin(k\omega t+\phi)$
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211270934905.png" width = 70%/> </div> 
+<details>
+<summary><b>Example</b></summary>
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212022055702.png" width = 65%/></div> 
+</details>
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211270935468.png" width = 70%/> </div> 
+### Complex Numbers 
 
-* 近且相似的像素是有影响力的
-* 远的像素没有影响力
-* 和中心像素相差较大的影响力也比较小（为什么可以保边下）
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212022210398.png" width = 35%/></div> 
 
-### Handling the Division
+复数可以采用 **Magnitude-Phase**(vector) 表示，即 $x=|x|e^{j\phi(x)}$, 其中 Magnitude $|x|=\sqrt{a^2+b^2}$, Phase $\phi(x)=\tan^{-1}(b/a)$  
 
-通过投影空间的方法处理归一化因子这里的除法
+在这种表示下，复数乘法可以写作 $xy=|x|e^{j\phi(x)}\cdot |y|e^{j\phi(y)}=|x||y|e^{j\phi(x)+\phi(y)}$  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211270938964.png" width = 70%/> </div> 
+共轭复数 $x^* = a-jb$, 它满足 $|x|=|x^*|,\phi(x)=-\phi(x),xx^*=|x|^2$  
 
-* 第一行($I_p^{bf}$) 乘上归一化因子，从而形成一个 $2\times 1$向量，如上图下面所示。
+**Euler Formula**: $e^{j\theta}=\cos(\theta)+j\sin(\theta)$  
+它满足 $|e^{j\theta}|=1, phi(e^{j\theta})=\theta,sin(\theta)=\dfrac{1}{2l}(e^{j\theta}-e^{-j\theta}),cos(\theta)=\dfrac{1}{2}(e^{j\theta}+e^{-j\theta})$  
 
-* 类似于投影空间中的齐次坐标
-* 我们把除法往后放，直到计算结束再进行归一化因子的除法
-* 下一步：添加一维，使得可以进行卷积操作
+### Fourier Transform
 
-### Introducing a Convolution
+傅里叶变换是复傅里叶系数在给定区间上的一个推广。   
+傅里叶分析指频率区域分析，其中 $n$ 较小时为低频， $n$ 较大时为高频。  
+注意到正弦波和余弦波都是无限长的，这是傅里叶分析的一个不足，因此微波(wavelet)分析比特定信号的分析更好。  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211270945462.png" width = 70%/> </div> 
+<details>
+<summary><b>Example</b></summary>
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212022154802.png" width = 55%/></div> 
+</details>
 
-三维高斯，二维卷积（卷积可以变为频率的乘积操作，可以利用 FFT 变换）
+对于非周期函数,如果函数 $f(x)$只在区间 $[−\pi,\pi]$ 上,也可展开成傅氏级数.  
+周期延拓  
 
-变为 $\sum\limits_{(q,\xi)\in S\times R}\left(\begin{matrix}W_q I_q \\ W_q \end{matrix}\right)$ **space-range Gaussian**
+$$
+\begin{align*}
+F(x)=\left\{\begin{matrix} 
+& f(x) ,x \in(-\pi,\pi] \\  
+& f(x-2k\pi) ,x\in ((2k-1)\pi,(2k+1)\pi], k=\pm 1 ,\pm 2,\ldots \end{matrix}\right.
+\end{align*}
+$$
 
-最后得到的结果还需要采样
+1-D 2-D Continuous
 
-## Summary
+### Image Transform
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211270949534.png" width = 80%/> </div> 
+很多时候，图像处理任务在变换域（频域）而不是空间域中执行得最好。  
 
-上采样，下采样并不是完全的双边滤波，做了一个近似
+* 图像变换
+* 进行操作
+* 图像逆变换，回到空间域
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212022223450.png" width = 60%/></div> 
+
+* T
+* InvT
+
+低频对应图像缓慢变化的信息（如连续的表面）；高频对应快速变化的信息（如边）
+
+Frequency Filtering Steps
+
+* 对 $f(x)$ 傅里叶变换 $F(f(x))$
+* 去掉不想要的频率 $D(F(f(x)))$
+* 转换回原来的信号 $\hat f(x)=F^{-1}(D(F(f(x))))$
+
+### Discrete Fourier Transform (DFT) 
+
+Forward DFT  
+$F(u)=\sum\limits_{x=0}^{N-1}f(x)e^{-\frac{j2\pi ux}{N}}, u=0,1,\ldots,N-1$  N 频率的数目，x 采样点的数目
+Inverse
+$f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldots,N-1$  
+
+??? Example "Magnitude VS Phase"
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212102006776.png" width = 60%/></div>   
+
+    如果我们只用振幅/相位作为信息重建图像，会得到什么样的结果？  
+    
+    * 利用振幅  
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212102007140.png" width = 25%/></div>   
+
+    * 利用相位  
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212102007841.png" width = 25%/></div>   
+
+    相位更多的传递了图像的结构信息！
+
+
+## Fast Fourier Transform(FFT)  
+
+* 将原始的 N 点序列依次分解为一系列短序列；
+* 求出这些短序列的离散傅立叶变换；
+* 组合出所需的变换值；
+* 计算量（乘除法）：$2N^2\rightarrow 2N\lg_2N$
+
+### Principle
+
+$F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)e^{\frac{j2\pi kn}{N}}$  
+
+Let $W_N^{n,k}=e^{-j2\pi nk/N}$ then DFT is $F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)W_N^{n,k}$  
+
+假定 $N$ 为 $2$ 的正整数幂：$N=2^H\Rightarrow N=2M$, 将原式子分为奇数项和偶数项      
+
+$$
+\begin{align*}
+F(k) & = \dfrac{1}{2M} \sum\limits_{n=0}^{2M-1}f(n)W_{2M}^{n,k}\\
+& = \dfrac{1}{2}\left[\dfrac{1}{M}\sum\limits_{n=0}^{M-1}f(2n)W_{2M}^{2n,k}+\dfrac{1}{M}\sum\limits_{n=0}^{M-1}f(2n+1)W_{2M}^{2n+1,k}\right]\\
+W_{2M}^{2n,k} & = e^{-j2\pi \cdot 2nk/2M} = e^{-j2\pi nk/M} = W_M^{n,k}\\
+W_{2M}^{2n+1,k} & = e^{-j2\pi \cdot (2n+1)k/2M} = e^{-j2\pi nk/M} \cdot e^{-j2\pi k/2M}= W_M^{n,k}\cdot  W_{2M}^k\\
+F(k) & = \left[\sum\limits_{n=0}^{M-1}f(2n)W_M^{n,k}+\sum\limits_{n=0}^{M-1}f(2n+1)W_M^{n,k}W_{2M}^k\right], k=0,1,\ldots,M-1
+\end{align*}
+$$
+
+令 $\left\{ \begin{matrix} F_e(k) & = \sum\limits_{n=0}^{M-1}f(2n)W_M^{n,k} \\ F_o(k) & = \sum\limits_{n=0}^{M-1}f(2n+1)W_M^{n,k} \end{matrix}\right.$ 那么 $F(k)=\lfloor F_e(k)+F_o(k)W_{2M}^k \rfloor$  
+
+如果 $e, o$ 是 $2$ 的幂次，还可以继续拆   
+
+对于 $k=M,M+1\ldots,2M-1$  
+
+$$
+\begin{align*}
+W_M^{n,k+M} & = e^{-j2\pi (k+M)/M}\\
+    & = e^{-j2\pi n k/M} \cdot e^{-j2n\pi}\\
+    & = e^{-j2\pi n k /M}\\
+    & = W_M^{n,k}\\
+W_{2M}^{k+M} & = e^{-j2\pi k/2M\cdot e^{-j\pi}=-W_{2M}^k}
+\end{align*}
+$$ 
+
+因此 $F(k+M)=\lfloor F_e(k)-F_o(k)W_{2M}^k\rfloor  $    
+
+意义：对一个长度为 N 的序列进行傅立叶变换可以通过将其分成两半计算，对第一部分的计算需要通过计算两个长度为 N/2 长度序列的傅立叶变换式进行，然后利用这两个长度为 N/2 的序列可以得到第二部分的值。
 

@@ -54,8 +54,8 @@ $$
 \begin{aligned}
 &\sigma_{within}^{2}(T) =\frac{N_{Fgrd}(T)}N\sigma_{Fgrd}^{2}(T)+\frac{N_{Bgrd}(T)}N\sigma_{Bgrd}^{2}(T)  \\
 &\sigma_{between}^{2}(T) =\sigma^2-\sigma_{within}^2(T)  \\
-&=\left(\frac{1}{N}\sum_{x,y}(f^2[x,y]-\mu^2)\right)-\frac{N_{Fgrd}}{N}\left(\frac{1}{N_{Fgrd}}\sum_{x,y\in Fgrd}(f^2[x,y]-\mu_{Fgrd}^2)\right) \\
-&-\frac{N_{Bgrd}}{N}\left(\frac{1}{N_{Bgrd}}\sum_{x,y\in Bgrd}(f^2[x,y]-\mu_{Bgrd}^2)\right) \\
+&=\left(\frac{1}{N}\sum\limits_{x,y}(f^2[x,y]-\mu^2)\right)-\frac{N_{Fgrd}}{N}\left(\frac{1}{N_{Fgrd}}\sum\limits_{x,y\in Fgrd}(f^2[x,y]-\mu_{Fgrd}^2)\right) \\
+&-\frac{N_{Bgrd}}{N}\left(\frac{1}{N_{Bgrd}}\sum\limits_{x,y\in Bgrd}(f^2[x,y]-\mu_{Bgrd}^2)\right) \\
 &=-\mu^{2}+\frac{N_{Fgrd}}{N}\mu_{Fgrd}^{2}+\frac{N_{Bgrd}}{N}\mu_{Bgrd}^{2} \\
 &=\frac{N_{Fgrd}}N(\mu_{Fgrd}-\mu)^{2}+\frac{N_{Bgrd}}N(\mu_{Bgrd}-\mu)^{2} \\
 &\rightarrow\frac{N_{Fgrd}(T)\cdot N_{Bgrd}(T)}{N^{2}}(\mu_{Fgrd}(T)-\mu_{Bgrd}(T))^{2}

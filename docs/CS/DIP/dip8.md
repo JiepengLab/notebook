@@ -2,77 +2,98 @@
 counter: True  
 ---
 
-# Guided Image Filtering
+# 深度学习简介
 
-!!! Abstract
-    介绍 Guided Image Filtering, 包括其基本思想，优点和局限性，以及应用。
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252210169.png" width = 70%/></div> 
 
-## Guided Filter
+* 特征不能学习/训练的
+* 分类器通常是可训练的，如 SVM, HMM...
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211271000014.png" width = 70%/> </div> 
+特征非常重要，很多特征都是为了特定的任务而手工设计，但手工设计一个特征提取需要相当大的努力。
 
-双边滤波只能保边，没有保梯度（即正负号），很有可能发生梯度逆转
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252218353.png" width = 70%/></div> 
 
-输入有噪声的图像 $p$, 输出去噪后平滑的图像 $q$. 那么 $q_i = p_i - n_i $ 其中 $n_i$ 表示噪声或者是纹路
+* 为了特定的识别任务，找到更适合的特征，以可训练的方式提取特征  
+* 学习统计结构或者数据与数据之间的相互关系得到特征表达
+* 学习得到的特征表达可以用来作为识别任务中的特征
 
-引入了 guided image $I$. $\nabla q_i=a \nabla I_i\Rightarrow q_i=aI_i+b$ ($a$ 是一个标量系数)    
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252234034.png" width = 70%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252247811.png" width = 70%/></div>   
 
-要求 $\min\limits_{(a,b)}\sum\limits_i (aI_i+b-p_i)^2+\epsilon a^2$ (这里 $\epsilon a^2$ 是正则项，用来控制方向)    
+CNN 卷积神经网络  
 
-对 $a$ 求偏导，令偏导数为 $0$; 对 $b$ 同理, 这样可以解一个二元一次方程组得到 $a$ 和 $b$. (这里 $\overline p$ 指的是 $I$ 这个邻域的平均值)
+* CNN 是少有的可以监督训练的深度模型，而且容易理解、实现。  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021919371.png" width = 70%/> </div> 
+神经
 
-以上是对单个像素，我们可以扩充到整个图像：  
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252252018.png" width = 70%/></div>   
 
-* 对每一个局部窗口 $w_k$ 我们可以算出 $a_k, b_k$  
-窗口之间可能有重叠，要算窗口内 $q_k$ 的平均值，即所有包含 $q_i$ 的窗口的均值  
+人工神经网络，对突触的观测值连到汇总的地方，并进行加权求和，通过激活函数产生输出  
 
-* 参数: 窗口半径 $r$, 正则系数 $\epsilon$
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252253669.png" width = 70%/></div>   
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021923944.png" width = 70%/> </div> 
+$w_0$ 用于矫正数据的偏置量 Bias  
+常用的激活函数  
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252255999.png" width = 70%/></div>   
 
-如果窗口的 $var(I)\ll \epsilon, Cov(I,p)\ll \epsilon\Rightarrow a\approx 0, b\approx \overline p\Rightarrow q_i\approx \overline{\overline p}$ (相当于对均值滤波的一个级联)  
+ReLU 会把输入的信号去掉一部分  
 
-guided image 怎么找？可以用输出图像的平均值 $\overline p$ 作为 guided image.  
+多层神经网络  
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252258160.png" width = 70%/></div>   
 
-$r$ 决定了采样窗口的大小
+如何解深度神经网络(解，指求出 $w$)    
+**反向传播 Back-propagation(BP)**  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021931065.png" width = 70%/> </div> 
+* 随机初始化权重，计算 $h_W(X)$  
+* 计算误差 $E=(h_W(X)-y)^2$
+* $W_k=W_{k-1}-\epsilon \frac{\partial E}{\partial W}$ 特别地, $w_{ij}^{(k)}=w_{ij}^{(k-1)}-\epsilon \frac{\partial E}{\partial w_{ij}^{(k-1)}}$ 梯度下降法
 
-这说明它不仅可以保边，还可以保方向，即不会出现梯度逆转的情况。  
-$\epsilon$ 决定了我们保边的程度，越大保边能力越强
+$\epsilon$ 是个超参，称为学习率。如果设置过大可能会在收敛的两边剧烈震荡；如果过小容易陷入局部最优爬不出来，以及收敛更慢。  
 
-<details>
-<summary> <b>Example</b> </summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021933891.png" width = 70%/> </div> 
-</details>
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212261813575.png" width = 70%/></div>   
 
-**Guided Filter** 的优点
+共享权重  
+设计一个卷积核用来提取特征，得到一个新的图像 feature map 特征图。   
 
-* 保边（保梯度就一定能保边，反之不一定）
-* 非迭代
-* $O(1)$ 的时间，快且不需要通过近似的方法
-* 不存在梯度逆转的问题
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212261818887.png" width = 70%/></div>   
 
-## Complexity
+10 个卷积核得到 10 张特征图，形成一个三维的特征体。  
+卷积核可以复用  
 
-* 在每个局部窗口计算均值、方差、协方差
-* 级联，可以用积分图提前做计算
-    * $O(1)$ 且不依赖于窗口大小 $r$
-    * 非近似
+简单的细胞检测局部特征；复杂的细胞会池化，筛选提取特征（特征图的降采样）
 
-## Gradient Preserving
+池化：
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272216320.png" width = 70%/></div>   
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021941340.png" width = 70%/> </div> 
+空间，选择重要的值，降低复杂度  
 
-<details>
-<summary> <b>梯度逆转的例子</b> </summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021947996.png" width = 70%/> </div> 
-</details>
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272218775.png" width = 70%/></div>   
 
-除了图像平滑，还可以用来去雾、抠图
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272227612.png" width = 70%/></div> 
 
-## Limitation
+是通过梯度下降的方法来优化，如何设置学习率？ 
 
-对边缘的定义不清淅，而且边缘是 context-dependent 的。肉眼中的边界，可能不被认为是边界，最终还是会出现 halo 的现象。
+学习率低，收敛慢，容易掉到坑里陷入局部最优；学习率高，可能使得收敛过程不稳定，来回震荡，一直不收敛  
+
+idea:
+
+* 设置不同的学习率，看哪种情况最好
+* 设计一个自适应学习率。此时学习率不再固定，可以通过外在条件算(梯度，学习要有多快，特征权重的大小...)  
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272231229.png" width = 70%/></div>  
+
+第三步的梯度，可以很容易的算出  
+
+如果我们随机选一个点，很容易被噪点影响。所以我们用一个 batch B  
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272232650.png" width = 70%/></div>    
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272233744.png" width = 70%/></div>    
+
+正则化：dropout  丢掉一半，防止过拟合  
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272234338.png" width = 70%/></div>  
+
+早停法，见好就收
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272235558.png" width = 70%/></div>  
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212272235848.png" width = 70%/></div>  
