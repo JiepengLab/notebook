@@ -2098,26 +2098,18 @@
 </div>
 <div class="admonition abstract">
 <p class="admonition-title">Abstract</p>
-<ul>
-<li>Image feature  <ul>
-<li>Image matching  </li>
-<li>Feature detection  <ul>
-<li>Harris operator  </li>
-</ul>
-</li>
-<li>Invariance  <ul>
-<li>Scale Invariant Feature Transform (SIFT)  </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>*Image feature<br />
+    * Image matching<br />
+    *Feature detection<br />
+        * Harris operator<br />
+    *Invariance<br />
+        * Scale Invariant Feature Transform (SIFT)  </p>
 </div>
 <h2 id="image-matching">Image Matching<a class="headerlink" href="#image-matching" title="点击此处可置顶内容">&para;</a></h2>
-<p>做图像拼接: 检测两张图象的特征点，找到对应的点对，用这些点对对齐图像   </p>
+<p>做图像拼接: 检测两张图象的特征点，找到对应的点对，用这些点对对齐图像</p>
 <h2 id="feature-detection">Feature detection<a class="headerlink" href="#feature-detection" title="点击此处可置顶内容">&para;</a></h2>
-<p>提取出局部的具有几何不变性的特征   </p>
-<p>怎样找到一个好的特征？  ——找到一个非同寻常的区域     </p>
+<p>提取出局部的具有几何不变性的特征</p>
+<p>怎样找到一个好的特征？  ——找到一个非同寻常的区域</p>
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212102051293.png" width = 45%/></div>
 
 <p>我们考虑一个小窗口的像素  </p>
@@ -2128,7 +2120,7 @@
 </ul>
 <p>量化窗口像素的变化: <span class="arithmatex">\(W\)</span> 表示窗口，<span class="arithmatex">\((u,v)\)</span> 表示方向</p>
 <p><span class="arithmatex">\(E(u,v)=\sum\limits_{(x,y)\in W}[I(x+u,y+v)-I(x,y)]^2\)</span><br />
-泰勒展开: 
+泰勒展开:
 <span class="arithmatex">\(I(x+u,y+v)-I(x,y)=\dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v + higher\ order\ terms\)</span><br />
 如果移动 <span class="arithmatex">\((u,v)\)</span> 小，那么可以用一阶微分估计 <span class="arithmatex">\(I(x+u,y+v)-I(x,y)\approx \dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v=\left[\begin{matrix}I_x &amp; I_y \end{matrix}\right]\left[\begin{matrix}u \\ v \end{matrix}\right]\)</span><br />
 将式子带入之前的公式得到  </p>
@@ -2142,16 +2134,14 @@ E(u,v) &amp; \approx \sum\limits_{(x,y)\in W} \left[\left[\begin{matrix}I_x &amp
 <span class="arithmatex">\(\lambda_{+}, \lambda_{-}\)</span> 比较大时，这是一个好的位置（因为沿各个方向的变化都较大）  </p>
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212131243187.png" width = 45%/></div>
 
-<p>一个大一个小: <span class="arithmatex">\(edge\)</span>; 两个都小: <span class="arithmatex">\(flat\)</span>   </p>
+<p>一个大一个小: <span class="arithmatex">\(edge\)</span>; 两个都小: <span class="arithmatex">\(flat\)</span></p>
 <div class="admonition summary">
 <p class="admonition-title">Feature Detection</p>
-<ul>
-<li>计算图像中每个点的梯度</li>
-<li>通过梯度得到每个 windows 的 <span class="arithmatex">\(H\)</span> 矩阵</li>
-<li>计算特征值</li>
-<li>找到相应较大的点(<span class="arithmatex">\(\lambda_- &gt; Threshold\)</span>)  </li>
-<li>选择那些 <span class="arithmatex">\(\lambda_-\)</span> 是局部极大值的点作为特征</li>
-</ul>
+<p><em>计算图像中每个点的梯度
+* 通过梯度得到每个 windows 的 <span class="arithmatex">\(H\)</span> 矩阵
+*计算特征值
+* 找到相应较大的点(<span class="arithmatex">\(\lambda_- &gt; Threshold\)</span>)<br />
+</em> 选择那些 <span class="arithmatex">\(\lambda_-\)</span> 是局部极大值的点作为特征</p>
 </div>
 <h3 id="the-harries-operator">The Harries operator<a class="headerlink" href="#the-harries-operator" title="点击此处可置顶内容">&para;</a></h3>
 <p><span class="arithmatex">\(\lambda_-\)</span> 是 Harries operator 用于特征检测的变体</p>
@@ -2173,7 +2163,7 @@ f &amp; = \dfrac{\lambda_1\lambda_2}{\lambda_1 + \lambda_2}\\
 <li>对加法和数乘强度变化保持不变 <span class="arithmatex">\(I\rightarrow I+b,I\rightarrow aI\)</span><br />
 极值点不变</li>
 <li>图像尺度变化会有影响！
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212131258337.png" width = 35%/></div>   </li>
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212131258337.png" width = 35%/></div></li>
 </ul>
 </li>
 </ul>
@@ -2221,16 +2211,16 @@ c. good</p>
 <p>梯度和角度<br />
 其中 <span class="arithmatex">\(m(x,y)\)</span> 是点的幅值，即 x 方向的差分和 y 方向的差分的平方和<br />
 <span class="arithmatex">\(\theta(x,y)\)</span> 是通过 y 方向的梯度和比上 x 方向的梯度的反正切计算<br />
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161930783.png" width = 50%/></div> </p>
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161930783.png" width = 50%/></div></p>
 </li>
 <li>
 <p>方向选择
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161933690.png" width = 40%/></div> </p>
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161933690.png" width = 40%/></div></p>
 <p>可以用投票的方式定义邻域的朝向</p>
 </li>
 </ul>
 <h3 id="sift-descriptor">SIFT Descriptor<a class="headerlink" href="#sift-descriptor" title="点击此处可置顶内容">&para;</a></h3>
-<p>Invariance: 
+<p>Invariance:
 假设这里有两幅图像 <span class="arithmatex">\(I_1, I_2\)</span>, 其中 <span class="arithmatex">\(I_2\)</span> 是 <span class="arithmatex">\(I_1\)</span> 经过某种变换后的版本（仿射变换，亮度等）<br />
 在变换中不变的特征称为<strong>变换不变性</strong>  </p>
 <p>SIFT 特征：旋转不变性<br />
@@ -2255,39 +2245,29 @@ c. good</p>
 </ul>
 <div class="admonition summary">
 <p class="admonition-title">SIFT Feature</p>
-<ul>
-<li>Descriptor 128-D<ul>
-<li></li>
-<li>可以通过去掉光照变化带来的影响</li>
-</ul>
-</li>
-<li>位置 <span class="arithmatex">\((x,y)\)</span></li>
-<li>尺度，控制特征提取的覆盖范围</li>
-<li>方向，实现旋转不变的 descriptor</li>
-</ul>
+<p>*Descriptor 128-D
+    *
+    *可以通过去掉光照变化带来的影响
+* 位置 <span class="arithmatex">\((x,y)\)</span>
+*尺度，控制特征提取的覆盖范围
+* 方向，实现旋转不变的 descriptor</p>
 </div>
 <p>SIFT 特征可以对图像进行分类<br />
 Bag of visual words
 提取SIFT特征，将特征做一个聚类(kmeans)，将每个聚类中心称为 visual word 视觉单词</p>
 <div class="admonition summary">
 <p class="admonition-title">Conclusion of SIFT</p>
-<ul>
-<li>优点<ul>
-<li>期望在比例、旋转、光照等变化中的不变性。</li>
-<li>局部 patch 具有很强的区分性和表征能力。</li>
-<li>在刚性对象表示上非常有效。</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>提取耗时<br />
-对于大小为400 * 400的图像，平均需要1秒。</li>
-<li>对非刚性物体性能较差。<br />
-如人脸、动物等。</li>
-<li>在严重的仿射失真下可能无法工作。<br />
-局部补丁是一个圆，而不是一个椭圆调整到仿射失真。</li>
-</ul>
-</li>
-</ul>
+<p>*优点
+    * 期望在比例、旋转、光照等变化中的不变性。
+    *局部 patch 具有很强的区分性和表征能力。
+    * 在刚性对象表示上非常有效。
+*缺点
+    * 提取耗时<br />
+    对于大小为400 *400的图像，平均需要1秒。
+    * 对非刚性物体性能较差。<br />
+    如人脸、动物等。
+    * 在严重的仿射失真下可能无法工作。<br />
+    局部补丁是一个圆，而不是一个椭圆调整到仿射失真。</p>
 </div>
 <h2 id="surf-detectors-and-descriptors">SURF detectors and descriptors<a class="headerlink" href="#surf-detectors-and-descriptors" title="点击此处可置顶内容">&para;</a></h2>
 <ul>
@@ -2323,7 +2303,7 @@ Bag of visual words
 
 <ul>
 <li><span class="arithmatex">\(S(x,y)=\sum\sum I(x,y)\)</span></li>
-<li><span class="arithmatex">\(V(l,t,r,b)=S(l,t)+S(r,b)-S(l,b)-S(r,t)\)</span> 得到矩形内的像素值的和   </li>
+<li><span class="arithmatex">\(V(l,t,r,b)=S(l,t)+S(r,b)-S(l,b)-S(r,t)\)</span> 得到矩形内的像素值的和</li>
 </ul>
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212251950536.png" width = 55%/></div>
 
@@ -2334,11 +2314,9 @@ Bag of visual words
 
 <div class="admonition info">
 <p class="admonition-title">Why SURF is better than SIFT</p>
-<ul>
-<li>维度低, 只用 64 维特征  </li>
-<li>在均匀、渐变、只有一条边的图像上 SIFT 无法分辨，但 SURF 可以  </li>
-<li>带噪声会使 SIFT 特征凌乱，对 SURF 几乎没有影响</li>
-</ul>
+<p><em>维度低, 只用 64 维特征<br />
+</em> 在均匀、渐变、只有一条边的图像上 SIFT 无法分辨，但 SURF 可以<br />
+* 带噪声会使 SIFT 特征凌乱，对 SURF 几乎没有影响</p>
 </div>
 <h2 id="ransac">RANSAC<a class="headerlink" href="#ransac" title="点击此处可置顶内容">&para;</a></h2>
 <p>RANSAC 解决图像拼接的离群点  </p>
@@ -2351,7 +2329,7 @@ Bag of visual words
 <li>计算种子点之间的变换  </li>
 <li>找到这次变换的 inliers</li>
 <li>如果 inliners 的数目足够多，那么重新计算所有 inliners 上的最小二乘法估计</li>
-<li>回归之后再计算 inliners 如此往复，继续调整。如果没有调整那我们可以停止循环。最终使得回归出的线达到最多的 inliners.   </li>
+<li>回归之后再计算 inliners 如此往复，继续调整。如果没有调整那我们可以停止循环。最终使得回归出的线达到最多的 inliners.</li>
 </ul>
 <p>需要多少次取样？假设 <span class="arithmatex">\(w\)</span> 是 inliners 的一部分, <span class="arithmatex">\(n\)</span> 个需要用来定义前提的点，进行了 <span class="arithmatex">\(k\)</span> 次取样。  </p>
 <ul>
@@ -2359,7 +2337,7 @@ Bag of visual words
 <li><span class="arithmatex">\(k\)</span> 次采样都失败了 <span class="arithmatex">\((1-w^n)^k\)</span></li>
 <li>选择 k 达到足够高使得失败的概率低于阈值  </li>
 </ul>
-<p>RANSAC 之后将数据划分为 outiler 和 inliner. </p>
+<p>RANSAC 之后将数据划分为 outiler 和 inliner.</p>
 <ul>
 <li>优点<ul>
 <li>对于模型拟合问题是一种通用的方法</li>
@@ -2377,14 +2355,12 @@ Bag of visual words
 
 <div class="admonition info">
 <p class="admonition-title">Image Stitching</p>
-<ul>
-<li>Detect key points 检测特征点</li>
-<li>Build the SIFT descriptors 提取 SIFT 特征</li>
-<li>Match SIFT descriptors SIFT 特征匹配（求欧氏距离）</li>
-<li>Fitting the transformation 计算变换</li>
-<li>RANSAC 筛除外点</li>
-<li>Image Blending 图像融合，解决跳变</li>
-</ul>
+<p>*Detect key points 检测特征点
+* Build the SIFT descriptors 提取 SIFT 特征
+*Match SIFT descriptors SIFT 特征匹配（求欧氏距离）
+* Fitting the transformation 计算变换
+*RANSAC 筛除外点
+* Image Blending 图像融合，解决跳变</p>
 </div>
 
 
@@ -2408,7 +2384,7 @@ Bag of visual words
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 20:21:40</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 21:56:06</span>
   </span>
 
     

@@ -2678,7 +2678,7 @@
 </ul>
 <h3 id="discrete-1d-convolution">离散卷积 | Discrete 1D convolution<a class="headerlink" href="#discrete-1d-convolution" title="点击此处可置顶内容">&para;</a></h3>
 <p>对于离散序列，其卷积可用与连续函数相类似的方法求得。此时自变量变为下标，面积则由求和代替。
-对于两个长度均为 M 的序列 <span class="arithmatex">\(f(x)\)</span> 和 <span class="arithmatex">\(h(x)\)</span>，其卷积为: </p>
+对于两个长度均为 M 的序列 <span class="arithmatex">\(f(x)\)</span> 和 <span class="arithmatex">\(h(x)\)</span>，其卷积为:</p>
 <div class="arithmatex">\[g(x)=f(x)*h(x)=\dfrac{1}{M}=\sum\limits_{t=0}^{M-1}f(t)h(x-t)\]</div>
 <p>有效范围：覆盖了所有 <span class="arithmatex">\(h(t)\)</span> 的点。</p>
 <p><strong><em>e.g.</em></strong>  </p>
@@ -2713,7 +2713,7 @@ R=&amp;w(-1,-1)f(x-1,y-1)+w(-1,0)f(x-1, y)\\
 </div>
 <p>通常，掩模的长宽都为奇数。假设分别为 <span class="arithmatex">\(2a+1\)</span> 和 <span class="arithmatex">\(2b+1\)</span>. 当窗口中心处于像素 <span class="arithmatex">\((x,y)\)</span> 处时，新的像素值为：</p>
 <div class="arithmatex">\[g(x,y)=\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)f(x+s,y+t)\]</div>
-<p>对图像 <span class="arithmatex">\(f\)</span> 中所有像素都与掩模进行运算之后，最终产生一幅新图像 <span class="arithmatex">\(g\)</span>，即 </p>
+<p>对图像 <span class="arithmatex">\(f\)</span> 中所有像素都与掩模进行运算之后，最终产生一幅新图像 <span class="arithmatex">\(g\)</span>，即</p>
 <div class="arithmatex">\[R=w_1z_1+w_2z_2+\cdots+w_{mn}z_{mn}=\sum\limits_{i=1}^m w_iz_i\]</div>
 <p>图像在传输过程中，由于传输信道、采样系统质量较差，或受各种干扰的影响，而造成图像毛糙，此时，就需对图像进行平滑处理。平滑可以抑制高频成分，但也使图像变得模糊。</p>
 <h3 id="_1">平滑空间滤波器<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h3>
@@ -2860,7 +2860,7 @@ g(x,y)=\left\{\begin{matrix}f(x,y)-\nabla^2f(x,y), If\ the\ center\ of\ the\ mas
 G_\sigma (||p-q||)=\dfrac{1}{2\pi\sigma^2}e^{-\dfrac{||p-q||^2}{2\sigma^2}}
 \]</div>
 <div class="admonition note">
-<p>这里的 <span class="arithmatex">\(\sigma\)</span> 是我们选取的滤波窗口(Mask)的大小。根据经验，通常的策略将其设置为图像大小的一个比例，如 <span class="arithmatex">\(2 \%\)</span>. </p>
+<p>这里的 <span class="arithmatex">\(\sigma\)</span> 是我们选取的滤波窗口(Mask)的大小。根据经验，通常的策略将其设置为图像大小的一个比例，如 <span class="arithmatex">\(2 \%\)</span>.</p>
 <p><span class="arithmatex">\(\sigma\)</span> 越大，图像越平滑，趋于无穷大时，每个权重都一样，类似均值滤波; <span class="arithmatex">\(\sigma\)</span> 越小，中心点权重越大，周围点权重越小，对图像的滤波作用越小，趋于零时，输出等同于原图</p>
 </div>
 <div class="admonition note">
@@ -3018,8 +3018,8 @@ I_{\mathbf{p}}^{\mathrm{b}}&amp;=\frac{1}{W_{\mathbf{p}}^{\mathrm{b}}}
 <p><img alt="Alt text" src="../images/image-123.png" width="70%" /></p>
 <p>双边滤波只能保边，没有保梯度（即正负号），很有可能发生梯度逆转</p>
 <p>输入有噪声的图像 <span class="arithmatex">\(p\)</span>, 输出去噪后平滑的图像 <span class="arithmatex">\(q\)</span>. 那么 $q_i = p_i - n_i $ 其中 <span class="arithmatex">\(n_i\)</span> 表示噪声或者是纹路</p>
-<p>引入了 guided image <span class="arithmatex">\(I\)</span>. <span class="arithmatex">\(\nabla q_i=a \nabla I_i\Rightarrow q_i=aI_i+b\)</span> (<span class="arithmatex">\(a\)</span> 是一个标量系数)    </p>
-<p>要求 <span class="arithmatex">\(\min\limits_{(a,b)}\sum\limits_i (aI_i+b-p_i)^2+\epsilon a^2\)</span> (这里 <span class="arithmatex">\(\epsilon a^2\)</span> 是正则项，用来控制方向)    </p>
+<p>引入了 guided image <span class="arithmatex">\(I\)</span>. <span class="arithmatex">\(\nabla q_i=a \nabla I_i\Rightarrow q_i=aI_i+b\)</span> (<span class="arithmatex">\(a\)</span> 是一个标量系数)</p>
+<p>要求 <span class="arithmatex">\(\min\limits_{(a,b)}\sum\limits_i (aI_i+b-p_i)^2+\epsilon a^2\)</span> (这里 <span class="arithmatex">\(\epsilon a^2\)</span> 是正则项，用来控制方向)</p>
 <p>对 <span class="arithmatex">\(a\)</span> 求偏导，令偏导数为 <span class="arithmatex">\(0\)</span>; 对 <span class="arithmatex">\(b\)</span> 同理, 这样可以解一个二元一次方程组得到 <span class="arithmatex">\(a\)</span> 和 <span class="arithmatex">\(b\)</span>. (这里 <span class="arithmatex">\(\overline p\)</span> 指的是 <span class="arithmatex">\(I\)</span> 这个邻域的平均值)</p>
 <p><img alt="Alt text" src="../images/image-124.png" width="70%" /></p>
 <p>以上是对单个像素，我们可以扩充到整个图像：  </p>
@@ -3120,7 +3120,7 @@ I_{\mathbf{p}}^{\mathrm{b}}&amp;=\frac{1}{W_{\mathbf{p}}^{\mathrm{b}}}
 <p><img alt="Alt text" src="../images/image-194.png" /></p>
 </div>
 <h6 id="segmentation">Segmentation<a class="headerlink" href="#segmentation" title="点击此处可置顶内容">&para;</a></h6>
-<p>我们可以利用联合滤波加速归一化切割来进行图像分割。 </p>
+<p>我们可以利用联合滤波加速归一化切割来进行图像分割。</p>
 <p>在特征求解器中用高效的联合滤波代替矩阵乘法</p>
 <div class="admonition note">
 <p class="admonition-title">Example</p>
@@ -3172,7 +3172,7 @@ I_{\mathbf{p}}^{\mathrm{b}}&amp;=\frac{1}{W_{\mathbf{p}}^{\mathrm{b}}}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 20:21:40</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 21:56:06</span>
   </span>
 
     
