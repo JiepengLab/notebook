@@ -61,8 +61,8 @@ $$y=\sum\limits_{k=1}^n y_k=\sum\limits_{k=1}^n A_k\sin(k\omega t+\phi)$$
 **Euler Formula**: 
 
 $$e^{j\theta}=\cos(\theta)+j\sin(\theta)$$ 
- 
-它满足 $|e^{j\theta}|=1, phi(e^{j\theta})=\theta,sin(\theta)=\dfrac{1}{2l}(e^{j\theta}-e^{-j\theta}),cos(\theta)=\dfrac{1}{2}(e^{j\theta}+e^{-j\theta})$  
+
+它满足 $|e^{j\theta}|=1, phi(e^{j\theta})=\theta,sin(\theta)=\dfrac{1}{2j}(e^{j\theta}-e^{-j\theta}),cos(\theta)=\dfrac{1}{2}(e^{j\theta}+e^{-j\theta})$  
 
 ### Fourier Transform
 
@@ -77,7 +77,8 @@ $$e^{j\theta}=\cos(\theta)+j\sin(\theta)$$
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212022154802.png" width = 55%/></div>
 </details>
 
-对于非周期函数,如果函数 $f(x)$只在区间 $[−\pi,\pi]$ 上,也可展开成傅氏级数.  
+对于非周期函数,如果函数 $f(x)$只在区间 $[−\pi,\pi]$ 上,也可展开成傅氏级数.
+
 周期延拓  
 
 $$
@@ -92,16 +93,23 @@ $$
 
 ### Image Transform
 
-很多时候，图像处理任务在变换域（频域）而不是空间域中执行得最好。  
+很多时候，图像处理任务在变换域（频域）而不是空间域中执行得最好。
 
-* 图像变换
-* 进行操作
-* 图像逆变换，回到空间域
+关键步骤：
+
+1. 图像变换
+2. 进行操作
+3. 图像逆变换，回到空间域
 
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212022223450.png" width = 60%/></div>
 
-* T
-* InvT
+前向变换与反向变换
+
+![Alt text](images/image-203.png)
+
+一维情况下，变换方法为：
+
+![Alt text](images/image-204.png)
 
 低频对应图像缓慢变化的信息（如连续的表面）；高频对应快速变化的信息（如边）
 
