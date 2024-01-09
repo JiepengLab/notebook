@@ -432,7 +432,7 @@ $$
 !!! Question "Brute-force problem"
     暴力实现双边滤波的时间可能会非常慢，因为他是非线性的，而且每个核都不一样，不能提前算出
 
-#### 增维型快速双边滤波 | A Fast Approximation of the Bilateral Filter using a Signal Processing Approach
+#### (TODO)增维型快速双边滤波 | A Fast Approximation of the Bilateral Filter using a Signal Processing Approach
 
 !!! Abstract
 
@@ -500,14 +500,14 @@ $$
 
 上采样，下采样并不是完全的双边滤波，做了一个近似
 
-##### 导向滤波 | Guided Image Filtering
+#### (TODO)导向滤波 | Guided Image Filtering
 
 !!! Abstract
     介绍 Guided Image Filtering, 包括其基本思想，优点和局限性，以及应用。
-    
+
     导向滤波进一步解决了双边滤波的两个问题：1. 梯度逆转 2. 慢
 
-###### Guided Filter
+##### Guided Filter
 
 ![Alt text](images/image-123.png){width="70%"}
 
@@ -555,14 +555,14 @@ $\epsilon$ 决定了我们保边的程度，越大保边能力越强
 * $O(1)$ 的时间，快且不需要通过近似的方法
 * 不存在梯度逆转的问题
 
-###### Complexity
+##### Complexity
 
 * 在每个局部窗口计算均值、方差、协方差
 * 级联，可以用积分图提前做计算
     * $O(1)$ 且不依赖于窗口大小 $r$
     * 非近似
 
-###### Gradient Preserving
+##### Gradient Preserving
 
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212021941340.png" width = 70%/> </div> 
 
@@ -573,6 +573,6 @@ $\epsilon$ 决定了我们保边的程度，越大保边能力越强
 
 除了图像平滑，还可以用来去雾、抠图
 
-###### Limitation
+##### Limitation
 
 对边缘的定义不清淅，而且边缘是 context-dependent 的。肉眼中的边界，可能不被认为是边界，最终还是会出现 halo 的现象。
