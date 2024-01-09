@@ -111,12 +111,16 @@ $$
 在不同的图像(比例不同)，极值点在同一个位置出现
 
 a. edge, 没有极值点
+
 b. 好几个极值点 不知道是哪个
+
 c. good
+
+![Alt text](images/image-226.png)
 
 能筛掉前两种
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212140010891.png" width = 60%/></div>  
+![Alt text](images/image-227.png)
 
 二者思路相同, kernal 略有差异  
 
