@@ -43,8 +43,8 @@ $$
 
 $$y=\sum\limits_{k=1}^n y_k=\sum\limits_{k=1}^n A_k\sin(k\omega t+\phi)$$
 
-!!! note "Example"
-    ![Alt text](images/image-208.png)
+!!! note ""
+    ![Alt text](images/image-209.png)
 
 ### Complex Numbers
 
@@ -72,7 +72,7 @@ $$e^{j\theta}=\cos(\theta)+j\sin(\theta)$$
 
 !!! note "example"
 
-![Alt text](images/image-206.png)
+    ![Alt text](images/image-208.png)
 
 对于非周期函数,如果函数 $f(x)$只在区间 $[−\pi,\pi]$ 上,也可展开成傅氏级数.
 
@@ -104,13 +104,15 @@ $$
 
 ![Alt text](images/image-203.png)
 
+### Continuous Fourier Transform
+
 一维情况下，变换方法为：
 
 ![Alt text](images/image-204.png)
 
 低频对应图像缓慢变化的信息（如连续的表面）；高频对应快速变化的信息（如边）
 
-Frequency Filtering Steps
+#### Frequency Filtering Steps
 
 * 对 $f(x)$ 傅里叶变换 $F(f(x))$
 * 去掉不想要的频率 $D(F(f(x)))$
@@ -119,31 +121,40 @@ Frequency Filtering Steps
 ### Discrete Fourier Transform (DFT)
 
 Forward DFT  
-$F(u)=\sum\limits_{x=0}^{N-1}f(x)e^{-\frac{j2\pi ux}{N}}, u=0,1,\ldots,N-1$  N 频率的数目，x 采样点的数目
-Inverse
+
+$F(u)=\sum\limits_{x=0}^{N-1}f(x)e^{-\frac{j2\pi ux}{N}}, u=0,1,\ldots,N-1$ 
+
+N 为频率的数目，x 为采样点的数目
+
+Inverse DFT  
+
 $f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldots,N-1$  
 
-??? Example "Magnitude VS Phase"
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212102006776.png" width = 60%/></div>
+!!! Example "Magnitude VS Phase"
+    ![Alt text](images/image-210.png){width=70%}
 
     如果我们只用振幅/相位作为信息重建图像，会得到什么样的结果？  
     
     * 利用振幅  
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212102007140.png" width = 25%/></div>   
+    
+    ![Alt text](images/image-211.png){width=25%}
 
     * 利用相位  
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212102007841.png" width = 25%/></div>   
+
+    ![Alt text](images/image-212.png){width=25%}
 
     相位更多的传递了图像的结构信息！
 
 ## Fast Fourier Transform(FFT)  
+
+为了加快计算速度，我们可以利用 DFT 的对称性质，将计算量从 $O(N^2)$ 降低到 $O(N\lg N)$
 
 * 将原始的 N 点序列依次分解为一系列短序列；
 * 求出这些短序列的离散傅立叶变换；
 * 组合出所需的变换值；
 * 计算量（乘除法）：$2N^2\rightarrow 2N\lg_2N$
 
-### Principle
+#### FFT Principle
 
 $F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)e^{\frac{j2\pi kn}{N}}$  
 
