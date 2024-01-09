@@ -43,14 +43,12 @@ $$
 
 $$y=\sum\limits_{k=1}^n y_k=\sum\limits_{k=1}^n A_k\sin(k\omega t+\phi)$$
 
-<details>
-<summary><b>Example</b></summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212022055702.png" width = 65%/></div>
-</details>
+!!! note "Example"
+    ![Alt text](images/image-208.png)
 
 ### Complex Numbers
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212022210398.png" width = 35%/></div>
+![Alt text](images/image-207.png){width=30%}
 
 复数(a+bj)可以采用 **Magnitude-Phase**(i.e.,vector)  的形式表示，即 $x=|x|e^{j\phi(x)}$, 其中 Magnitude $|x|=\sqrt{a^2+b^2}$, Phase $\phi(x)=\tan^{-1}(b/a)$  
 
@@ -72,10 +70,9 @@ $$e^{j\theta}=\cos(\theta)+j\sin(\theta)$$
 
 注意到正弦波和余弦波都是无限长的，这是傅里叶分析的一个不足，因此微波(wavelet)分析比特定信号的分析更好。  
 
-<details>
-<summary><b>Example</b></summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212022154802.png" width = 55%/></div>
-</details>
+!!! note "example"
+
+![Alt text](images/image-206.png)
 
 对于非周期函数,如果函数 $f(x)$只在区间 $[−\pi,\pi]$ 上,也可展开成傅氏级数.
 
@@ -101,7 +98,7 @@ $$
 2. 进行操作
 3. 图像逆变换，回到空间域
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212022223450.png" width = 60%/></div>
+![Alt text](images/image-205.png)
 
 前向变换与反向变换
 
