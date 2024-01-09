@@ -2221,10 +2221,10 @@ $$P(\lambda)=\lambda^m-a_{m-1}\lambda^{m-1}-a_{m-2}\lambda^{m-2}-\cdots-a_0$$
 
 !!! note ""
 
-   - 如果 $P(\lambda)$ 的所有根的模都小于等于 1，且取等时为单根，则称该方法满足**根条件**（root condition）
+    - 如果 $P(\lambda)$ 的所有根的模都小于等于 1，且取等时为单根，则称该方法满足**根条件**（root condition）
        - 如果有且仅有一个根的模等于 1，则该方法是**强稳定**（strongly stable）的
        - 如果有多个根的模等于 1，则该方法是**弱稳定**（weakly stable）的
-   - 如果方法不满足**根条件**，则该方法是不稳定的
+    - 如果方法不满足**根条件**，则该方法是不稳定的
 
 #### 测试方程 | Test Equation
 

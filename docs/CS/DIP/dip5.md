@@ -417,17 +417,162 @@ $$
 
 ![Alt text](images/image-114.png)
 
-整个Tone Mapping的过程就是首先要根据当前的场景推算出场景的平均亮度，再根据这个平均亮度选取一个合适的亮度域，再将整个场景映射到这个亮度域得到正确的结果。
+我们现在输入一个 HDR Image(high-dynamic-range, 高动态范围) 32 位图像，多出来的 8 位称为阿尔法通道，即透明度。每个像素是浮点数，这样可以增加范围。
 
-* 输入: HDR Image(high-dynamic-range) 32 位图像，多出来的 8 位称为阿尔法通道，即透明度。每个像素是浮点数，这样可以增加范围。
+![Alt text](images/image-115.png){width="70%"}
 
-从 1:10000 压到 1:100？
+场景的对比度是1:10,000（也就是说场景中较暗的部分和较亮的部分之间的差异非常大）。而显示器的对比度是1:100（也就是说显示器能够显示的最暗和最亮的颜色之间的差异较小）。最简单的对比度降低方法是什么？
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211270918311.png" width = 55%/> </div>
+![Alt text](images/image-116.png){width="70%"}
 
 减少低频，但可能会出现梯度逆转(halo)
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202211270919835.png" width = 55%/> </div>
+![Alt text](images/image-117.png){width="70%"}
 
 !!! Question "Brute-force problem"
     暴力实现双边滤波的时间可能会非常慢，因为他是非线性的，而且每个核都不一样，不能提前算出
+
+#### 增维型快速双边滤波 | A Fast Approximation of the Bilateral Filter using a Signal Processing Approach
+
+!!! Abstract
+
+    双边滤波非常有用，但速度很慢，因为它是非线性的，传统的加速算法例如在FFT之后执行卷积，是不适用的。
+
+    课外资源: [http://people.csail.mit.edu/sparis/bf/#code](http://people.csail.mit.edu/sparis/bf/#code)
+
+##### 双边滤波的定义
+
+双边滤波可以使图像平滑，同时能保边。其**本质**是近邻的加权平均。原始的bilateral filter方程，权重包括：
+
+* 空间域上的高斯函数
+* 色彩域上的高斯函数
+* 归一化因子
+
+$$
+\begin{aligned}
+I_{\mathbf{p}}^{\mathrm{b}}&=\frac{1}{W_{\mathbf{p}}^{\mathrm{b}}}
+\sum_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{\mathbf{s}}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)I_{\mathbf{q}}\\
+\text{with }\;W_{\mathbf{p}}^{\mathrm{b}}&=\sum_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{s}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)
+\end{aligned}
+$$
+
+##### 加速处理
+
+我们将其与线性滤波相联系起来
+
+加速后可以做到快、且准确的**近似**（有误差，并不是相等）
+
+##### Intuition on 1D Signal
+
+![Alt text](images/image-118.png){width="70%"}
+
+![Alt text](images/image-119.png){width="70%"}
+
+* 近且相似的像素是有影响力的
+* 远的像素没有影响力
+* 和中心像素相差较大的影响力也比较小（为什么可以保边下）
+
+###### Handling the Division
+
+通过投影空间的方法处理归一化因子这里的除法
+
+![Alt text](images/image-120.png){width="70%"}
+
+* 第一行($I_p^{bf}$) 乘上归一化因子，从而形成一个 $2\times 1$向量，如上图下面所示。
+
+* 类似于投影空间中的齐次坐标
+* 我们把除法往后放，直到计算结束再进行归一化因子的除法
+* 下一步：添加一维，使得可以进行卷积操作
+
+###### Introducing a Convolution
+
+![Alt text](images/image-121.png){width="70%"}
+
+三维高斯，二维卷积（卷积可以变为频率的乘积操作，可以利用 FFT 变换）
+
+变为 $\sum\limits_{(q,\xi)\in S\times R}\left(\begin{matrix}W_q I_q \\ W_q \end{matrix}\right)$ **space-range Gaussian**
+
+最后得到的结果还需要采样
+
+##### Summary
+
+![Alt text](images/image-122.png)
+
+上采样，下采样并不是完全的双边滤波，做了一个近似
+
+##### 导向滤波 | Guided Image Filtering
+
+!!! Abstract
+    介绍 Guided Image Filtering, 包括其基本思想，优点和局限性，以及应用。
+    
+    导向滤波进一步解决了双边滤波的两个问题：1. 梯度逆转 2. 慢
+
+###### Guided Filter
+
+![Alt text](images/image-123.png){width="70%"}
+
+双边滤波只能保边，没有保梯度（即正负号），很有可能发生梯度逆转
+
+输入有噪声的图像 $p$, 输出去噪后平滑的图像 $q$. 那么 $q_i = p_i - n_i $ 其中 $n_i$ 表示噪声或者是纹路
+
+引入了 guided image $I$. $\nabla q_i=a \nabla I_i\Rightarrow q_i=aI_i+b$ ($a$ 是一个标量系数)    
+
+要求 $\min\limits_{(a,b)}\sum\limits_i (aI_i+b-p_i)^2+\epsilon a^2$ (这里 $\epsilon a^2$ 是正则项，用来控制方向)    
+
+对 $a$ 求偏导，令偏导数为 $0$; 对 $b$ 同理, 这样可以解一个二元一次方程组得到 $a$ 和 $b$. (这里 $\overline p$ 指的是 $I$ 这个邻域的平均值)
+
+![Alt text](images/image-124.png){width="70%"}
+
+以上是对单个像素，我们可以扩充到整个图像：  
+
+* 对每一个局部窗口 $w_k$ 我们可以算出 $a_k, b_k$  
+窗口之间可能有重叠，要算窗口内 $q_k$ 的平均值，即所有包含 $q_i$ 的窗口的均值  
+
+* 参数: 窗口半径 $r$, 正则系数 $\epsilon$
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212021923944.png" width = 70%/> </div> 
+
+如果窗口的 $var(I)\ll \epsilon, Cov(I,p)\ll \epsilon\Rightarrow a\approx 0, b\approx \overline p\Rightarrow q_i\approx \overline{\overline p}$ (相当于对均值滤波的一个级联)  
+
+guided image 怎么找？可以用输出图像的平均值 $\overline p$ 作为 guided image.  
+
+$r$ 决定了采样窗口的大小
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212021931065.png" width = 70%/> </div> 
+
+这说明它不仅可以保边，还可以保方向，即不会出现梯度逆转的情况。  
+$\epsilon$ 决定了我们保边的程度，越大保边能力越强
+
+<details>
+<summary> <b>Example</b> </summary>
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212021933891.png" width = 70%/> </div> 
+</details>
+
+**Guided Filter** 的优点
+
+* 保边（保梯度就一定能保边，反之不一定）
+* 非迭代
+* $O(1)$ 的时间，快且不需要通过近似的方法
+* 不存在梯度逆转的问题
+
+###### Complexity
+
+* 在每个局部窗口计算均值、方差、协方差
+* 级联，可以用积分图提前做计算
+    * $O(1)$ 且不依赖于窗口大小 $r$
+    * 非近似
+
+###### Gradient Preserving
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212021941340.png" width = 70%/> </div> 
+
+<details>
+<summary> <b>梯度逆转的例子</b> </summary>
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212021947996.png" width = 70%/> </div> 
+</details>
+
+除了图像平滑，还可以用来去雾、抠图
+
+###### Limitation
+
+对边缘的定义不清淅，而且边缘是 context-dependent 的。肉眼中的边界，可能不被认为是边界，最终还是会出现 halo 的现象。

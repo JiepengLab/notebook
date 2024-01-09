@@ -2,28 +2,35 @@
 counter: True  
 ---
 
-# Basic Image Operation (V)
+# 6 增维型快速双边滤波 | A Fast Approximation of the Bilateral Filter using a Signal Processing Approach
 
-!!! Abstract 
-    A Fast Approximation of the Bilateral Filter using a Signal Processing Approach   
-    课外资源: http://people.csail.mit.edu/sparis/bf/#code
+!!! Abstract
 
-## Definition
+    双边滤波非常有用，但速度很慢，因为它是非线性的，传统的加速算法例如在FFT之后执行卷积，是不适用的。
 
-* 双边滤波使图像平滑，同时能保边  
-* 本质是近邻的加权平均，权重包括：
-    * space 上的高斯函数
-    * range 上的高斯函数
-    * 归一化因子
+    课外资源: [http://people.csail.mit.edu/sparis/bf/#code](http://people.csail.mit.edu/sparis/bf/#code)
+
+## 双边滤波的定义
+
+双边滤波可以使图像平滑，同时能保边。其**本质**是近邻的加权平均。原始的bilateral filter方程，权重包括：
+
+* 空间域上的高斯函数
+* 色彩域上的高斯函数
+* 归一化因子
 
 $$
-I_p^{bf}=\dfrac{1}{W_p^{bf}}\sum\limits_{q\in S}G_{\sigma_s}(||p-q||)G_{\sigma_r}(|I_p-I_q|)I_q
+\begin{aligned}
+I_{\mathbf{p}}^{\mathrm{b}}&=\frac{1}{W_{\mathbf{p}}^{\mathrm{b}}}
+\sum_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{\mathbf{s}}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)I_{\mathbf{q}}\\
+\text{with }\;W_{\mathbf{p}}^{\mathrm{b}}&=\sum_{\mathbf{q}\in\mathcal{S}}G_{\sigma_{s}}(\|\mathbf{p}-\mathbf{q}\|)G_{\sigma_{\mathbf{r}}}(|I_{\mathbf{p}}-I_{\mathbf{q}}|)
+\end{aligned}
 $$
 
-## Contribution
+## 加速处理
 
-* 和线性滤波相联系起来
-* 做到了快、且准确的**近似**（有误差，并不是相等）
+我们将其与线性滤波相联系起来
+
+加速后可以做到快、且准确的**近似**（有误差，并不是相等）
 
 ## Intuition on 1D Signal
 
@@ -62,3 +69,4 @@ $$
 <div align=center> <img src="http://cdn.hobbitqia.cc/202211270949534.png" width = 80%/> </div> 
 
 上采样，下采样并不是完全的双边滤波，做了一个近似
+

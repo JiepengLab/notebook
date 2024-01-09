@@ -117,6 +117,7 @@ nav:
       - 03-图像灰度变换: ./CS/DIP/dip3.md
       - 04-几何变换: ./CS/DIP/dip4.md
       - 05-卷积和滤波: ./CS/DIP/dip5.md
+      - Final: ./CS/DIP/dip-final.md
     - 数据结构基础:
       - ./CS/FDS/index.md
       - 01-算法/数据结构是什么？: ./CS/FDS/chapter_1_what_is_dsa/what_is_dsa.md
