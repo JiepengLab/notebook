@@ -1478,7 +1478,7 @@ $$\int_a^b f(x)\mathrm{d}x-\sum\limits_{i=0}^n f(x_i)a_i=\int_a^b (f(x)-P_n(x))\
 
 #### 通用法则 - Newton-Cotes 求积公式
 
-在等距节点上（$h = \frac{b-a}{n}），考察系数 $a_i$ 的值，我们可以得到一些通用的求积法则：
+在等距节点上（$h = \frac{b-a}{n}$），考察系数 $a_i$ 的值，我们可以得到一些通用的求积法则：
 
 $$
 \begin{aligned}
@@ -1620,7 +1620,7 @@ $$\int_a^bf(x)dx\approx\frac{h'}3[f(a)+4\sum\limits_{odd\;k}f(x_{k})+2\sum\limit
 
 ![Alt text](images/image-64.png)
 
-可见，误差界与 $h$ 和 $n$ 无关。这说明及时将一个区间分成更多子区间，也不会增加舍入误差。
+可见，误差界与 $h$ 和 $n$ 无关。这说明即使将一个区间分成更多子区间，也不会增加舍入误差。
 
 ### 4.5 Romberg 积分 | Romberg Integration
 
@@ -3624,7 +3624,9 @@ $$
 \end{aligned}
 $$
 
-为了使得精确度的损失最小， $Q_n(x)$ 必须为 $$a_n \cdot \frac{T_n(x)}{2^{n-1}}$$
+为了使得精确度的损失最小， $Q_n(x)$ 必须为 
+
+$$a_n \cdot \frac{T_n(x)}{2^{n-1}}$$
 
 ###### 例题
 
