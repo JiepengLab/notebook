@@ -7371,7 +7371,7 @@ f(x_0-h)=f(x_0)-f^{\prime}(x_0)h+\frac12f^{\prime\prime}(x_0)h^2-\frac16f^{\prim
 <h3 id="43-elements-of-numerical-integration">4.3 数值积分基础 | Elements of Numerical Integration<a class="headerlink" href="#43-elements-of-numerical-integration" title="点击此处可置顶内容">&para;</a></h3>
 <p>对于没有显式原函数或原函数难以计算的函数，我们通过 <strong>数值求积（Numerical Quadrature）</strong> 来近似计算积分值：使用和 <span class="arithmatex">\(\sum\limits_{i=0}^n a_if(x_i)\)</span> 来近似计算积分值 <span class="arithmatex">\(\int_a^b f(x)\mathrm{d}x\)</span>。</p>
 <p>为了确定系数 <span class="arithmatex">\(a_i\)</span> ，我们给出一种求积方法：</p>
-<p>以第三章中给出的<a href="../Chapter_03/#31-lagrange-interpolation-and-lagrange-polynomials">插值多项式</a>为基础，得到 Lagrange 插值多项式：</p>
+<p>以第三章中给出的插值多项式为基础，得到 Lagrange 插值多项式：</p>
 <div class="arithmatex">\[P_n(x)=\sum\limits_{i=0}^nf(x_i)L_i(x)\]</div>
 <p>所以</p>
 <div class="arithmatex">\[\int_a^b f(x)\mathrm{d}x\approx\int_a^b P_n(x)\mathrm{d}x=\sum\limits_{i=0}^nf(x_i)\int_a^b L_i(x)\mathrm{d}x=\sum\limits_{i=0}^n f(x_i)a_i\]</div>
@@ -7813,7 +7813,7 @@ w_{i+1}=&amp;{\color{red}{a_{m-1}}}w_i+{\color{red}{a_{m-2}}}w_{i-1}+...+{\color
 <h4 id="adams-bashforth-m-adams-bashforth-explicit-m-step-technique">Adams-Bashforth 显式 m 步方法 | Adams-Bashforth explicit m-step technique<a class="headerlink" href="#adams-bashforth-m-adams-bashforth-explicit-m-step-technique" title="点击此处可置顶内容">&para;</a></h4>
 <p>注意到</p>
 <div class="arithmatex">\[y(t_{i+1})=y(t_i)+\int_{t_i}^{t_{i+1}}f(t,y(t))dt\]</div>
-<p>为了推导 Adams-Bashforth 显式 m 步方法，我们通过<span class="arithmatex">\((t_i,f(t_i,y(t_i)))\)</span>，<span class="arithmatex">\((t_{i-1},f(t_{i-1},y(t_{i-1})))\)</span>，<span class="arithmatex">\((t_{i-2},f(t_{i-2},y(t_{i-2})))\)</span>，...，<span class="arithmatex">\((t_{i+1-m},f(t_{i+1-m},y(t_{i+1-m})))\)</span> 形成<a href="../Chapter_03/#_10">向后差分多项式</a> <span class="arithmatex">\(P_{m-1}(t)\)</span>，然后用 <span class="arithmatex">\(P_{m-1}(t)\)</span> 来代替 <span class="arithmatex">\(f(t,y(t))\)</span>，从而得到</p>
+<p>为了推导 Adams-Bashforth 显式 m 步方法，我们通过<span class="arithmatex">\((t_i,f(t_i,y(t_i)))\)</span>，<span class="arithmatex">\((t_{i-1},f(t_{i-1},y(t_{i-1})))\)</span>，<span class="arithmatex">\((t_{i-2},f(t_{i-2},y(t_{i-2})))\)</span>，...，<span class="arithmatex">\((t_{i+1-m},f(t_{i+1-m},y(t_{i+1-m})))\)</span> 形成向后差分多项式 <span class="arithmatex">\(P_{m-1}(t)\)</span>，然后用 <span class="arithmatex">\(P_{m-1}(t)\)</span> 来代替 <span class="arithmatex">\(f(t,y(t))\)</span>，从而得到</p>
 <div class="arithmatex">\[f(t,y(t))=P_{m-1}(t)+\frac{f^{(m)}(\xi_i,y(\xi_i))}{m!}(t-t_i)(t-t_{i-1})...(t-t_{i+1-m})\]</div>
 <div class="admonition note">
 <p class="admonition-title">向后差分多项式</p>
@@ -8418,7 +8418,7 @@ w_{i+1}&amp;=w_i+\frac{h}{6}(K_1+2K_2+2K_3+K_4)\\
 <div class="arithmatex">\[\mathbf{x}-\mathbf{x}^{(k)}=\mathbf{T}^k(\mathbf{x}-\mathbf{x}^{(0)})=\mathbf{T}^k\mathbf{y}\]</div>
 <p>因此</p>
 <div class="arithmatex">\[\lim_{k\rightarrow\infty}\mathbf{T}^k\mathbf{y}=\lim_{k\rightarrow\infty}(\mathbf{x}-\mathbf{x}^{(k)})=\mathbf{0}\]</div>
-<p>由于<span class="arithmatex">\(\mathbf{y}\)</span>是任意的，根据<a href="#_5">矩阵的收敛性</a>，<span class="arithmatex">\(\rho(\mathbf{T})&lt;1\)</span>。</p>
+<p>由于<span class="arithmatex">\(\mathbf{y}\)</span>是任意的，根据矩阵的收敛性，<span class="arithmatex">\(\rho(\mathbf{T})&lt;1\)</span>。</p>
 </div>
 <h5 id="error-bounds-for-iterative-methods">误差界 | Error Bounds for Iterative Methods<a class="headerlink" href="#error-bounds-for-iterative-methods" title="点击此处可置顶内容">&para;</a></h5>
 <p>如果对任意自然矩阵范数<span class="arithmatex">\(\|\mathbf{T}\|&lt;1\)</span>，<span class="arithmatex">\(\mathbf{c}\)</span>是给定的向量，那么由<span class="arithmatex">\(\mathbf{x}^{(k+1)}=\mathbf{Tx}^{(k)}+\mathbf{c}\)</span>定义的序列<span class="arithmatex">\(\{\mathbf{x}^{(k)}\}_{k=0}^\infty\)</span>收敛到<span class="arithmatex">\(\mathbf{x}=\mathbf{Tx}+\mathbf{c}\)</span>的唯一解，且有误差界：</p>
@@ -8596,7 +8596,8 @@ K(\mathbf{A})=\|\mathbf{A}\|\|\mathbf{A}^{-1}\|
 <div class="arithmatex">\[\|\mathbf{(I+A^{-1}\delta A)^{-1}}\|\leq\frac{1}{1-\|\mathbf{A^{-1}\delta A}\|}\]</div>
 </div>
 <p>所以在<span class="arithmatex">\(\|\mathbf{A^{-1}\delta A}\|\leq 1\)</span>的情况下（我们不妨将其放缩为<span class="arithmatex">\(\|\mathbf{\delta A}\|\leq\|\frac{\mathbf{1}}{A^{-1}}\|\)</span>），有：</p>
-<p><span class="arithmatex">\(\|\mathbf{(I+A^{-1}\delta A)^{-1}}\|\leq\frac{1}{1-\|\mathbf{A^{-1}\delta A}\|}\)</span></p>
+<div class="arithmatex">\[\|\mathbf{(I+A^{-1}\delta A)^{-1}}\|\leq\frac{1}{1-\|\mathbf{A^{-1}\delta A}\|}\]</div>
+<p>所以</p>
 <div class="arithmatex">\[
 \begin{aligned}
 (\mathbf{A}+\delta\mathbf{A})\delta\mathbf{x}+\mathbf{x}\delta\mathbf{A}&amp;=0\\
@@ -9039,7 +9040,7 @@ w_{n}(x)=x^{n}-P_{n-1}(x)=\frac{T_{n}(x)}{2^{n-1}}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 13:52:06</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 15:29:06</span>
   </span>
 
     
