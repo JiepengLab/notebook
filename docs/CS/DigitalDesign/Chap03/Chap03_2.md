@@ -247,6 +247,6 @@ $\therefore F = O_0\overline{C}\overline{D} + O_1\overline{C}D + O_2C\overline{D
 
 ---
 
-后续 👉 **[可重编程技术](../Chap05.md#_1)**
+后续 👉 **[可编程技术](../Chap05.md#_1)**
 
 ---

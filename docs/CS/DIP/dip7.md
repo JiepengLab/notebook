@@ -5,23 +5,23 @@ counter: True
 # Image Feature
 
 !!! Abstract
-    * Image feature  
+    *Image feature  
         * Image matching  
-        * Feature detection  
+        *Feature detection  
             * Harris operator  
-        * Invariance  
+        *Invariance  
             * Scale Invariant Feature Transform (SIFT)  
 
 ## Image Matching
 
-做图像拼接: 检测两张图象的特征点，找到对应的点对，用这些点对对齐图像   
+做图像拼接: 检测两张图象的特征点，找到对应的点对，用这些点对对齐图像
 
 ## Feature detection  
 
-提取出局部的具有几何不变性的特征   
+提取出局部的具有几何不变性的特征
 
-怎样找到一个好的特征？  ——找到一个非同寻常的区域     
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212102051293.png" width = 45%/></div> 
+怎样找到一个好的特征？  ——找到一个非同寻常的区域
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212102051293.png" width = 45%/></div>
 
 我们考虑一个小窗口的像素  
 
@@ -32,7 +32,7 @@ counter: True
 量化窗口像素的变化: $W$ 表示窗口，$(u,v)$ 表示方向
 
 $E(u,v)=\sum\limits_{(x,y)\in W}[I(x+u,y+v)-I(x,y)]^2$  
-泰勒展开: 
+泰勒展开:
 $I(x+u,y+v)-I(x,y)=\dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v + higher\ order\ terms$  
 如果移动 $(u,v)$ 小，那么可以用一阶微分估计 $I(x+u,y+v)-I(x,y)\approx \dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v=\left[\begin{matrix}I_x & I_y \end{matrix}\right]\left[\begin{matrix}u \\ v \end{matrix}\right]$  
 将式子带入之前的公式得到  
@@ -46,15 +46,14 @@ $$
 
 沿着矩阵 $H$ 的两个特征向量，变化最大。  
 $\lambda_{+}, \lambda_{-}$ 比较大时，这是一个好的位置（因为沿各个方向的变化都较大）  
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212131243187.png" width = 45%/></div>   
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212131243187.png" width = 45%/></div>
 
-一个大一个小: $edge$; 两个都小: $flat$   
-
+一个大一个小: $edge$; 两个都小: $flat$
 
 !!! Summary "Feature Detection"
-    * 计算图像中每个点的梯度
+    *计算图像中每个点的梯度
     * 通过梯度得到每个 windows 的 $H$ 矩阵
-    * 计算特征值
+    *计算特征值
     * 找到相应较大的点($\lambda_- > Threshold$)  
     * 选择那些 $\lambda_-$ 是局部极大值的点作为特征
 
@@ -80,11 +79,11 @@ $$
     * 对加法和数乘强度变化保持不变 $I\rightarrow I+b,I\rightarrow aI$  
     极值点不变
     * 图像尺度变化会有影响！
-        <div align=center> <img src="http://cdn.hobbitqia.cc/202212131258337.png" width = 35%/></div>   
+        <div align=center> <img src="http://cdn.hobbitqia.cc/202212131258337.png" width = 35%/></div>
 
 ### Scale Invariant Detection
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212131301060.png" width = 60%/></div>   
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212131301060.png" width = 60%/></div>
 
 在区域内设计一个比例不变的函数  
 
@@ -125,11 +124,11 @@ Laplacian-of-Gaussian = "blob" detector $\nabla^2 g=\dfrac{\partial^2 g}{\partia
 
 #### SIFT
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212161927455.png" width = 40%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212161927455.png" width = 40%/></div>
 
 三个方向都是 DOG.  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212161928750.png" width = 40%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212161928750.png" width = 40%/></div>
 
 对于画 × 的需要比较26个邻居才能得出其是否是极值，计算速度相对较慢。
 
@@ -138,16 +137,16 @@ Laplacian-of-Gaussian = "blob" detector $\nabla^2 g=\dfrac{\partial^2 g}{\partia
 * 梯度和角度  
 其中 $m(x,y)$ 是点的幅值，即 x 方向的差分和 y 方向的差分的平方和  
 $\theta(x,y)$ 是通过 y 方向的梯度和比上 x 方向的梯度的反正切计算  
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161930783.png" width = 50%/></div> 
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161930783.png" width = 50%/></div>
 
 * 方向选择
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161933690.png" width = 40%/></div> 
-    
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161933690.png" width = 40%/></div>
+
     可以用投票的方式定义邻域的朝向
 
 ### SIFT Descriptor
 
-Invariance: 
+Invariance:
 假设这里有两幅图像 $I_1, I_2$, 其中 $I_2$ 是 $I_1$ 经过某种变换后的版本（仿射变换，亮度等）  
 在变换中不变的特征称为**变换不变性**  
 
@@ -162,9 +161,9 @@ SIFT 特征：旋转不变性
 * 剔除弱边缘(小于阈值梯度幅度)
 * 创建剩下边的方向的直方图
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212162013160.png" width = 40%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212162013160.png" width = 40%/></div>
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212162013746.png" width = 20%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212162013746.png" width = 20%/></div>
 
 完整版：
 
@@ -173,11 +172,11 @@ SIFT 特征：旋转不变性
 * 16 cells * 8 orientations = 128 dimensional descriptor(128 维向量)
 
 !!! Summary "SIFT Feature"
-    * Descriptor 128-D
-        * 
-        * 可以通过去掉光照变化带来的影响
+    *Descriptor 128-D
+        *
+        *可以通过去掉光照变化带来的影响
     * 位置 $(x,y)$
-    * 尺度，控制特征提取的覆盖范围
+    *尺度，控制特征提取的覆盖范围
     * 方向，实现旋转不变的 descriptor
 
 SIFT 特征可以对图像进行分类  
@@ -185,13 +184,13 @@ Bag of visual words
 提取SIFT特征，将特征做一个聚类(kmeans)，将每个聚类中心称为 visual word 视觉单词
 
 !!! Summary "Conclusion of SIFT"
-    * 优点
+    *优点
         * 期望在比例、旋转、光照等变化中的不变性。
-        * 局部 patch 具有很强的区分性和表征能力。
+        *局部 patch 具有很强的区分性和表征能力。
         * 在刚性对象表示上非常有效。
-    * 缺点
+    *缺点
         * 提取耗时  
-        对于大小为400 * 400的图像，平均需要1秒。
+        对于大小为400 *400的图像，平均需要1秒。
         * 对非刚性物体性能较差。  
         如人脸、动物等。
         * 在严重的仿射失真下可能无法工作。  
@@ -223,12 +222,12 @@ SURF algorithm
 
 Integral Image(a.k.a. Summed area table) 是
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212251944951.png" width = 30%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212251944951.png" width = 30%/></div>
 
 * $S(x,y)=\sum\sum I(x,y)$
-* $V(l,t,r,b)=S(l,t)+S(r,b)-S(l,b)-S(r,t)$ 得到矩形内的像素值的和   
+* $V(l,t,r,b)=S(l,t)+S(r,b)-S(l,b)-S(r,t)$ 得到矩形内的像素值的和
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212251950536.png" width = 55%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212251950536.png" width = 55%/></div>
 
 积分图让我们很方便的对尺度进行上采样
 
@@ -236,10 +235,10 @@ Integral Image(a.k.a. Summed area table) 是
 
 不同尺度之间可以用插值来计算中间的尺度。
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212251956479.png" width = 65%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212251956479.png" width = 65%/></div>
 
 !!! Info "Why SURF is better than SIFT"
-    * 维度低, 只用 64 维特征  
+    *维度低, 只用 64 维特征  
     * 在均匀、渐变、只有一条边的图像上 SIFT 无法分辨，但 SURF 可以  
     * 带噪声会使 SIFT 特征凌乱，对 SURF 几乎没有影响
 
@@ -259,7 +258,7 @@ RANSAC Loop
 * 计算种子点之间的变换  
 * 找到这次变换的 inliers
 * 如果 inliners 的数目足够多，那么重新计算所有 inliners 上的最小二乘法估计
-* 回归之后再计算 inliners 如此往复，继续调整。如果没有调整那我们可以停止循环。最终使得回归出的线达到最多的 inliners.   
+* 回归之后再计算 inliners 如此往复，继续调整。如果没有调整那我们可以停止循环。最终使得回归出的线达到最多的 inliners.
 
 需要多少次取样？假设 $w$ 是 inliners 的一部分, $n$ 个需要用来定义前提的点，进行了 $k$ 次取样。  
 
@@ -267,7 +266,7 @@ RANSAC Loop
 * $k$ 次采样都失败了 $(1-w^n)^k$
 * 选择 k 达到足够高使得失败的概率低于阈值  
 
-RANSAC 之后将数据划分为 outiler 和 inliner. 
+RANSAC 之后将数据划分为 outiler 和 inliner.
 
 * 优点
     * 对于模型拟合问题是一种通用的方法
@@ -278,14 +277,12 @@ RANSAC 之后将数据划分为 outiler 和 inliner.
 
 ## Image Blending - Pyramid Creation  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212252145478.png" width = 75%/></div>   
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252145478.png" width = 75%/></div>
 
 !!! Info "Image Stitching"
-    * Detect key points 检测特征点
+    *Detect key points 检测特征点
     * Build the SIFT descriptors 提取 SIFT 特征
-    * Match SIFT descriptors SIFT 特征匹配（求欧氏距离）
+    *Match SIFT descriptors SIFT 特征匹配（求欧氏距离）
     * Fitting the transformation 计算变换
-    * RANSAC 筛除外点
+    *RANSAC 筛除外点
     * Image Blending 图像融合，解决跳变
-
-

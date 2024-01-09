@@ -2,9 +2,10 @@
 counter: True  
 ---
 
-# Fourier Transform
+# 傅里叶变换 | Fourier Transform
 
 !!! Abstract  
+
     * Fourier and his work
     * Background of Fourier Transform
     * Fourier Transform
@@ -36,36 +37,44 @@ b_n & =\dfrac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin(nx)dx
 \end{align*}
 $$
 
-简单的周期现象，简谐振动: $y=A\sin(\omega t+\phi)$  
-一个周期运动，物理学上可以分成若干个简谐振动的叠加: $y=\sum\limits_{k=1}^n y_k=\sum\limits_{k=1}^n A_k\sin(k\omega t+\phi)$
+简谐振动: $y=A\sin(\omega t+\phi)$  
+
+物理学上可以将一个周期运动分成若干个简谐振动的叠加: 
+
+$$y=\sum\limits_{k=1}^n y_k=\sum\limits_{k=1}^n A_k\sin(k\omega t+\phi)$$
 
 <details>
 <summary><b>Example</b></summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212022055702.png" width = 65%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212022055702.png" width = 65%/></div>
 </details>
 
-### Complex Numbers 
+### Complex Numbers
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212022210398.png" width = 35%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212022210398.png" width = 35%/></div>
 
-复数可以采用 **Magnitude-Phase**(vector) 表示，即 $x=|x|e^{j\phi(x)}$, 其中 Magnitude $|x|=\sqrt{a^2+b^2}$, Phase $\phi(x)=\tan^{-1}(b/a)$  
+复数(a+bj)可以采用 **Magnitude-Phase**(i.e.,vector)  的形式表示，即 $x=|x|e^{j\phi(x)}$, 其中 Magnitude $|x|=\sqrt{a^2+b^2}$, Phase $\phi(x)=\tan^{-1}(b/a)$  
 
-在这种表示下，复数乘法可以写作 $xy=|x|e^{j\phi(x)}\cdot |y|e^{j\phi(y)}=|x||y|e^{j\phi(x)+\phi(y)}$  
+在这种表示下，复数乘法可以写作 $xy=|x|e^{j\phi(x)}\cdot |y|e^{j\phi(y)}=|x||y|e^{j(\phi(x)+\phi(y))}$  
 
 共轭复数 $x^* = a-jb$, 它满足 $|x|=|x^*|,\phi(x)=-\phi(x),xx^*=|x|^2$  
 
-**Euler Formula**: $e^{j\theta}=\cos(\theta)+j\sin(\theta)$  
+**Euler Formula**: 
+
+$$e^{j\theta}=\cos(\theta)+j\sin(\theta)$$ 
+ 
 它满足 $|e^{j\theta}|=1, phi(e^{j\theta})=\theta,sin(\theta)=\dfrac{1}{2l}(e^{j\theta}-e^{-j\theta}),cos(\theta)=\dfrac{1}{2}(e^{j\theta}+e^{-j\theta})$  
 
 ### Fourier Transform
 
-傅里叶变换是复傅里叶系数在给定区间上的一个推广。   
+傅里叶变换是复傅里叶系数在给定区间上的一个推广。
+
 傅里叶分析指频率区域分析，其中 $n$ 较小时为低频， $n$ 较大时为高频。  
+
 注意到正弦波和余弦波都是无限长的，这是傅里叶分析的一个不足，因此微波(wavelet)分析比特定信号的分析更好。  
 
 <details>
 <summary><b>Example</b></summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212022154802.png" width = 55%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212022154802.png" width = 55%/></div>
 </details>
 
 对于非周期函数,如果函数 $f(x)$只在区间 $[−\pi,\pi]$ 上,也可展开成傅氏级数.  
@@ -73,7 +82,7 @@ $$
 
 $$
 \begin{align*}
-F(x)=\left\{\begin{matrix} 
+F(x)=\left\{\begin{matrix}
 & f(x) ,x \in(-\pi,\pi] \\  
 & f(x-2k\pi) ,x\in ((2k-1)\pi,(2k+1)\pi], k=\pm 1 ,\pm 2,\ldots \end{matrix}\right.
 \end{align*}
@@ -89,7 +98,7 @@ $$
 * 进行操作
 * 图像逆变换，回到空间域
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212022223450.png" width = 60%/></div> 
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212022223450.png" width = 60%/></div>
 
 * T
 * InvT
@@ -102,7 +111,7 @@ Frequency Filtering Steps
 * 去掉不想要的频率 $D(F(f(x)))$
 * 转换回原来的信号 $\hat f(x)=F^{-1}(D(F(f(x))))$
 
-### Discrete Fourier Transform (DFT) 
+### Discrete Fourier Transform (DFT)
 
 Forward DFT  
 $F(u)=\sum\limits_{x=0}^{N-1}f(x)e^{-\frac{j2\pi ux}{N}}, u=0,1,\ldots,N-1$  N 频率的数目，x 采样点的数目
@@ -110,7 +119,7 @@ Inverse
 $f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldots,N-1$  
 
 ??? Example "Magnitude VS Phase"
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212102006776.png" width = 60%/></div>   
+    <div align=center> <img src="http://cdn.hobbitqia.cc/202212102006776.png" width = 60%/></div>
 
     如果我们只用振幅/相位作为信息重建图像，会得到什么样的结果？  
     
@@ -121,7 +130,6 @@ $f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldot
     <div align=center> <img src="http://cdn.hobbitqia.cc/202212102007841.png" width = 25%/></div>   
 
     相位更多的传递了图像的结构信息！
-
 
 ## Fast Fourier Transform(FFT)  
 
@@ -136,7 +144,7 @@ $F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)e^{\frac{j2\pi kn}{N}}$
 
 Let $W_N^{n,k}=e^{-j2\pi nk/N}$ then DFT is $F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)W_N^{n,k}$  
 
-假定 $N$ 为 $2$ 的正整数幂：$N=2^H\Rightarrow N=2M$, 将原式子分为奇数项和偶数项      
+假定 $N$ 为 $2$ 的正整数幂：$N=2^H\Rightarrow N=2M$, 将原式子分为奇数项和偶数项
 
 $$
 \begin{align*}
@@ -150,7 +158,7 @@ $$
 
 令 $\left\{ \begin{matrix} F_e(k) & = \sum\limits_{n=0}^{M-1}f(2n)W_M^{n,k} \\ F_o(k) & = \sum\limits_{n=0}^{M-1}f(2n+1)W_M^{n,k} \end{matrix}\right.$ 那么 $F(k)=\lfloor F_e(k)+F_o(k)W_{2M}^k \rfloor$  
 
-如果 $e, o$ 是 $2$ 的幂次，还可以继续拆   
+如果 $e, o$ 是 $2$ 的幂次，还可以继续拆
 
 对于 $k=M,M+1\ldots,2M-1$  
 
@@ -162,9 +170,8 @@ W_M^{n,k+M} & = e^{-j2\pi (k+M)/M}\\
     & = W_M^{n,k}\\
 W_{2M}^{k+M} & = e^{-j2\pi k/2M\cdot e^{-j\pi}=-W_{2M}^k}
 \end{align*}
-$$ 
+$$
 
-因此 $F(k+M)=\lfloor F_e(k)-F_o(k)W_{2M}^k\rfloor  $    
+因此 $F(k+M)=\lfloor F_e(k)-F_o(k)W_{2M}^k\rfloor  $
 
 意义：对一个长度为 N 的序列进行傅立叶变换可以通过将其分成两半计算，对第一部分的计算需要通过计算两个长度为 N/2 长度序列的傅立叶变换式进行，然后利用这两个长度为 N/2 的序列可以得到第二部分的值。
-

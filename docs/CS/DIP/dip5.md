@@ -33,8 +33,8 @@ $$g(x)=f(x)*h(x)=\int_{-\infty}^{\infty}f(t)h(x-t)dt$$
 
 ![Alt text](images/image-93.png){width="50%"}
 
-- 对每一个 $x$ 值重复上述计算过程，就得到了输出曲线 $g(x)$
-- 当 $x$ 变化时，反折的函数被平移通过静止不动的输入函数, $g(x)$ 值取决于这两个函数的重叠部分的累积。
+* 对每一个 $x$ 值重复上述计算过程，就得到了输出曲线 $g(x)$
+* 当 $x$ 变化时，反折的函数被平移通过静止不动的输入函数, $g(x)$ 值取决于这两个函数的重叠部分的累积。
 
 记卷积的运算符号为 $*$，则卷积的定义为：
 
@@ -49,7 +49,7 @@ $$g(x)=f(x)*h(x)=\int_{-\infty}^{\infty}f(t)h(x-t)dt$$
 ### 离散卷积 | Discrete 1D convolution
 
 对于离散序列，其卷积可用与连续函数相类似的方法求得。此时自变量变为下标，面积则由求和代替。
-对于两个长度均为 M 的序列 $f(x)$ 和 $h(x)$，其卷积为: 
+对于两个长度均为 M 的序列 $f(x)$ 和 $h(x)$，其卷积为:
 
 $$g(x)=f(x)*h(x)=\dfrac{1}{M}=\sum\limits_{t=0}^{M-1}f(t)h(x-t)$$
 
@@ -107,7 +107,7 @@ $$
 
 $$g(x,y)=\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)f(x+s,y+t)$$  
 
-对图像 $f$ 中所有像素都与掩模进行运算之后，最终产生一幅新图像 $g$，即 
+对图像 $f$ 中所有像素都与掩模进行运算之后，最终产生一幅新图像 $g$，即
 
 $$R=w_1z_1+w_2z_2+\cdots+w_{mn}z_{mn}=\sum\limits_{i=1}^m w_iz_i$$
 
@@ -140,7 +140,7 @@ $$R=w_1z_1+w_2z_2+\cdots+w_{mn}z_{mn}=\sum\limits_{i=1}^m w_iz_i$$
 
 所以，我们可以将均值滤波的公式写成：
 
-$$g(x,y)=\dfrac{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^bw(s,t)f(x+s,y+t)}{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)}$$ 
+$$g(x,y)=\dfrac{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^bw(s,t)f(x+s,y+t)}{\sum\limits_{s=-a}^a\sum\limits_{t=-b}^b w(s,t)}$$
 
 其中，滤波器大小为 $(2a+1) \times (2b+1)$，$w$ 为滤波器，$f$ 为输入图像，$g$ 为输出图像。
 
@@ -192,7 +192,7 @@ $$
 \end{align*}
 $$
 
-#### 梯度算子 | gradient based operator 
+#### 梯度算子 | gradient based operator
 
 对于一个二元函数 $f(x,y)$ 来说，我们首先定义一个二维的向量：
 
@@ -316,7 +316,7 @@ G_\sigma (||p-q||)=\dfrac{1}{2\pi\sigma^2}e^{-\dfrac{||p-q||^2}{2\sigma^2}}
 $$
 
 !!! note ""
-    这里的 $\sigma$ 是我们选取的滤波窗口(Mask)的大小。根据经验，通常的策略将其设置为图像大小的一个比例，如 $2 \%$. 
+    这里的 $\sigma$ 是我们选取的滤波窗口(Mask)的大小。根据经验，通常的策略将其设置为图像大小的一个比例，如 $2 \%$.
 
     $\sigma$ 越大，图像越平滑，趋于无穷大时，每个权重都一样，类似均值滤波; $\sigma$ 越小，中心点权重越大，周围点权重越小，对图像的滤波作用越小，趋于零时，输出等同于原图
 
@@ -515,9 +515,9 @@ $$
 
 输入有噪声的图像 $p$, 输出去噪后平滑的图像 $q$. 那么 $q_i = p_i - n_i $ 其中 $n_i$ 表示噪声或者是纹路
 
-引入了 guided image $I$. $\nabla q_i=a \nabla I_i\Rightarrow q_i=aI_i+b$ ($a$ 是一个标量系数)    
+引入了 guided image $I$. $\nabla q_i=a \nabla I_i\Rightarrow q_i=aI_i+b$ ($a$ 是一个标量系数)
 
-要求 $\min\limits_{(a,b)}\sum\limits_i (aI_i+b-p_i)^2+\epsilon a^2$ (这里 $\epsilon a^2$ 是正则项，用来控制方向)    
+要求 $\min\limits_{(a,b)}\sum\limits_i (aI_i+b-p_i)^2+\epsilon a^2$ (这里 $\epsilon a^2$ 是正则项，用来控制方向)
 
 对 $a$ 求偏导，令偏导数为 $0$; 对 $b$ 同理, 这样可以解一个二元一次方程组得到 $a$ 和 $b$. (这里 $\overline p$ 指的是 $I$ 这个邻域的平均值)
 
@@ -617,7 +617,7 @@ SNF 是一个通用的滤波（中值滤波是一个特例，相当于 $l^1$ 范
     ![Alt text](images/image-188.png){width="50%"}
 
 ###### HDR Compression
- 
+
 因为 SNF 的微分是非局部的，他不那么可能陷入梯度下降的情况。
 
 !!! note "Example"
@@ -629,7 +629,6 @@ SNF 是一个通用的滤波（中值滤波是一个特例，相当于 $l^1$ 范
     $p=0.2$ norm filter
 
     ![Alt text](images/image-190.png){width="50%"}
-
 
 ###### Non-blind Deconvolution
 
@@ -659,7 +658,7 @@ SNF 是一个通用的滤波（中值滤波是一个特例，相当于 $l^1$ 范
 
 ###### Segmentation
 
-我们可以利用联合滤波加速归一化切割来进行图像分割。 
+我们可以利用联合滤波加速归一化切割来进行图像分割。
 
 在特征求解器中用高效的联合滤波代替矩阵乘法
 
