@@ -3,7 +3,7 @@
 !!! note "图像成像的各种形式"
     可见光、X射线、超声波、红外线
 
-!!! note "图像信息处理涵盖的方面(what is image processing)
+!!! note "图像信息处理涵盖的方面(what is image processing)"
 
     1. Image acquisition(图像获取)
 
@@ -111,7 +111,7 @@
 
     敏感度：人眼对于亮度的变化最为敏感，分辨能力最强。恰好与人眼的高动态能力相匹配。
 
-!!! note "颜色空间的定义
+!!! note "颜色空间的定义"
 
     与设备相关：RGB, CMY, HSV
 
@@ -225,7 +225,7 @@
 
     正常人眼所能看到的灰度级约为156
 
-    !!! note "可视化增强：以对数操作为例
+!!! note "可视化增强：以对数操作为例"
 
     ![Alt text](images/image-137.png)
 
@@ -318,7 +318,7 @@
 
     ![Alt text](images/image-155.png)
 
-    !!! note "拉普拉斯（优点缺点）
+!!! note "拉普拉斯（优点缺点）"
 
     拉普拉斯算子：
 
@@ -342,7 +342,7 @@
 
     ![Alt text](images/image-159.png)
 
-    !!! note "双边滤波的加速
+!!! note "双边滤波的加速"
 
     ![Alt text](images/image-160.png)
 
