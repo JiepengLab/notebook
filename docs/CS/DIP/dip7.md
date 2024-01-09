@@ -5,55 +5,70 @@ counter: True
 # Image Feature
 
 !!! Abstract
-    *Image feature  
+
+    * Image feature  
         * Image matching  
-        *Feature detection  
+        * Feature detection  
             * Harris operator  
-        *Invariance  
+        * Invariance  
             * Scale Invariant Feature Transform (SIFT)  
 
 ## Image Matching
 
-做图像拼接: 检测两张图象的特征点，找到对应的点对，用这些点对对齐图像
+Panorama(全景图)
+
+做图像拼接: 检测两张图像的特征点，找到对应的点对，用这些点对对齐图像
+
+![Alt text](images/image-218.png)
 
 ## Feature detection  
 
 提取出局部的具有几何不变性的特征
 
 怎样找到一个好的特征？  ——找到一个非同寻常的区域
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212102051293.png" width = 45%/></div>
+
+![Alt text](images/image-219.png){width=50%}
 
 我们考虑一个小窗口的像素  
 
 * *flat*: 在任何方向都不会有像素的改变
-* *egde*: 沿着边的方向不会有像素的改变
+* *edge*: 沿着边的方向不会有像素的改变
 * *corner*: 在任何方向都会有明显的改变  
 
 量化窗口像素的变化: $W$ 表示窗口，$(u,v)$ 表示方向
 
-$E(u,v)=\sum\limits_{(x,y)\in W}[I(x+u,y+v)-I(x,y)]^2$  
+$$E(u,v)=\sum\limits_{(x,y)\in W}[I(x+u,y+v)-I(x,y)]^2$$  
+
 泰勒展开:
-$I(x+u,y+v)-I(x,y)=\dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v + higher\ order\ terms$  
-如果移动 $(u,v)$ 小，那么可以用一阶微分估计 $I(x+u,y+v)-I(x,y)\approx \dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v=\left[\begin{matrix}I_x & I_y \end{matrix}\right]\left[\begin{matrix}u \\ v \end{matrix}\right]$  
+
+$$I(x+u,y+v)-I(x,y)=\dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v + higher\ order\ terms$$
+
+如果移动 $(u,v)$ 小，那么可以用一阶微分估计 
+
+$$I(x+u,y+v)-I(x,y)\approx \dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v=\left[\begin{matrix}I_x & I_y \end{matrix}\right]\left[\begin{matrix}u \\ v \end{matrix}\right]$$
+
 将式子带入之前的公式得到  
 
 $$
 \begin{align*}
 E(u,v) & \approx \sum\limits_{(x,y)\in W} \left[\left[\begin{matrix}I_x & I_y \end{matrix}\right]\left[\begin{matrix}u \\ v \end{matrix}\right]\right]^2\\
- & = \sum\limits_{(x,y)\in W}\left[\begin{matrix}u & v \end{matrix}\right]\left[\begin{matrix}I_x^2 & I_xI_y \\ I_yI_x & I_y^2 \end{matrix}\right] \left[\begin{matrix}u \\ v \end{matrix}\right]
+& = \sum\limits_{(x,y)\in W}\left[\begin{matrix}u & v \end{matrix}\right]\left[\begin{matrix}I_x^2 & I_xI_y \\ I_yI_x & I_y^2 \end{matrix}\right] \left[\begin{matrix}u \\ v \end{matrix}\right]
 \end{align*}
 $$
 
 沿着矩阵 $H$ 的两个特征向量，变化最大。  
+
 $\lambda_{+}, \lambda_{-}$ 比较大时，这是一个好的位置（因为沿各个方向的变化都较大）  
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212131243187.png" width = 45%/></div>
+
+![Alt text](images/image-220.png){width=70%}
 
 一个大一个小: $edge$; 两个都小: $flat$
 
 !!! Summary "Feature Detection"
-    *计算图像中每个点的梯度
+
+    * 计算图像中每个点的梯度
     * 通过梯度得到每个 windows 的 $H$ 矩阵
-    *计算特征值
+    * 计算特征值
     * 找到相应较大的点($\lambda_- > Threshold$)  
     * 选择那些 $\lambda_-$ 是局部极大值的点作为特征
 
