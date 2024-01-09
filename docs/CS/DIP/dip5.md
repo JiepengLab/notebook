@@ -677,17 +677,17 @@ SNF 是一个通用的滤波（中值滤波是一个特例，相当于 $l^1$ 范
 
     输入图像
 
-    ![Alt text](http://cdn.hobbitqia.cc/202212022032616.png){width="50%"}
+    ![Alt text](images/image-196.png){width="50%"}
 
-    ![Alt text](http://cdn.hobbitqia.cc/202212022032696.png){width="50%"}
+    ![Alt text](images/image-197.png){width="50%"}
 
     Result after 5 iter
 
-    ![Alt text](http://cdn.hobbitqia.cc/202212022033418.png){width="50%"}
+    ![Alt text](images/image-198.png){width="50%"}
 
     Final result by SNF using p=0.1,r=1/4  of the image height
 
-    ![Alt text](http://cdn.hobbitqia.cc/202212022033006.png){width="50%"}
+    ![Alt text](images/image-199.png){width="50%"}
 
 ###### Seamless editing
 
@@ -697,12 +697,12 @@ SNF 是一个通用的滤波（中值滤波是一个特例，相当于 $l^1$ 范
 
     输入图像
 
-    ![Alt text](http://cdn.hobbitqia.cc/202212022036299.png){width="50%"}
+    ![Alt text](images/image-200.png){width="50%"}
 
     Result by drag-and-drop
 
-    ![Alt text](http://cdn.hobbitqia.cc/202212022037592.png){width="50%"}
+    ![Alt text](images/image-201.png){width="50%"}
 
     Final result by SNF
 
-    ![Alt text](http://cdn.hobbitqia.cc/202212022037218.png){width="50%"}
+    ![Alt text](images/image-202.png){width="50%"}
