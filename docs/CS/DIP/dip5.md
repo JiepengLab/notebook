@@ -530,7 +530,7 @@ $$
 
 * 参数: 窗口半径 $r$, 正则系数 $\epsilon$
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021923944.png" width = 70%/> </div> 
+![Alt text](images/image-180.png){width="70%"}
 
 如果窗口的 $var(I)\ll \epsilon, Cov(I,p)\ll \epsilon\Rightarrow a\approx 0, b\approx \overline p\Rightarrow q_i\approx \overline{\overline p}$ (相当于对均值滤波的一个级联)  
 
@@ -538,15 +538,14 @@ guided image 怎么找？可以用输出图像的平均值 $\overline p$ 作为 
 
 $r$ 决定了采样窗口的大小
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021931065.png" width = 70%/> </div> 
+![Alt text](images/image-181.png){width="70%"}
 
 这说明它不仅可以保边，还可以保方向，即不会出现梯度逆转的情况。  
 $\epsilon$ 决定了我们保边的程度，越大保边能力越强
 
-<details>
-<summary> <b>Example</b> </summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021933891.png" width = 70%/> </div> 
-</details>
+!!! note "Example"
+
+    ![Alt text](images/image-182.png)
 
 **Guided Filter** 的优点
 
@@ -564,12 +563,11 @@ $\epsilon$ 决定了我们保边的程度，越大保边能力越强
 
 ##### Gradient Preserving
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021941340.png" width = 70%/> </div> 
+![Alt text](images/image-183.png){width="70%"}
 
-<details>
-<summary> <b>梯度逆转的例子</b> </summary>
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212021947996.png" width = 70%/> </div> 
-</details>
+!!! note "梯度逆转的例子"
+
+    ![Alt text](images/image-184.png){width="70%"}
 
 除了图像平滑，还可以用来去雾、抠图
 
