@@ -2481,7 +2481,7 @@ f(x_0-h)=f(x_0)-f^{\prime}(x_0)h+\frac12f^{\prime\prime}(x_0)h^2-\frac16f^{\prim
 <h3 id="precision">精确度 | Precision<a class="headerlink" href="#precision" title="点击此处可置顶内容">&para;</a></h3>
 <p>求积公式的精确度 (precision/degree of accuracy) 是使得求积公式对 <span class="arithmatex">\(x^k\)</span> 精确成立的最大正整数 <span class="arithmatex">\(k\)</span>。</p>
 <h3 id="-newton-cotes">通用法则 - Newton-Cotes 求积公式<a class="headerlink" href="#-newton-cotes" title="点击此处可置顶内容">&para;</a></h3>
-<p>在等距节点上（$h = \frac{b-a}{n}），考察系数 <span class="arithmatex">\(a_i\)</span> 的值，我们可以得到一些通用的求积法则：</p>
+<p>在等距节点上（<span class="arithmatex">\(h = \frac{b-a}{n}\)</span>），考察系数 <span class="arithmatex">\(a_i\)</span> 的值，我们可以得到一些通用的求积法则：</p>
 <div class="arithmatex">\[
 \begin{aligned}
 a_i=\int_{x_0}^{x_n}L_i(x)\mathrm{d}x&amp;=\int_{x_0}^{x_n}\prod_{j=0,j\neq i}^n\frac{x-x_j}{x_i-x_j}\mathrm{d}x\\
@@ -2570,7 +2570,7 @@ a_2&amp;=h\cdot \frac{(-1)^{2-2}}{2!(2-2)!}\cdot \int_0^2(t-0)(t-1)\mathrm{d}t=\
 <h3 id="_8">舍入误差的稳定性<a class="headerlink" href="#_8" title="点击此处可置顶内容">&para;</a></h3>
 <p>所有的复合积分方法共有的一个重要性质是 <strong>舍入误差的稳定性</strong>。</p>
 <p><img alt="Alt text" src="../images/image-64.png" /></p>
-<p>可见，误差界与 <span class="arithmatex">\(h\)</span> 和 <span class="arithmatex">\(n\)</span> 无关。这说明及时将一个区间分成更多子区间，也不会增加舍入误差。</p>
+<p>可见，误差界与 <span class="arithmatex">\(h\)</span> 和 <span class="arithmatex">\(n\)</span> 无关。这说明即使将一个区间分成更多子区间，也不会增加舍入误差。</p>
 <h2 id="45-romberg-romberg-integration">4.5 Romberg 积分 | Romberg Integration<a class="headerlink" href="#45-romberg-romberg-integration" title="点击此处可置顶内容">&para;</a></h2>
 <p>考察残差项，对于梯形法则，有</p>
 <div class="arithmatex">\[R_{2n}[f]=-(\frac{h}{2})^2\frac{1}{12}(b-a)f''(\xi)\approx\frac{1}{4}R_n[f]\]</div>
@@ -2650,7 +2650,7 @@ a_2&amp;=h\cdot \frac{(-1)^{2-2}}{2!(2-2)!}\cdot \int_0^2(t-0)(t-1)\mathrm{d}t=\
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 13:52:06</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 15:53:19</span>
   </span>
 
     
