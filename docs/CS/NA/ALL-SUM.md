@@ -1460,7 +1460,7 @@ $$f^{\prime\prime}(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}-\frac{h^2}{12}f^{(
 
 为了确定系数 $a_i$ ，我们给出一种求积方法：
 
-以第三章中给出的[插值多项式](./Chapter_03.md/#31-lagrange-interpolation-and-lagrange-polynomials)为基础，得到 Lagrange 插值多项式：
+以第三章中给出的插值多项式为基础，得到 Lagrange 插值多项式：
 
 $$P_n(x)=\sum\limits_{i=0}^nf(x_i)L_i(x)$$
 
@@ -2033,7 +2033,7 @@ $$
 
 $$y(t_{i+1})=y(t_i)+\int_{t_i}^{t_{i+1}}f(t,y(t))dt$$
 
-为了推导 Adams-Bashforth 显式 m 步方法，我们通过$(t_i,f(t_i,y(t_i)))$，$(t_{i-1},f(t_{i-1},y(t_{i-1})))$，$(t_{i-2},f(t_{i-2},y(t_{i-2})))$，...，$(t_{i+1-m},f(t_{i+1-m},y(t_{i+1-m})))$ 形成[向后差分多项式](./Chapter_03.md/#_10) $P_{m-1}(t)$，然后用 $P_{m-1}(t)$ 来代替 $f(t,y(t))$，从而得到
+为了推导 Adams-Bashforth 显式 m 步方法，我们通过$(t_i,f(t_i,y(t_i)))$，$(t_{i-1},f(t_{i-1},y(t_{i-1})))$，$(t_{i-2},f(t_{i-2},y(t_{i-2})))$，...，$(t_{i+1-m},f(t_{i+1-m},y(t_{i+1-m})))$ 形成向后差分多项式 $P_{m-1}(t)$，然后用 $P_{m-1}(t)$ 来代替 $f(t,y(t))$，从而得到
 
 $$f(t,y(t))=P_{m-1}(t)+\frac{f^{(m)}(\xi_i,y(\xi_i))}{m!}(t-t_i)(t-t_{i-1})...(t-t_{i+1-m})$$
 
@@ -2874,7 +2874,7 @@ $$\mathbf{x}^{(k+1)}=\mathbf{Tx}^{(k)}+\mathbf{c}$$
 
     $$\lim_{k\rightarrow\infty}\mathbf{T}^k\mathbf{y}=\lim_{k\rightarrow\infty}(\mathbf{x}-\mathbf{x}^{(k)})=\mathbf{0}$$
 
-    由于$\mathbf{y}$是任意的，根据[矩阵的收敛性](#_5)，$\rho(\mathbf{T})<1$。
+    由于$\mathbf{y}$是任意的，根据矩阵的收敛性，$\rho(\mathbf{T})<1$。
 
 ##### 误差界 | Error Bounds for Iterative Methods
 
@@ -3119,7 +3119,9 @@ $$(\mathbf{A}+\delta\mathbf{A})\delta\mathbf{x}+\mathbf{x}\delta\mathbf{A}=0$$
 
 所以在$\|\mathbf{A^{-1}\delta A}\|\leq 1$的情况下（我们不妨将其放缩为$\|\mathbf{\delta A}\|\leq\|\frac{\mathbf{1}}{A^{-1}}\|$），有：
 
-$\|\mathbf{(I+A^{-1}\delta A)^{-1}}\|\leq\frac{1}{1-\|\mathbf{A^{-1}\delta A}\|}$
+$$\|\mathbf{(I+A^{-1}\delta A)^{-1}}\|\leq\frac{1}{1-\|\mathbf{A^{-1}\delta A}\|}$$
+
+所以
 
 $$
 \begin{aligned}

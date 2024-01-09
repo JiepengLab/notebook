@@ -34,6 +34,10 @@ statistics: True
 !!! note ""
     你知道吗？在电脑端，长按能放一个巨~大的烟花噢🎇🎇🎇！
 
+!!! tip "推荐阅读"
+    - [x] [数学建模](./Fundemental/Mathematical-Modeling/index.md)
+    - [x] [数值分析](./CS/NA/index.md)
+
  <div class="experience" ></div>
 
 <!DOCTYPE html>
