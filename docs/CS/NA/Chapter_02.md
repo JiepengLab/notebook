@@ -65,13 +65,16 @@ $$
 ![Newton](images/image-6.png)
 
 !!! note "定理：设$f\in C^2[a,b]$，如果$p\in [a,b]$满足$f(p)=0$且$f'(p)\neq 0$，则存在$\delta>0$，使得对任何初始值$p_0\in (p-\delta, p+\delta)$，牛顿迭代法产生收敛于$p$的序列$\{p_n\}_{n=1}^\infty$。"
-    证明：TODO
+
+    证明：
+
+    ![Alt text](images/image-101.png)
 
 牛顿迭代法的收敛性取决于初始近似值的选择。
 
 ## 2.4 迭代法的误差分析 | Error Analysis for Iterative Methods
 
-假设${p_n}_{n=0}^\infty$收敛于$p$，其中对$\forall p_n \neq p$。如果存在正数$\lambda$和$\alpha$，使得
+假设$\{p_n\}_{n=0}^\infty$收敛于$p$，其中对$\forall p_n \neq p$。如果存在正数$\lambda$和$\alpha$，使得
 
 $$
 \lim_{n\to\infty}\frac{|p_{n+1}-p|}{|p_n-p|^\alpha} = \lambda
