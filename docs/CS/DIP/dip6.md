@@ -150,7 +150,7 @@ Let $W_N^{n,k}=e^{-j2\pi nk/N}$ then DFT is $F(k)=\dfrac{1}{N}\sum\limits_{n=0}^
 $$
 \begin{align*}
 F(k) & = \dfrac{1}{2M} \sum\limits_{n=0}^{2M-1}f(n)W_{2M}^{n,k}\\
-& = \dfrac{1}{2}\left[\dfrac{1}{M}\sum\limits_{n=0}^{M-1}f(2n)W_{2M}^{2n,k}+\dfrac{1}{M}\sum\limits_{n=0}^{M-1}f(2n+1)W_{2M}^{2n+1,k}\right]\\
+& = \sum\limits_{n=0}^{M-1}f(2n)W_{2M}^{2n,k}+\sum\limits_{n=0}^{M-1}f(2n+1)W_{2M}^{2n+1,k}\\
 W_{2M}^{2n,k} & = e^{-j2\pi \cdot 2nk/2M} = e^{-j2\pi nk/M} = W_M^{n,k}\\
 W_{2M}^{2n+1,k} & = e^{-j2\pi \cdot (2n+1)k/2M} = e^{-j2\pi nk/M} \cdot e^{-j2\pi k/2M}= W_M^{n,k}\cdot  W_{2M}^k\\
 F(k) & = \left[\sum\limits_{n=0}^{M-1}f(2n)W_M^{n,k}+\sum\limits_{n=0}^{M-1}f(2n+1)W_M^{n,k}W_{2M}^k\right], k=0,1,\ldots,M-1
