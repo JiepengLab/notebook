@@ -20,7 +20,7 @@
 ![Alt text](images/image-76.png)
 
 !!! note ""
-    $z(t)$ 那行的式子是原式的摄动问题（perturbed problem），即在原式的基础上加上一个扰动项（嘉定微分方程可能有误差$\delta$，或者初值有误差$\epsilon$）
+    $z(t)$ 那行的式子是原式的摄动问题（perturbed problem），即在原式的基础上加上一个扰动项（假定微分方程可能有误差$\delta$，或者初值有误差$\epsilon$）
 
 在 Lipschitz 条件下，初值问题是良态的：
 
