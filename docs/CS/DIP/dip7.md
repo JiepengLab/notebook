@@ -56,7 +56,12 @@ E(u,v) & \approx \sum\limits_{(x,y)\in W} \left[\left[\begin{matrix}I_x & I_y \e
 \end{align*}
 $$
 
-沿着矩阵 $H$ 的两个特征向量，变化最大。  
+记中间的矩阵为 $H$ 。沿着矩阵 $H$ 的两个特征向量，变化最大。计算方法就是计算 $H$ 的特征值。
+
+![Alt text](images/image-221.png)
+
+!!! note "特征值和变化大小的关系"
+    ![Alt text](images/image-222.png)
 
 $\lambda_{+}, \lambda_{-}$ 比较大时，这是一个好的位置（因为沿各个方向的变化都较大）  
 
@@ -89,16 +94,17 @@ $$
 ### Some properties
 
 * 旋转不变性  
-椭圆旋转，但长轴短轴的形状不变，特征值也不变  
+    椭圆旋转，但长轴短轴的形状不变，特征值也不变  
+    ![Alt text](images/image-223.png)
 * 对图像强度改变
     * 对加法和数乘强度变化保持不变 $I\rightarrow I+b,I\rightarrow aI$  
-    极值点不变
-    * 图像尺度变化会有影响！
-        <div align=center> <img src="http://cdn.hobbitqia.cc/202212131258337.png" width = 35%/></div>
+    * 极值点不变
+* 图像尺度变化会有影响！
+    ![Alt text](images/image-224.png)
 
 ### Scale Invariant Detection
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212131301060.png" width = 60%/></div>
+![Alt text](images/image-225.png)
 
 在区域内设计一个比例不变的函数  
 
