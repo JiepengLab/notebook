@@ -41,6 +41,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jiepenglab.github.io/notebook/CS/DIP/dip-final/</loc>
+         <lastmod>2024-01-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jiepenglab.github.io/notebook/CS/DIP/dip1/</loc>
          <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
@@ -81,7 +86,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://jiepenglab.github.io/notebook/CS/DIP/dip7/</loc>
+         <loc>https://jiepenglab.github.io/notebook/CS/DIP/dip6/</loc>
          <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>

@@ -1072,6 +1072,8 @@
       
         
       
+        
+      
     
     
     
@@ -1425,6 +1427,27 @@
   
   <span class="md-ellipsis">
     05-卷积和滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dip-final/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Final
   </span>
   
 
@@ -2220,7 +2243,7 @@
 <p>在实现时，我们可以同样可以用 1 维的线性插值来实现双线性插值。只要先进行每行的插值，再进行每列的插值，我们就可以对整个图像进行插值运算。这样子也可以并行计算.</p>
 <p>例如，对上图中。我们可以通过多次 1 维的线性插值来进行双线性插值：首先将 A、 B 连线进行插值计算求出 R 点灰度值，再将 C、 D 两点连线进行插值计算求出 Q 点灰度值，最后将 Q、 R 连线进行插值计算求出 P 点灰度值。</p>
 <h3 id="rbf-interpolation">RBF interpolation<a class="headerlink" href="#rbf-interpolation" title="点击此处可置顶内容">&para;</a></h3>
-<p><span class="arithmatex">\(G(x)=\sum_{i=1}^n w_iG(c_i)\)</span> where <span class="arithmatex">\(w_i=\dfrac{\phi(|x-c_i|)}{\sum_{i=1}^n\phi(|x-c_i|}\)</span>  </p>
+<p><span class="arithmatex">\(G(x)=\sum_{i=1}^n w_iG(c_i)\)</span> where <span class="arithmatex">\(w_i=\dfrac{\phi(|x-c_i|)}{\sum_{i=1}^n\phi(|x-c_i|)}\)</span>  </p>
 <p>其中 <span class="arithmatex">\(x\)</span> 可以是一个标量，也可以是一个向量，也就是说既可以是一维插值，也可以是二维、多维插值，取决于 <span class="arithmatex">\(x\)</span> 的维度。</p>
 <p>用鼠标拖，离鼠标越近，受影响越小  </p>
 <p><img alt="Alt text" src="../images/image-76.png" width="40%" /></p>
@@ -2373,7 +2396,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年11月28日 12:27:04</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 19:30:15</span>
   </span>
 
     
