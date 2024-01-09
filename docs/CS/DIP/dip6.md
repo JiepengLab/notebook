@@ -130,21 +130,6 @@ Inverse DFT
 
 $f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldots,N-1$  
 
-!!! Example "Magnitude VS Phase"
-    ![Alt text](images/image-210.png){width=70%}
-
-    如果我们只用振幅/相位作为信息重建图像，会得到什么样的结果？  
-    
-    * 利用振幅  
-    
-    ![Alt text](images/image-211.png){width=25%}
-
-    * 利用相位  
-
-    ![Alt text](images/image-212.png){width=25%}
-
-    相位更多的传递了图像的结构信息！
-
 ## Fast Fourier Transform(FFT)  
 
 为了加快计算速度，我们可以利用 DFT 的对称性质，将计算量从 $O(N^2)$ 降低到 $O(N\lg N)$
@@ -188,6 +173,35 @@ W_{2M}^{k+M} & = e^{-j2\pi k/2M\cdot e^{-j\pi}=-W_{2M}^k}
 \end{align*}
 $$
 
-因此 $F(k+M)=\lfloor F_e(k)-F_o(k)W_{2M}^k\rfloor  $
+因此 $F(k+M)=\lfloor F_e(k)-F_o(k)W_{2M}^k\rfloor$
 
-意义：对一个长度为 N 的序列进行傅立叶变换可以通过将其分成两半计算，对第一部分的计算需要通过计算两个长度为 N/2 长度序列的傅立叶变换式进行，然后利用这两个长度为 N/2 的序列可以得到第二部分的值。
+意义：对一个长度为 $N$ 的序列进行傅立叶变换可以通过将其分成两半计算，对第一部分的计算需要通过计算两个长度为 $N/2$ 长度序列的傅立叶变换式进行，然后利用这两个长度为 $N/2$ 的序列可以得到第二部分的值。
+
+## Extending FT in 2D
+
+![Alt text](images/image-213.png)
+
+![Alt text](images/image-214.png)
+
+![Alt text](images/image-215.png)
+
+### Visualizing DFT
+
+![Alt text](images/image-216.png)
+
+### Magnitude and Phase of DFT
+
+!!! Example "Magnitude VS Phase"
+    ![Alt text](images/image-210.png){width=70%}
+
+    如果我们只用振幅/相位作为信息重建图像，会得到什么样的结果？  
+    
+    * 利用振幅  
+    
+    ![Alt text](images/image-211.png){width=25%}
+
+    * 利用相位  
+
+    ![Alt text](images/image-212.png){width=25%}
+
+    相位更多的传递了图像的结构信息！
