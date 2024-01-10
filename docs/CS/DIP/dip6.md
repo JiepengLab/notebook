@@ -147,17 +147,17 @@ $$f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldo
 
 DFT 的式子为
 
-$$F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)e^{\frac{j2\pi kn}{N}}$$  
+$$F(k)=\sum\limits_{n=0}^{N-1}f(n)e^{-\frac{j2\pi kn}{N}}$$  
 
 我们记 $W_N^{n,k}=e^{-j2\pi nk/N}$ 则有
 
-$$F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)W_N^{n,k}$$  
+$$F(k)=\sum\limits_{n=0}^{N-1}f(n)W_N^{n,k}$$  
 
 假定 $N$ 为 $2$ 的正整数幂：$N=2^H\Rightarrow N=2M$, 将原式子分为奇数项和偶数项
 
 $$
 \begin{align*}
-F(k) & = \dfrac{1}{2M} \sum\limits_{n=0}^{2M-1}f(n)W_{2M}^{n,k}\\
+F(k) & =  \sum\limits_{n=0}^{2M-1}f(n)W_{2M}^{n,k}\\
 & = \sum\limits_{n=0}^{M-1}f(2n)W_{2M}^{2n,k}+\sum\limits_{n=0}^{M-1}f(2n+1)W_{2M}^{2n+1,k}\\
 W_{2M}^{2n,k} & = e^{-j2\pi \cdot 2nk/2M} = e^{-j2\pi nk/M} = W_M^{n,k}\\
 W_{2M}^{2n+1,k} & = e^{-j2\pi \cdot (2n+1)k/2M} = e^{-j2\pi nk/M} \cdot e^{-j2\pi k/2M}= W_M^{n,k}\cdot  W_{2M}^k\\
