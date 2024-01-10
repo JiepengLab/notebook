@@ -43,7 +43,7 @@ $$E(u,v)=\sum\limits_{(x,y)\in W}[I(x+u,y+v)-I(x,y)]^2$$
 
 $$I(x+u,y+v)-I(x,y)=\dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v + higher\ order\ terms$$
 
-如果移动 $(u,v)$ 小，那么可以用一阶微分估计 
+如果 $(u,v)$ 是个小量，那么我们可以用一阶微分估计：
 
 $$I(x+u,y+v)-I(x,y)\approx \dfrac{\partial I}{\partial x}u + \dfrac{\partial I}{\partial y}v=\left[\begin{matrix}I_x & I_y \end{matrix}\right]\left[\begin{matrix}u \\ v \end{matrix}\right]$$
 
@@ -56,7 +56,9 @@ E(u,v) & \approx \sum\limits_{(x,y)\in W} \left[\left[\begin{matrix}I_x & I_y \e
 \end{align*}
 $$
 
-记中间的矩阵为 $H$ 。沿着矩阵 $H$ 的两个特征向量，变化最大。计算方法就是计算 $H$ 的特征值。
+记中间的矩阵为 $H$ 。沿着矩阵 $H$ 的两个特征向量，变化最大。
+
+探测特征的方法就是计算 $H$ 的特征向量。
 
 ![Alt text](images/image-221.png)
 
@@ -79,7 +81,7 @@ $\lambda_{+}, \lambda_{-}$ 比较大时，这是一个好的位置（因为沿�
 
 ### The Harries operator  
 
-$\lambda_-$ 是 Harries operator 用于特征检测的变体
+$\lambda_-$ 是 **Harries operator** 用于特征检测的变体
 
 $$
 \begin{align*}
@@ -96,15 +98,16 @@ $$
 * 旋转不变性  
     椭圆旋转，但长轴短轴的形状不变，特征值也不变  
     ![Alt text](images/image-223.png)
-* 对图像强度改变
+* 图像强度不影响
     * 对加法和数乘强度变化保持不变 $I\rightarrow I+b,I\rightarrow aI$  
     * 极值点不变
+    ![Alt text](images/image-236.png){width=70%}
 * 图像尺度变化会有影响！
-    ![Alt text](images/image-224.png)
+    ![Alt text](images/image-224.png){width=50%}
 
 ### Scale Invariant Detection
 
-![Alt text](images/image-225.png)
+![Alt text](images/image-237.png){width=70%}
 
 在区域内设计一个比例不变的函数  
 
