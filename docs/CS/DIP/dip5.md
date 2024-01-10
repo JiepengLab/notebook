@@ -425,14 +425,14 @@ $$
 
 ![Alt text](images/image-116.png){width="70%"}
 
-减少低频，但可能会出现梯度逆转(halo)
+减少低频，但可能会出现梯度逆转(halo)的现象
 
 ![Alt text](images/image-117.png){width="70%"}
 
 !!! Question "Brute-force problem"
     暴力实现双边滤波的时间可能会非常慢，因为他是非线性的，而且每个核都不一样，不能提前算出
 
-#### (TODO)增维型快速双边滤波 | A Fast Approximation of the Bilateral Filter using a Signal Processing Approach
+#### 增维型快速双边滤波 | A Fast Approximation of the Bilateral Filter using a Signal Processing Approach
 
 !!! Abstract
 
@@ -464,13 +464,19 @@ $$
 
 ##### Intuition on 1D Signal
 
+我们先在一维上做双边滤波，从图中可以看到，图像变平滑了。
+
 ![Alt text](images/image-118.png){width="70%"}
 
-![Alt text](images/image-119.png){width="70%"}
+分析可知：
 
 * 近且相似的像素是有影响力的
 * 远的像素没有影响力
 * 和中心像素相差较大的影响力也比较小（为什么可以保边下）
+
+![Alt text](images/image-228.png){width="70%"}
+
+由于我们要将其归一化。我们考虑在投射空间中处理归一化因子这里的除法
 
 ###### Handling the Division
 
@@ -481,24 +487,42 @@ $$
 * 第一行($I_p^{bf}$) 乘上归一化因子，从而形成一个 $2\times 1$向量，如上图下面所示。
 
 * 类似于投影空间中的齐次坐标
-* 我们把除法往后放，直到计算结束再进行归一化因子的除法
+* 我们可以把除法往后放，直到计算结束再进行归一化因子的除法
 * 下一步：添加一维，使得可以进行卷积操作
 
 ###### Introducing a Convolution
 
-![Alt text](images/image-121.png){width="70%"}
+此时我们研究右侧的式子。我们的两个一维卷积操作相乘时，就相当于一个二维卷积操作。
 
-三维高斯，二维卷积（卷积可以变为频率的乘积操作，可以利用 FFT 变换）
+![Alt text](images/image-121.png)
+
+!!! note ""
+    一维卷积对应二维高斯核。
+
+二维卷积这里对应三维高斯核（卷积可以变为频率的乘积操作，可以利用 FFT 变换）
+
+![Alt text](images/image-229.png)
 
 变为 $\sum\limits_{(q,\xi)\in S\times R}\left(\begin{matrix}W_q I_q \\ W_q \end{matrix}\right)$ **space-range Gaussian**
 
-最后得到的结果还需要采样
+卷积完，我们可以得到：
+
+![Alt text](images/image-230.png)
+
+最后得到的结果还需要采样：
+
+![Alt text](images/image-231.png)
 
 ##### Summary
 
 ![Alt text](images/image-122.png)
 
 上采样，下采样并不是完全的双边滤波，做了一个近似
+
+!!! note ""
+    我们做的就是将双边滤波分成两步：
+
+    ![Alt text](images/image-232.png)
 
 #### (TODO)导向滤波 | Guided Image Filtering
 
