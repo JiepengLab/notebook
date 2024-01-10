@@ -2366,7 +2366,7 @@ f &amp; = \dfrac{\lambda_1\lambda_2}{\lambda_1 + \lambda_2}\\
 </div>
 <h2 id="ransac">RANSAC<a class="headerlink" href="#ransac" title="点击此处可置顶内容">&para;</a></h2>
 <p>RANSAC 解决图像拼接的离群点  </p>
-<p><strong>RANSAC RANdom SAmple Consensus</strong></p>
+<p><strong>RANSAC</strong>: <strong>RAN</strong>dom <strong>SA</strong>mple <strong>C</strong>onsensus</p>
 <p>排除离群点，只关注并使用 inliers.  </p>
 <p>思想：如果离群点被选中计算当前的匹配，那么回归出来的线肯定不足以支撑剩下点的匹配，和真正 inlier 得到的线有很大的差异。</p>
 <p>RANSAC Loop</p>
@@ -2401,12 +2401,14 @@ f &amp; = \dfrac{\lambda_1\lambda_2}{\lambda_1 + \lambda_2}\\
 
 <div class="admonition info">
 <p class="admonition-title">Image Stitching</p>
-<p>*Detect key points 检测特征点
-* Build the SIFT descriptors 提取 SIFT 特征
-*Match SIFT descriptors SIFT 特征匹配（求欧氏距离）
-* Fitting the transformation 计算变换
-*RANSAC 筛除外点
-* Image Blending 图像融合，解决跳变</p>
+<ul>
+<li>Detect key points 检测特征点</li>
+<li>Build the SIFT descriptors 提取 SIFT 特征</li>
+<li>Match SIFT descriptors SIFT 特征匹配（求欧氏距离）</li>
+<li>Fitting the transformation 计算变换</li>
+<li>RANSAC 筛除外点</li>
+<li>Image Blending 图像融合，解决跳变</li>
+</ul>
 </div>
 
 
@@ -2430,7 +2432,7 @@ f &amp; = \dfrac{\lambda_1\lambda_2}{\lambda_1 + \lambda_2}\\
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月10日 09:26:37</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月10日 10:14:40</span>
   </span>
 
     
