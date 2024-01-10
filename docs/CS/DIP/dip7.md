@@ -273,7 +273,7 @@ Integral Image(a.k.a. Summed area table) 是
 
 RANSAC 解决图像拼接的离群点  
 
-**RANSAC RANdom SAmple Consensus**
+**RANSAC**: **RAN**dom **SA**mple **C**onsensus
 
 排除离群点，只关注并使用 inliers.  
 
@@ -307,9 +307,10 @@ RANSAC 之后将数据划分为 outiler 和 inliner.
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212252145478.png" width = 75%/></div>
 
 !!! Info "Image Stitching"
-    *Detect key points 检测特征点
+
+    * Detect key points 检测特征点
     * Build the SIFT descriptors 提取 SIFT 特征
-    *Match SIFT descriptors SIFT 特征匹配（求欧氏距离）
+    * Match SIFT descriptors SIFT 特征匹配（求欧氏距离）
     * Fitting the transformation 计算变换
-    *RANSAC 筛除外点
+    * RANSAC 筛除外点
     * Image Blending 图像融合，解决跳变
