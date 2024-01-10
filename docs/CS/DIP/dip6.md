@@ -39,7 +39,7 @@ $$
 
 简谐振动: $y=A\sin(\omega t+\phi)$  
 
-物理学上可以将一个周期运动分成若干个简谐振动的叠加: 
+物理学上可以将一个周期运动分成若干个简谐振动的叠加：
 
 $$y=\sum\limits_{k=1}^n y_k=\sum\limits_{k=1}^n A_k\sin(k\omega t+\phi)$$
 
@@ -50,7 +50,7 @@ $$y=\sum\limits_{k=1}^n y_k=\sum\limits_{k=1}^n A_k\sin(k\omega t+\phi)$$
 
 ![Alt text](images/image-207.png){width=30%}
 
-复数(a+bj)可以采用 **Magnitude-Phase**(i.e.,vector)  的形式表示，即 $x=|x|e^{j\phi(x)}$, 其中 Magnitude $|x|=\sqrt{a^2+b^2}$, Phase $\phi(x)=\tan^{-1}(b/a)$  
+复数(a+bj)可以采用 **Magnitude-Phase**(i.e.,vector)  的形式表示，即 $x=|x|e^{j\phi(x)}$, 其中 **幅度** (Magnitude)记作 $|x|=\sqrt{a^2+b^2}$, **相位** (Phase) 记作 $\phi(x)=\tan^{-1}(b/a)$  
 
 在这种表示下，复数乘法可以写作 $xy=|x|e^{j\phi(x)}\cdot |y|e^{j\phi(y)}=|x||y|e^{j(\phi(x)+\phi(y))}$  
 
@@ -68,7 +68,7 @@ $$e^{j\theta}=\cos(\theta)+j\sin(\theta)$$
 
 傅里叶分析指频率区域分析，其中 $n$ 较小时为低频， $n$ 较大时为高频。  
 
-注意到正弦波和余弦波都是无限长的，这是傅里叶分析的一个不足，因此微波(wavelet)分析比特定信号的分析更好。  
+注意到正弦波和余弦波都是无限长的，这是傅里叶分析的一个不足，因此小波(wavelet)分析比特定信号的分析更好。  
 
 !!! note "example"
 
@@ -86,17 +86,15 @@ F(x)=\left\{\begin{matrix}
 \end{align*}
 $$
 
-1-D 2-D Continuous
-
 ### Image Transform
 
 很多时候，图像处理任务在变换域（频域）而不是空间域中执行得最好。
 
 关键步骤：
 
-1. 图像变换
-2. 进行操作
-3. 图像逆变换，回到空间域
+1. 变换图像
+2. 在变换后的域中执行任务。
+3. 应用逆变换返回到空间域。
 
 ![Alt text](images/image-205.png)
 
@@ -106,11 +104,17 @@ $$
 
 ### Continuous Fourier Transform
 
-一维情况下，变换方法为：
+一维情况下，将信号(即函数)从空间域变换到频域的变换方法为：
 
 ![Alt text](images/image-204.png)
 
-低频对应图像缓慢变化的信息（如连续的表面）；高频对应快速变化的信息（如边）
+要去除某些频率，就是将其相应的F(u)系数设置为零
+
+![Alt text](images/image-235.png)
+
+低频对应于缓慢变化的信息(例如，连续的表面)。
+
+高频对应于快速变化的信息(例如，边缘)
 
 #### Frequency Filtering Steps
 
@@ -120,17 +124,17 @@ $$
 
 ### Discrete Fourier Transform (DFT)
 
+记 $N$ 为频率的数目，$x$ 为采样点的数目
+
 Forward DFT  
 
-$F(u)=\sum\limits_{x=0}^{N-1}f(x)e^{-\frac{j2\pi ux}{N}}, u=0,1,\ldots,N-1$ 
-
-N 为频率的数目，x 为采样点的数目
+$$F(u)=\sum\limits_{x=0}^{N-1}f(x)e^{-\frac{j2\pi ux}{N}}, u=0,1,\ldots,N-1$$
 
 Inverse DFT  
 
-$f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldots,N-1$  
+$$f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldots,N-1$$  
 
-## Fast Fourier Transform(FFT)  
+### Fast Fourier Transform(FFT)  
 
 为了加快计算速度，我们可以利用 DFT 的对称性质，将计算量从 $O(N^2)$ 降低到 $O(N\lg N)$
 
@@ -141,9 +145,13 @@ $f(x)=\dfrac{1}{N}\sum\limits_{u=0}^{N-1}f(u)e^{\frac{j2\pi ux}{N}}, x=0,1,\ldot
 
 #### FFT Principle
 
-$F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)e^{\frac{j2\pi kn}{N}}$  
+DFT 的式子为
 
-Let $W_N^{n,k}=e^{-j2\pi nk/N}$ then DFT is $F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)W_N^{n,k}$  
+$$F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)e^{\frac{j2\pi kn}{N}}$$  
+
+我们记 $W_N^{n,k}=e^{-j2\pi nk/N}$ 则有
+
+$$F(k)=\dfrac{1}{N}\sum\limits_{n=0}^{N-1}f(n)W_N^{n,k}$$  
 
 假定 $N$ 为 $2$ 的正整数幂：$N=2^H\Rightarrow N=2M$, 将原式子分为奇数项和偶数项
 
@@ -157,7 +165,9 @@ F(k) & = \left[\sum\limits_{n=0}^{M-1}f(2n)W_M^{n,k}+\sum\limits_{n=0}^{M-1}f(2n
 \end{align*}
 $$
 
-令 $\left\{ \begin{matrix} F_e(k) & = \sum\limits_{n=0}^{M-1}f(2n)W_M^{n,k} \\ F_o(k) & = \sum\limits_{n=0}^{M-1}f(2n+1)W_M^{n,k} \end{matrix}\right.$ 那么 $F(k)=\lfloor F_e(k)+F_o(k)W_{2M}^k \rfloor$  
+令 $\left\{ \begin{matrix} F_e(k) & = \sum\limits_{n=0}^{M-1}f(2n)W_M^{n,k} \\ F_o(k) & = \sum\limits_{n=0}^{M-1}f(2n+1)W_M^{n,k} \end{matrix}\right.$ 那么 
+
+$$F(k)=\lfloor F_e(k)+F_o(k)W_{2M}^k \rfloor$$  
 
 如果 $e, o$ 是 $2$ 的幂次，还可以继续拆
 
@@ -204,4 +214,4 @@ $$
 
     ![Alt text](images/image-212.png){width=25%}
 
-    相位更多的传递了图像的结构信息！
+    相位传递了图像更多的结构信息！
