@@ -139,7 +139,7 @@ $f=Kernal * Image$
 
 * 初始化：多尺度的 Harris corner detection(改变清晰度后，单独找角点)  
 只有在任何尺度上都是角点的点，才能被保留  
-* 基于拉普拉斯算子，进行尺度选择。对一个位置，哪一个尺度上拉普拉斯值最大，将这个位置和尺度作为角点。（唯一性，在这个尺度上是极大值，那么在另一个尺度上也是极大值，只是极大值的数值可能不同）？？？  
+* 基于拉普拉斯算子，进行尺度选择。对一个位置，哪一个尺度上拉普拉斯值最大，将这个位置和尺度作为角点。（唯一性，在这个尺度上是极大值，那么在另一个尺度上也是极大值，只是极大值的数值可能不同）
 
 Laplacian-of-Gaussian = "blob" detector $\nabla^2 g=\dfrac{\partial^2 g}{\partial x^2}+\dfrac{\partial^2 g}{\partial y^2}$  
 
@@ -205,7 +205,9 @@ SIFT 特征：旋转不变性
     * 方向，实现旋转不变的 descriptor
 
 SIFT 特征可以对图像进行分类  
-Bag of visual words
+
+#### Bag of visual words
+
 提取SIFT特征，将特征做一个聚类(kmeans)，将每个聚类中心称为 visual word 视觉单词
 
 !!! Summary "Conclusion of SIFT"

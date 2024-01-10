@@ -432,7 +432,7 @@
 
     2、计算类haar小波特征
 
-    3、note "SURF是64维的向量，每一维的特征SIFT主要为方向，而SURF分别为1阶导和幅值，SIFT用赋值来筛选，SURF用了类haar小波特征。
+    3、SURF是64维的向量，每一维的特征SIFT主要为方向，而SURF分别为1阶导和幅值，SIFT用赋值来筛选，SURF用了类haar小波特征。
 
 !!! note "SURF相较于SIFT的优势"
 
