@@ -134,7 +134,7 @@ $f=Kernal * Image$
 * $L=\sigma^2(G_{xx}(x,y\sigma)+G_{yy}(x,y,\sigma))$
 * $DoG=G(x,y,k\sigma)-G(x,y,\sigma)$ 其中 $G(x,y,\sigma)=\dfrac{1}{\sqrt{2\pi}}e^{-\frac{x^2+y^2}{2\sigma^2}}$
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212140017073.png" width = 40%/></div>  
+![Alt text](images/image-240.png){width="40%"}
 
 #### Harris-Laplacian
 
@@ -148,30 +148,33 @@ Laplacian-of-Gaussian = "blob" detector $\nabla^2 g=\dfrac{\partial^2 g}{\partia
 
 在图像中给定的一个点，我们定义拉普拉斯响应值达到峰值的尺度为**特征尺度(characteristic scale)**
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212161925430.png" width = 40%/></div>  
+![Alt text](images/image-241.png){width="40%"}
 
 #### SIFT
 
 !!! note ""
     详细介绍：[SIFT](../../CS_Online/ML-4360/Lec3/Note%203-1%20Preliminaries.md)
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212161927455.png" width = 40%/></div>
+![Alt text](images/image-242.png){width="40%"}
 
 三个方向都是 DOG.  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212161928750.png" width = 40%/></div>
+![Alt text](images/image-243.png){width="40%"}
 
 对于画 × 的需要比较26个邻居才能得出其是否是极值，计算速度相对较慢。
 
 得到角点后，我们可以提取角点的特征，如方向性  
 
 * 梯度和角度  
-其中 $m(x,y)$ 是点的幅值，即 x 方向的差分和 y 方向的差分的平方和  
-$\theta(x,y)$ 是通过 y 方向的梯度和比上 x 方向的梯度的反正切计算  
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161930783.png" width = 50%/></div>
+    其中 $m(x,y)$ 是点的幅值，即 x 方向的差分和 y 方向的差分的平方和
+
+    $\theta(x,y)$ 是通过 y 方向的梯度和比上 x 方向的梯度的反正切计算  
+
+    ![Alt text](images/image-244.png){width="50%"}
 
 * 方向选择
-    <div align=center> <img src="http://cdn.hobbitqia.cc/202212161933690.png" width = 40%/></div>
+
+    ![Alt text](images/image-245.png){width="50%"}
 
     可以用投票的方式定义邻域的朝向
 
@@ -192,9 +195,9 @@ SIFT 特征：旋转不变性
 * 剔除弱边缘(小于阈值梯度幅度)
 * 创建剩下边的方向的直方图
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212162013160.png" width = 40%/></div>
+![Alt text](images/image-249.png){width="40%"}
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212162013746.png" width = 20%/></div>
+![Alt text](images/image-250.png){width="20%"}
 
 完整版：
 
@@ -262,12 +265,12 @@ SIFT 特征可以对图像进行分类
 
 Integral Image(a.k.a. Summed area table) 是
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212251944951.png" width = 30%/></div>
+![Alt text](images/image-248.png){width=30%}
 
 * $S(x,y)=\sum\sum I(x,y)$
 * $V(l,t,r,b)=S(l,t)+S(r,b)-S(l,b)-S(r,t)$ 得到矩形内的像素值的和
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212251950536.png" width = 55%/></div>
+![Alt text](images/image-247.png){width=50%}
 
 积分图让我们很方便的对尺度进行**上采样**
 
@@ -275,7 +278,7 @@ Integral Image(a.k.a. Summed area table) 是
 
 不同尺度之间可以用插值来计算中间的尺度。
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212251956479.png" width = 65%/></div>
+![Alt text](images/image-246.png){width=65%}
 
 !!! note "SURF descriptor"
     ![Alt text](images/image-238.png)
@@ -325,7 +328,7 @@ RANSAC 将数据划分为 outiler 和 inliner.
 
 ## Image Blending - Pyramid Creation  
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212252145478.png" width = 75%/></div>
+![Alt text](images/image-239.png)
 
 !!! Info "Image Stitching"
 
