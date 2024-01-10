@@ -152,6 +152,9 @@ Laplacian-of-Gaussian = "blob" detector $\nabla^2 g=\dfrac{\partial^2 g}{\partia
 
 #### SIFT
 
+!!! note ""
+    详细介绍：[SIFT](../../CS_Online/ML-4360/Lec3/Note%203-1%20Preliminaries.md)
+
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212161927455.png" width = 40%/></div>
 
 三个方向都是 DOG.  
@@ -200,25 +203,27 @@ SIFT 特征：旋转不变性
 * 16 cells * 8 orientations = 128 dimensional descriptor(128 维向量)
 
 !!! Summary "SIFT Feature"
-    *Descriptor 128-D
-        *
-        *可以通过去掉光照变化带来的影响
-    * 位置 $(x,y)$
-    *尺度，控制特征提取的覆盖范围
+
+    * Descriptor 128-D
+        * 4×4块，每块为8维梯度角直方图: 4×4×8 = 128
+        * 归一化以减少光照变化的影响。
+    * 特征位置 $(x,y)$
+    * 尺度，控制特征提取的覆盖范围
     * 方向，实现旋转不变的 descriptor
 
 SIFT 特征可以对图像进行分类  
 
 #### Bag of visual words
 
-提取SIFT特征，将特征做一个聚类(kmeans)，将每个聚类中心称为 visual word 视觉单词
+基于采集到的图像，利用高斯差分法检测感兴趣点，提取 SIFT 特征。然后将提取的描述符聚类，使用分层k-means聚类生成词汇树。将每个聚类中心称为 视觉单词(visual word )
 
 !!! Summary "Conclusion of SIFT"
-    *优点
+
+    * 优点
         * 期望在比例、旋转、光照等变化中的不变性。
-        *局部 patch 具有很强的区分性和表征能力。
+        * 局部 patch 具有很强的区分性和表征能力。
         * 在刚性对象表示上非常有效。
-    *缺点
+    * 缺点
         * 提取耗时  
         对于大小为400 *400的图像，平均需要1秒。
         * 对非刚性物体性能较差。  
@@ -228,12 +233,17 @@ SIFT 特征可以对图像进行分类
 
 ## SURF detectors and descriptors
 
-* 角点检测 repeatable
-* 特征提取：描述能力具有 dinstinctive robust
+!!! note ""
+    SIFT – scale invariant feature transform (Lowe 2004)
+
+    SURF – speeded up robust features (Bay et al. 2006)
+
+* 角点检测应该是可重复的
+* 特征提取：描述能力必须具有显著性和鲁棒性(distinctive and robust)
 
 都需要 fast
 
-SURF algorithm
+### SURF algorithm
 
 * **Interest point detector:**
     * 计算积分图像  
@@ -259,7 +269,7 @@ Integral Image(a.k.a. Summed area table) 是
 
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212251950536.png" width = 55%/></div>
 
-积分图让我们很方便的对尺度进行上采样
+积分图让我们很方便的对尺度进行**上采样**
 
 ### Interpolation
 
@@ -267,36 +277,44 @@ Integral Image(a.k.a. Summed area table) 是
 
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212251956479.png" width = 65%/></div>
 
+!!! note "SURF descriptor"
+    ![Alt text](images/image-238.png)
+
 !!! Info "Why SURF is better than SIFT"
-    *维度低, 只用 64 维特征  
+
+    * 维度低, 只用 64 维特征  
     * 在均匀、渐变、只有一条边的图像上 SIFT 无法分辨，但 SURF 可以  
     * 带噪声会使 SIFT 特征凌乱，对 SURF 几乎没有影响
 
 ## RANSAC
 
-RANSAC 解决图像拼接的离群点  
+!!! note ""
+
+    RANSAC 解决图像拼接的离群点  
 
 **RANSAC**: **RAN**dom **SA**mple **C**onsensus
 
-排除离群点，只关注并使用 inliers.  
+方法：排除离群点，只关注并使用 inliers.  
 
 思想：如果离群点被选中计算当前的匹配，那么回归出来的线肯定不足以支撑剩下点的匹配，和真正 inlier 得到的线有很大的差异。
 
-RANSAC Loop
+!!! note "RANSAC Loop"
 
-* 随机选择种子点作为转换估计的基础
-* 计算种子点之间的变换  
-* 找到这次变换的 inliers
-* 如果 inliners 的数目足够多，那么重新计算所有 inliners 上的最小二乘法估计
-* 回归之后再计算 inliners 如此往复，继续调整。如果没有调整那我们可以停止循环。最终使得回归出的线达到最多的 inliners.
+    1. 随机选择一组种子点作为变换估计的基础(例如，一组匹配)
+    2. 计算种子点的变换  
+    3. 找到这次变换的 inliers
+    4. 如果 inliners 的数目足够多，那么重新计算所有 inliners 上的最小二乘法估计
+    5. 回归之后再计算 inliners 如此往复，继续调整。如果没有调整那我们可以停止循环。最终使得回归出的线达到最多的 inliners.
+
+### RANSAC 采样次数
 
 需要多少次取样？假设 $w$ 是 inliners 的一部分, $n$ 个需要用来定义前提的点，进行了 $k$ 次取样。  
 
-* $n$ 个点都是正确的 $w^n$
-* $k$ 次采样都失败了 $(1-w^n)^k$
-* 选择 k 达到足够高使得失败的概率低于阈值  
+* $n$ 个点都是正确的概率为 $w^n$
+* $k$ 次采样都失败的概率为 $(1-w^n)^k$
+* 选择达到足够大的 $k$ 使得失败的概率低于阈值  
 
-RANSAC 之后将数据划分为 outiler 和 inliner.
+RANSAC 将数据划分为 outiler 和 inliner.
 
 * 优点
     * 对于模型拟合问题是一种通用的方法
