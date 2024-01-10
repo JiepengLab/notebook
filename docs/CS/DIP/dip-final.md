@@ -49,7 +49,7 @@
 
     大小：N\*4 bytes，1 byte rgbBlue to specifies the blue part of the color, 1 byte rgbGreen to specifies the green part of the color, 1 byte rgbRed to specifies the blue part of the color
 
-    1 byte rgbReserved must always be set to zero
+    1 byte rgb Reserved must always be set to zero
 
 !!! note "BMP图像的存储"
 
