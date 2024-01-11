@@ -17,7 +17,14 @@ counter: True
 * 学习统计结构或者数据与数据之间的相互关系得到特征表达
 * 学习得到的特征表达可以用来作为识别任务中的特征
 
-<div align=center> <img src="http://cdn.hobbitqia.cc/202212252234034.png" width = 70%/></div> 
+核心思想:
+
+- 从数据中学习数据的统计结构或相关性。
+- 学习到的表征可以用作识别任务中的特征。
+- 被称为:特征学习、深度学习、表示学习等。
+- 自2006年以来，学习特征表示的深度学习越来越流行。
+
+<div align=center> <img src="http://cdn.hobbitqia.cc/202212252234034.png" width = 50%/></div> 
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212252247811.png" width = 70%/></div>   
 
 CNN 卷积神经网络  
@@ -33,15 +40,19 @@ CNN 卷积神经网络
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212252253669.png" width = 70%/></div>   
 
 $w_0$ 用于矫正数据的偏置量 Bias  
+
 常用的激活函数  
+
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212252255999.png" width = 70%/></div>   
 
 ReLU 会把输入的信号去掉一部分  
 
 多层神经网络  
+
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212252258160.png" width = 70%/></div>   
 
-如何解深度神经网络(解，指求出 $w$)    
+如何解深度神经网络(求出 $w$) 
+
 **反向传播 Back-propagation(BP)**  
 
 * 随机初始化权重，计算 $h_W(X)$  
@@ -53,16 +64,19 @@ $\epsilon$ 是个超参，称为学习率。如果设置过大可能会在收敛
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212261813575.png" width = 70%/></div>   
 
 共享权重  
-设计一个卷积核用来提取特征，得到一个新的图像 feature map 特征图。   
+
+设计一个卷积核用来提取特征，得到一个新的图像 feature map 特征图。
 
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212261818887.png" width = 70%/></div>   
 
 10 个卷积核得到 10 张特征图，形成一个三维的特征体。  
+
 卷积核可以复用  
 
 简单的细胞检测局部特征；复杂的细胞会池化，筛选提取特征（特征图的降采样）
 
-池化：
+## 池化 - 降采样
+
 <div align=center> <img src="http://cdn.hobbitqia.cc/202212272216320.png" width = 70%/></div>   
 
 空间，选择重要的值，降低复杂度  
