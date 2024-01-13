@@ -576,11 +576,11 @@ $$
 ##### Natural boundary | 自由边界
 
 !!! note ""
-    如果 $S''(x_0)=y''_0=M_0$，$S''(x_n)=y''_n=M_n$，则
+    根据之前的假设 $M_0=S''(x_0)=y''_0$，$M_n=S''(x_n)=y''_n$，则
 
     $$ \lambda_0 = 0, g_0 = 2y''_0, \mu_n = 0, g_n = 2y''_n $$
 
-    如果 $S''(x_0)=S''(x_n)=0$，则称为**自由边界(free boundary)**，此时 $g_0=g_n=0$。
+    当 $S''(x_0)=S''(x_n)=0$，我们称之为**自由边界(free boundary)**，此时 $g_0=g_n=0$。
 
 $$
 \begin{bmatrix}
