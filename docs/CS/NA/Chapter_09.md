@@ -74,7 +74,7 @@ $$\mathbf{u}^{(k-1)}=\frac{\mathbf{x}^{(k-1)}}{\|\mathbf{x}^{(k-1)}\|_\infty},\q
 
 $$|\lambda_i-q|\ll|\lambda_j-q|$$
 
-所以此时$|\mathbf{A}^{-1}-q\mathbf{I}|$的主特征值凸显出来了。可以更快地收敛到$\lambda_i$。
+根据刚刚在收敛速度中的分析，可知：此时 $(\mathbf{A}-q\mathbf{I})^{-1}$ 的主特征值凸显出来了，可以更快地收敛到 $\frac{1}{\lambda_i-q}$。
 
 其伪代码为：
 

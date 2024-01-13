@@ -12,13 +12,13 @@ $$\tilde{\mathbf{A}}=\begin{bmatrix}a_{11}^{(1)}&a_{12}^{(1)}&\cdots&a_{1n}^{(1)
 
 $$\tilde{\mathbf{A}}^{(k)}=\begin{bmatrix}a_{11}^{(k)}&a_{12}^{(k)}&\cdots&a_{1n}^{(k)}&b_{1}^{(k)}\\0&a_{22}^{(k)}&\cdots&a_{2n}^{(k)}&b_{2}^{(k)}\\\vdots&\vdots&\ddots&\vdots&\vdots\\0&0&\cdots&a_{nn}^{(k)}&b_{n}^{(k)}\end{bmatrix}$$
 
-第$1$次迭代过程为：如果$a_{11}^{(1)}\neq 0$，记$m_{i1}^{(1)}=m_{i1}^{(1)}$，则
+第$1$次迭代过程为：如果 $a_{11}^{(1)}\neq 0$ ，记 $m_{i1}= {a_{i1}^{(1)}}/{a_{11}^{(1)}}$ ，则
 
-$$\begin{cases}a_{ij}^{(2)}=a_{ij}^{(1)}-m_{i1}^{(1)}a_{1j}^{(1)}\\b_{i}^{(2)}=b_{i}^{(1)}-m_{i1}^{(1)}b_{1}^{(1)}\end{cases}$$
+$$\begin{cases}a_{ij}^{(2)}=a_{ij}^{(1)}-m_{i1}a_{1j}^{(1)}\\b_{i}^{(2)}=b_{i}^{(1)}-m_{i1}b_{1}^{(1)}\end{cases}$$
 
-第$t$次迭代过程为：如果$a_{tt}^{(t)}\neq 0$，记$m_{it}^{(t)}=m_{it}^{(t)}$，则
+第$t$次迭代过程为：如果$a_{tt}^{(t)}\neq 0$，记 $m_{it}={a_{it}^{(t)}}/{a_{tt}^{(t)}}$ ，则
 
-$$\begin{cases}a_{ij}^{(t+1)}=a_{ij}^{(t)}-m_{it}^{(t)}a_{tj}^{(t)}\\b_{i}^{(t+1)}=b_{i}^{(t)}-m_{it}^{(t)}b_{t}^{(t)}\end{cases}$$
+$$\begin{cases}a_{ij}^{(t+1)}=a_{ij}^{(t)}-m_{it}a_{tj}^{(t)}\\b_{i}^{(t+1)}=b_{i}^{(t)}-m_{it}b_{t}^{(t)}\end{cases}$$
 
 如果$a_{tt}^{(t)}=0$，则交换第$t$行与第$k$行，使得$a_{kk}^{(k)}\neq 0$，然后再进行第$k$次迭代。如果找不到$a_{kk}^{(k)}\neq 0$，则方程组没有唯一解，算法停止。
 
@@ -117,13 +117,13 @@ $$(E_j-m_{j1}E_1)\rightarrow E_j,\quad m_{j1}=\frac{a_{j1}^{(1)}}{a_{11}^{(1)}}$
 
 $$\begin{bmatrix}1&0&\cdots&0\\-m_{21}&1&\cdots&0\\-m_{31}&0&\cdots&0\\\vdots&\vdots&\ddots&\vdots\\-m_{n1}&0&\cdots&1\end{bmatrix}\begin{bmatrix}a_{11}^{(1)}&a_{12}^{(1)}&\cdots&a_{1n}^{(1)}\\a_{21}^{(1)}&a_{22}^{(1)}&\cdots&a_{2n}^{(1)}\\\vdots&\vdots&\ddots&\vdots\\a_{n1}^{(1)}&a_{n2}^{(1)}&\cdots&a_{nn}^{(1)}\end{bmatrix}=\begin{bmatrix}a_{11}^{(1)}&a_{12}^{(1)}&\cdots&a_{1n}^{(1)}\\0&a_{22}^{(2)}&\cdots&a_{2n}^{(2)}\\0&a_{32}^{(2)}&\cdots&a_{3n}^{(2)}\\\vdots&\vdots&\ddots&\vdots\\0&a_{n2}^{(2)}&\cdots&a_{nn}^{(2)}\end{bmatrix}$$
 
-记最左边的矩阵为$\mathbf{M}^{(1)}$，中间的矩阵为$\mathbf{A}^{(1)}$，右边的矩阵为$\mathbf{A}^{(2)}$，则有$\mathbf{M}^{(1)}\mathbf{A}^{(1)}=\mathbf{A}^{(2)}$。
+记最左边的矩阵为 $\mathbf{M}^{(1)}$，中间的矩阵为 $\mathbf{A}^{(1)}$，右边的矩阵为 $\mathbf{A}^{(2)}$，则有 $\mathbf{M}^{(1)}\mathbf{A}^{(1)}=\mathbf{A}^{(2)}$。
 
 这里的$\mathbf{M}^{(1)}$称作第一Gauss交换矩阵（first Gauss transformation matrix）。
 
-用$\mathbf{b}^{(2)}$表示$\mathbf{b^{(1)}}$经过第一次Gauss消去法后的结果，则有$\mathbf{M}^{(2)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{A}^{(1)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{b}^{(1)}=\mathbf{b}^{(2)}$。
+用$\mathbf{b}^{(2)}$表示$\mathbf{b^{(1)}}$经过第一次Gauss消去法后的结果，则有$\mathbf{A}^{(2)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{A}^{(1)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{b}^{(1)}=\mathbf{b}^{(2)}$。
 
-一般的，如果$\mathbf{M}^{(k)}\mathbf{x}=\mathbf{b}^{(k)}$已经构建，则由第$k$个Gauss变换矩阵：
+一般的，如果$\mathbf{A}^{(k)}\mathbf{x}=\mathbf{b}^{(k)}$已经构建，则由第$k$个Gauss变换矩阵：
 
 $$\mathbf{M}^{(k)}=
 \begin{bmatrix}
@@ -215,7 +215,7 @@ $$\mathbf{U_1}\mathbf{U_2}^{-1}=\mathbf{L_1}^{-1}\mathbf{L_2}=\mathbf{I}$$
 
     b. $a_{ii}>0$，$i=1,2,\cdots,n$。
 
-    c. $\max\limits_{1\leq k,j\leq n}|a_{kj}|<\max\limits_{1\leq i\leq n}|a_{ii}|$。
+    c. $\max\limits_{1\leq k,j\leq n}|a_{kj}|<\max\limits_{1\leq i\leq n}|a_{ii}|$，其中 $k\neq j$。
 
     d. $(a_{ij})^2<a_{ii}a_{jj}$，$i\neq j$。
 

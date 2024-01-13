@@ -557,7 +557,7 @@ $$
 \mu_1 & 2 & \lambda_1 &  & &\\
 & \ddots & \ddots & \ddots & &\\
 & & \mu_{n-1} & 2 & \lambda_{n-1} &\\
-& & &   & 1  & 2
+& &   & 1  & 2
 \end{bmatrix}
 \begin{bmatrix}
 M_0\\

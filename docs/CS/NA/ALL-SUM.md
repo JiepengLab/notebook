@@ -1099,7 +1099,7 @@ $$
 \mu_1 & 2 & \lambda_1 &  & &\\
 & \ddots & \ddots & \ddots & &\\
 & & \mu_{n-1} & 2 & \lambda_{n-1} &\\
-& & &   & 1  & 2
+& &   & 1  & 2
 \end{bmatrix}
 \begin{bmatrix}
 M_0\\
@@ -2421,13 +2421,13 @@ $$\tilde{\mathbf{A}}=\begin{bmatrix}a_{11}^{(1)}&a_{12}^{(1)}&\cdots&a_{1n}^{(1)
 
 $$\tilde{\mathbf{A}}^{(k)}=\begin{bmatrix}a_{11}^{(k)}&a_{12}^{(k)}&\cdots&a_{1n}^{(k)}&b_{1}^{(k)}\\0&a_{22}^{(k)}&\cdots&a_{2n}^{(k)}&b_{2}^{(k)}\\\vdots&\vdots&\ddots&\vdots&\vdots\\0&0&\cdots&a_{nn}^{(k)}&b_{n}^{(k)}\end{bmatrix}$$
 
-第$1$次迭代过程为：如果$a_{11}^{(1)}\neq 0$，记$m_{i1}^{(1)}=m_{i1}^{(1)}$，则
+第$1$次迭代过程为：如果 $a_{11}^{(1)}\neq 0$ ，记 $m_{i1}= {a_{i1}^{(1)}}/{a_{11}^{(1)}}$ ，则
 
-$$\begin{cases}a_{ij}^{(2)}=a_{ij}^{(1)}-m_{i1}^{(1)}a_{1j}^{(1)}\\b_{i}^{(2)}=b_{i}^{(1)}-m_{i1}^{(1)}b_{1}^{(1)}\end{cases}$$
+$$\begin{cases}a_{ij}^{(2)}=a_{ij}^{(1)}-m_{i1}a_{1j}^{(1)}\\b_{i}^{(2)}=b_{i}^{(1)}-m_{i1}b_{1}^{(1)}\end{cases}$$
 
-第$t$次迭代过程为：如果$a_{tt}^{(t)}\neq 0$，记$m_{it}^{(t)}=m_{it}^{(t)}$，则
+第$t$次迭代过程为：如果$a_{tt}^{(t)}\neq 0$，记 $m_{it}={a_{it}^{(t)}}/{a_{tt}^{(t)}}$ ，则
 
-$$\begin{cases}a_{ij}^{(t+1)}=a_{ij}^{(t)}-m_{it}^{(t)}a_{tj}^{(t)}\\b_{i}^{(t+1)}=b_{i}^{(t)}-m_{it}^{(t)}b_{t}^{(t)}\end{cases}$$
+$$\begin{cases}a_{ij}^{(t+1)}=a_{ij}^{(t)}-m_{it}a_{tj}^{(t)}\\b_{i}^{(t+1)}=b_{i}^{(t)}-m_{it}b_{t}^{(t)}\end{cases}$$
 
 如果$a_{tt}^{(t)}=0$，则交换第$t$行与第$k$行，使得$a_{kk}^{(k)}\neq 0$，然后再进行第$k$次迭代。如果找不到$a_{kk}^{(k)}\neq 0$，则方程组没有唯一解，算法停止。
 
@@ -2530,9 +2530,9 @@ $$\begin{bmatrix}1&0&\cdots&0\\-m_{21}&1&\cdots&0\\-m_{31}&0&\cdots&0\\\vdots&\v
 
 这里的$\mathbf{M}^{(1)}$称作第一Gauss交换矩阵（first Gauss transformation matrix）。
 
-用$\mathbf{b}^{(2)}$表示$\mathbf{b^{(1)}}$经过第一次Gauss消去法后的结果，则有$\mathbf{M}^{(2)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{A}^{(1)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{b}^{(1)}=\mathbf{b}^{(2)}$。
+用$\mathbf{b}^{(2)}$表示$\mathbf{b^{(1)}}$经过第一次Gauss消去法后的结果，则有$\mathbf{A}^{(2)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{A}^{(1)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{b}^{(1)}=\mathbf{b}^{(2)}$。
 
-一般的，如果$\mathbf{M}^{(k)}\mathbf{x}=\mathbf{b}^{(k)}$已经构建，则由第$k$个Gauss变换矩阵：
+一般的，如果$\mathbf{A}^{(k)}\mathbf{x}=\mathbf{b}^{(k)}$已经构建，则由第$k$个Gauss变换矩阵：
 
 $$\mathbf{M}^{(k)}=
 \begin{bmatrix}
@@ -2624,7 +2624,7 @@ $$\mathbf{U_1}\mathbf{U_2}^{-1}=\mathbf{L_1}^{-1}\mathbf{L_2}=\mathbf{I}$$
 
     b. $a_{ii}>0$，$i=1,2,\cdots,n$。
 
-    c. $\max\limits_{1\leq k,j\leq n}|a_{kj}|<\max\limits_{1\leq i\leq n}|a_{ii}|$。
+    c. $\max\limits_{1\leq k,j\leq n}|a_{kj}|<\max\limits_{1\leq i\leq n}|a_{ii}|$，其中 $k\neq j$。
 
     d. $(a_{ij})^2<a_{ii}a_{jj}$，$i\neq j$。
 
@@ -3711,7 +3711,7 @@ $$\mathbf{u}^{(k-1)}=\frac{\mathbf{x}^{(k-1)}}{\|\mathbf{x}^{(k-1)}\|_\infty},\q
 
 $$|\lambda_i-q|\ll|\lambda_j-q|$$
 
-所以此时$|\mathbf{A}^{-1}-q\mathbf{I}|$的主特征值凸显出来了。可以更快地收敛到$\lambda_i$。
+根据刚刚在收敛速度中的分析，可知：此时 $(\mathbf{A}-q\mathbf{I})^{-1}$ 的主特征值凸显出来了，可以更快地收敛到 $\frac{1}{\lambda_i-q}$。
 
 其伪代码为：
 
