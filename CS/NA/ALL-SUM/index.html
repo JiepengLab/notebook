@@ -6185,7 +6185,7 @@
 
 <h1 id="_1">数值分析<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 10163 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 51 分钟</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 10178 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 51 分钟</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">课程架构</p>
@@ -7104,7 +7104,7 @@ M_{n-1}+2M_n=\frac{6}{h_n}(f'(x_n)-f[x_{n-1},x_n]) \triangleq g_n
 \mu_1 &amp; 2 &amp; \lambda_1 &amp;  &amp; &amp;\\
 &amp; \ddots &amp; \ddots &amp; \ddots &amp; &amp;\\
 &amp; &amp; \mu_{n-1} &amp; 2 &amp; \lambda_{n-1} &amp;\\
-&amp; &amp; &amp;   &amp; 1  &amp; 2
+&amp; &amp;   &amp; 1  &amp; 2
 \end{bmatrix}
 \begin{bmatrix}
 M_0\\
@@ -8151,10 +8151,10 @@ w_{i+1}&amp;=w_i+\frac{h}{6}(K_1+2K_2+2K_3+K_4)\\
 <div class="arithmatex">\[\tilde{\mathbf{A}}=\begin{bmatrix}a_{11}^{(1)}&amp;a_{12}^{(1)}&amp;\cdots&amp;a_{1n}^{(1)}&amp;b_{1}^{(1)}\\a_{21}^{(1)}&amp;a_{22}^{(1)}&amp;\cdots&amp;a_{2n}^{(1)}&amp;b_{2}^{(1)}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots&amp;\vdots\\a_{n1}^{(1)}&amp;a_{n2}^{(1)}&amp;\cdots&amp;a_{nn}^{(1)}&amp;b_{n}^{(1)}\end{bmatrix}\]</div>
 <p>通过高斯消元我们可以得到新的增广矩阵<span class="arithmatex">\(\tilde{\mathbf{A}}^{(k)}\)</span>：</p>
 <div class="arithmatex">\[\tilde{\mathbf{A}}^{(k)}=\begin{bmatrix}a_{11}^{(k)}&amp;a_{12}^{(k)}&amp;\cdots&amp;a_{1n}^{(k)}&amp;b_{1}^{(k)}\\0&amp;a_{22}^{(k)}&amp;\cdots&amp;a_{2n}^{(k)}&amp;b_{2}^{(k)}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots&amp;\vdots\\0&amp;0&amp;\cdots&amp;a_{nn}^{(k)}&amp;b_{n}^{(k)}\end{bmatrix}\]</div>
-<p>第<span class="arithmatex">\(1\)</span>次迭代过程为：如果<span class="arithmatex">\(a_{11}^{(1)}\neq 0\)</span>，记<span class="arithmatex">\(m_{i1}^{(1)}=m_{i1}^{(1)}\)</span>，则</p>
-<div class="arithmatex">\[\begin{cases}a_{ij}^{(2)}=a_{ij}^{(1)}-m_{i1}^{(1)}a_{1j}^{(1)}\\b_{i}^{(2)}=b_{i}^{(1)}-m_{i1}^{(1)}b_{1}^{(1)}\end{cases}\]</div>
-<p>第<span class="arithmatex">\(t\)</span>次迭代过程为：如果<span class="arithmatex">\(a_{tt}^{(t)}\neq 0\)</span>，记<span class="arithmatex">\(m_{it}^{(t)}=m_{it}^{(t)}\)</span>，则</p>
-<div class="arithmatex">\[\begin{cases}a_{ij}^{(t+1)}=a_{ij}^{(t)}-m_{it}^{(t)}a_{tj}^{(t)}\\b_{i}^{(t+1)}=b_{i}^{(t)}-m_{it}^{(t)}b_{t}^{(t)}\end{cases}\]</div>
+<p>第<span class="arithmatex">\(1\)</span>次迭代过程为：如果 <span class="arithmatex">\(a_{11}^{(1)}\neq 0\)</span> ，记 <span class="arithmatex">\(m_{i1}= {a_{i1}^{(1)}}/{a_{11}^{(1)}}\)</span> ，则</p>
+<div class="arithmatex">\[\begin{cases}a_{ij}^{(2)}=a_{ij}^{(1)}-m_{i1}a_{1j}^{(1)}\\b_{i}^{(2)}=b_{i}^{(1)}-m_{i1}b_{1}^{(1)}\end{cases}\]</div>
+<p>第<span class="arithmatex">\(t\)</span>次迭代过程为：如果<span class="arithmatex">\(a_{tt}^{(t)}\neq 0\)</span>，记 <span class="arithmatex">\(m_{it}={a_{it}^{(t)}}/{a_{tt}^{(t)}}\)</span> ，则</p>
+<div class="arithmatex">\[\begin{cases}a_{ij}^{(t+1)}=a_{ij}^{(t)}-m_{it}a_{tj}^{(t)}\\b_{i}^{(t+1)}=b_{i}^{(t)}-m_{it}b_{t}^{(t)}\end{cases}\]</div>
 <p>如果<span class="arithmatex">\(a_{tt}^{(t)}=0\)</span>，则交换第<span class="arithmatex">\(t\)</span>行与第<span class="arithmatex">\(k\)</span>行，使得<span class="arithmatex">\(a_{kk}^{(k)}\neq 0\)</span>，然后再进行第<span class="arithmatex">\(k\)</span>次迭代。如果找不到<span class="arithmatex">\(a_{kk}^{(k)}\neq 0\)</span>，则方程组没有唯一解，算法停止。</p>
 <p>写成伪代码如下：</p>
 <p><img alt="Alt text" src="../images/image-8.png" /></p>
@@ -8217,8 +8217,8 @@ w_{i+1}&amp;=w_i+\frac{h}{6}(K_1+2K_2+2K_3+K_4)\\
 <div class="arithmatex">\[\begin{bmatrix}1&amp;0&amp;\cdots&amp;0\\-m_{21}&amp;1&amp;\cdots&amp;0\\-m_{31}&amp;0&amp;\cdots&amp;0\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\-m_{n1}&amp;0&amp;\cdots&amp;1\end{bmatrix}\begin{bmatrix}a_{11}^{(1)}&amp;a_{12}^{(1)}&amp;\cdots&amp;a_{1n}^{(1)}\\a_{21}^{(1)}&amp;a_{22}^{(1)}&amp;\cdots&amp;a_{2n}^{(1)}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\a_{n1}^{(1)}&amp;a_{n2}^{(1)}&amp;\cdots&amp;a_{nn}^{(1)}\end{bmatrix}=\begin{bmatrix}a_{11}^{(1)}&amp;a_{12}^{(1)}&amp;\cdots&amp;a_{1n}^{(1)}\\0&amp;a_{22}^{(2)}&amp;\cdots&amp;a_{2n}^{(2)}\\0&amp;a_{32}^{(2)}&amp;\cdots&amp;a_{3n}^{(2)}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\0&amp;a_{n2}^{(2)}&amp;\cdots&amp;a_{nn}^{(2)}\end{bmatrix}\]</div>
 <p>记最左边的矩阵为<span class="arithmatex">\(\mathbf{M}^{(1)}\)</span>，中间的矩阵为<span class="arithmatex">\(\mathbf{A}^{(1)}\)</span>，右边的矩阵为<span class="arithmatex">\(\mathbf{A}^{(2)}\)</span>，则有<span class="arithmatex">\(\mathbf{M}^{(1)}\mathbf{A}^{(1)}=\mathbf{A}^{(2)}\)</span>。</p>
 <p>这里的<span class="arithmatex">\(\mathbf{M}^{(1)}\)</span>称作第一Gauss交换矩阵（first Gauss transformation matrix）。</p>
-<p>用<span class="arithmatex">\(\mathbf{b}^{(2)}\)</span>表示<span class="arithmatex">\(\mathbf{b^{(1)}}\)</span>经过第一次Gauss消去法后的结果，则有<span class="arithmatex">\(\mathbf{M}^{(2)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{A}^{(1)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{b}^{(1)}=\mathbf{b}^{(2)}\)</span>。</p>
-<p>一般的，如果<span class="arithmatex">\(\mathbf{M}^{(k)}\mathbf{x}=\mathbf{b}^{(k)}\)</span>已经构建，则由第<span class="arithmatex">\(k\)</span>个Gauss变换矩阵：</p>
+<p>用<span class="arithmatex">\(\mathbf{b}^{(2)}\)</span>表示<span class="arithmatex">\(\mathbf{b^{(1)}}\)</span>经过第一次Gauss消去法后的结果，则有<span class="arithmatex">\(\mathbf{A}^{(2)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{A}^{(1)}\mathbf{x}=\mathbf{M}^{(1)}\mathbf{b}^{(1)}=\mathbf{b}^{(2)}\)</span>。</p>
+<p>一般的，如果<span class="arithmatex">\(\mathbf{A}^{(k)}\mathbf{x}=\mathbf{b}^{(k)}\)</span>已经构建，则由第<span class="arithmatex">\(k\)</span>个Gauss变换矩阵：</p>
 <div class="arithmatex">\[\mathbf{M}^{(k)}=
 \begin{bmatrix}
 1&amp;0&amp;\cdots&amp;\cdots&amp;\cdots&amp;\cdots&amp;\cdots&amp;0\\
@@ -8272,7 +8272,7 @@ w_{i+1}&amp;=w_i+\frac{h}{6}(K_1+2K_2+2K_3+K_4)\\
 <p>如果<span class="arithmatex">\(\mathbf{A}\)</span>是<span class="arithmatex">\(n\times n\)</span>的正定矩阵，则</p>
 <p>a. <span class="arithmatex">\(\mathbf{A}\)</span>是非奇异的。</p>
 <p>b. <span class="arithmatex">\(a_{ii}&gt;0\)</span>，<span class="arithmatex">\(i=1,2,\cdots,n\)</span>。</p>
-<p>c. <span class="arithmatex">\(\max\limits_{1\leq k,j\leq n}|a_{kj}|&lt;\max\limits_{1\leq i\leq n}|a_{ii}|\)</span>。</p>
+<p>c. <span class="arithmatex">\(\max\limits_{1\leq k,j\leq n}|a_{kj}|&lt;\max\limits_{1\leq i\leq n}|a_{ii}|\)</span>，其中 <span class="arithmatex">\(k\neq j\)</span>。</p>
 <p>d. <span class="arithmatex">\((a_{ij})^2&lt;a_{ii}a_{jj}\)</span>，<span class="arithmatex">\(i\neq j\)</span>。</p>
 </div>
 <p>重要结论：如果<span class="arithmatex">\(\mathbf{A}\)</span>是正定的，则<span class="arithmatex">\(\mathbf{A}\)</span>的所有主子式都是正的。</p>
@@ -9023,7 +9023,7 @@ w_{n}(x)=x^{n}-P_{n-1}(x)=\frac{T_{n}(x)}{2^{n-1}}
 <p>反幂法一般是用来确定<span class="arithmatex">\(\mathbf{A}\)</span>中与特定数<span class="arithmatex">\(q\)</span>最接近的特征值，即<span class="arithmatex">\(\lambda_i\approx q\)</span>。
 此时对任意的<span class="arithmatex">\(j\neq i\)</span>，有</p>
 <div class="arithmatex">\[|\lambda_i-q|\ll|\lambda_j-q|\]</div>
-<p>所以此时<span class="arithmatex">\(|\mathbf{A}^{-1}-q\mathbf{I}|\)</span>的主特征值凸显出来了。可以更快地收敛到<span class="arithmatex">\(\lambda_i\)</span>。</p>
+<p>根据刚刚在收敛速度中的分析，可知：此时 <span class="arithmatex">\((\mathbf{A}-q\mathbf{I})^{-1}\)</span> 的主特征值凸显出来了，可以更快地收敛到 <span class="arithmatex">\(\frac{1}{\lambda_i-q}\)</span>。</p>
 <p>其伪代码为：</p>
 <p><img alt="Alt text" src="../images/image-32.png" /></p>
 
@@ -9048,7 +9048,7 @@ w_{n}(x)=x^{n}-P_{n-1}(x)=\frac{T_{n}(x)}{2^{n-1}}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月9日 19:30:15</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年1月13日 22:27:16</span>
   </span>
 
     
