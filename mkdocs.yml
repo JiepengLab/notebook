@@ -2,7 +2,9 @@ nav:
   - 首页:
     - home: index.md
     - 朋友们！: ./Friends.md
-    - 正在学习的课程: CurrentStudy.md
+    - 正在学习的课程: ./CurrentStudy.md
+    - 已完成学习的课程: 
+      - 大二上: ./Zju2-1.md
   - 基础课程:
     - ./Fundemental/index.md
     - 离散数学及其应用:
