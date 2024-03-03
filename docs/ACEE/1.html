@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>ACEEer身份验证</title>
@@ -37,7 +38,8 @@
             color: #495057;
         }
 
-        input[type="number"], input[type="text"] {
+        input[type="number"],
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -47,7 +49,8 @@
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
 
-        input[type="number"]:focus, input[type="text"]:focus {
+        input[type="number"]:focus,
+        input[type="text"]:focus {
             border-color: #80bdff;
             outline: 0;
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -75,6 +78,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>数字验证</h2>
@@ -93,7 +97,7 @@
             var name = document.getElementById("nameInput").value;
             var number = document.getElementById("numberInput").value;
             var answer = document.getElementById("answerInput").value;
-            var calculatedAnswer = (number >> 8 + number << 8) * 233 % 1023; 
+            var calculatedAnswer = (number >> 8 + number << 8) * 233 % 1023;
 
             var rand_num = Math.random() * 1023;
             if (calculatedAnswer === parseInt(answer)) {
@@ -104,5 +108,6 @@
         }
     </script>
 </body>
+
 </html>
 <!--QUNFRXtUaGVfbTBzdF9CYTVpY19FY3J5cHQxb25fQkBzZTY0fQ==-->
