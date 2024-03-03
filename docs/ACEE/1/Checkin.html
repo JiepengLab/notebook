@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ACEEer身份验证</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            box-sizing: border-box;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        input[type="number"]:focus, input[type="text"]:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>数字验证</h2>
+        <label for="nameInput">输入姓名:</label>
+        <input id="nameInput" type="text" placeholder="输入姓名">
+        <label for="numberInput">输入学号:</label>
+        <input type="number" id="numberInput" placeholder="输入学号">
+        <label for="answerInput">输入验证码:</label>
+        <input type="number" id="answerInput" placeholder="输入答案">
+        <button onclick="validateAnswer()">提交</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function validateAnswer() {
+            var name = document.getElementById("nameInput").value;
+            var number = document.getElementById("numberInput").value;
+            var answer = document.getElementById("answerInput").value;
+            var calculatedAnswer = (number >> 8 + number << 8) * 233 % 1023; 
+
+            var rand_num = Math.random() * 1023;
+            if (calculatedAnswer === parseInt(answer)) {
+                document.getElementById("result").innerHTML = "验证成功！";
+            } else {
+                document.getElementById("result").innerHTML = "验证失败，请重试。";
+            }
+        }
+    </script>
+</body>
+</html>
+<!--QUNFRXtUaGVfbTBzdF9CYTVpY19FY3J5cHQxb25fQkBzZTY0fQ==-->

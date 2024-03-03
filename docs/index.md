@@ -27,6 +27,9 @@ statistics: True
 <script src="./assets/javascripts/canvas.js"></script>
 </html>
 
+
+
+
 # 👋欢迎
 
 欢迎来到JiepengLab！我是浙江大学22级混合班的学生，主修计算机科学与技术，辅修竺可桢学院工程教育高级班。我会时不时更新一些目前正在学习的笔记！
@@ -37,6 +40,13 @@ statistics: True
 !!! tip "推荐阅读"
     - [x] [数学建模](./Fundemental/Mathematical-Modeling/index.md)
     - [x] [数值分析](./CS/NA/index.md)
+
+
+
+
+
+
+
 
  <div class="experience" ></div>
 
