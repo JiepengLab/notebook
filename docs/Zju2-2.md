@@ -2,7 +2,20 @@
 
 ## 作业DDL
 
-- **2024.03.04 13:25** : 数据库系统：书后习题1.7、1.8、1.9、1.15 
+- [x] **03.04 13:25** 数据库系统：[书后习题1.7、1.8、1.9、1.15](https://courses.zju.edu.cn/course/67605/learning-activity#/785944)
+- [x] **03.05** 计算机组成：LAB00
+- [x] **03.05 23:59** 数学软件：[HW1](https://courses.zju.edu.cn/course/68818/learning-activity/full-screen#/808545)
+- [ ] **03.11 13:25** 数据库系统：[书后习题2.7、2.12、2.13、2.15](https://courses.zju.edu.cn/course/67605/learning-activity#/785952)
+- [ ] **03.12 08:00** 数据库系统：[实验1 DBMS的安装和使用](https://courses.zju.edu.cn/course/67605/learning-activity#/785945?&view=scores)
+- [ ] **03.12** 计组：书上习题1.2, 1.5, 1.6, 1.7, 1.13
+- [ ] **03.13 13:38** ADS：[PTA_Project1](https://pintia.cn/problem-sets/1762714625671319552/exam/overview)
+- [ ] **03.13 15:32** ADS：[PTA_HW1](https://pintia.cn/problem-sets/1762712504909582336/exam/overview)
+- [ ] **03.13 20:01** 毛概：[第一章 阅读材料及思考题](https://courses.zju.edu.cn/course/69115/learning-activity#/808583?view=scores)
+- [ ] **03.13 13:38** ADS：[PTA_HW2](https://pintia.cn/problem-sets/1764531499556134912/exam/overview)
+- [ ] **03.16 23:59** OOP：[8-1 Students I](https://pintia.cn/problem-sets/1763038164098105344/exam/problems/1763038232272322560?type=8&page=0)
+- [ ] **03.18 23:59** 密码学：[第01次作业](https://pintia.cn/problem-sets/1764659602467049472/exam/overview)
+- [ ] **03.23 23:59** 计算摄影学：[Lab2 图像滤波和傅里叶变换](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab2-filtering/filtering.html)
+- [ ] **04.12 15:38** 计组：[Lab01](https://courses.zju.edu.cn/course/68313/learning-activity#/810440?view=scores)
 
 ## ADS
 
@@ -21,8 +34,6 @@
     - The speaker will be chosen randomly from all the contributors
     - If there are many volunteers, at first 4 groups will be chosen to give presentations (5 groups forthe last 2 projects)
     - For those groups not to give presentations, each will gain bonus points = report points / 20
-
-组长发邮件在3月3日给 denghaoran@zju.edu.cn
 
 !!! note ""
 
