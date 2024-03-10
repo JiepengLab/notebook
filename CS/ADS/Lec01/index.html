@@ -14,11 +14,11 @@
       
       
       <link rel="icon" href="../../../images/icon.jpg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
     
     
       
-        <title>Lec01 - Jiepeng's notes</title>
+        <title>Lecture 1 | AVL Trees & Splay Trees - Jiepeng's notes</title>
       
     
     
@@ -121,7 +121,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lec01" class="md-skip">
+        <a href="#lecture-1-avl-trees-splay-trees" class="md-skip">
           跳转至
         </a>
       
@@ -154,7 +154,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lec01
+              Lecture 1 | AVL Trees & Splay Trees
             
           </span>
         </div>
@@ -707,11 +707,200 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#avl-trees" class="md-nav__link">
+  <a href="#avl" class="md-nav__link">
     <span class="md-ellipsis">
-      AVL Trees
+      AVL 树
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="AVL 树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avl_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AVL 树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      视角
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的旋转
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avl_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      转换为 AVL 树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="转换为 AVL 树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ll-rr" class="md-nav__link">
+    <span class="md-ellipsis">
+      LL &amp; RR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lr-rl" class="md-nav__link">
+    <span class="md-ellipsis">
+      LR &amp; RL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#splay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Splay 树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Splay 树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      对点操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      摊还分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="摊还分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zig" class="md-nav__link">
+    <span class="md-ellipsis">
+      zig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zig-zag" class="md-nav__link">
+    <span class="md-ellipsis">
+      zig-zag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zig-zig" class="md-nav__link">
+    <span class="md-ellipsis">
+      zig-zig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      结论
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -733,11 +922,1042 @@
   
 
 
-<h1 id="lec01">Lec01<a class="headerlink" href="#lec01" title="点击此处可置顶内容">&para;</a></h1>
+<h1 id="lecture-1-avl-trees-splay-trees">Lecture 1 | AVL Trees &amp; Splay Trees<a class="headerlink" href="#lecture-1-avl-trees-splay-trees" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 3 个字 </p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 7248 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 395 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 41 分钟</p>
 </div>
-<h2 id="avl-trees">AVL Trees<a class="headerlink" href="#avl-trees" title="点击此处可置顶内容">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">说明</p>
+<p>原先安排在这一章节的摊还分析现在被迁移到了这个地方：<a href="../Ex01/">Topic 1 | Amortized Analysis</a>。</p>
+<div class="admonition tip">
+<p class="admonition-title">阅读技巧</p>
+<p>因为没法在这里用代码写动画，所以我用 <a href="https://facelessuser.github.io/pymdown-extensions/extensions/tabbed/?h=%3D%3D%3D#tabbed">Tab</a> 模拟了一下动画帧，可以手动切换这些标签来动态观察。一般这种内容的 Tab 标题都会是 <code>Frame {}</code>。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Frame 1</label><label for="__tabbed_1_2">Frame 2</label><label for="__tabbed_1_3">Frame 3</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Like</p>
+</div>
+<div class="tabbed-block">
+<p>Like this</p>
+</div>
+<div class="tabbed-block">
+<p>Like this!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="avl">AVL 树<a class="headerlink" href="#avl" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="_1">概念<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h3>
+<div class="admonition quote">
+<p class="admonition-title">link</p>
+<p>OI Wiki: https://oi-wiki.org/ds/avl/</p>
+</div>
+<p>我们知道，对于一棵二叉搜索树，其对点的操作代价为 <span class="arithmatex">\(O(\log n)\)</span>。然而在最坏情况下，它会退化成 <span class="arithmatex">\(O(n)\)</span>，例如这是一棵只有左孩子树的链型二叉树，那么操作这里唯一的叶孩子节点就是 <span class="arithmatex">\(O(n)\)</span>。</p>
+<p>换句话来说，一棵二叉树的维护成本基本上与其高度正相关。因而一个很自然的想法是，如果我们想让一棵二叉树好维护，那么就希望它的高度尽可能低，而在点数固定的情况下，一种朴素的思想是让节点尽可能“均匀”地分布在树上。</p>
+<div class="admonition tip">
+<p class="admonition-title">height of a tree</p>
+<p><strong>树的高度(Height of Tree)</strong> 等于其根节点到叶孩子节点的若干路径中，最大的距离（即边的数量），也就是深度最深的节点到根节点到距离。</p>
+<p>特别的，一棵空树的高度为 -1。</p>
+<blockquote>
+<p>说的通俗一些，就是树的层数。</p>
+</blockquote>
+</div>
+<hr />
+<h4 id="avl_1">AVL 树<a class="headerlink" href="#avl_1" title="点击此处可置顶内容">&para;</a></h4>
+<p>而 AVL Tree 是一种 <strong>平衡(balanced)</strong> 的二叉搜索树，通过「高度」这个量，定义了「平衡」这件事。</p>
+<div class="admonition tip">
+<p class="admonition-title">AVL Tree</p>
+<ol>
+<li>一个空二叉树是一个 AVL 树；</li>
+<li>如果二叉树 <span class="arithmatex">\(T\)</span> 是一个 AVL 树，则其左右孩子树 <span class="arithmatex">\(T_l\)</span> 和 <span class="arithmatex">\(T_r\)</span> 也都应该是 AVL 树，且有 <span class="arithmatex">\(|h(T_l) - h(T_r)| \leq 1\)</span>；</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Balance Factor</p>
+<p>一个节点的 <strong>平衡因子(Balance Factor, BF)</strong> 用来描述一个节点的平衡状态，对于节点 <span class="arithmatex">\(T_p\)</span>，它的左孩子树为 <span class="arithmatex">\(T_l\)</span>，右孩子树为 <span class="arithmatex">\(T_r\)</span>，则：</p>
+<div class="arithmatex">\[
+BF(T_p) = h(T_l) - h(T_r)
+\]</div>
+</div>
+<p>所以上面的第 2 条又可以写成：</p>
+<ul>
+<li>如果二叉树 <span class="arithmatex">\(T\)</span> 是一个 AVL 树，则其左右孩子树 <span class="arithmatex">\(T_l\)</span> 和 <span class="arithmatex">\(T_r\)</span> 也都应该是 AVL 树，且有 <span class="arithmatex">\(BF(T_p) \in \{0, \pm 1\}\)</span>；</li>
+</ul>
+<blockquote>
+<p>说的通俗一些就是，AVL 树的每一个点都平衡，而平衡与否取决于节点的两个孩子树层数之差是否超过 1。</p>
+</blockquote>
+</div>
+<p>在这种定义下，AVL 树的高度可以证明为 <span class="arithmatex">\(O(\log N)\)</span>，证明如下：</p>
+<div class="admonition proof">
+<p class="admonition-title">Height of AVL Trees</p>
+<div class="admonition inline note">
+<pre class="mermaid"><code>graph TD;
+A(("Root"))
+B[/"Left Subtree"\]
+C[/"Right Subtree"\]
+A === B
+A === C</code></pre>
+</div>
+<p>我们记 <span class="arithmatex">\(n_h\)</span> 是高度为 <span class="arithmatex">\(h\)</span> 的 AVL 树所包含的最少节点数，则有如下递推关系：</p>
+<div class="arithmatex">\[
+n_h = \left\{
+    \begin{array}{l}
+        1                       &amp; (h = 0) \\
+        2                       &amp; (h = 1) \\
+        n_{h-1} + n_{h-2} + 1   &amp; (h &gt; 1)
+    \end{array}
+\right.
+\]</div>
+<p>发现 <span class="arithmatex">\(n_h + 1\)</span> 符合 Fibonacci 数列的递推公式（但是初始条件不一样），所以我们可以用 Fibonacci 对其进行一个估计。</p>
+<p>而对于如下 Fibonacci 数列：</p>
+<div class="arithmatex">\[
+F_i = \left\{
+    \begin{array}{l}
+        1                   &amp; (i = 1) \\
+        1                   &amp; (i = 2) \\
+        F_{i-1} + F_{i-2}   &amp; (i &gt; 2)
+    \end{array}
+\right.
+\]</div>
+<p>其通项为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    F_n &amp;= \frac{1}{\sqrt{5}} \left( \left( \frac{1 + \sqrt{5}}{2} \right)^n - \left( \frac{1 - \sqrt{5}}{2} \right)^n \right) \\
+        &amp;\approx \frac{1}{\sqrt{5}} \left( \frac{1 + \sqrt{5}}{2} \right)^n \\
+    \log{(F_n)} &amp;\approx n
+\end{aligned}
+\]</div>
+<p>而 <span class="arithmatex">\(n_h + 1 \approx F_{h+2}\)</span>，所以 <span class="arithmatex">\(h \approx \log{(n_h)}\)</span>，也就是说 <span class="arithmatex">\(h \approx \log{N}\)</span>。</p>
+</div>
+<hr />
+<h4 id="_2">视角<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h4>
+<p>而我们谈论 AVL 树时，我们希望以一个动态的视角来谈论 AVL 树，即讨论：某一棵树是否是 AVL 树；在某个操作后，它是否仍然是 AVL 树；若原先是，而经过操作后不再是，那要如何将它重新变为 AVL 树。</p>
+<p>以上三个步骤是简化后的建模，它成为我们解决其他问题的最小单元和基础。</p>
+<p>所以在这种模型下，我们需要定义两个东西：</p>
+<div class="admonition tip">
+<p class="admonition-title">Trouble Maker &amp; Trouble Finder</p>
+<p>以 🌰 来说明。我们在动态插入 <code>5</code> 这个过程中，出现了一个 "Trouble"，导致这个树不再是 AVL 树，而 <code>5</code> 是这个 "Trouble" 的 "Maker"，<code>8</code> 是 "Finder"。</p>
+<div class="admonition note">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Frame 1</label><label for="__tabbed_2_2">Frame 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>下图为一个 AVL 树：</p>
+<pre class="mermaid"><code>graph TD;
+A(("8, BF=1"))
+B(("4, BF=0"))
+C(("9, BF=0"))
+D(("2, BF=0"))
+E(("6, BF=0"))
+A === B
+A === C
+B === D
+B === E</code></pre>
+</div>
+<div class="tabbed-block">
+<p>现在我们插入 <code>5</code>：</p>
+<pre class="mermaid"><code>graph TD;
+A(("8, BF=2"))
+B(("4, BF=-1"))
+C(("9, BF=0"))
+D(("2, BF=0"))
+E(("6, BF=1"))
+F(("5, BF=0"))
+A === B
+A === C
+B === D
+B === E
+E === F
+E === NULL</code></pre>
+<p>我们发现，此时 <code>8</code> 的「平衡因子」变成了2，不再符合 AVL 树的要求，而这一切都是 <code>5</code> 的插入导致的——于是我们称像这里的 <code>8</code> 一样，由于某个点的插入，其「平衡因子」不再符合要求的点，为 Trouble Finder；而像这里的 <code>5</code> 一样，导致 Trouble Finder 出现的点，被称之为 Trouble Maker。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h3 id="_3">操作<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h3>
+<h4 id="_4">树的旋转<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h4>
+<p>树旋转是对二叉树的一种操作，它可以改变结构而不影响元素的顺序。</p>
+<p><img alt="alt text" src="../images/image.png" /></p>
+<p>经过旋转后，旋转的一侧增加了1的高度，而与旋转相对的一侧同样减小了高度。</p>
+<p>该时间复杂度为 <span class="arithmatex">\(O(1)\)</span>。</p>
+<div class="admonition note">
+<p class="admonition-title">尝试写出C的代码</p>
+<p>分析一下，右旋的过程是这样的：</p>
+<ol>
+<li>将 B 的右孩子树变成 A 的左孩子树；</li>
+<li>将 A 变成 B 的右孩子树；</li>
+<li>返回 B。</li>
+</ol>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Node</span><span class="w"> </span><span class="nf">right_rotate</span><span class="p">(</span><span class="n">Node</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">B</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">A</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>左旋的过程是对称的。</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Node</span><span class="w"> </span><span class="nf">left_rotate</span><span class="p">(</span><span class="n">Node</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">A</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">B</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<h4 id="avl_2">转换为 AVL 树<a class="headerlink" href="#avl_2" title="点击此处可置顶内容">&para;</a></h4>
+<p>本小节所需要讲的内容就是 <strong><a href="#_2">#视角</a></strong> 中提到的 “重新变为 AVL 树” 这一视角，也就是 AVL 树的维护。</p>
+<p>首先， 我们需要对 AVL 树的破坏情况进行分类，根据 "Trouble Finder"、"Related Trouble Finder's Child"、"Trouble Maker"这三个点的相对关系，分为 <code>LL</code>、<code>RR</code>、<code>LR</code>、<code>RL</code> 四种：</p>
+<div class="admonition note">
+<blockquote>
+<p>同心圆表示这个点是需要我们在后续操作中关注的。</p>
+<p>此外，虽然实际情况下可能出现多个 Trouble Finder，但是我们只关注<strong>以「距离案发现场最近的 Trouble Finder」为根的孩子树</strong>（这句话非常重要）。</p>
+</blockquote>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:4"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">LL</label><label for="__tabbed_3_2">RR</label><label for="__tabbed_3_3">LR</label><label for="__tabbed_3_4">RL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="mermaid"><code>flowchart TD
+    A((("Trouble\nFinder")))
+    B((("Left\nChild")))
+    C(("Right\nChild"))
+    D((("L Left\nChild")))
+    DA[/"Left and Right Subtrees"\]
+    E(("L Right\nChild"))
+    EA[/"Left and Right Subtrees"\]
+    F(("R Left\nChild"))
+    FA[/"Left and Right Subtrees"\]
+    G(("R Right\nChild"))
+    GA[/"Left and Right Subtrees"\]
+    H(("Trouble\nMaker"))
+    A === B
+    A === C
+    B === D === DA === H
+    B === E === EA
+    C === F === FA
+    C === G === GA</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>flowchart TD
+    A((("Trouble\nFinder")))
+    B(("Left\nChild"))
+    C((("Right\nChild")))
+    D(("L Left\nChild"))
+    DA[/"Left and Right Subtrees"\]
+    E(("L Right\nChild"))
+    EA[/"Left and Right Subtrees"\]
+    F(("R Left\nChild"))
+    FA[/"Left and Right Subtrees"\]
+    G((("R Right\nChild")))
+    GA[/"Left and Right Subtrees"\]
+    H(("Trouble\nMaker"))
+    A === B
+    A === C
+    B === D === DA
+    B === E === EA
+    C === F === FA
+    C === G === GA === H</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>flowchart TD
+    A((("Trouble\nFinder")))
+    B((("Left\nChild")))
+    C(("Right\nChild"))
+    D(("L Left\nChild"))
+    DA[/"Left and Right Subtrees"\]
+    E((("L Right\nChild")))
+    EA[/"Left and Right Subtrees"\]
+    F(("R Left\nChild"))
+    FA[/"Left and Right Subtrees"\]
+    G(("R Right\nChild"))
+    GA[/"Left and Right Subtrees"\]
+    H(("Trouble\nMaker"))
+    A === B
+    A === C
+    B === D === DA
+    B === E === EA === H
+    C === F === FA
+    C === G === GA</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>flowchart TD
+    A((("Trouble\nFinder")))
+    B(("Left\nChild"))
+    C((("Right\nChild")))
+    D(("L Left\nChild"))
+    DA[/"Left and Right Subtrees"\]
+    E(("L Right\nChild"))
+    EA[/"Left and Right Subtrees"\]
+    F((("R Left\nChild")))
+    FA[/"Left and Right Subtrees"\]
+    G(("R Right\nChild"))
+    GA[/"Left and Right Subtrees"\]
+    H(("Trouble\nMaker"))
+    A === B
+    A === C
+    B === D === DA
+    B === E === EA
+    C === F === FA === H
+    C === G === GA</code></pre>
+</div>
+</div>
+</div>
+<p>稍作解释，例如 <code>LR</code>，表示的是 Trouble Maker 在 Trouble Finder 的 L 孩子节点的 R 孩子树中。</p>
+<p>另外，对于我只在 <code>LR</code> 和 <code>RL</code> 中着重二级孩子节点，并不是笔误。之后会详细介绍。</p>
+</div>
+<hr />
+<h5 id="ll-rr">LL &amp; RR<a class="headerlink" href="#ll-rr" title="点击此处可置顶内容">&para;</a></h5>
+<div class="admonition tip">
+<p class="admonition-title">废话</p>
+<p>大部分教材都倾向于继续用“旋转”来概括这些方法，确实其实从抽象角度来讲至少 <code>LL</code> 和 <code>RR</code> 部分也还是像的，但是我觉得这并不利于记忆和理解这个过程，尤其是对于 <code>LR</code> 和 <code>RL</code> 的部分。</p>
+<p>所以在 <code>LL</code> 和 <code>RR</code> 部分，我还是会先介绍一下比较传统的，用“旋转”的方式来理解，之后我将尝试着用我自己的思路来讲。</p>
+</div>
+<h6 id="_5">“旋转”视角<a class="headerlink" href="#_5" title="点击此处可置顶内容">&para;</a></h6>
+<p><code>LL</code> 和 <code>RR</code> 这两种情况相对直观。由于它们的操作是对称的，所以我这里以 <code>LL</code> 为例。</p>
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        C[/"Right Subtree"\]
+
+        subgraph SA["New Left Subtree"]
+
+            subgraph SB["New L Left Subtree"]
+                D[/"L Left Subtree"\]
+                H(("Trouble\nMaker"))
+            end
+
+            B((("Left\nChild")))
+            E[/"L Right Subtree"\]
+        end
+
+        A === B
+        A === C
+        B === D === H
+        B === E</code></pre>
+<p>根据相关性质，我们得到这个模型有如下性质：</p>
+<div class="admonition property">
+<p class="admonition-title">一些性质</p>
+<ol>
+<li><span class="arithmatex">\(BF(\text{Trouble Finder}) = h(\text{New Left Subtree}) - h(\text{Right Subtree}) = 2\)</span>；</li>
+<li><span class="arithmatex">\(h(\text{New L Left Subtree}) - h(\text{L Right Subtree}) = 1\)</span>；<ul>
+<li>如果此差为 0，则不应当成为 Trouble Maker，若此差为 2，则 Left Child 应当为 Trouble Finder；</li>
+</ul>
+</li>
+</ol>
+</div>
+<p>现在我们希望在保留二叉搜索树的性质下，要让 <span class="arithmatex">\(|BF(\text{Trouble Finder})|\)</span> 变小，一个很自然的想法就是让 <span class="arithmatex">\(h(\text{New Left Subtree})\)</span> 去 -1，让 <span class="arithmatex">\(h(\text{Right Subtree})\)</span> 去 +1。</p>
+<p>于是我们发现，这样的操作刚好：</p>
+<div class="admonition section">
+<p class="admonition-title">LL Single Rotation</p>
+<blockquote>
+<p>在 Frame 2 和 Frame 3 之间添加的细线是为了表示这里 L Right Subtree 的转移方法，让 2 ~ 3 帧的“旋转”过程中更加清晰。</p>
+<p>此外，这里要素的命名都是基于 Frame 1 的，对于 Frame 4 来说 L Right Subtree 显然已经不是 L Right Subtree 了。</p>
+</blockquote>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Frame 1</label><label for="__tabbed_4_2">Frame 2</label><label for="__tabbed_4_3">Frame 3</label><label for="__tabbed_4_4">Frame 4</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E[/"L Right Subtree"\]
+
+        A === B
+        A === C
+        B === D === H
+        B === E</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D[/"L Left Subtree"\]
+        E[/"L Right Subtree"\]
+        H(("Trouble\nMaker"))
+
+        A === B
+        A --- E
+        A === C
+        B === D === H
+        B === E</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D[/"L Left Subtree"\]
+        E[/"L Right Subtree"\]
+        H(("Trouble\nMaker"))
+
+        B === D === H
+        B --- E
+        B === A
+        A === E
+        A === C
+</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D[/"L Left Subtree"\]
+        E[/"L Right Subtree"\]
+        H(("Trouble\nMaker"))
+
+        B === D === H
+        B === A
+        A === E
+        A === C
+</code></pre>
+</div>
+</div>
+</div>
+<blockquote>
+<p>你甚至能从整个框在 2 ~ 3 帧的变短感受到这个树的高度减少了x（逃）</p>
+</blockquote>
+</div>
+<p>那么还有一个问题是，如何证明这样变换能够保持 AVL 的性质呢？</p>
+<p>我个人认为主要有两个维度，一是保持二叉搜索树的性质，二是保持平衡的性质，我的证明内容折叠起来了，建议读者可以先自己思考一下再展开看看我的想法。</p>
+<details class="proof">
+<summary>二叉搜索树性质的保持</summary>
+<p><img align="right" alt="" src="../img/1.png" width="30%" /></p>
+<p>不知道读者是否发现，对于一个排列得当的二叉搜索树，如果我从左到右，使用一条竖直的扫描线扫描整个树，将会得到一个单调序列，这也正对应着这个二叉搜索树所维护的有序数列。</p>
+<p>基于这种论调，再回头看上面那个动态的过程，甚至是观察我在 2 ~ 3 帧画出来的这个三角形的旋转，就会发现这种旋转实际上只是在将节点上下移动，所以不改变二叉搜索树的性质。</p>
+</details>
+<details class="proof">
+<summary>平衡的保持</summary>
+<p>让我们先回顾一下在上面给出的一些性质中的第 2 条： <span class="arithmatex">\(h(\text{New L Left Subtree}) - h(\text{L Right Subtree}) = 1\)</span>。</p>
+<p>在仔细思考整个旋转过程中每一个 Subtree 的高度的变化，即可得到证明。    </p>
+</details>
+<p>而 RR Single Rotation 完全对称，所以不再赘述。</p>
+<hr />
+<h6 id="_6">“换根”视角<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h6>
+<p>现在我想尝试着用我自己的方式来理解这个问题。</p>
+<p>首先让我们人力动画一下这个过程（划掉）：</p>
+<div class="admonition section">
+<p class="admonition-title">LL Single Rotation</p>
+<blockquote>
+<p>此外，这里要素的命名都是基于 Frame 1 的，对于 Frame 4 来说 L Right Subtree 显然已经不是 L Right Subtree 了。</p>
+</blockquote>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:5"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><input id="__tabbed_5_4" name="__tabbed_5" type="radio" /><input id="__tabbed_5_5" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Frame 1</label><label for="__tabbed_5_2">Frame 2</label><label for="__tabbed_5_3">Frame 3</label><label for="__tabbed_5_4">Frame 4</label><label for="__tabbed_5_5">Frame 5</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E[/"L Right Subtree"\]
+
+        A === B
+        A === C
+        B === D === H
+        B === E</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E[/"L Right Subtree"\]
+
+        A --- B
+        A === C
+        B === D === H
+        B === E</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        B((("Left\nChild")))
+        D[/"L Left Subtree"\]
+        E[/"L Right Subtree"\]
+        H(("Trouble\nMaker"))
+        A((("Trouble\nFinder")))
+        C[/"Right Subtree"\]
+
+        A === C
+        B === D === H
+        B === E</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        B((("Left\nChild")))
+        D[/"L Left Subtree"\]
+        E[/"L Right Subtree"\]
+        H(("Trouble\nMaker"))
+        A((("Trouble\nFinder")))
+        C[/"Right Subtree"\]
+
+        A === C
+        B === D === H
+        A === E</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D[/"L Left Subtree"\]
+        E[/"L Right Subtree"\]
+        H(("Trouble\nMaker"))
+
+        B === D === H
+        B === A
+        A === E
+        A === C
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>首先，我们遇到的问题是什么？是 Trouble Maker 进来以后，Trouble Finder 发现 <span class="arithmatex">\(h(T_l) - h(T_r) = 2\)</span>了，用通俗的话来说就是左孩子树太高了，然而在这种情况下，左孩子树依然还站在一个台子（Trouble Finder）上和 Trouble Finder 比身高，所以我们需要将它从台子上请下来。也就是说，既然左孩子树太高了，那么我们就不<strong>希望</strong>让它再成为谁的孩子树，因为成为谁的孩子树必然意味着这条路径会更长。</p>
+<p>那么现在我们把它从台子上请下来，也就是说割裂它和 Trouble Finder 的亲子关系（对应 Frame 2）让它们同台“对抗”（这一步在 <code>LL</code> 和 <code>RR</code> 可能显得比较多余，但是在 <code>LR</code> 和 <code>RL</code> 就会让问题清晰很多）。</p>
+<p>然而我们仍然需要让这个森林重新变回一个树，所以就需要重新从里面找到根节点，显然，只能选择 Trouble Finder <strong>旁边</strong> 的 Left Child。但是为了继续维护二叉搜索树的性质，所以我们需要将 L Right Subtree 移植到 Trouble Finder 必定空缺（因为这里原先是 Left Child）的左指针上。</p>
+<p>OK，你可能觉得这个解释对于 LL Single Rotation 来说显得十分多此一举，但是这都是为了给后面做的铺垫，虽然这个方法看起来繁琐冗余，但是已经足以解释原先的 Single Rotation 无法解释的 LR &amp; RL 操作方法。</p>
+<hr />
+<h5 id="lr-rl">LR &amp; RL<a class="headerlink" href="#lr-rl" title="点击此处可置顶内容">&para;</a></h5>
+<p>首先我们需要知道为什么之前的方法不行，也是我觉得“旋转”这个做法在这个推进过程中比较割裂的地方：（对照 <strong><a href="#旋转视角" target="_blank">#旋转视角</a></strong> 的内容阅读）我们发现，由于 LL 中的 Trouble Maker 在左侧孩子树上，所以在旋转过程中，相当于把它“拽”上来了。然而对于 L Right Subtree，无论是旋转前还是旋转后，为了维护二叉搜索树的性质，它都被接在了深度为 1 的节点上，换句话来说 L Right Subtree 贡献的高度并没有改变。对于 RL 的情况也是同理的。所以我们并不能使用 LL Single Rotation 的方法来解决这个问题。</p>
+<div class="admonition note">
+<p class="admonition-title">关于旋转视角</p>
+<p>如果从旋转视角来考虑，确实也能考虑这个过程，但一方面过于复杂，一方面实际实现过程中也完全可以被优化，所以我希望使用换根的视角来理解这个问题。</p>
+</div>
+<p>那么我们换一个思路，用<strong><a href="#换根视角" target="_blank">“换根”视角</a></strong>来看待这个问题：</p>
+<div class="admonition section">
+<p class="admonition-title">LR Rotation</p>
+<blockquote>
+<p>这里两个 Subtree 接到同一个 Trouble Maker 的意思是 Trouble Maker 可以出现在两者任一中。</p>
+</blockquote>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:5"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><input id="__tabbed_6_4" name="__tabbed_6" type="radio" /><input id="__tabbed_6_5" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Frame 1</label><label for="__tabbed_6_2">Frame 2</label><label for="__tabbed_6_3">Frame 3</label><label for="__tabbed_6_4">Frame 4</label><label for="__tabbed_6_5">Frame 5</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D(("L Left\nChild"))
+        DA[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+
+        A === B
+        A === C
+        B === D === DA
+        B === E === EA --- H
+        E === EB --- H</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D(("L Left\nChild"))
+        DA[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+
+        A --- B
+        A === C
+        B === D === DA
+        B --- E === EA --- H
+        E === EB --- H</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+
+        B((("Left\nChild")))
+        D(("L Left\nChild"))
+        DA[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+        A((("Trouble\nFinder")))
+        C[/"Right Subtree"\]
+
+        A === C
+        B === D === DA
+        E === EA --- H
+        E === EB --- H</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+
+        B((("Left\nChild")))
+        D(("L Left\nChild"))
+        DA[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+        A((("Trouble\nFinder")))
+        C[/"Right Subtree"\]
+
+        A === C
+        B === D === DA
+        E --- EA --- H
+        E --- EB --- H</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+
+        D(("L Left\nChild"))
+        B((("Left\nChild")))
+        DA[/"L Left Subtree"\]
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+        H(("Trouble\nMaker"))
+        A((("Trouble\nFinder")))
+        C[/"Right Subtree"\]
+
+        E === B
+        E === A
+        B === D === DA
+        B === EA --- H
+        A === EB --- H
+        A === C</code></pre>
+</div>
+</div>
+</div>
+</div>
+<details class="extra" open="open">
+<summary>关于记忆</summary>
+<p>记忆这个操作如何做的话，我的记忆方法是这样的：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:4"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><input id="__tabbed_7_4" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Frame 1</label><label for="__tabbed_7_2">Frame 2</label><label for="__tabbed_7_3">Frame 3</label><label for="__tabbed_7_4">Frame 4</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D(("L Left\nChild"))
+        DA[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+
+        A === B
+        A === C
+        B === D === DA
+        B === E === EA --- H
+        E === EB --- H</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        C[/"Right Subtree"\]
+        D(("L Left\nChild"))
+        DA[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+
+        A --- B
+        A --- E
+        A === C
+        B === D === DA
+        B --- E === EA --- H
+        E === EB --- H</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        D(("L Left\nChild"))
+        DA[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+        C[/"Right Subtree"\]
+
+        A --- B
+        E --- B 
+        E --- A
+        B === D === DA
+        B --- EA --- H
+        A --- EB --- H
+        A === C</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>    flowchart TD
+        A((("Trouble\nFinder")))
+        B((("Left\nChild")))
+        D(("L Left\nChild"))
+        DA[/"L Left Subtree"\]
+        H(("Trouble\nMaker"))
+        E((("L Right\nChild")))
+        EA[/"L Left Subtree"\]
+        EB[/"L Right Subtree"\]
+        C[/"Right Subtree"\]
+
+        E --- B 
+        E --- A
+        B === D === DA
+        B --- EA --- H
+        A --- EB --- H
+        A === C</code></pre>
+</div>
+</div>
+</div>
+<p>用语言概括就是，找到关键的那三个点，然后把最下面的顶到上面去，剩下两个作为左右孩子树，原先的那个点的左右孩子树则对应地，左孩子树接到左边空缺的右孩子树上，右孩子树接到右边空缺的左孩子树上。</p>
+</details>
+<hr />
+<h3 id="_7">其他问题<a class="headerlink" href="#_7" title="点击此处可置顶内容">&para;</a></h3>
+<div class="admonition question">
+<p class="admonition-title">如果一个 Trouble 产生后，出现了多个 Trouble Finder，该如何处理？</p>
+<p>首先，请回顾一下 <strong><a href="#操作" target="_blank">#操作</a></strong> 中被加粗的这一句话，「以『距离案发现场最近的 Trouble Finder』为根的孩子树」。也就是说，我们现在已经有了解决最近的 Trouble Finder 的方案。</p>
+<p>感性的思考，AVL 的“平衡”可以由递归形式定义，具体来说衡量的是左右孩子树的“高度”差。当我们解决了一个 Trouble Finder，意味着我们让 Trouble Finder 的最高的那个孩子树高度 -1，这也意味着以 Trouble Finder 为根的那个孩子树高度 -1，这也意味着其所有父节点的平衡因子都会相应地变化。</p>
+<p>一个 Trouble 当且仅有一个 Trouble Maker，而且它必定是 Trouble Finder 所关注的那个“最长路径”的端点，这也意味着所有的子 Trouble Finder 都在对应的父 Trouble Finder 的“最长路径”上。而现在我们让子 Trouble Finder 唯一（如果不唯一，那在这个 Trouble Maker 到来之前就已经存在 Trouble 了）的最长路径也应当会 -1。而这必将导致其平衡因子的绝对值 -1。</p>
+</div>
+<hr />
+<h2 id="splay">Splay 树<a class="headerlink" href="#splay" title="点击此处可置顶内容">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">link</p>
+<p>OI Wiki: https://oi-wiki.org/ds/splay/</p>
+</div>
+<p>Splay 树，即伸展树，想要解决的问题和 AVL 树类似，只不过 Splay 树希望达到的目标是在<strong>摊还(Amortized)</strong>复杂度<span class="arithmatex">\(O(\log N)\)</span>的情况下完成大部分对点操作。</p>
+<p>我们知道，为使 AVL 保持平衡，我们需要维护从根节点到 Trouble Maker 这条路径上所有点的平衡因子。而 Splay 则不再维护这些信息，这意味着我们无法保证 Splay 树的状态都是平衡的，但是我们希望它尽可能平衡。具体来说就是对于 <span class="arithmatex">\(M\)</span> 次任意操作，其时间复杂度都为 <span class="arithmatex">\(O(M\log N)\)</span>，均摊下来这 <span class="arithmatex">\(M\)</span> 个操作每一个都需要 <span class="arithmatex">\(O(\log N)\)</span>。</p>
+<p>对于一个树，我们对其节点进行的操作可能是：<strong>增</strong>点、<strong>删</strong>点、<strong>改</strong>点、<strong>查</strong>点等等，而不同类型的操作开销可能不尽相同。简单的计算其平均值则忽略了这些操作之间互相的影响或者是操作频率的问题，所以我们这里使用<strong>摊还</strong>复杂度来描述其效率。</p>
+<blockquote>
+<p>关于摊还的问题我们还会在之后进一步深入。</p>
+</blockquote>
+<p>那么说了这么多，Splay 是怎么实现这一目标的呢？</p>
+<p>Splay 的核心思想就是，每当我们访问一个节点（比如查询某个点、插入某个点，甚至是删除某个点），我们就通过一系列操作将目标点转移到根部，形象上理解就是不断旋转整个树的构造，知道把点转到根部。</p>
+<div class="admonition eg">
+<p>例如我们查询点 <span class="arithmatex">\(k_1\)</span>，则会通过旋转将它转到根。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:3"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><input id="__tabbed_8_3" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Frame 1</label><label for="__tabbed_8_2">Frame 2</label><label for="__tabbed_8_3">Frame 3</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="" src="../img/2.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../img/3.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../img/4.png" /></p>
+</div>
+</div>
+</div>
+<p>可以发现，Frame 1 ~ 2 就是我们前面提到过的 <strong><a href="#lr--rl" target="_blank">LR Rotation</a></strong>，而 Frame 2 ~ 3 就是经过了两次 <strong><a href="#ll--rr" target="_blank">LL Rotation</a></strong>。当然，在 Splay 里这些操作都有了新的名字。</p>
+</div>
+<p>这个例子只是为了给读者一个初始印象，之后我们将更详细、准确的介绍操作。</p>
+<blockquote>
+<p>（没玩过可能听不太懂）不知道大家有没有玩过那种电子游戏，就是有好多转盘，相邻转盘之间有交界处，这些交界点上都会有圆球，当一个转盘旋转的时候，其圆周上的球体都会跟着这个圆周转动。通过不停转动相邻的圆盘，我们可以实现把某个位置的圆球转移到另外一个位置。而 Splay 差不多是这么个感觉。</p>
+</blockquote>
+<hr />
+<h3 id="_8">基本操作<a class="headerlink" href="#_8" title="点击此处可置顶内容">&para;</a></h3>
+<p>首先我们做一个约定，对于任意一个节点 X，我们记其父节点为 P(Parent)，其父节点的父节点为 G(Grandparent)。</p>
+<ul>
+<li>当我们访问到某个点 X 时：<ul>
+<li>如果 P 是根节点，则直接进行一次 <a href="#ll--rr" target="_blank">Single Rotation</a>，将 X 转到根节点；</li>
+<li>如果 P 不是根节点：<ul>
+<li>当情况为 LR / RL 时，进行一次 <a href="#lr--rl" target="_blank">LR Rotation 或 RL Rotation</a>，我们称之为 zig-zag；</li>
+<li>当情况为 LL / RR 时，进行两次 <a href="#ll--rr" target="_blank">Single Rotation</a>，使得 X、P、G 的顺序逆转，像跷跷板一样，我们称之为 zig-zig；</li>
+</ul>
+</li>
+<li>不断对 X 进行 Splay 操作，直到 X 成为根节点；</li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="../img/5.png" /></p>
+<p>可以发现，其具体操作基本就和 AVL 树的相关操作有很大重合。</p>
+<div class="admonition property">
+<p class="admonition-title">效果</p>
+<p>Splaying not only moves the accessed node to the root, but also roughly halves the depth of most nodes on the path.</p>
+</div>
+<hr />
+<h3 id="_9">对点操作<a class="headerlink" href="#_9" title="点击此处可置顶内容">&para;</a></h3>
+<p>由于 Splay Tree 除了在完成所有操作以后都需要进行一次 Splay 操作，其他部分都和 BST 一样，所以这里只简单介绍一下 Splay 的部分。</p>
+<div class="admonition section">
+<p class="admonition-title">Find X</p>
+<p>根据 BST 的性质，可以在 <span class="arithmatex">\(O(\log N)\)</span> 的时间里找到 <span class="arithmatex">\(X\)</span>，接下来通过旋转操作，将 <span class="arithmatex">\(X\)</span> 不断旋转至根，最终直接取出 Root 即为结果。   </p>
+</div>
+<div class="admonition section">
+<p class="admonition-title">Remove X</p>
+<p>根据 BST 的性质，可以在 <span class="arithmatex">\(O(\log N)\)</span> 的时间里找到 <span class="arithmatex">\(X\)</span>，接下来通过旋转操作，将 <span class="arithmatex">\(X\)</span> 不断旋转至根，接下来删除 Root 节点，并在维护 BST 性质的情况下递归地合并左右孩子树即可。</p>
+</div>
+<div class="admonition section">
+<p class="admonition-title">Find Max</p>
+<p>根据 BST 的性质，可以在 <span class="arithmatex">\(O(\log N)\)</span> 的时间里找到最大值，将它旋转到根部以后，可以发现它没有右孩子树，直接删掉就行。</p>
+</div>
+<hr />
+<h3 id="_10">摊还分析<a class="headerlink" href="#_10" title="点击此处可置顶内容">&para;</a></h3>
+<div class="admonition advice">
+<p class="admonition-title">前置阅读</p>
+<p>关于摊还分析的基本知识，请查看 <strong><a href="../Ex01/#摊还分析">Topic 1 | Amortized Analysis</a></strong>。</p>
+</div>
+<p>此处，我们将使用<strong>势能法</strong>来分析 Splay 的摊还复杂度，由于课件省略了很多细节上的解释，所以我这里会补充非常多内容。</p>
+<div class="admonition quote">
+<p class="admonition-title">reference</p>
+<p>http://www2.hawaii.edu/~nodari/teaching/f19/scribes/notes06.pdf</p>
+</div>
+<p>开始分析之前，我们首先需要明确分析的目标：</p>
+<p>对于 Splay，它不像我们在 <strong><a href="../Ex01/#摊还分析">Topic 1 | Amortized Analysis</a></strong> 提到的那些案例一样，存在明显的减势和增势行为。对于 Splay 来说，所有我们提到的操作都依赖于将目标点旋转到根来实现，而这也成为其主要开销（部分常数操作显然被覆盖，插入之类的操作之所以能被忽略的原因，可以参考 ltgg 的<strong><a href="https://www.yuque.com/27rabbit/gi2sf3/veonae">这篇文章</a></strong>）。其中我们会用到若干次 <code>zig</code>、<code>zig-zag</code>、<code>zig-zig</code> 的操作。</p>
+<p>因此我们可以认为，我们要分析的目标为：</p>
+<div class="arithmatex">\[
+T_{\text{rotate }x\text{ to root}} = T_{\text{zig}} + \sum{ {T_{\text{zig-zag}}}_i } + \sum{ {T_{\text{zig-zig}}}_i }
+\]</div>
+<blockquote>
+<p>上面三个部分每一个都有可能是 <span class="arithmatex">\(0\)</span>，而 <code>zig</code> 最多只会发生一次！</p>
+</blockquote>
+<p>接下来，我们需要设计一个势能函数 <span class="arithmatex">\(\Phi(x)\)</span>，并且根据我们提到过的势能分析法的特性，<span class="arithmatex">\(\Phi(x)\)</span> 应该具有这么几个特征：</p>
+<ul>
+<li>开销大的操作应当倾向让势能降，开销小的操作应当倾向让势能升；</li>
+<li>势能高倾向于让某些操作开销大，势能低倾向于让某些操作开销小；</li>
+<li><span class="arithmatex">\(\Phi(final) &gt; \Phi(initial)\)</span>；</li>
+</ul>
+<p>于是这里我们设计的势能函数为：</p>
+<div class="arithmatex">\[
+\Phi(T) = \sum_{des \in T} \log Size(des) = \sum_{des \in T} Rank(des)\\
+\begin{aligned}
+    &amp;\text{Where } des \text{ means the descendant of } T \text{,}\\
+    &amp;\text{and } Size(des) \text{ means the number of the nodes of } des \text{.} \\
+    &amp;\text{And we note } Rank(des) = \log Size(des) \approx Height(des) \text{.}
+\end{aligned}
+\]</div>
+<p>用语言描述一下就是，对于某个孩子树 <span class="arithmatex">\(T\)</span>，其势能函数 <span class="arithmatex">\(\Phi(T)\)</span> 等于<u>以所有它的后代为根</u>的孩子树的大小取对数以后求和。</p>
+<div class="admonition warning">
+<p class="admonition-title">Rank v.s. Height</p>
+<p>这里需要注意的一个点是，虽然 <span class="arithmatex">\(Rank(des) \approx Height(des)\)</span>，但是我们不应该用 <span class="arithmatex">\(Height()\)</span> 来代替 <span class="arithmatex">\(Rank()\)</span>，主要原因是在旋转过程中，<span class="arithmatex">\(Rank()\)</span> 不会变化（因为 <span class="arithmatex">\(Size()\)</span> 不会变化），但是 <span class="arithmatex">\(Height()\)</span> 可能变化。换句话来说，如果选用 <span class="arithmatex">\(Height()\)</span> 作为势能函数，我们就不得已考虑整棵树，而非只需要考虑当前旋转涉及的孩子树。</p>
+</div>
+<p>关于正确性的说明，我会放在之后的过程中一个个插入，它们会被包裹在 <code>key-point</code> 文字框中，请注意这些内容。接下来我们就可以开始分析了，根据我们给定的目标：</p>
+<div class="arithmatex">\[
+T_{\text{rotate }x\text{ to root}} = T_{\text{zig}} + \sum{ {T_{\text{zig-zag}}}_i } + \sum{ {T_{\text{zig-zig}}}_i }
+\]</div>
+<p>我们利用均摊分析，需要得到一个平滑上界：</p>
+<div class="arithmatex">\[
+\hat{c}_{\text{rotate }x\text{ to root}} = \hat{c}_{\text{zig}} + \sum{ {\hat{c}_{\text{zig-zag}}}_i } + \sum{ {\hat{c}_{\text{zig-zig}}}_i }
+\]</div>
+<p>而我们需要证明 <span class="arithmatex">\(\hat{c}_{\text{rotate }x\text{ to root}} = O(\log{N})\)</span>，现在我们需要分别分析 <code>zig</code>、<code>zig-zag</code>、<code>zig-zig</code>。</p>
+<hr />
+<h4 id="zig">zig<a class="headerlink" href="#zig" title="点击此处可置顶内容">&para;</a></h4>
+<div class="admonition section">
+<p class="admonition-title">Amortized Analysis for Zig</p>
+<p><img alt="" src="../img/60.png" /></p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig}}}_i
+    &amp;= {c_{\text{zig}}}_i + \Phi_{i}(X) - \Phi_{i-1}(P) \\
+    &amp;= 1 + Rank_{i}(X) - Rank_{i-1}(X) +  Rank_{i}(P) - Rank_{i-1}(P)
+\end{aligned}
+\]</div>
+<p>观察配图，<span class="arithmatex">\(X\)</span> 多了 <span class="arithmatex">\(P\)</span> 和 <span class="arithmatex">\(C\)</span> 作为子嗣，而 <span class="arithmatex">\(P\)</span> 悲惨地失去了 <span class="arithmatex">\(X\)</span> 一族，甚至成了 <span class="arithmatex">\(X\)</span> 的后代，即 <span class="arithmatex">\(X\)</span> 盛 <span class="arithmatex">\(P\)</span> 衰，因此就有不等式：</p>
+<div class="arithmatex">\[
+\left\{
+    \begin{aligned}
+        &amp; Rank_{i}(X) - Rank_{i-1}(X) \geq 0\\
+        &amp; Rank_{i}(P) - Rank_{i-1}(P) \leq 0
+    \end{aligned}    
+\right.
+\]</div>
+<p>所以我们可以做简单的缩放：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig}}}_i
+    &amp;= 1 + \underbrace{Rank_{i}(X) - Rank_{i-1}(X)}_{\geq 0} + \underbrace{Rank_{i}(P) - Rank_{i-1}(P)}_{\leq 0} \\
+    &amp;\leq 1 + Rank_{i}(X) - Rank_{i-1}(X)
+\end{aligned}
+\]</div>
+</div>
+<div class="admonition key-point">
+<p class="admonition-title">为什么不是另外一种选择 / 为何这样缩放？</p>
+<blockquote>
+<p>这一部分在 cy 的 PPT 里并没有详细说明，但是我认为这是这个分析方法成立一个非常重要的因素！</p>
+</blockquote>
+<p>也许你已经注意到了，又或者你了解了之后两种分析，又回过头来思考发现，这里其实存在另外一种更紧凑的缩放方法（甚至不能说“缩放”），观察到 <span class="arithmatex">\(Size_{i}(X) =Size_{i-1}(P)\)</span>，所以：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig}}}_i
+    &amp;= 1 + Rank_{i}(P) - Rank_{i-1}(X) + \underbrace{Rank_{i}(X) - Rank_{i-1}(P)}_{= 0} \\
+    &amp;= 1 + Rank_{i}(P) - Rank_{i-1}(X)
+\end{aligned}
+\]</div>
+<p>但是这不便于我们之后的传递。还记得我们要求的目标吗？</p>
+<div class="arithmatex">\[
+\hat{c}_{\text{rotate }x\text{ to root}} = \hat{c}_{\text{zig}} + \sum{ {\hat{c}_{\text{zig-zag}}}_i } + \sum{ {\hat{c}_{\text{zig-zig}}}_i }
+\]</div>
+<p>我们之后需要对各种 <span class="arithmatex">\(\hat{c}\)</span> 进行求和，而每一次的 <span class="arithmatex">\(X,\;P,\;G\)</span> 都是不同的，为了在求和的时候实现错位相减，我们必须保证缩放得到的结果具有一定的<strong>传递性质</strong>，或者说在求和过程中能够达到<strong>裂项相消</strong>的效果。</p>
+<p>而对于 Splay 来说，我们的操作传递，正是通过不断将我们关注的 <span class="arithmatex">\(X\)</span> 点<strong>递归地向上旋转</strong>实现的。换句话来说，<span class="arithmatex">\(\Phi_{i}(X)\)</span> 中的 <span class="arithmatex">\(X\)</span>，就是 <span class="arithmatex">\(\Phi_{i-1}(X)\)</span> 中的 <span class="arithmatex">\(X\)</span>，如此我们最终可以得到 <span class="arithmatex">\(\Phi_{n}(X) - \Phi_{0}(X)\)</span>，而其中一个是根，一个是我们一开始打算操作的那个点。</p>
+<p>于是我们理想的缩放目标就是 <span class="arithmatex">\(k(Rank_{i}(X) - Rank_{i-1}(X)) \;\; \text{where } k \text{ is fixed for all the terms}\)</span>。</p>
+<hr />
+<blockquote>
+<p>不过你可能又要提问了，<code>zig</code> 分析的结果里不是有个 <span class="arithmatex">\({c_{\text{zig}}}_i = 1\)</span> 吗？</p>
+<p>这是因为 <code>zig</code> 最多只发生一次，所以这个常数是没有影响的。</p>
+</blockquote>
+</div>
+<div class="admonition key-point">
+<p class="admonition-title">真的需要都缩放到相同的 k 吗</p>
+<p>随之而来的，一个需要讨论的问题是「<span class="arithmatex">\(\text{where } k \text{ is fixed for all the terms}\)</span>」真的重要吗，换句话来说，我们必须保证三个部分缩放出来都具有相同的 <span class="arithmatex">\(k\)</span> 吗？</p>
+<p>首先，重要肯定是重要的，只不过在这个问题中，由于我们旋转的方向都是向上，所以 <span class="arithmatex">\(Rank_{i}(X) \geq Rank_{i-1}(X)\)</span>，因此我们只需要最后将它们一起都缩放到 <span class="arithmatex">\(k_{overall} = \max\{k_\text{zig}, k_\text{zig-zag}, k_\text{zig-zig} \}\)</span> 就可以了。</p>
+</div>
+<hr />
+<h4 id="zig-zag">zig-zag<a class="headerlink" href="#zig-zag" title="点击此处可置顶内容">&para;</a></h4>
+<div class="admonition section">
+<p class="admonition-title">Amortized Analysis for Zig-Zag</p>
+<p><img alt="" src="../img/61.png" /></p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig-zag}}}_i 
+    &amp;= {c_{\text{zig-zag}}}_i + \Phi_{i}(X)- \Phi_{i-1}(G) \\
+    &amp;= 2 + Rank_{i}(X) - Rank_{i-1}(X) + Rank_{i}(P) - Rank_{i-1}(P) + Rank_{i}(G) - Rank_{i-1}(G)
+\end{aligned}
+\]</div>
+<p>观察配图，<span class="arithmatex">\(X\)</span> 又一次绝地反击，成为它家长和它家长的家长共同的家长；<span class="arithmatex">\(G\)</span> 损失最惨重，丢掉了 <span class="arithmatex">\(A,\;B\)</span> 两族子嗣。</p>
+<p>在这次的缩放中，根据我们之前在 <code>key-point</code> 里提到的，我们需要将它缩放到 <span class="arithmatex">\(k(Rank_{i}(X) - Rank_{i-1}(X))\)</span> 的形式，并且由于 <code>zig-zig</code> 会多次发生，所以我们也得想办法搞掉这里的 <span class="arithmatex">\({c_{\text{zig-zag}}}_i = 2\)</span>，否则最后就会出现一个 <span class="arithmatex">\(2p(n)\)</span> 的 term，而我们的证明目标是 <span class="arithmatex">\(\log{N}\)</span>，所以我们必须将这个 <span class="arithmatex">\(2\)</span> 消掉。而为了消除这个 <span class="arithmatex">\(2\)</span>，我们需要先引入一个引理：</p>
+<div class="admonition property">
+<p class="admonition-title">Lemma 1</p>
+<p>由于 <span class="arithmatex">\(y = \log{x}\)</span> 是单调的凸函数，所以有 <span class="arithmatex">\(\frac{\log{x} + \log{b}}{2} \leq \log {\frac{a+b}{2}}\)</span>。</p>
+<p>而在 Splay 的均摊复杂度分析过程中，我们的 <span class="arithmatex">\(\log{x}\)</span> 指的是 <span class="arithmatex">\(\log_2{x}\)</span>，因此有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    \log{a} + \log{b} 
+    &amp;= 2\left( \frac{\log{a} + \log{b}}{2} \right) \\
+    &amp;\leq 2\left( \log{\frac{a+b}{2}} \right) \\
+    &amp;= 2\left( \log{(a+b)} - \log{2} \right) \\
+    &amp;= 2 \log{(a+b)} - 2 \\
+\end{aligned}
+\]</div>
+</div>
+<p>看到这里出现了一个 <span class="arithmatex">\(-2\)</span> 我们就能长舒一口气了，这下 <span class="arithmatex">\({c_{\text{zig-zag}}}_i = 2\)</span> 死到临头咯！对照配图看，我们可以得到：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    Rank_{i}(P) + Rank_{i}(G)   &amp;= \log{Size_{i}(P)} + \log{Size_{i}(G)} \\
+                                &amp;\leq 2\log{\left(Size_{i}(P)+Size_{i}(G)\right)} - 2 &amp; \text{(Lemma 1)}\\
+                                &amp;\leq 2\log{\left(Size_{i}(P)+Size_{i}(G)+1\right)} - 2 \\
+                                &amp;\leq 2\log{Size_{i}(X)} - 2 \\
+                                &amp;\leq 2Rank_{i}(X) - 2 \\
+\end{aligned}
+\]</div>
+<p>因此，我们能够得到这些相等或不等关系：</p>
+<div class="arithmatex">\[
+\left\{
+    \begin{aligned}
+        Rank_{i}(X) &amp;= Rank_{i-1}(G) \\
+        Rank_{i}(P) + Rank_{i}(G) &amp;\leq 2Rank_{i}(X) - 2 \\
+        Rank_{i-1}(P) + Rank_{i-1}(X) &amp;\geq 2Rank_{i-1}(X)
+    \end{aligned}
+\right.
+\]</div>
+<p>于是我们可以实现缩放：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig-zag}}}_i 
+    &amp;= 2 + Rank_{i}(X) - Rank_{i-1}(X) + Rank_{i}(P) - Rank_{i-1}(P) + Rank_{i}(G) - Rank_{i-1}(G) \\
+    &amp;= 2 + \left( Rank_{i}(X) - Rank_{i-1}(G)\right ) 
+         + \left( Rank_{i}(P) + Rank_{i}(G) \right)
+         - \left( Rank_{i-1}(P) + Rank_{i-1}(X) \right) \\
+    &amp;\leq 2 + 0 + 2Rank_{i}(X) - 2 + 2Rank_{i-1}(X) \\
+    &amp;= 2\left(Rank_{i}(X) - Rank_{i-1}(X)\right)
+\end{aligned}
+\]</div>
+<p>皆大欢喜！</p>
+</div>
+<hr />
+<h4 id="zig-zig">zig-zig<a class="headerlink" href="#zig-zig" title="点击此处可置顶内容">&para;</a></h4>
+<div class="admonition section">
+<p class="admonition-title">Amortized Analysis for Zig-Zig</p>
+<p><img alt="" src="../img/62.png" /></p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig-zig}}}_i 
+    &amp;= {c_{\text{zig-zig}}}_i + \Phi_{i}(X)- \Phi_{i-1}(G) \\
+    &amp;= 2 + Rank_{i}(X) - Rank_{i-1}(X) + Rank_{i}(P) - Rank_{i-1}(P) + Rank_{i}(G) - Rank_{i-1}(G)
+\end{aligned}
+\]</div>
+<p>为了实现 <code>zig-zig</code> 的缩放，我们还需要对 Lemma 1 进行一个活用。对照配图，得到：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    Rank_{i}(G) + Rank_{i-1}(X) 
+        &amp;\leq 2\log{\left( 
+            \underbrace{Size_{i}(G)}_{\mathbf{C}+\mathbf{D}+G}
+          + \underbrace{Size_{i-1}(X)}_{\mathbf{A}+\mathbf{B}+X}
+        \right)} - 2 &amp; \text{(Lemma 1)} \\
+        &amp;\leq 2\log{\left( Size_{i}(G) + Size_{i-1}(X) + 1 \right)} - 2 &amp; \\
+        &amp;= 2\log{\left( Size_{i}(X) \right)} - 2 \\
+        &amp;= 2Rank_{i}(X) - 2 \\
+    Rank_{i}(G) 
+        &amp;\leq 2Rank_{i}(X) - Rank_{i-1}(X) - 2
+\end{aligned}
+\]</div>
+<blockquote>
+<p>这一步很难想，但是也非常关键。</p>
+</blockquote>
+<p>于是，我们有如下这些不等式：</p>
+<div class="arithmatex">\[
+\left\{
+    \begin{aligned}
+        Rank_{i}(X) &amp;= Rank_{i-1}(G) \\
+        Rank_{i}(G) &amp;\leq 2Rank_{i}(X) - Rank_{i-1}(X) - 2 \\
+        Rank_{i}(P) &amp;\leq Rank_{i}(X) \\
+        Rank_{i-1}(P) &amp;\geq Rank_{i-1}(X)
+    \end{aligned}
+\right.
+\]</div>
+<p>于是我们就可以对其进行<s>诡异</s>的缩放：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig-zig}}}_i 
+    &amp;= 2 + Rank_{i}(X) - Rank_{i-1}(X) + Rank_{i}(P) - Rank_{i-1}(P) + Rank_{i}(G) - Rank_{i-1}(G) \\
+    &amp;= 2 + \left( Rank_{i}(X) - Rank_{i-1}(G) \right)
+         + Rank_{i}(G)
+         + Rank_{i}(P)
+         - Rank_{i-1}(P)
+         - Rank_{i-1}(X) \\
+    &amp;\leq 2 + 0 
+            + \left( 2Rank_{i}(X) - Rank_{i-1}(X) - 2 \right) 
+            + Rank_{i}(X)
+            - Rank_{i-1}(X)
+            - Rank_{i-1}(X) \\
+    &amp;= 3\left( Rank_{i}(X) - Rank_{i-1}(X) \right)
+\end{aligned}
+\]</div>
+<p>😩 至此，我们总算是把牛鬼蛇神的 <code>zig-zig</code> 的证明也给搞定了。</p>
+</div>
+<hr />
+<h4 id="_11">结论<a class="headerlink" href="#_11" title="点击此处可置顶内容">&para;</a></h4>
+<div class="admonition section">
+<p class="admonition-title">Amortized Analysis for Splay</p>
+<p>至此，对于三种操作，我们都得到了它们的均摊上界：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig}}}_i &amp;\leq 1 + Rank_{i}(X) - Rank_{i-1}(X) \\
+    {\hat{c}_{\text{zig-zag}}}_i &amp;\leq 2\left(Rank_{i}(X) - Rank_{i-1}(X)\right) \\
+    {\hat{c}_{\text{zig-zig}}}_i &amp;\leq 3\left(Rank_{i}(X) - Rank_{i-1}(X)\right)
+\end{aligned}
+\]</div>
+<p>根据我们在 <code>key-point</code> 框「真的需要都缩放到相同的 k 吗」中的内容，我们接下来可以将它们的 <span class="arithmatex">\(k\)</span> 都缩放为 <span class="arithmatex">\(3\)</span>：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    {\hat{c}_{\text{zig}}}_i &amp;\leq 1 + 3\left( Rank_{i}(X) - Rank_{i-1}(X) \right) \\
+    {\hat{c}_{\text{zig-zag}}}_i &amp;\leq 3\left( Rank_{i}(X) - Rank_{i-1}(X) \right) \\
+    {\hat{c}_{\text{zig-zig}}}_i &amp;\leq 3\left( Rank_{i}(X) - Rank_{i-1}(X) \right)
+\end{aligned}
+\]</div>
+<p>于是，我们就可以得到最终的均摊上界：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    \hat{c}_{\text{rotate }x\text{ to root}} 
+        &amp;= \hat{c}_{\text{zig}} + \sum{ {\hat{c}_{\text{zig-zag}}}_i } + \sum{ {\hat{c}_{\text{zig-zig}}}_i } \\
+        &amp;= O(1) + 3\left( Rank_{N}(X) - Rank_{0}(X) \right) \\
+        &amp;= O(\log{N})
+\end{aligned}
+\]</div>
+<blockquote>
+<p>可以仔细想想求和式是如何“相消”得到最后的式子的，这里的 <span class="arithmatex">\(\sum {\hat{c}_\text{...}}_i\)</span> 的 <span class="arithmatex">\(i\)</span> 并不是在求和式中各自连续的，但是三个 term 放在一起，则可以囊括 <span class="arithmatex">\(i\in\{1,2,...,N\}\)</span></p>
+</blockquote>
+</div>
 
 
 
@@ -760,7 +1980,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月3日 23:20:54</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月10日 19:18:26</span>
   </span>
 
     
