@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../../../images/icon.jpg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
     
     
       
@@ -525,6 +525,12 @@
       
         
           
+        
+      
+        
+      
+        
+      
         
       
         
@@ -1321,7 +1327,7 @@ E === NULL</code></pre>
 <p>我个人认为主要有两个维度，一是保持二叉搜索树的性质，二是保持平衡的性质，我的证明内容折叠起来了，建议读者可以先自己思考一下再展开看看我的想法。</p>
 <details class="proof">
 <summary>二叉搜索树性质的保持</summary>
-<p><img align="right" alt="" src="../img/1.png" width="30%" /></p>
+<p><img align="right" alt="A" src="../img/1.png" width="30%" /></p>
 <p>不知道读者是否发现，对于一个排列得当的二叉搜索树，如果我从左到右，使用一条竖直的扫描线扫描整个树，将会得到一个单调序列，这也正对应着这个二叉搜索树所维护的有序数列。</p>
 <p>基于这种论调，再回头看上面那个动态的过程，甚至是观察我在 2 ~ 3 帧画出来的这个三角形的旋转，就会发现这种旋转实际上只是在将节点上下移动，所以不改变二叉搜索树的性质。</p>
 </details>
@@ -1640,13 +1646,13 @@ E === NULL</code></pre>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:3"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><input id="__tabbed_8_3" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Frame 1</label><label for="__tabbed_8_2">Frame 2</label><label for="__tabbed_8_3">Frame 3</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><img alt="" src="../img/2.png" /></p>
+<p><img alt="A" src="../img/2.png" /></p>
 </div>
 <div class="tabbed-block">
-<p><img alt="" src="../img/3.png" /></p>
+<p><img alt="A" src="../img/3.png" /></p>
 </div>
 <div class="tabbed-block">
-<p><img alt="" src="../img/4.png" /></p>
+<p><img alt="A" src="../img/4.png" /></p>
 </div>
 </div>
 </div>
@@ -1671,7 +1677,7 @@ E === NULL</code></pre>
 </ul>
 </li>
 </ul>
-<p><img alt="" src="../img/5.png" /></p>
+<p><img alt="A" src="../img/5.png" /></p>
 <p>可以发现，其具体操作基本就和 AVL 树的相关操作有很大重合。</p>
 <div class="admonition property">
 <p class="admonition-title">效果</p>
@@ -1745,7 +1751,7 @@ T_{\text{rotate }x\text{ to root}} = T_{\text{zig}} + \sum{ {T_{\text{zig-zag}}}
 <h4 id="zig">zig<a class="headerlink" href="#zig" title="点击此处可置顶内容">&para;</a></h4>
 <div class="admonition section">
 <p class="admonition-title">Amortized Analysis for Zig</p>
-<p><img alt="" src="../img/60.png" /></p>
+<p><img alt="A" src="../img/60.png" /></p>
 <div class="arithmatex">\[
 \begin{aligned}
     {\hat{c}_{\text{zig}}}_i
@@ -1806,7 +1812,7 @@ T_{\text{rotate }x\text{ to root}} = T_{\text{zig}} + \sum{ {T_{\text{zig-zag}}}
 <h4 id="zig-zag">zig-zag<a class="headerlink" href="#zig-zag" title="点击此处可置顶内容">&para;</a></h4>
 <div class="admonition section">
 <p class="admonition-title">Amortized Analysis for Zig-Zag</p>
-<p><img alt="" src="../img/61.png" /></p>
+<p><img alt="A" src="../img/61.png" /></p>
 <div class="arithmatex">\[
 \begin{aligned}
     {\hat{c}_{\text{zig-zag}}}_i 
@@ -1868,7 +1874,7 @@ T_{\text{rotate }x\text{ to root}} = T_{\text{zig}} + \sum{ {T_{\text{zig-zag}}}
 <h4 id="zig-zig">zig-zig<a class="headerlink" href="#zig-zig" title="点击此处可置顶内容">&para;</a></h4>
 <div class="admonition section">
 <p class="admonition-title">Amortized Analysis for Zig-Zig</p>
-<p><img alt="" src="../img/62.png" /></p>
+<p><img alt="A" src="../img/62.png" /></p>
 <div class="arithmatex">\[
 \begin{aligned}
     {\hat{c}_{\text{zig-zig}}}_i 
@@ -1980,7 +1986,7 @@ T_{\text{rotate }x\text{ to root}} = T_{\text{zig}} + \sum{ {T_{\text{zig-zag}}}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月10日 19:18:26</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月26日 14:38:29</span>
   </span>
 
     
@@ -2063,7 +2069,7 @@ T_{\text{rotate }x\text{ to root}} = T_{\text{zig}} + \sum{ {T_{\text{zig-zag}}}
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.bd41221c.min.js"></script>
       
         <script src="../../../assets/javascripts/katex.js"></script>
       

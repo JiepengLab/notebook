@@ -1,0 +1,1818 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/OOP/xuan/9_move_semantics/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>9 右值引用与移动语义 - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#9" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              9 右值引用与移动语义
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Fundemental/" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../.." class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Fundemental/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    基础课程
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    校内CS课程
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../CS_Online/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    校外CS课程
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Mess/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    杂项
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91-lvalue-rvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 lvalue &amp; rvalue
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1 lvalue & rvalue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#911" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1.1 引入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#912" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1.2 关于内存占用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#913-lvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1.3 lvalue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#914-rvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1.4 rvalue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#915" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1.5 小结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-prvalue-xvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 prvalue &amp; xvalue
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 prvalue & xvalue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#921" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2.1 引入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#922-prvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2.2 prvalue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#923-xvalue-temporary-materialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2.3 xvalue 的产生：Temporary materialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#924" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2.4 小结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 移动语义与右值引用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 移动语义与右值引用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#931-moving-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3.1 移动语义 | moving semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#932-rvalue-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3.2 右值引用 | rvalue reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3.2 右值引用 | rvalue reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      移动构造与移动赋值
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#933-stdmove" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3.3 std::move
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3.3 std::move">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      右值引用本身是一个左值
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-stdmovex" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么不要 return std::move(x)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#934-member-functions-with-ref-qualifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3.4 member functions with ref-qualifier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 移动构造函数与移动赋值运算符
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95-perfect-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.5 完美转发 | Perfect forwarding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="9">9 右值引用与移动语义<a class="headerlink" href="#9" title="点击此处可置顶内容">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 3298 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 189 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 19 分钟</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">本节录播地址</p>
+<p>本节的朋辈辅学录播可以在 <a href="https://www.bilibili.com/video/BV1Za4y1u7hN/?spm_id_from=333.788&amp;vd_source=c5a9383e47adf0fdb6896be9dbbc50fc">B 站</a> 找到！</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>本节的文本还没完全写完！可以先去看录播））</p>
+</div>
+<h2 id="91-lvalue-rvalue">9.1 lvalue &amp; rvalue<a class="headerlink" href="#91-lvalue-rvalue" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="911">9.1.1 引入<a class="headerlink" href="#911" title="点击此处可置顶内容">&para;</a></h3>
+<p>假如有定义 <code>int n;</code>，为什么 <code>n = 1;</code> 是合法的，而 <code>1 = n;</code> 是非法的呢？这不是类型的原因，<code>n</code> 和 <code>1</code> 这两个表达式的类型都是 <code>int</code>。</p>
+<p>事实上，对于后者，编译器会给出这样的报错：Expression <code>1</code> is not assignable。也就是说，<code>n</code> 是一个表达式，它指向一个对象；回顾上一节我们给出的对对象的定义，它表征着一块内存，其内容表示一个值。而 <code>1</code> 则不指向一个实在的对象，它是一个不与对象关联的值，因此它不必占据内存。</p>
+<details class="info">
+<summary>表达式和语句</summary>
+<p>以防有同学不清楚表达式和语句的概念，在这里再科普一下。</p>
+<p><strong>表达式 (expressions)</strong> 是运算符和操作数的序列，用来指明一个计算。</p>
+<p>操作数也是表达式，因此任何操作符的操作数要么是 <strong>primary expressions</strong>，要么是其他表达式。顾名思义，primary expressions 是最基本的表达式。它们包括：</p>
+<ul>
+<li><code>this</code></li>
+<li>字面量，例如 <code>2</code> 或者 <code>"Hello, world!"</code></li>
+<li>id-expressions，例如 <code>n</code> 或者 <code>std::cout</code></li>
+<li>lambda 表达式，例如 <code>[](int &amp; n) { n *= 2; }</code></li>
+<li>fold-expressions</li>
+<li>requires-expressions</li>
+</ul>
+<p>后两者我们目前还没有遇见过，大家可以先不管。</p>
+<p><strong>表达式可以产生值，并可能导致副作用。</strong>例如：</p>
+<ul>
+<li><code>2 + 2</code> 这个表达式产生 <code>4</code> 这个值，没有副作用；</li>
+<li><code>x = y = 2</code> 这个表达式产生的值是 <code>2</code>，产生的副作用是把 <code>x</code> 和 <code>y</code> 赋值为 2；</li>
+<li>如果有 <code>void print(int x){ std::cout &lt;&lt; x; }</code>，那么函数调用表达式 <code>print(1)</code> 没有产生值，但是有把 <code>1</code> 打印到标准输出的副作用。</li>
+</ul>
+<hr />
+<p><strong>语句 (statements)</strong> 是按顺序执行的 C++ 程序片段。任何函数的函数体都是语句的一个序列。C++ 包含如下类型的语句：</p>
+<ol>
+<li>labeled statements       <code>EXIT: return 0;</code></li>
+<li>expression statements    <code>n = 1;</code></li>
+<li>compound statements      <code>{ n = i; i++; }</code></li>
+<li>selection statements     <code>if (n == 1) break;</code></li>
+<li>iteration statements     <code>while (n--);</code></li>
+<li>jump statements          <code>break;</code>, <code>return 0;</code>, <code>goto EXIT;</code></li>
+<li>declaration statements   <code>int n = 0;</code></li>
+<li>try blocks               </li>
+<li>atomic and synchronized blocks (TM TS)</li>
+</ol>
+<p>事实上，我们在 <a href="../2_paradigm">2 编程范式</a> 一节中简单提及过语句，以介绍结构化编程。</p>
+</details>
+<p>也就是说，虽然 <code>n</code> 和 <code>1</code> 都是表达式，但是它们具有不同的性质。</p>
+<p>这一设计的原因是，让一些表达式的值不必占据内存有助于我们实现一些优化。如果我们规定所有表达式的值都是一个对象的话，那么字面量 <code>1</code> 也需要占据一块实际的内存，这会使得代码中的内存操作变得非常多。</p>
+<details class="info" open="open">
+<summary>举个栗子</summary>
+<p>考虑 <code>n += 1</code> 这个表达式在汇编中的实现。如果我们要求 <code>1</code> 也需要占据实际内存的话，汇编会长这样：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>la   t3, p
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lw   t0, 0(t3)      // t0 = p
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>la   t4, one       
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>lw   t1, 0(t4)      // t1 = one
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>add  t0, t0, t1     // t0 += t1
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>sw   t0, 0(t3)      // p = t0
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>p:   .word 0
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>one: .word 1
+</span></code></pre></div>
+<p>不过如果 <code>1</code> 不必占内存，那么就会简单不少：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>la   t3, p
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>lw   t0, 0(t3)      // t0 = p
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>addi t0, t0, 1      // t0 += 1
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>sw   t0, 0(t3)      // p = t0
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>p:   .word 0
+</span></code></pre></div>
+<p>需要澄清的是，「不必占内存」不是「一定不占内存」的意思。前面那种稍微冗长的实现也是合法的，只是后者更加简练、自然和高效。</p>
+</details>
+<p>类似地，对于 <code>int m;</code>, <code>m + 1 = 2</code> 这个表达式也是非法的，因为 <code>m + 1</code> 这个表达式的值并不表征一个实际的对象。对于 <code>int foo();</code>, <code>foo() = 2</code> 也是非法的，因为 <code>foo()</code> 这个函数调用表达式的值也不表征一个实际的对象。</p>
+<p>由此可见，每个表达式其实都有两个性质，一个是我们熟知的 <strong>类型 (type)</strong>，而另一个就是我们刚刚发现的「新区别」：<strong>value category</strong>。</p>
+<p>我们将表征一个对象的表达式称为 <strong>左值 (lvalue)</strong>，因为它们可以出现在赋值表达式的左边；而将一个值不与对象关联的表达式称为 <strong>右值 (rvalue)</strong>，因为它们只能出现在赋值表达式的右边。</p>
+<h3 id="912">9.1.2 关于内存占用<a class="headerlink" href="#912" title="点击此处可置顶内容">&para;</a></h3>
+<p><strong>右值不一定不占用内存</strong>，例如虽然 <code>n += 1;</code> 可以用一句汇编语句（如 <code>addi x1, x1, 1;</code>）实现，但是当字面量变得足够大时，一条语句可能装不下，这时右值会占据一定内存。</p>
+<p>同时，左值表征的对象虽然 <strong>从概念上说</strong> 一定占据内存，但编译器有可能对其做一些优化从而使其 <strong>实际上</strong> 不占内存，而只是放在寄存器中或者直接在编译时完成相关的计算从而删除它。但是，<strong>这只会发生在我们不会注意到的情况下</strong>。例如，定义 <code>const int n = 2;</code> 有可能会使得所有对 <code>n</code> 的使用被替换成 <code>2</code>，从而左值 <code>n</code> 表征的对象在生成的程序中不再存在（因而不再占据内存），但是如果我们使用了 <code>std::cout &lt;&lt; &amp;n;</code>，那么 <code>n</code> 就一定会存在并占据内存以满足这一输出的要求。</p>
+<details class="info" open="open">
+<summary>再举个例子</summary>
+<p><code>n</code> 由于值必定是 1，因此这个函数直接被简化为了 <code>return 2;</code>，<code>n</code> 不再占据内存：</p>
+<p><img alt="" src="../assets/2023-10-04-03-26-56.png" /></p>
+<p>但是，假如我们要使用 <code>n</code> 的地址，那么 <code>n</code> 就一定会占据内存来满足我们的需求：</p>
+<p><img alt="" src="../assets/2023-10-04-03-30-08.png" /></p>
+</details>
+<p>因此，我们在后面的讨论中，始终从概念层面上认为 lvalue 会占用内存。编译器将这个内存优化掉是实践层面的事情，如前所述，并不会影响我们这样讨论的正确性。</p>
+<h3 id="913-lvalue">9.1.3 lvalue<a class="headerlink" href="#913-lvalue" title="点击此处可置顶内容">&para;</a></h3>
+<p>lvalue 用来表征一个对象，或者说一个位置。因此，lvalue 可以被取地址，以及用来初始化引用。</p>
+<p>值得提及的是，不是所有左值都能出现在赋值表达式的左边，比如 <code>const char name [] = "Xuan";</code>，<code>name[0] = 'D';</code> 是非法的；虽然 <code>name[0]</code> 是个左值，但是它的类型是 <code>const char</code>。这样的左值被称为 non-modifiable lvalues。除此之外的左值，可以作为内置赋值操作符 (<code>=</code>) 或者复合赋值操作符 (<code>+=</code> 等) 的左侧操作数。</p>
+<p>左值包括：</p>
+<ul>
+<li><strong>任何有名字的表达式</strong> 都是左值，唯一的例外是枚举<sup id="fnref:move-eligible"><a class="footnote-ref" href="#fn:move-eligible">4</a></sup>；</li>
+<li><strong>内置</strong> 的 <code>++a</code>, <code>a = b</code>, <code>a += b</code>, <code>*p</code>, <code>p-&gt;m</code> 是 lvalue</li>
+<li>如果 <code>a[n]</code> 的操作数之一是 array lvalue 或者 pointer，则是 lvalue</li>
+<li>如果 <code>a</code> 是 lvalue，<code>m</code> 是成员变量，则 <code>a.m</code> 是 lvalue；如果 <code>m</code> 是成员变量，<code>p-&gt;m</code> 是 lvalue</li>
+<li>返回值为引用类型的函数调用表达式是 lvalue，因为返回值表征的是一个对象</li>
+<li>目标为引用的 cast expression 是 lvalue，如 <code>(int&amp;)(x)</code>，这一操作可以理解为初始化一个引用</li>
+<li>除了字符串字面量是 lvalue（因为字符串字面量的类型是 <code>const char[N]</code><sup><a href="https://timsong-cpp.github.io/cppwp/n4868/lex.string#5">lex.string#5</a></sup>）以外，其他字面量都是 rvalue。（用户自定义字面量不一定，我们会在后面讨论这个话题。）</li>
+</ul>
+<details class="info" open="open">
+<summary>lvalue-to-rvalue conversion</summary>
+<p>左值表征一个对象，而右值则是一个值。当我们将一个左值放在赋值表达式的右边时，如 <code>n = m;</code>，则会发生 <strong>lvalue-to-rvalue conversion</strong>，因为此时我们关注的是 <code>m</code> 这个对象中的值，而不是 <code>m</code> 这个对象本身。</p>
+</details>
+<h3 id="914-rvalue">9.1.4 rvalue<a class="headerlink" href="#914-rvalue" title="点击此处可置顶内容">&para;</a></h3>
+<p>rvalue 并不表征一个对象，非左值的表达式是右值。</p>
+<p>右值表达式通常被用来完成以下两件事之一：</p>
+<ul>
+<li>计算内置运算符的一个操作数<ul>
+<li>例如 <code>1 + 2 + 3</code> 中（假设从左到右计算），<code>1</code> 和 <code>2</code> 是 rvalue，作为第一个 <code>+</code> 的操作数；<code>1 + 2</code> 也是 rvalue，作为第二个 <code>+</code> 的操作数</li>
+</ul>
+</li>
+<li>初始化一个对象<ul>
+<li>初始化出的对象称为这个表达式的 result object</li>
+<li>例如 <code>int i = 1 + 2;</code>，或者 <code>void f(int x);</code>, <code>f(1)</code>。</li>
+</ul>
+</li>
+</ul>
+<p>右值包括：</p>
+<ul>
+<li>枚举数 (enumerator) 和除了字符串字面量以外的字面量是 rvalue</li>
+<li>内置的 <code>a++</code>, <code>a + b</code>, <code>a || b</code>, <code>a &lt; b</code>, <code>&amp;a</code> 等表达式是 rvalue</li>
+<li>返回值不是引用类型的函数调用表达式是 rvalue</li>
+<li>目标为非引用类型的 cast expression 是 rvalue，如 <code>int(3.0)</code></li>
+<li><code>this</code> 是 rvalue</li>
+<li>lambda 表达式是 rvalue</li>
+</ul>
+<h3 id="915">9.1.5 小结<a class="headerlink" href="#915" title="点击此处可置顶内容">&para;</a></h3>
+<p>简而言之：</p>
+<p>lvalue 是 locator，它计算出一个对象（的位置）</p>
+<p>而 rvalue 计算出的结果用于初始化对象 (result object)，或者执行进一步的计算</p>
+<h2 id="92-prvalue-xvalue">9.2 prvalue &amp; xvalue<a class="headerlink" href="#92-prvalue-xvalue" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="921">9.2.1 引入<a class="headerlink" href="#921" title="点击此处可置顶内容">&para;</a></h3>
+<p>上面的定义在大多数情况下工作良好，不过 C++ 中的两个东西会给上面的内容带来一些疑惑。</p>
+<div class="admonition info">
+<p class="admonition-title">问题 1：访问类右值的成员</p>
+<p>假如我有一个类 <code>struct Foo { int x, y, z; };</code>，有一个对象 <code>Foo f;</code>，那么我是如何访问到 <code>f.y</code> 的呢？</p>
+<p>事实上，访问它的方式是 base + offset，也就是我们会根据 <code>f</code> 的地址以及 <code>y</code> 在 <code>Foo</code> 中的偏移位置来找到 <code>f.y</code>。假设 <code>sizeof(int) == 4</code>，那么访问 <code>f.y</code> 的方式其实是 <code>*(f_addr + 4)</code>。</p>
+<p>那么问题来了！假如我有这样一个函数 <code>Foo func();</code>，如我们之前所说，<code>func()</code> 这个函数调用表达式是一个 <code>Foo</code> 类型的 rvalue。那么假如我们有 <code>int tmp = func().y;</code>，会发生什么？</p>
+<p>根据我们之前的讨论，这时其实我们会找 <code>*(ret_val_addr + 4)</code>。也就是说，虽然此时 <code>func()</code> 是一个 rvalue，且它的生命周期确实在这个声明语句结束后就结束了，但是此时它必须占内存，才能用来访问字段 <code>y</code>。也就是说，此时 <code>func()</code> 必须要表征一个对象了。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">问题 2：把右值绑定给 const 引用</p>
+<p>我们说过引用的实现类似于常指针，而指针必须指向一个 lvalue，因此引用也只能引用一个 lvalue。如 <code>int * pi = &amp;3;</code> 和 <code>int &amp; ri = 3;</code> 是非法的。</p>
+<p>不过我们讲过，「可以将一个临时对象绑定给一个 const 引用，这个临时对象的生命周期被延长以匹配这个 const 引用的生命周期」。一个例子是，<code>const int &amp; cr = 1;</code> 是合法的。不过这里有一个问题没有解释清楚，那就是，<code>1</code> 是个 rvalue，它并不表征一个对象；而我们把一个临时对象绑定给了 <code>cr</code>，这个临时对象是哪来的？</p>
+<p>唯一的答案是，此时我们需要使用 <code>1</code> 这个 rvalue 来初始化一个临时对象，用来绑定引用；临时对象本应在这个声明完成后结束，但生命周期被延长了。</p>
+<p>我们刚才说「rvalue 用来初始化对象」——当它用来绑定 const ref 时，事实上就是用来初始化了这个「临时对象」。</p>
+</div>
+<p>上面两个例子对我们之前的 value category 体系产生了一些动摇。我们用一个表格说明发生了什么：对于「是否临时」和「是否占内存」，左值和右值给出了相反的答案；但是刚才看到的两个问题产生了一种新的情况：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">value category</th>
+<th style="text-align: center;">是否是临时的</th>
+<th style="text-align: center;">是否占内存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>lvalue</strong> (left / locator value)</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>rvalue</strong> (right value)</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>?</strong></td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">是</td>
+</tr>
+</tbody>
+</table>
+<p>因此，C++ 给出了新的分类。它将我们之前讨论的 rvalue 更名为了 prvalue (pure rvalue)，而将新情况命名为 xvalue (expiring value)：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">value category</th>
+<th style="text-align: center;">是否是临时的</th>
+<th style="text-align: center;">是否占内存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>lvalue</strong> (left / locator value)</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>prvalue</strong> (<strong>pure</strong> right value)</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>xvalue</strong> (<strong>eXpiring</strong> value)</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">是</td>
+</tr>
+</tbody>
+</table>
+<p>我们来详细介绍一下 C++ 的 value category 结构。</p>
+<h3 id="922-prvalue">9.2.2 prvalue<a class="headerlink" href="#922-prvalue" title="点击此处可置顶内容">&para;</a></h3>
+<p>prvalue，如我们 9.1.4 中介绍的一样，用来完成这两种事情中的一种：</p>
+<ul>
+<li>计算内置运算符的一个操作数</li>
+<li>初始化一个对象<ul>
+<li><code>int i = 1;</code></li>
+<li><code>Foo func();</code>, <code>Foo f = func();</code><ul>
+<li>此时会发生 <a href="../6_class_3/#copy-elision">copy elision</a>，我们在本章后面也会再次讲解</li>
+</ul>
+</li>
+<li><code>const int &amp; r = 1;</code><ul>
+<li>此时，prvalue 转为 xvalue</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<details class="info">
+<summary>关于 copy elision</summary>
+<p>自 C++17 开始，在以下两种情况下，对拷贝的省略是强制的：</p>
+<p><strong>Case 1</strong>. 返回一个与返回值类型相同的 <strong>prvalue</strong>：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">T</span><span class="w"> </span><span class="nf">f</span><span class="p">()</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">T</span><span class="p">();</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">f</span><span class="p">();</span><span class="w"> </span><span class="c1">// only one call to default constructor of T</span>
+</span></code></pre></div>
+<p><strong>Case 2</strong>. 初始化表达式是相同类型的 <strong>prvalue</strong>：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="n">f</span><span class="p">()));</span><span class="w"> </span><span class="c1">// only one call to default constructor of T, to initialize x</span>
+</span></code></pre></div>
+<p>https://godbolt.org/z/vKhvxre7d</p>
+<p><img alt="" src="../assets/2023-08-15-18-36-02.png" /></p>
+<p>这里，我们使用编译器选项禁用了 NRVO。<code>bar</code> 和 <code>baz</code> 的区别在于前者的返回值是 prvalue，而后者不是；其类型都与返回值类型匹配。因此，根据 copy elision 的规则，前者是强制的 copy elision (Case 1)，而后者可以发生 NRVO，但被我们禁用了。我们观察并解释这 4 条语句的过程：</p>
+<ul>
+<li>首先，我们刻画函数返回值的过程。首先，<code>return</code> 语句的表达式被求值，然后这个值被返回给函数调用表达式，我们记函数调用表达式的值为 <code>__call_expr</code>。我们用两个下划线的前缀来表征它实际上是 prvalue，起名字只是便于我们理解。</li>
+<li>对于 <code>Foo f1 = bar();</code>，由于 copy elision (Case 1) 的存在，<code>Foo()</code> 直接会构造在 <code>__call_expr</code> 上，亦即 <code>Foo __call_expr = Foo();</code> (ctor here)，<code>Foo f1 = __call_expr;</code>（这里的 <code>__call_expr</code> 实际上是个 prvalue，因此发生 copy elision (Case 2)），因此只有一次构造函数被调用。</li>
+<li>对于 <code>Foo f2 = baz();</code>，由于没有 NRVO，构造出的 <code>Foo f = Foo();</code> (ctor here) 被返回。在 <code>return f;</code> 时，由于编译器首先尝试以移动的方式返回<sup id="fnref:ret_move"><a class="footnote-ref" href="#fn:ret_move">1</a></sup>，因此返回过程等价于 <code>Foo __call_expr = std::move(f);</code> (move ctor here)，然后发生 <code>Foo f2 = __call_expr;</code>（这里的 <code>__call_expr</code> 实际上是个 prvalue，因此发生 copy elision (Case 2)），因此共有 1 次构造和 1 次移动构造。</li>
+<li>对于 <code>f1 = bar();</code>，由于 copy elision (Case 1) 的存在，<code>Foo()</code> 直接会构造在 <code>__call_expr</code> 上，亦即 <code>Foo __call_expr = Foo();</code> (ctor here)，然后 <code>f1 = __call_expr;</code>（这里的 <code>__call_expr</code> 实际上是个 prvalue，因此 move assign here），因此发生 1 次构造函数和 1 次移动赋值。</li>
+<li>对于 <code>f2 = baz();</code>，过程是：<code>Foo f = Foo();</code> (ctor here), <code>Foo __call_expr = std::move(f);</code> (move ctor here), <code>f2 = __call_expr;</code> (move assign here)，因此发生 1 次构造函数、1 次移动构造和 1 次移动赋值。</li>
+</ul>
+</details>
+<h3 id="923-xvalue-temporary-materialization">9.2.3 xvalue 的产生：Temporary materialization<a class="headerlink" href="#923-xvalue-temporary-materialization" title="点击此处可置顶内容">&para;</a></h3>
+<p>任一完整类型 <code>T</code> 的 prvalue 都可以转换为 <code>T</code> 的 xvalue，这一转换称为 <strong>temporary materialization</strong>。这一转化用 prvalue 初始化一个临时对象，产生表示这个临时对象的 xvalue。</p>
+<p>temporary materialization 发生在如下情形中：</p>
+<ul>
+<li>将引用绑定到 prvalue，如 <code>const int &amp; r = 1;</code></li>
+<li>对类 prvalue 进行成员访问，如 <code>foo().x;</code>（此时 <code>x</code> 也是 xvalue）</li>
+<li>对于一个数组 prvalue <code>a</code>，对其进行 subscript <code>a[1]</code> 或者 array-to-pointer convsersion <code>f(a)</code> 时</li>
+<li>当 prvalue 是一个 discarded-value expression 时</li>
+</ul>
+<details class="info">
+<summary>discarded-value expression</summary>
+<p>这样的表达式只为其副作用而使用，其值本身没有被使用。这样的表达式如果是 prvalue，那么它会被 temporary materialization。例如（以下 <code>a</code>, <code>b</code> 均为 <code>int</code>）：</p>
+<ul>
+<li><code>a = 1;</code></li>
+<li><code>cout &lt;&lt; endl;</code></li>
+<li><code>void(x);</code></li>
+<li><code>a++, b++;</code> 中的 <code>a++</code></li>
+</ul>
+</details>
+<h3 id="924">9.2.4 小结<a class="headerlink" href="#924" title="点击此处可置顶内容">&para;</a></h3>
+<p>现在，我们就能看懂这张经典的 C++ value category 结构图了：</p>
+<p><img alt="" src="../assets/2023-10-04-04-08-48.png" /></p>
+<p>我们将原来表示「临时」的 rvalue 拆分成了 prvalue 和 xvalue 两种；将表示「占内存」的 lvalue 和 xvalue 统称为 <strong>glvalue (generalized lvalue)</strong>。</p>
+<p>lvalue, xvalue 和 prvalue 是 <strong>primary categories</strong>，表达式属于且仅属于其中之一；rvalue 和 glvalue 是 <strong>mixed categories</strong>，通常用于简便的表达。</p>
+<p>我们能够总结出这三种 primary categories 所具备的主要性质：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Property</th>
+<th style="text-align: center;">lvalue</th>
+<th style="text-align: center;">xvalue</th>
+<th style="text-align: center;">prvalue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>取地址</strong></td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">否*</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>被赋值</strong></td>
+<td style="text-align: center;">是，如果 modifiable</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>初始化引用</strong></td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">仅能初始化 const &amp;</td>
+<td style="text-align: center;">materialize 为 xvalue</td>
+</tr>
+</tbody>
+</table>
+<p>值得一提的是，理论上，xvalue 占内存因此可以被允许取地址，但是由于其生命周期通常即将在所在完整表达式结束时结束，因此获取它的地址在大多数情况下会引发错误。因此，C++ 并不允许对 xvalue 取地址。也是类似的原因，xvalue 也并不允许被赋值。</p>
+<h2 id="93">9.3 移动语义与右值引用<a class="headerlink" href="#93" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="931-moving-semantics">9.3.1 移动语义 | moving semantics<a class="headerlink" href="#931-moving-semantics" title="点击此处可置顶内容">&para;</a></h3>
+<p>我们刚刚给出了这样的表格：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">value category</th>
+<th style="text-align: center;">是否是临时的</th>
+<th style="text-align: center;">是否占内存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>lvalue</strong></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>prvalue</strong></td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>xvalue</strong></td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">是</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到，我们特别关注一个表达式是不是临时的。那么，「临时」到底有什么意义？</p>
+<p>回顾我们之前写出来的 <code>Container</code> 类模板：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Container</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">capa</span><span class="p">;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">Container</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">capa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">512</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">capa</span><span class="p">]),</span><span class="w"> </span><span class="n">capa</span><span class="p">(</span><span class="n">capa</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="o">~</span><span class="n">Container</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">Container</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Container</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">Container</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Container</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">capa</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">capa</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">            </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">            </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">rhs</span><span class="p">.</span><span class="n">capa</span><span class="p">];</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">            </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rhs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">        </span><span class="n">capa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">capa</span><span class="p">;</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">    </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="p">[](</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="p">[](</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">getSize</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">getCapa</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">capa</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">    </span><span class="n">Container</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">        </span><span class="cm">/* if full, expand storage */</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>考虑下面的代码会发生什么：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="c1">// perhaps use c in various ways</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="kt">void</span><span class="w"> </span><span class="n">bar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="c1">// perhaps use x in various ways</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">();</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>我们关注 <code>x = foo()</code> 这个表达式。我们之前说过，<a href="../6_class_3/#copy-elision">NRVO</a> 并不是强制的，因此我们不妨假设这里不会发生 NRVO。因此，这里 <code>Container&lt;int&gt;::operator=</code> 会被调用。这个函数的实现如下：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">Container</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Container</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">rhs</span><span class="p">.</span><span class="n">capa</span><span class="p">];</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1">// copy ...</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>我用一张图画出来了这里发生了什么：</p>
+<p><img alt="" src="../assets/2023-10-04-04-18-57.png" /></p>
+<p>明眼人都能看出，我们拷贝了一份 <code>b</code> 之后反手就把原来的 <code>b</code> 给释放了，这听起来有点蠢。假如我们能让 <code>x</code> 把 <code>foo()</code> 的 <code>b</code>「偷」过来，同时让 <code>foo()</code> 析构的时候不要释放 <code>b</code>，不就能省一份拷贝的时间了吗？也就是说我们希望：</p>
+<p><img alt="" src="../assets/2023-10-04-04-21-11.png" /></p>
+<p>用代码来说就是：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="cm">/* some type */</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">data</span><span class="p">;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">rhs</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// delete nullptr is safe</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>更干净优雅一点的做法是，既然 <code>x</code> 的 <code>b</code> 要被析构，那我们不妨直接把 <code>x</code> 和 <code>foo()</code> 的 <code>b</code> 交换一下：</p>
+<p><img alt="" src="../assets/2023-10-04-04-22-46.png" /></p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="cm">/* some type */</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">capa</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">capa</span><span class="p">);</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>而这其实就是「移动语义 (moving semantics)」的精髓：用资源的移动代替拷贝。</p>
+<p>不过，我们离移动语义还差临门一脚，那就是，上面代码中的 <code>/* some type */</code> 到底是什么？我们熟悉的类型似乎都走不通：</p>
+<ul>
+<li><code>Container&lt;T&gt; &amp;</code>?<ul>
+<li>rvalue 不能绑定给 non-const ref</li>
+</ul>
+</li>
+<li><code>const Container&lt;T&gt; &amp;</code>?<ul>
+<li>无法修改成员</li>
+</ul>
+</li>
+<li><code>Container&lt;T&gt; *</code>?<ul>
+<li>rvalue 不能取地址</li>
+</ul>
+</li>
+</ul>
+<p>因此，为了实现移动语义，C++11 引入了 <strong>右值引用</strong>。</p>
+<h3 id="932-rvalue-reference">9.3.2 右值引用 | rvalue reference<a class="headerlink" href="#932-rvalue-reference" title="点击此处可置顶内容">&para;</a></h3>
+<p>对于任何类型 <code>X</code>，<code>X&amp;&amp;</code> 被称为「对 <code>X</code> 的右值引用」。为了与此区分，<code>X&amp;</code> 现在也被称为「对 <code>X</code> 的左值引用」。</p>
+<p>右值引用只能绑定右值：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kt">int</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// Error: rvalue reference to type &#39;int&#39; cannot bind to lvalue of type &#39;int&#39;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kt">int</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">        </span><span class="c1">// OK, rvalue reference can be modified</span>
+</span></code></pre></div>
+<p>在 <code>int &amp;&amp; x = 1;</code> 时，实际上完成了 temporary materialization conversion，即虽然 <code>1</code> 本身是个 prvalue，但是它被用来初始化一个右值引用，因此它需要实际地占用一块内存（虽然这块内存在实际实现中仍然有可能被优化掉），因此我们创建了一个临时对象并用 <code>x</code> 绑定。</p>
+<p>左值引用和右值引用在「能做什么事」的方面没有区别，其区别是什么值可以绑定给这个引用。也就是说，右值引用是可以赋值的，赋值修改的其实就是 temporary materialization 出来的那个对象。</p>
+<h4 id="_1">移动构造与移动赋值<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h4>
+<p>这样，我们就可以实现之前的 <code>operator=</code> 了：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">capa</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">capa</span><span class="p">);</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>由于这样的赋值运算符实现移动语义，因此它也被称为 <strong>移动赋值运算符 (moving assignment operator)</strong> 。</p>
+<p>与移动赋值类似，移动构造函数完成通过移动语义构造一个对象。例如：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Container</span><span class="p">(</span><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="o">:</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="n">data</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">data</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">size</span><span class="p">),</span><span class="w"> </span><span class="n">capa</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">capa</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">        </span><span class="n">rhs</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="p">}</span>
+</span></code></pre></div>
+<p>注意：由于 C++17 的强制 copy elision，现在移动构造函数只会在用 xvalue 构造时被调用；用 prvalue 构造时，移动构造不会发生。</p>
+<p>这样，我们就能回答之前的问题了：「临时」意味着可以利用移动语义窃取（重用）其资源，从而避免不必要的拷贝。</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">foo</span><span class="p">();</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">bar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="c1">// perhaps use x and y in various ways</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">();</span><span class="w">  </span><span class="c1">// move assignment (if no copy elision)</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">      </span><span class="c1">// copy assignment</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">value category</th>
+<th style="text-align: center;">是否可以复用资源</th>
+<th style="text-align: center;">是否占内存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>lvalue</strong></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>prvalue</strong></td>
+<td style="text-align: center;">是 (materialize)</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>xvalue</strong></td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">是</td>
+</tr>
+</tbody>
+</table>
+<p>这样，我们就可以总结各个 value category 的分类依据了：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">Has identity (<strong>glvalue</strong>)</th>
+<th style="text-align: center;">Doesn't have identity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Can't be moved from</td>
+<td style="text-align: center;">lvalue</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;">Can be moved from (<strong>rvalue</strong>)</td>
+<td style="text-align: center;">xvalue</td>
+<td style="text-align: center;">prvalue's materalization</td>
+</tr>
+</tbody>
+</table>
+<h3 id="933-stdmove">9.3.3 <code>std::move</code><a class="headerlink" href="#933-stdmove" title="点击此处可置顶内容">&para;</a></h3>
+<p>现在，考虑这样一个例子：</p>
+<div class="language-c++ highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-13-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="p">{</span><span class="w"> </span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="nf">tmp</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="p">}</span><span class="w"> </span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p>这里，第 4 行用到的是拷贝构造而非移动构造；第 5 行和第 6 行用到的都是拷贝复制而非移动复制，因为 <code>a</code> 和 <code>b</code> 是左值而非右值。</p>
+<p><center><img alt="" src="../2023-04-24-01-25-33.png" /></center></p>
+<p>但是这是不好的——显然，在第 4 行之后，我们不再关心 <code>a</code> 的成员，因为在第 5 行我们即将将其覆盖；对 <code>b</code> 来说也是一样的。也就是说，如果这里我们采用移动语义，可以将 3 次拷贝变成 3 次移动，这能显著提高程序的性能。</p>
+<p>这几处使用拷贝语义而非移动语义的原因是，<code>a</code>, <code>b</code>, <code>tmp</code> 是个左值。如果我们希望使用移动语义，就需要将它们变成右值。我们如何将一个左值变为一个右值呢？事实上，C++ 中有以下规定：</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>对于一个函数调用表达式：</p>
+<ul>
+<li>如果函数返回值类型不是引用，则该表达式是 prvalue</li>
+<li>如果函数返回值类型是左值引用，则该表达式是 lvalue</li>
+<li>如果函数返回值类型是对象的右值引用，则该表达式是 xvalue<sup id="fnref2:cast_to_rvalue_ref"><a class="footnote-ref" href="#fn:cast_to_rvalue_ref">3</a></sup></li>
+</ul>
+<p>类似地，对于一个 cast 表达式：</p>
+<ul>
+<li>如果目标不是引用，则该表达式是 prvalue</li>
+<li>如果目标是左值引用，则该表达式是 lvalue</li>
+<li>如果目标是对象的右值引用，则该表达式是 xvalue<sup id="fnref:cast_to_rvalue_ref"><a class="footnote-ref" href="#fn:cast_to_rvalue_ref">3</a></sup></li>
+</ul>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">TODO</p>
+<p>为什么？</p>
+</div>
+<p>也就是说，我们可以通过将 <code>a</code>, <code>b</code>, <code>tmp</code> cast 到右值引用的方式实现将 lvalue 变为 xvalue，而 xvalue 是 rvalue 的一种。即：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">{</span><span class="w"> </span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="nf">tmp</span><span class="p">((</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="p">)(</span><span class="n">a</span><span class="p">));</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="p">)(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="p">)(</span><span class="n">tmp</span><span class="p">);</span><span class="w"> </span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">}</span><span class="w"> </span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</span></code></pre></div>
+<p>或者用更 C++ 的方式，使用 C++ style cast 而非 function style cast：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">{</span><span class="w"> </span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="nf">tmp</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span><span class="w"> </span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span><span class="w"> </span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</span></code></pre></div>
+<p>事实上，C++ 提供了函数 <code>std::move</code> 帮我们完成「将参数转换为右值」这个事情；我们稍后再讨论 <code>std::move</code> 是如何实现的：</p>
+<div class="language-c++ highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="p">{</span><span class="w"> </span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="nf">tmp</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span><span class="w"> </span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="p">}</span><span class="w"> </span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="n">Container</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p>如我们所愿，这种情况下会发生移动构造和移动赋值，而非拷贝；这在 <code>T</code> 需要 non-trivial copy（即 copy 不仅仅需要拷贝字段，还需要完成更多操作）的情况下会有性能提升：</p>
+<p><center><img alt="" src="../2023-04-24-01-49-28.png" /></center></p>
+<p>也就是说，虽然 <code>T foo(bar);</code> 这样的构造在 <code>bar</code> 是左值的时候会使用拷贝构造，但如果我们 <strong>明知</strong> <code>bar</code> 此后不会被用到，且通过 <code>std::move(bar)</code> <strong>明确告知</strong> 编译器这一点，那么我们就可以通过 <code>T foo(std::move(bar));</code> 的方式来实现移动构造。对于赋值也是类似。</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>看到这个例子后，我们能够意识到：<code>a = std::move(b);</code> 这样的移动赋值实际上就是交换了 <code>a</code> 和 <code>b</code> 的资源——双方都没有被析构。虽然 <code>a</code> 持有的资源会在 <code>b</code> 的生命周期结束时被销毁，但这和拷贝赋值对比，<code>a</code> 所持有资源的销毁时机变得不那么确定了。在没有什么副作用的情况下，这不会带来什么问题；但是假如这个销毁有外部可见的副作用，时机的不确定就会带来隐患。因此，对于移动赋值运算符，我们仍然需要处理析构过程中那些对外可见的副作用。一个例子是，假如每个对象构造时申请了一个锁，则在移动赋值运算符中，也应当将锁释放掉。</p>
+</details>
+<details class="note" open="open">
+<summary>既然可以 <code>static_cast&lt;T&amp;&amp;&gt;</code>，为什么还要 <code>std::move</code> 呢？</summary>
+<p>因为这样可以提高代码的可读性，同时便于查找。一个 cast 并不能显而易见地让人理解这里是要将 lvalue 转为 xvalue，而 <code>std::move</code> 则很容易表现这一点。另外，假如我们希望找到代码中所有这样的转换，我们就可以直接查找 <code>std::move</code> 的出现了。</p>
+</details>
+<h4 id="_2">右值引用本身是一个左值<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h4>
+<p>考虑这段代码的输出：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;int &amp;&amp;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="p">}</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;int &amp;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="p">}</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">lr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">rr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">    </span><span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">    </span><span class="n">foo</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="w">    </span><span class="n">foo</span><span class="p">(</span><span class="n">lr</span><span class="p">);</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">    </span><span class="n">foo</span><span class="p">(</span><span class="n">rr</span><span class="p">);</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><img alt="" src="../assets/2023-10-08-19-12-10.png" /></p>
+<p>容易看到，右值引用本身是一个左值，否则我们就没有办法完成诸如修改它的值之类的「对左值的」操作。为什么这样设计呢？</p>
+<p>一方面，右值引用和左值引用的区别不在于能做什么事，而只是在于什么值可以绑定给这个引用。</p>
+<p>另一方面，移动语义最开始的场景 <code>x = foo();</code> 是在「不影响结果的地方」使用，因为这样一定不会带来问题；而我们后来讨论的 <code>std::move</code> 的含义则是「程序员明确知道这里使用移动不影响结果」，程序员对这样的移动语义负责。但是，假如右值引用被视为一个右值，则可能会出现一些混乱的情况：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>如果右值引用被视为右值，则上面的 <code>y</code> 是被移动构造的；此时，<code>x</code> 的 <code>data</code> 变成了 <code>nullptr</code>，因此如果我们再尝试对 <code>x</code> 做操作就可能会发生问题，这是我们不希望的。移动语义最开始的场景 <code>x = foo();</code> 是在「不影响结果的地方」使用，因为这样一定不会带来问题；而 <code>std::move</code> 的含义则是「程序员明确知道这里使用移动不影响结果」，程序员对这样的移动语义负责。但是，如果右值引用被视为右值，上面的例子显示了移动语义可能会在程序员可能不明确了解且有可能影响后续结果的情况下发生；这是语言设计者不希望的。这也是右值引用被视为左值的另一个原因。</p>
+<p>同时，这也不违反我们「有名字的表达式是左值」的说法。</p>
+<p><a name="return_std_move"></a></p>
+<h4 id="return-stdmovex">为什么不要 <code>return std::move(x)</code><a class="headerlink" href="#return-stdmovex" title="点击此处可置顶内容">&para;</a></h4>
+<h3 id="934-member-functions-with-ref-qualifier">9.3.4 member functions with ref-qualifier<a class="headerlink" href="#934-member-functions-with-ref-qualifier" title="点击此处可置顶内容">&para;</a></h3>
+<p>非静态成员函数可以有 ref-qualifier，用来在重载解析阶段根据调用者的值类型选择不同的重载：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">S</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;lvalue</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;rvalue</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">};</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">    </span><span class="n">S</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">f</span><span class="p">();</span><span class="w">            </span><span class="c1">// prints &quot;lvalue&quot;</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">).</span><span class="n">f</span><span class="p">();</span><span class="w"> </span><span class="c1">// prints &quot;rvalue&quot;</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">    </span><span class="n">S</span><span class="p">().</span><span class="n">f</span><span class="p">();</span><span class="w">          </span><span class="c1">// prints &quot;rvalue&quot;</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>与 cv-qualification 不同，ref-qualification 不改变 <code>this</code> 指针的属性：在 rvalue ref-qualified function 中，<code>*this</code> 仍然是 lvalue。</p>
+<p>感兴趣的同学可以在 https://andreasfertig.blog/2022/07/the-power-of-ref-qualifiers/ 这篇文章中了解到 ref-qualifier 的详细用途。</p>
+<h2 id="94">9.4 移动构造函数与移动赋值运算符<a class="headerlink" href="#94" title="点击此处可置顶内容">&para;</a></h2>
+<h2 id="95-perfect-forwarding">9.5 完美转发 | Perfect forwarding<a class="headerlink" href="#95-perfect-forwarding" title="点击此处可置顶内容">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>有 <code>struct Foo {}; struct Bar : Foo {};</code>，那么 <code>Foo f = Bar();</code> 发生了什么？</p>
+<ul>
+<li>首先，<code>Bar()</code> 是一个 cast，得到一个 <code>Bar</code> 类型的 prvalue；</li>
+<li>我们要用这个 prvalue 构造 <code>f</code>，这时会用到 <code>Foo</code> 类隐式生成的移动构造函数 <code>Foo::Foo(Foo &amp;&amp;);</code></li>
+<li>为了将这个 prvalue 传递给 <code>Foo &amp;&amp;</code>，会发生一次 materialization</li>
+<li>即，实际发生的是 <code>Foo f = Foo(static_cast&lt;Foo &amp;&amp;&gt;(Bar()));</code></li>
+</ul>
+</div>
+<h2 id="_3">参考资料<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h2>
+<p>本文参考：</p>
+<ul>
+<li><a href="http://thbecker.net/articles/rvalue_references/section_01.html"><strong>C++ Rvalue References Explained</strong></a></li>
+<li><strong>value categories</strong><ul>
+<li><a href="https://youtu.be/XS2JddPq7GQ">Back to Basics: Understanding Value Categories - Ben Saks - CppCon 2019</a></li>
+<li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2010/n3055.pdf">A Taxonomy of Expression Value Categories</a></li>
+<li><a href="https://oneraynyday.github.io/dev/2020/07/03/Value-Categories">Value Categories</a></li>
+<li><a href="http://www.stroustrup.com/terminology.pdf">"New" Value Terminology by Bjarne Stroustrup, 2010.</a></li>
+</ul>
+</li>
+<li><strong>C++17 copy elision 和 value categories</strong><ul>
+<li>https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0135r0.html</li>
+<li>https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0135r1.html</li>
+</ul>
+</li>
+<li><strong>Perfect Forwarding &amp; <code>std::forward</code></strong><ul>
+<li><a href="https://stackoverflow.com/questions/42947358/std-forward-implementation-and-reference-collapsing">std forward implementation and reference collapsing</a></li>
+<li><a href="https://stackoverflow.com/questions/7779900/why-is-template-argument-deduction-disabled-with-stdforward/7780006#7780006">Why is template argument deduction disabled with std::forward?</a></li>
+<li><a href="https://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers">Universal References in C++11</a></li>
+<li><a href="https://www.modernescpp.com/index.php/perfect-forwarding">Perfect Forwarding</a></li>
+<li><a href="https://stackoverflow.com/questions/53257824/why-use-stdforwardt-instead-of-static-castt">Why use <code>std::forward&lt;T&gt;</code> instead of <code>static_cast&lt;T&amp;&amp;&gt;</code></a></li>
+</ul>
+</li>
+</ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:ret_move">
+<p>如果 <code>return</code> 语句中的表达式是函数体中的一个 implicitly movable entity<sup id="fnref:imp_mov_ent"><a class="footnote-ref" href="#fn:imp_mov_ent">2</a></sup>，则编译器首先尝试以移动的方式返回，即尝试先将表达式视为 rvalue；如果重载解析失败，再将表达式视为 lvalue 尝试以拷贝的方式返回。如果仍然失败，则编译错误。&#160;<a class="footnote-backref" href="#fnref:ret_move" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:imp_mov_ent">
+<p>Implicitly movable entity：具有 automatic storage duration 的一个 non-volatile object 或者 non-volatile object 的一个右值引用。&#160;<a class="footnote-backref" href="#fnref:imp_mov_ent" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:cast_to_rvalue_ref">
+<p>特别地，cast 到一个函数的右值引用，这个表达式是左值。&#160;<a class="footnote-backref" href="#fnref:cast_to_rvalue_ref" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:cast_to_rvalue_ref" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:move-eligible">
+<p>在 C++23，这句话添加了一个新的反例，参见 <a href="#return_std_move">为什么不要 <code>return std::move(x)</code></a>&#160;<a class="footnote-backref" href="#fnref:move-eligible" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月26日 14:38:29</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月26日 14:38:29</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+        <script src="../../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>
