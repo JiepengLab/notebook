@@ -4,8 +4,10 @@
 
 !!! note "目前正在学习"
 
-    - [ ] [数值分析](./NA/index.md)
-    - [ ] [人工智能初步](./AI_Start/index.md)
-    - [ ] [数字逻辑设计](./DigitalDesign/index.md)
-    - [ ] [图像信息处理](./DIP/index.md)
-    - [ ] [数据结构基础](./FDS/index.md)
+
+
+- [x] [数值分析](./NA/index.md)
+- [x] [人工智能初步](./AI_Start/index.md)
+- [x] [数字逻辑设计](./DigitalDesign/index.md)
+- [x] [图像信息处理](./DIP/index.md)
+- [x] [数据结构基础](./FDS/index.md)

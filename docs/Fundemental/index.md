@@ -4,6 +4,8 @@
 
 ## 目前正在学习
 
-- [ ] [数学建模](./Mathematical%20Modeling/index.md)
-- [ ] [概率论与数理统计](./Probability%20and%20Mathematical%20Statistics/index.md)
-- [ ] [大学物理(乙)II](./Physics-II/index.md)
+## 完成学习
+
+- [x] [数学建模](./Mathematical%20Modeling/index.md)
+- [x] [概率论与数理统计](./Probability%20and%20Mathematical%20Statistics/index.md)
+- [x] [大学物理(乙)II](./Physics-II/index.md)

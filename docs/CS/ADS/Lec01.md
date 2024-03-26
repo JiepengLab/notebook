@@ -425,7 +425,7 @@
 我个人认为主要有两个维度，一是保持二叉搜索树的性质，二是保持平衡的性质，我的证明内容折叠起来了，建议读者可以先自己思考一下再展开看看我的想法。
 
 ??? proof "二叉搜索树性质的保持"
-    ![](./img/1.png){ width=30% align=right }
+    ![A](./img/1.png){ width=30% align=right }
 
     不知道读者是否发现，对于一个排列得当的二叉搜索树，如果我从左到右，使用一条竖直的扫描线扫描整个树，将会得到一个单调序列，这也正对应着这个二叉搜索树所维护的有序数列。
 
@@ -768,11 +768,11 @@ Splay 的核心思想就是，每当我们访问一个节点（比如查询某�
     例如我们查询点 $k_1$，则会通过旋转将它转到根。
 
     === "Frame 1"
-        ![](./img/2.png)
+        ![A](./img/2.png)
     === "Frame 2"
-        ![](./img/3.png)
+        ![A](./img/3.png)
     === "Frame 3"
-        ![](./img/4.png)
+        ![A](./img/4.png)
 
     可以发现，Frame 1 ~ 2 就是我们前面提到过的 **[LR Rotation](#lr--rl){target="_blank"}**，而 Frame 2 ~ 3 就是经过了两次 **[LL Rotation](#ll--rr){target="_blank"}**。当然，在 Splay 里这些操作都有了新的名字。
 
@@ -793,7 +793,7 @@ Splay 的核心思想就是，每当我们访问一个节点（比如查询某�
         - 当情况为 LL / RR 时，进行两次 [Single Rotation](#ll--rr){target="_blank"}，使得 X、P、G 的顺序逆转，像跷跷板一样，我们称之为 zig-zig；
     - 不断对 X 进行 Splay 操作，直到 X 成为根节点；
 
-![](./img/5.png)
+![A](./img/5.png)
 
 可以发现，其具体操作基本就和 AVL 树的相关操作有很大重合。
 
@@ -880,7 +880,7 @@ $$
 #### zig
 
 !!! section "Amortized Analysis for Zig"
-    ![](img/60.png)
+    ![A](img/60.png)
 
     $$
     \begin{aligned}
@@ -953,7 +953,7 @@ $$
 
 
 !!! section "Amortized Analysis for Zig-Zag"
-    ![](img/61.png)
+    ![A](img/61.png)
 
     $$
     \begin{aligned}
@@ -1027,7 +1027,7 @@ $$
 #### zig-zig
 
 !!! section "Amortized Analysis for Zig-Zig"
-    ![](img/62.png)
+    ![A](img/62.png)
 
     $$
     \begin{aligned}
