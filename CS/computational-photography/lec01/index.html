@@ -14,15 +14,15 @@
       
       
       <link rel="icon" href="../../../images/icon.jpg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
-        <title>Lec01 - Jiepeng's notes</title>
+        <title>Lec01 颜色空间、图像的数字化、滤波与频域变换 - Jiepeng's notes</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -120,6 +120,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#lec01" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -149,7 +154,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lec01
+              Lec01 颜色空间、图像的数字化、滤波与频域变换
             
           </span>
         </div>
@@ -698,6 +703,235 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      颜色空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="颜色空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hue" class="md-nav__link">
+    <span class="md-ellipsis">
+      色调 | Hue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      饱和度 | Saturation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brightness" class="md-nav__link">
+    <span class="md-ellipsis">
+      亮度 | Brightness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      颜色空间 | Color Space
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像的数字化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像格式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      滤波与频域变换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="滤波与频域变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      滤波
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号在频率域的表现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      频谱图的解释
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="频谱图的解释">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      周期性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="周期性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      中心化频谱
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      高低频率的分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      频谱图的能量分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      纵横“交错”性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些特殊频谱图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      频谱图的应用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="频谱图的应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      低通/高通滤波
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      更方便的卷积
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -715,11 +949,124 @@
   
 
 
-  <h1>Lec01</h1>
-
+<h1 id="lec01">Lec01 颜色空间、图像的数字化、滤波与频域变换<a class="headerlink" href="#lec01" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 0 个字 </p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 2338 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 12 分钟</p>
 </div>
+<h2 id="_1">颜色空间<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h2>
+<p>光的光谱可以用波长在 400nm 到 700nm 之间单位时间的光子数量来描述。</p>
+<p>尽管没有一个简单的函数可以描述所有观察条件下的光的颜色，但使用正态分布来描述物理光谱是一种有用的近似方法，可以在许多情况下提供对光的颜色和频谱特性的定量描述。</p>
+<h3 id="hue">色调 | Hue<a class="headerlink" href="#hue" title="点击此处可置顶内容">&para;</a></h3>
+<p>色调（hue），指的是颜色外观，用于区别颜色的种类，即当前光子的波长均值对应的颜色。</p>
+<p><img alt="alt text" src="../images/image.png" /></p>
+<h3 id="saturation">饱和度 | Saturation<a class="headerlink" href="#saturation" title="点击此处可置顶内容">&para;</a></h3>
+<p>饱和度（hue），指的是颜色的纯洁性，用于区分颜色的明暗程度，完全饱和的颜色是指没有渗入白光所呈现的颜色，单一波长组成的光谱色就是完全饱和的颜色。与当前光子波长的方差有关。</p>
+<p><img alt="alt text" src="../images/image-1.png" /></p>
+<h3 id="brightness">亮度 | Brightness<a class="headerlink" href="#brightness" title="点击此处可置顶内容">&para;</a></h3>
+<p>亮度（brightness）指的是视觉系统对可见物体辐射或者发光多少的感知属性。与当前光子波长围成的面积有关。</p>
+<p><img alt="alt text" src="../images/image-2.png" /></p>
+<h3 id="color-space">颜色空间 | Color Space<a class="headerlink" href="#color-space" title="点击此处可置顶内容">&para;</a></h3>
+<p>之前<a href="../../DIP/dip1/">DIP的笔记</a>里面有详细的介绍</p>
+<h2 id="_2">图像的数字化<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h2>
+<p>图像数字化是将连续色调的模拟图像经采样量化后转换成数字影像的过程。数字化过程主要分为以下三个步骤：</p>
+<ol>
+<li>采样</li>
+<li>量化</li>
+<li>编码</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">采样</p>
+<p>采样的实质就是要用多少点来描述一幅图像，采样结果质量的高低就是用前面所说的<strong>图像分辨率</strong>来衡量。</p>
+<p><img alt="alt text" src="../images/image-3.png" width="50%" /></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">量化</p>
+<p>量化是指要使用多大范围的数值来表示图像采样之后的每一个点。量化的结果是图像能够容纳的颜色总数，它反映了采样的质量。</p>
+<div class="admonition note">
+<p>如果以4位存储一个点，就表示图像只能有16种颜色；若采用16位存储一个点，则有216=65536种颜色。所以，量化位数越来越大，表示图像可以拥有更多的颜色，自然可以产生更为细致的图像效果。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">量化原则</p>
+<ul>
+<li>
+<p>等间隔量化（均匀量化）—— 适合像素灰度值在黑白范围较均匀分布的图像。</p>
+</li>
+<li>
+<p>非等间隔量化（非均匀量化）—— 对图像中像素灰度值频繁出现的灰度值范围，量化间隔取小一些，而对那些像素灰度值极少出现的范围，则量化间隔取大一些。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">编码</p>
+<p>数字化后得到的图像数据量十分巨大，必须采用编码技术来压缩其信息量。在一定意义上讲，编码压缩技术是实现图像传输与储存的关键。已有许多成熟的编码算法应用于图像压缩。常见的有图像的<strong>预测编码</strong>、<strong>变换编码</strong>、<strong>分形编码</strong>、<strong>小波变换图像压缩编码</strong>等。</p>
+</div>
+<h2 id="_3">图像格式<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h2>
+<p>之前<a href="../../DIP/dip1/">DIP的笔记</a>里面有详细的介绍</p>
+<h2 id="_4">滤波与频域变换<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="_5">滤波<a class="headerlink" href="#_5" title="点击此处可置顶内容">&para;</a></h3>
+<p>之前DIP的笔记<a href="../../DIP/dip5/">(卷积和滤波 | Convolution and Filtering)</a>里面有详细的介绍</p>
+<h3 id="_6">频域变换<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h3>
+<p>这个之前没学好，这里再学习一下。</p>
+<p><strong>傅里叶变换</strong>是一种函数在空间域和频率域的变换，从<strong>空间域到频率域的</strong>变换是<strong>傅里叶变换</strong>，而从<strong>频率域到空间域</strong>是<strong>傅里叶的反变换</strong>.</p>
+<p><strong>时域</strong>是描述数学函数或物理信号对<strong>时间</strong>的关系。例如一个信号的时域波形可以表达信号<strong>随着时间的变化</strong>。若考虑<strong>离散</strong>时间，时域中的函数或信号，在各个<strong>离散时间点的数值</strong>均为已知。若考虑<strong>连续</strong>时间，则函数或信号在<strong>任意时间</strong>的数值均为已知。在研究时域的信号时，常会用示波器将信号转换为其时域的波形。</p>
+<p><strong>频域</strong>是指在对函数或信号进行分析时，分析其和频率有关部分，而不是和时间有关的部份，和时域一词相对。</p>
+<p>时域（信号对时间的函数）和频域（信号对频率的函数）的变换在数学上是通过积分变换实现。对<strong>周期</strong>信号可以直接使用<strong>傅立叶变换</strong>，对<strong>非周期信号</strong>则要进行周期扩展，使用<strong>拉普拉斯变换</strong>。</p>
+<h3 id="_7">信号在频率域的表现<a class="headerlink" href="#_7" title="点击此处可置顶内容">&para;</a></h3>
+<p>在频域中，<strong>频率越大</strong>说明原始信号<strong>变化速度越快</strong>；<strong>频率越小</strong>说明原<strong>始信号越平缓</strong>。当频率为0时，表示直流信号，没有变化。因此，频率的大小反应了信号的变化快慢。高频分量解释信号的突变部分，而低频分量决定信号的整体形象。</p>
+<p><img alt="alt text" src="../images/image-4.png" /></p>
+<p>在图像处理中，频域反应了图像在空域<strong>灰度变化剧烈程度</strong>，也就是图像灰度的变化速度，也就是图像的梯度大小。对图像而言，图像的<strong>边缘部分</strong>是<strong>突变部分</strong>，变化较快，因此反应在频域上是<strong>高频分量</strong>；图像的<strong>噪声</strong>大部分情况下是高频部分；图像<strong>平缓变化部分</strong>则为<strong>低频分量</strong>。也就是说，傅立叶变换提供另外一个角度来观察图像，可以将图像从灰度分布转化到频率分布上来观察图像的特征。书面一点说就是，傅里叶变换提供了一条从空域到频率自由转换的途径。对图像处理而言，以下概念非常的重要：</p>
+<ul>
+<li>图像高频分量：图像突变部分；在某些情况下指图像边缘信息，某些情况下指噪声，更多是两者的混合；</li>
+<li>低频分量：图像变化平缓的部分，也就是图像轮廓信息</li>
+<li>高通滤波器：让图像使低频分量抑制，高频分量通过</li>
+<li>低通滤波器：与高通相反，让图像使高频分量抑制，低频分量通过</li>
+<li>带通滤波器：使图像在某一部分的频率信息通过，其他过低或过高都抑制</li>
+<li>还有个带阻滤波器，是带通的反。</li>
+</ul>
+<h2 id="_8">频谱图的解释<a class="headerlink" href="#_8" title="点击此处可置顶内容">&para;</a></h2>
+<p>我发现我最难以理解的是频谱图的解释，所以这里着重讲一下。</p>
+<div class="admonition note">
+<p>二维频谱中的每一个点都是一个与之一一对应的二维正弦/余弦波。</p>
+</div>
+<p><img alt="alt text" src="../images/image-5.png" /></p>
+<h3 id="_9">周期性<a class="headerlink" href="#_9" title="点击此处可置顶内容">&para;</a></h3>
+<p>对于DFT而言，它的<strong>空域</strong>和<strong>频域</strong>始终都是沿着X和Y方向无限周期拓展的。如果只取其中的一个周期，则我们会得到如下频谱未中心化的结果。</p>
+<p><img alt="alt text" src="../images/image-6.png" /></p>
+<h4 id="_10">中心化频谱<a class="headerlink" href="#_10" title="点击此处可置顶内容">&para;</a></h4>
+<p>为了便于频域的滤波和频谱的分析，常常在变换之前进行频谱的中心化。</p>
+<p>从数学上说是在变换之前用指数项乘以原始函数，又因为<span class="arithmatex">\(e^{jπ} = 1\)</span>，所以往往我们在写程序的时候实际上是把原始矩阵乘以<span class="arithmatex">\((-1)^{x+y}\)</span>达到频谱居中的目的。</p>
+<p>如下图所示：1&lt;—–&gt;3 对调，2&lt;—–&gt;4 对调。</p>
+<p><img alt="alt text" src="../images/image-7.png" /></p>
+<p><img alt="alt text" src="../images/image-8.png" /></p>
+<p>截取其中一个周期，作为图像的频谱</p>
+<p><img alt="alt text" src="../images/image-9.png" /></p>
+<h3 id="_11">高低频率的分布<a class="headerlink" href="#_11" title="点击此处可置顶内容">&para;</a></h3>
+<p>除了周期性之外，还应该知道的就是哪里是高频哪里是低频。在经过频谱居中后的频谱中，中间最亮的点是最低频率，属于直流分量（DC分量）。越往边外走，频率越高。所以，频谱图中的四个角和X,Y轴的尽头都是高频。</p>
+<p><img alt="alt text" src="../images/image-10.png" /></p>
+<p>没有经过频谱居中处理的频谱图则正好相反，中间区域是高频，而四个角则是DC低频分量。</p>
+<p><img alt="alt text" src="../images/image-11.png" /></p>
+<h3 id="_12">频谱图的能量分布<a class="headerlink" href="#_12" title="点击此处可置顶内容">&para;</a></h3>
+<p>这里我顺便提一下频谱中的能级分布，则如下图所示。明显，DC分量所占能量最大最多，不论是二维还是一维都应该是这样。频率越高的部分，能量越少。如下图所示，图示画的不好，勉强能够理解就好。中间最小的那个圆圈内包含了大约85%的能量，中间那个圈包含了大约93%的能量，而最外面那个圈则包含了几乎99%的能量。</p>
+<p><img alt="alt text" src="../images/image-12.png" /></p>
+<h3 id="_13">纵横“交错”性<a class="headerlink" href="#_13" title="点击此处可置顶内容">&para;</a></h3>
+<p>在二维傅里叶变换中，空间域中横向的周期变化会反应在频谱图中的Y轴上，而空间域中纵向的周期变化会反应在频谱图中的X轴上。空间域中东南方向的周期变化会反应在频谱图中的东北方向，反之亦然。说明见下图。</p>
+<p><img alt="alt text" src="../images/image-13.png" /></p>
+<p><img alt="alt text" src="../images/image-14.png" /></p>
+<p><img alt="alt text" src="../images/image-15.png" /></p>
+<p><img alt="alt text" src="../images/image-16.png" /></p>
+<h3 id="_14">一些特殊频谱图<a class="headerlink" href="#_14" title="点击此处可置顶内容">&para;</a></h3>
+<p><a href="https://www.cnblogs.com/xh6300/p/5956503.html">https://www.cnblogs.com/xh6300/p/5956503.html</a></p>
+<h3 id="_15">频谱图的应用<a class="headerlink" href="#_15" title="点击此处可置顶内容">&para;</a></h3>
+<h4 id="_16">低通/高通滤波<a class="headerlink" href="#_16" title="点击此处可置顶内容">&para;</a></h4>
+<p>高通滤波就是保留频率比较高的部分，即突出边缘；低通滤波就是保留频率比较低的地方，即平滑图像，弱化边缘，消除噪声。</p>
+<p><img alt="alt text" src="../images/image-17.png" /></p>
+<p>低频：区域 高频：边界</p>
+<h4 id="_17">更方便的卷积<a class="headerlink" href="#_17" title="点击此处可置顶内容">&para;</a></h4>
+<p>时域卷积的傅里叶变换等于傅里叶变换在频域的乘积。</p>
+<p><img alt="alt text" src="../images/image-18.png" /></p>
+<p><img alt="alt text" src="../images/image-19.png" /></p>
+<p>高斯滤波在频域上是一个以高斯核加权的低通滤波，这代表边缘的高频部分被抑制，图像会变平滑。</p>
 
 
 
@@ -742,7 +1089,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月26日 14:38:29</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月2日 13:16:24</span>
   </span>
 
     
@@ -825,7 +1172,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="../../../assets/javascripts/katex.js"></script>
       
