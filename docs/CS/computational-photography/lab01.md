@@ -1,4 +1,8 @@
-# LAB 01
+# [LAB 1 OpenCV 的安装和使用](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab1-hellocv/hellocv.html)
+
+我一开始是使用 VS2017，后面感觉还是不如 VSCode 顺手，所以就转到了 VSCode 上面。
+
+OpenCV用的还是在课程网站上下载的3.4.5版本，配置环境主要参考了[VScode搭建Opencv（C++开发环境）](https://blog.csdn.net/qq_45022687/article/details/120241068)这篇文章，辅以[如何优雅地在你的Vscode上使用opencv（C++接口，Windows篇，实则踩坑经历）](https://zhuanlan.zhihu.com/p/402378383)。
 
 ``` cpp
 #include <opencv2/opencv.hpp>
@@ -13,7 +17,6 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 ```
-
 
 ## Task 1
 
@@ -118,7 +121,7 @@ int main(int argc, char *argv[])
 
 图像的长宽要怎么获得?图像的长和宽与矩阵的行数列数是什么关系？
 
-在OpenCV中，图像的长和宽分别对应矩阵的行数和列数。你可以使用 `image.rows` 和 `image.cols` 来获取图像的长和宽。
+在OpenCV中，图像的长和宽分别对应矩阵的行数和列数。可以使用 `image.rows` 和 `image.cols` 来获取图像的长和宽。
 
 ``` cpp
 #include <opencv2/opencv.hpp>

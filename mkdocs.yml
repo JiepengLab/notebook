@@ -158,6 +158,9 @@ nav:
       - ./CS/ADS/index.md
     - 计算摄影学:
       - ./CS/Computational-Photography/index.md
+      - 颜色空间、图像的数字化、滤波与频域变换: ./CS/Computational-Photography/lec01.md
+      - 泊松图像编辑与交互式数字蒙太奇: ./CS/Computational-Photography/lec02.md
+
 
 
   - 校外CS课程: 
