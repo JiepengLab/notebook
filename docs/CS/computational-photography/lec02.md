@@ -232,11 +232,18 @@ $$\mathbf{v}=\nabla g$$
 
 ## 交互式数字蒙太奇 | Interactive Digital Montage
 
+[论文：Interactive Digital Photomontage](https://grail.cs.washington.edu/projects/photomontage/)
+
 交互式数字蒙太奇是一种结合了数字图像处理和人工干预的图像合成方法，它允许用户通过交互式的方式对图像进行合成。这种方法通常包括用户交互式地选择和调整图像元素，并在图像合成过程中实时预览效果，以便用户能够直观地调整合成效果。
 
 交互式数字蒙太奇在之前介绍的泊松融合上进了一步，引入了graph cut，使得用户可以更加方便地进行交互（之前的融合区域需要自己选定，但是现在只需要用brush大致刷一下，然后graph cut会自己去计算这个边缘）
 
 利用**graph-cut**本身就可以实现一个融合的效果，因为去优化的时候也是要求平滑的，但是这样拼接之后毕竟不是相同的照片，拼接处总会有seam存在，所以再做一次**gradient-domain fusion**，就可以效果比较好
+
+整个操作流程分为两步
+
+1. 首先是用户使用笔刷在图像上操作，然后由graph cut决定分割区域
+2. 然后就是在梯度域上做融合
 
 ![alt text](images/image-38.png)
 
