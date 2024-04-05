@@ -160,7 +160,9 @@ nav:
       - ./CS/Computational-Photography/index.md
       - 颜色空间、图像的数字化、滤波与频域变换: ./CS/Computational-Photography/lec01.md
       - 泊松图像编辑与交互式数字蒙太奇: ./CS/Computational-Photography/lec02.md
-
+      - 交互式图像分割与抠像: ./CS/Computational-Photography/lec03.md
+      - Appendix:
+        - Hammersley-Clifford定理的证明: ./CS/Computational-Photography/Hammersley-Clifford.md
 
 
   - 校外CS课程: 
@@ -340,6 +342,7 @@ extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/glightbox.min.css
   - assets/stylesheets/galaxy.css
+  - assets/stylesheets/charging.css
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
   - https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
 # - https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.1.0/style.css

@@ -241,4 +241,51 @@ GMM是一种聚类算法，每个component就是一个聚类中心。为了在�
         - $\Lambda$为标号随机变量 $x_s$ 的集合；
         - $L$表示将图像分割为不同区域的数目。
 
+    ??? note "邻域系统"
+        比较好理解，但是定义比较拗口。简单来说，就是对于一个像素点，它的邻域是指与它相邻的像素点。
+
+        ![alt text](images/image-75.png)
+
+        ![alt text](images/image-76.png)
+
+        ![alt text](images/image-77.png)
+
+        !!! note "子团"
+
+            ![alt text](images/image-78.png)
+
+            ![alt text](images/image-79.png)
+
+#### 马尔科夫随机场的数学定义
+
+!!! warning ""
+    这里我觉得PPT上的不太对，用的是[浙江大学学报 · 基于马尔科夫专家场的泊松噪声图像去噪方法](https://www.zjujournals.com/eng/article/2020/1008-973X/202006013.shtml)的表述
+
+设$\delta$为 $S$ 上的邻域系统，若随机场 $X=\{X_s,s\in S\}$满足如下条件：
+
+$$
+\begin{cases}
+P=\{X=x\}>0\quad\forall x\in \Lambda\\
+P=\{X_s=x_s,r\neq s,\forall r\in\mathcal{\delta}(s)\}=
+P\left\{X_s=x_r,X_r=x_r,\forall r\in\mathcal{\delta}(s)\right\}
+\end{cases}
+$$
+
+则称$X$为以$\delta$为邻域系统的马尔可夫随机场，第二个式子称为马尔可夫随机场的局部特性
+
+!!! note "什么叫做以$\delta$为邻域系统的马尔可夫随机场？"
+    在任意格点 $s$ 的其余格点位置上随机变量$x_s$ 取值已知的条件下，随机场在格点 $s$ 处的取值概率只与格点 $s$ 的 $\delta$ 相邻点有关。
+
+!!! note ""
+    在图像中，$P(\cdot)$ 表示标号场的先验概率，$P(\cdot |\cdot)$表示邻域系统标号的局部作用关系
+
+在数字图像中，一个象元的灰度值仅与其邻域系统内各象元的灰度值有关，因而可以利用马尔科夫随机场来模拟数字图像。当邻域系统 $\delta$ 足够大时，任何定义在 $S$ 上的图像数据均可看成马尔科夫随机场的一个实现。
+
+#### MRF 与 Gibbs 分布的等价关系
+
+由于标号场先验概率和标号场的邻域局部关系在实际应用中很难确定，20世纪80年代Hammersley-Clifford给出了Gibbs分布与MRF的关系，从而用Gibbs分布求解MRF中的概率分布。
+
+!!! note ""
+
+    [证明过程](Hammersley-Clifford.md)
 

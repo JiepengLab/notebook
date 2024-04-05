@@ -41,6 +41,14 @@
          ![Alt text](images/image.jpg)
 
 ??? note "Done"
+
+    <div class="g-container">
+        <div class="g-number">157/157</div>
+        <div class="g-contrast">
+                <div class="g-circle"></div>
+        </div>
+    </div>
+
     - [x] ***(9.25)*** 大学物理(乙)II P236: T18, 20, 25, 29; P258: T2
     - [x] ***(9.28)*** 概率论与数理统计: 习题一: A4, A5, A12, A15, A16
     - [x] ***(10.3)*** 数值分析: [Lab01](https://pintia.cn/problem-sets/1703781351641436160)

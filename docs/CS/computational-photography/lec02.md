@@ -1,8 +1,10 @@
 # Lec02 泊松图像编辑与交互式数字蒙太奇
 
 !!! note "好的笔记"
-    [计算摄影学03——泊松图像编辑](https://zhuanlan.zhihu.com/p/600486614)
-    [计算摄影学03——交互式数字蒙太奇](https://zhuanlan.zhihu.com/p/600490441)
+
+    - [计算摄影学03——泊松图像编辑](https://zhuanlan.zhihu.com/p/600486614)
+
+    - [计算摄影学03——交互式数字蒙太奇](https://zhuanlan.zhihu.com/p/600490441)
 
 ## 图像融合 | Image Blending
 
