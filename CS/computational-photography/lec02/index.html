@@ -909,24 +909,15 @@
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      最小割和最大流
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="最小割和最大流">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
       最小割
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="最小割">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       最大流
     </span>
@@ -935,7 +926,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       最小割和最大流的关系
     </span>
@@ -958,7 +949,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       图割的意义
     </span>
@@ -977,6 +968,108 @@
       多标签图割 | Multi-Label Graph-Cuts
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="多标签图割 | Multi-Label Graph-Cuts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-penalty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Penalty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interaction-penalty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interaction Penalty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-domain-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gradient-domain fusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展景深
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relighting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stroboscopic-visualization-of-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stroboscopic visualization of movement
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selective-composites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selective composites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-lapse-mosaics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time-lapse mosaics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean-plate-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean-plate production
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1005,7 +1098,7 @@
 
 <h1 id="lec02">Lec02 泊松图像编辑与交互式数字蒙太奇<a class="headerlink" href="#lec02" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 4708 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 18 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 24 分钟</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 5585 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 18 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 28 分钟</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">好的笔记</p>
@@ -1109,17 +1202,17 @@
 <p><strong>应用于图像中——离散化</strong></p>
 <p>在离散化的图像中，我们可以将泊松方程表示为：</p>
 <div class="arithmatex">\[
-\min_{f|\Omega}\sum_{\langle p,q\rangle\cap\boldsymbol{\Omega}\neq\boldsymbol{\emptyset}}(f_p-f_q-v_{pq})^2,\mathrm{~with~}f_p=f_p^*,\text{for all }p\in\partial\boldsymbol{\Omega}
+\min_{f|\Omega}\sum\limits_{\langle p,q\rangle\cap\boldsymbol{\Omega}\neq\boldsymbol{\emptyset}}(f_p-f_q-v_{pq})^2,\mathrm{~with~}f_p=f_p^*,\text{for all }p\in\partial\boldsymbol{\Omega}
 \]</div>
 <p>这里，<span class="arithmatex">\(v_{pq}=\mathbf{v}(\frac{p+q}{2})\cdot\vec{v}_{pq}\)</span></p>
 <p>我们有</p>
 <div class="arithmatex">\[
-\mathrm{for}\; \forall p\in\Omega,\quad|N_p|f_p-\sum_{q\in\mathbb{N}_p\cap\Omega}f_q=\sum_{q\in\mathbb{N}_p\cap\partial\Omega}f_q^*+\sum_{q\in\mathbb{N}_p}v_{pq}
+\mathrm{for}\; \forall p\in\Omega,\quad|N_p|f_p-\sum\limits_{q\in\mathbb{N}_p\cap\Omega}f_q=\sum\limits_{q\in\mathbb{N}_p\cap\partial\Omega}f_q^*+\sum\limits_{q\in\mathbb{N}_p}v_{pq}
 \]</div>
 <p>这里 $ N_p$ 表示与像素点p相邻的四个像素的集合（上下左右）；整个式子就是 <span class="arithmatex">\(|N_p|\)</span>个<span class="arithmatex">\(f_p-f_q-v_{pq}=0\)</span>的方程。</p>
 <p>当<span class="arithmatex">\(p \in \partial \Omega\)</span> 时，<span class="arithmatex">\(|N_p|&lt;4&gt;\)</span>; 当 <span class="arithmatex">\(p\)</span> 为内部的点（<span class="arithmatex">\(N_p \subset \Omega\)</span>），就没有右边 <span class="arithmatex">\(f_q^*\)</span> 的项.</p>
 <div class="arithmatex">\[
-|N_p|f_p-\sum_{q\in\mathbb{N}_p\cap\Omega}f_q=\sum_{q\in\mathbb{N}_p}v_{pq}
+|N_p|f_p-\sum\limits_{q\in\mathbb{N}_p\cap\Omega}f_q=\sum\limits_{q\in\mathbb{N}_p}v_{pq}
 \]</div>
 <p>最终我们就变成了一个解线性方程组 <span class="arithmatex">\(Af=b\)</span> 的问题，其中 <span class="arithmatex">\(A\)</span> 就是所有像素点个数<span class="arithmatex">\(\times\)</span>所有像素点个数的矩阵，边界就是属于那个位置的对角元素是1，内部点就是-4，然后相邻的就是1；<span class="arithmatex">\(f\)</span>为待求解的像素值，<span class="arithmatex">\(b\)</span>为右边的值。</p>
 <p>该方程是带状稀疏（banded sparse）、对称（symmetric）、正定矩阵（positive-definite），可用高斯-塞德尔迭代法求解。</p>
@@ -1170,8 +1263,7 @@
 <p><img alt="alt text" src="../images/image-52.png" /></p>
 <h3 id="graph-cut">图割 | Graph Cut<a class="headerlink" href="#graph-cut" title="点击此处可置顶内容">&para;</a></h3>
 <p>Graph Cut（图形切割）应用于计算机视觉领域用来有效的解决各种低级计算机视觉问题，例如图像平滑（image smoothing）、立体应对问题（stereo correspondence problem）、图像分割（image segmentation）等等。此类方法把图像分割问题与图的最小割（min cut）问题相关联，在计算机视觉的很多类似的问题中，最小能量（minimum energy）方案对应解决方案的最大后验估计（maximum posterior estimate）。</p>
-<h4 id="_6">最小割和最大流<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h4>
-<h5 id="_7">最小割<a class="headerlink" href="#_7" title="点击此处可置顶内容">&para;</a></h5>
+<h4 id="_6">最小割<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h4>
 <p><img alt="alt text" src="../images/image-39.png" /></p>
 <p><img alt="alt text" src="../images/image-40.png" /></p>
 <p>在图论中，图的最小切割是其在某种意义上是最小的切割（图形的顶点划分为由至少一个边连接的两个不相交的子集）。图的最小割可以分很多情况进行讨论，例如有向图、无向图，边的权重等。下图是一张无向无权重图和它的两个割，红色的线格割掉了三条边，而绿色的线割掉了两条边，很明显绿色的线为该图的最小割</p>
@@ -1179,8 +1271,19 @@
 <p>如下图所示，是一个有向带权图，共有4个顶点和5条边。每条边上的箭头代表了边的方向，每条边上的数字代表了边的权重。</p>
 <p><img alt="alt text" src="../images/image-42.png" /></p>
 <p>现在要求剪短图中的某几条边，使得不存在从s到t的路径，并且保证所减的边的权重和最小。相信大家能很快想到解答：剪掉边”s -&gt; a”和边”b -&gt; t”。图中已经不存在从源点到终点的路径，所割掉的边的权重值之和为5，是所有的切割方式中权重值最小的，像这样的切割方法我们将其称之为最小割。</p>
-<h5 id="_8">最大流<a class="headerlink" href="#_8" title="点击此处可置顶内容">&para;</a></h5>
-<p>如图所示，假如顶点s源源不断有水流出，边的权重代表该边允许通过的最大水流量，顶点t流入的水流量最大是多少？</p>
+<p>数学上cut这个术语，就表示这两部分的差距：</p>
+<div class="arithmatex">\[ cut(A,B)=\sum\limits_{u\in A,v\in B}w(u,v) \]</div>
+<p>Graph cuts的目的在于找到图的 Min-cut，Cut将 <span class="arithmatex">\(V'\)</span> 分割为两个部分（ <span class="arithmatex">\(s,t\)</span> 在两边，称为 s-t cut），去掉这些边将使得图中的任意一个节点只与源点 <span class="arithmatex">\(s\)</span> 或终点 <span class="arithmatex">\(t\)</span> 相连通，而 Min-cut 是所有s-t cut中边的能量值总和最小的一个；Min-cut 存在需要满足以下条件：</p>
+<ul>
+<li>A source node and a sink node</li>
+<li>Directed edge <span class="arithmatex">\(\vec{&lt;i,j&gt;}\)</span> from node <span class="arithmatex">\(i\)</span>to <span class="arithmatex">\(j\)</span></li>
+<li>Each Directed edge <span class="arithmatex">\(\vec{&lt;i,j&gt;}\)</span> has non-negative capacity <span class="arithmatex">\(c(i,j)\)</span></li>
+<li><span class="arithmatex">\(c(i,j)=0\)</span> for non-exists edges</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">最小割和最大流</p>
+<h5 id="_7">最大流<a class="headerlink" href="#_7" title="点击此处可置顶内容">&para;</a></h5>
+<p>如图所示，假如顶点 <span class="arithmatex">\(s\)</span> 源源不断有水流出，边的权重代表该边允许通过的最大水流量，顶点 <span class="arithmatex">\(t\)</span> 流入的水流量最大是多少？</p>
 <p><img alt="alt text" src="../images/image-43.png" /></p>
 <p>我们可以从顶点s到顶点t的3条路径着手分析，从源点s到终点t共有3条路径：
 s -&gt; a -&gt; t：流量被边”s -&gt; a”限制，最大流量为2
@@ -1188,7 +1291,7 @@ s -&gt; b -&gt; t：流量被边”b -&gt; t”限制，最大流量为3
 s -&gt; a -&gt; b-&gt; t：边”s -&gt; a”的流量已经被其他路径占满，没有流量
 所以，顶点t能够流入的最大水流量为：2 + 3 = 5。
 这就是最大流问题。所以，图的最大流为：2 + 3 = 5。</p>
-<h5 id="_9">最小割和最大流的关系<a class="headerlink" href="#_9" title="点击此处可置顶内容">&para;</a></h5>
+<h5 id="_8">最小割和最大流的关系<a class="headerlink" href="#_8" title="点击此处可置顶内容">&para;</a></h5>
 <div class="admonition note">
 <p class="admonition-title">最大流和最小割的关系是什么？</p>
 <ol>
@@ -1197,21 +1300,37 @@ s -&gt; a -&gt; b-&gt; t：边”s -&gt; a”的流量已经被其他路径占�
 由此可见，最大流和最小割的其实都是在求解同一个问题。</li>
 </ol>
 </div>
+</div>
+<p>然后我们再定义Flow，Flow是一个函数，对于每条边 <span class="arithmatex">\(\vec{&lt;i,j&gt;}\)</span> ，有 <span class="arithmatex">\(f(i,j)=x,x\in\mathbb{R}\)</span> ，那它显然就满足两个条件：</p>
+<ul>
+<li>capacity constraint：（容量约束）： <span class="arithmatex">\(f(i,j)&lt;c(i,j)\)</span></li>
+<li>mass balance constraint：（除源点 s 和终点 t 外，流进去的等于流出去的）： <span class="arithmatex">\(\sum\limits_{&lt;i,j&gt;\in E}f(i,j)-\sum\limits_{&lt;k,i&gt;\in E}f(k,i)= \begin{cases} 0&amp;i\in V-\{s,t\}\\ |f|&amp;i=s\\ -|f|&amp;i=t \end{cases}\)</span></li>
+</ul>
+<p>现在，我们对于任意的一刀下来的s-t cut，就可以定义它的 capacity 和 flow （主要下面的边限制，必须是从S区域跨到T区域的边）——这里定义的就是净流量：</p>
+<div class="arithmatex">\[
+\begin{cases}
+cap([S,T])=&amp;\sum\limits_{&lt;\vec{i,j}&gt;\in E,i\in S,j\in T}cap(i,j)\\\\f([S,T])=&amp;\sum\limits_{&lt;\vec{i,j}&gt;\in E,i\in S,j\in T}f(i,j)-\sum\limits_{&lt;\vec{j,i}&gt;\in E,i\in S,j\in T}f(j,i)
+\end{cases}
+\]</div>
+<p>基础部分就完啦，接下来可以去了解很多具体的算法<a href="[oi-wiki.org](https://oi-wiki.org/graph/flow/max-flow/#ford-fulkerson-%E5%A2%9E%E5%B9%BF%E8%B7%AF%E7%AE%97%E6%B3%95)">最大流 - OI Wiki</a>。不过在这里不是重点，上面我们只是能解决一个二分的问题，下面我们就对它进一步扩展，给出更general的一个形式：</p>
 <h4 id="pixel-labeling-problem">像素标记问题 | Pixel labeling problem<a class="headerlink" href="#pixel-labeling-problem" title="点击此处可置顶内容">&para;</a></h4>
 <p><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=969114">论文</a></p>
 <p>此部分老师截图疑似来源：<a href="https://www.cs.ucf.edu/courses/cap6411/cap6411/spring2006/Lecture11.pdf">https://www.cs.ucf.edu/courses/cap6411/cap6411/spring2006/Lecture11.pdf</a>（需科技）</p>
 <p><img alt="alt text" src="../images/image-44.png" /></p>
-<p>图像分割可以看成pixel labeling（像素标记）问题，目标（s-node）的label设为1，背景（t-node）的 label 设为 0，这个过程可以通过最小化图割来最小化能量函数得到。那很明显，发生在目标和背景的边界处的 cut 就是我们想要的（相当于把图像中背景和目标连接的地方割开，那就相当于把其分割了）。同时，这时候能量也应该是最小的。假设整幅图像的标签label（每个像素的label）为 <span class="arithmatex">\(\mathcal{L}= \{l_1,l_2,\cdots, l_p \}\)</span>，其中 <span class="arithmatex">\(l_i\)</span> 为 <span class="arithmatex">\(0\)</span>（背景）或者 <span class="arithmatex">\(1\)</span>（目标）。那假设图像的分割为 <span class="arithmatex">\(\mathcal{L}\)</span> 时，图像的能量可以表示为：</p>
+<p>给定一个图（包括一系列点 <span class="arithmatex">\(S=\{1,...,n\}\)</span> 和相应的连接关系 <span class="arithmatex">\(N\subset S\times S\)</span> ）和一系列标签 <span class="arithmatex">\(L=\{l_1,...,l_m\}\)</span> ，以及下面两个cost</p>
+<ul>
+<li>Assignment cost 将一个label赋给一个点的cost，记作<span class="arithmatex">\(D\)</span></li>
+<li>Separation cost 将一对label赋给一对点的cost，记作<span class="arithmatex">\(V\)</span></li>
+</ul>
+<p>这里的Assignment cost对应数据本身，Separation cost是希望分割尽可能平滑（V怎么定义要根据具体的问题，比如label相同是0，label不同...(这篇论文<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=1262177">What Energy Functions Can Be Minimized via Graph Cuts?</a>似乎讲的就是这个)）</p>
+<p>最终每个点上都有一个labeling的结果，我们希望最小化这个cost</p>
 <div class="arithmatex">\[  
-E(f)=\sum_{p\in P}D_p(f_p)+\sum_{p,q\in N}V_{p,q}(f_p,f_q)
+E(f)=\sum\limits_{p\in P}D_p(f_p)+\sum\limits_{p,q\in N}V_{p,q}(f_p,f_q)
 \]</div>
-<p>这里 <span class="arithmatex">\(P\)</span> 就是全体像素，<span class="arithmatex">\(N\)</span> 是全体像素对。<span class="arithmatex">\(D_p(f_p)\)</span>是图像的差异，<span class="arithmatex">\(\sum_{p,q\in N}V_{p,q}(f_p,f_q)\)</span> 是平滑项</p>
-<p>这俩似乎得靠实际要求来定。这篇论文<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=1262177">What Energy Functions Can Be Minimized via Graph Cuts?</a>似乎讲的就是这个</p>
+<p>这里 <span class="arithmatex">\(P\)</span> 就是全体像素，<span class="arithmatex">\(N\)</span> 是全体像素对。<span class="arithmatex">\(D_p(f_p)\)</span>是图像的数据项，<span class="arithmatex">\(\sum\limits_{p,q\in N}V_{p,q}(f_p,f_q)\)</span> 是平滑项</p>
+<p><img alt="alt text" src="../images/image-62.png" /></p>
 <p><img alt="alt text" src="../images/image-45.png" /></p>
-<p>然后，我们可以通过最小化能量函数来得到最小割，从而得到图像的分割。</p>
-<p><img alt="alt text" src="../images/image-47.png" /></p>
-<p><img alt="alt text" src="../images/image-48.png" /></p>
-<h4 id="_10">图割的意义<a class="headerlink" href="#_10" title="点击此处可置顶内容">&para;</a></h4>
+<h4 id="_9">图割的意义<a class="headerlink" href="#_9" title="点击此处可置顶内容">&para;</a></h4>
 <p>图割算法提供了以下几个方面的功能：</p>
 <ol>
 <li>对于不太复杂的情况，可以提供全局最小值的多项式算法，用于找到全局最优解。</li>
@@ -1219,9 +1338,11 @@ E(f)=\sum_{p\in P}D_p(f_p)+\sum_{p,q\in N}V_{p,q}(f_p,f_q)
 <li>对于许多选择的情况，可以找到“强”局部最小值，同时具有非常强大的实验结果支持</li>
 </ol>
 <h3 id="multi-label-graph-cuts">多标签图割 | Multi-Label Graph-Cuts<a class="headerlink" href="#multi-label-graph-cuts" title="点击此处可置顶内容">&para;</a></h3>
-<p>多标签图割（Multi-label Graph Cut）是图割算法的一个扩展，它应对的是多分类问题，即不只是将像素分为前景和背景两类，而是可以分成多个类别。</p>
+<p>多标签图割（Multi-label Graph Cut）是图割算法的一个扩展，它应对的就是我们刚刚说的像素标记问题问题，即不只是将像素分为前景和背景两类，而是可以分成多个类别。</p>
 <p>在多标签图割中，每个节点（通常对应图像中的一个像素）可以被分配到不同的标签（而非仅仅是源点或汇点），标签之间可能存在有序关系，每个标签有自己的数据成本，并存在标签之间的光滑性成本等例如颜色连续性的限制。</p>
-<p>a-β Swap以及a-expansion都是一种求解多标签图割问题的方法。</p>
+<p><span class="arithmatex">\(\alpha-\beta\)</span> Swap以及 <span class="arithmatex">\(\alpha\)</span> - expansion都是一种求解多标签图割问题的方法。</p>
+<p><span class="arithmatex">\(\alpha-\beta\)</span> Swap 这个要求满足半度量（Semi-metric）：<span class="arithmatex">\(V(\alpha,\beta)=V(\beta,\alpha)\geq0\)</span>，并且满足对称性和非负性，即<span class="arithmatex">\(V(\alpha,\beta)=0\Leftrightarrow \alpha=\beta\)</span>。</p>
+<p><span class="arithmatex">\(\alpha\)</span> - expansion 这个在前面的基础上增加了三角不等式的要求：<span class="arithmatex">\(V(\alpha,\beta)\leq V(\alpha,\gamma)+V(\gamma,\beta)\)</span>。</p>
 <p><img alt="alt text" src="../images/image-49.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">a-β Swap</p>
@@ -1233,7 +1354,55 @@ E(f)=\sum_{p\in P}D_p(f_p)+\sum_{p,q\in N}V_{p,q}(f_p,f_q)
 <p>这种方法对于每次迭代，只考虑将像素的标签从其当前标签变为另一个特定的标签a。这种方法对于每个像素i都尝试将其标签换到a，然后找出所有使得能量函数值E减少的标签变化，并应用图割算法找出最小割。最后，将所有在最小割中的像素标签更新到a。这个过程会对所有可能的标签重复进行直到能量不再减小。</p>
 <p><img alt="alt text" src="../images/image-51.png" /></p>
 </div>
-<p>V(a,β)就是能量函数，在多标签图像分割问题中通常由数据项和平滑项组成。对于a-β Swap和a-expansion，这个能量函数满足各种不同的性质需求。如在a-β Swap中，V需要满足半度量（Semi-metric）性质，即对称性和非负性；而在a-expansion中，V还需要满足度量（Metric）性质，即三角不等式。</p>
+<p>和之前一样的，这里的cost function也是定义成一个数据项（data penalty）和一个平滑项（interaction penalty）</p>
+<h4 id="data-penalty">Data Penalty<a class="headerlink" href="#data-penalty" title="点击此处可置顶内容">&para;</a></h4>
+<p>在被brush的地方，相当于我们已经给了某些像素一个label，所以对于指定的label cost就为0，否则就设很大</p>
+<div class="arithmatex">\[
+C_d(p,L(p))= \begin{cases} 0&amp;L(p)=u\\ large\ penalty&amp;otherwise \end{cases}
+\]</div>
+<p>这一项相当于写入用户的输入信息，下面剩下的大块区域，我们通过优化来完成</p>
+<h4 id="interaction-penalty">Interaction Penalty<a class="headerlink" href="#interaction-penalty" title="点击此处可置顶内容">&para;</a></h4>
+<div class="arithmatex">\[
+C_i(p,q,L(p),L(q))= \begin{cases} X&amp;\mathrm{if\ matching\ colors} \\ Y&amp;\mathrm{if\ matching\ gradients} \\ X+Y&amp;\mathrm{if\ matching\ colors\&amp;gradients} \\ X/Z&amp;\mathrm{if\ matching\ colors\&amp;edges} \end{cases}
+\]</div>
+<p>其中，</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X=&amp;||S_{L(p)}(p)-S_{L(q)}(p)||+||S_{L(p)}(q)-S_{L(q)}(q)||\\
+Y=&amp;||\nabla S_{L(p)}(p)-\nabla S_{L(q)}(p)||+||\nabla S_{L(p)}(q)-\nabla S_{L(q)}(q)||\\
+Z=&amp;E_{L(q)}(p,q)+E_{L(q)}(p,q)
+\end{aligned}
+\]</div>
+<p>X就是p label成L(p)和L(q)的color difference加上q label成L(p)和L(q)的color difference的和（就是输入图像有很多张， <span class="arithmatex">\(S_{L(p)}\)</span> 就确定了用那张图像）；Y就是用来梯度的信息，Z还考虑了边缘，就是用Sobel算子如果中间有边缘的话Z就可以小一些</p>
+<p>现在目标函数定义好了，我们就可以用Graph-Cut的方法去解</p>
+<div class="arithmatex">\[
+C(L)=\sum_pC_d(p,L(p))+\sum_{p,q}C_i(p,q,L(p),L(q))
+\]</div>
+<h4 id="gradient-domain-fusion">Gradient-domain fusion<a class="headerlink" href="#gradient-domain-fusion" title="点击此处可置顶内容">&para;</a></h4>
+<p>现在我们第一步做好了，得到一个函数<span class="arithmatex">\(f\)</span>对于每个像素点都有一个label（从对应图像去拿像素值），然后我们继续做梯度域的融合（和泊松融合相似）来消除缝隙（seam），在边界上要求保梯度，但是颜色尽可能相同</p>
+<div class="arithmatex">\[
+\begin{cases}
+v_{x+1,y}-v_{x,y}=&amp;\nabla I_x(x,y)\\
+v_{x,y+1}-v_{x,y}=&amp;\nabla I_y(x,y)
+\end{cases}
+\]</div>
+<p>然后会剩下右下的一圈的边界条件，这里就是constrain，因为用到的都是一个值所以只要用增加一个维度就可以了，把它设置成一个合理的值（比如某个像素点的灰度值），这样重新解算出来的就seamless了</p>
+<h4 id="_10">应用<a class="headerlink" href="#_10" title="点击此处可置顶内容">&para;</a></h4>
+<h5 id="_11">扩展景深<a class="headerlink" href="#_11" title="点击此处可置顶内容">&para;</a></h5>
+<p><img alt="alt text" src="../images/image-63.png" /></p>
+<h5 id="relighting">Relighting<a class="headerlink" href="#relighting" title="点击此处可置顶内容">&para;</a></h5>
+<p><img alt="alt text" src="../images/image-64.png" />
+<img alt="alt text" src="../images/image-67.png" /></p>
+<h5 id="stroboscopic-visualization-of-movement">Stroboscopic visualization of movement<a class="headerlink" href="#stroboscopic-visualization-of-movement" title="点击此处可置顶内容">&para;</a></h5>
+<p><img alt="alt text" src="../images/image-65.png" /></p>
+<h5 id="selective-composites">Selective composites<a class="headerlink" href="#selective-composites" title="点击此处可置顶内容">&para;</a></h5>
+<p><img alt="alt text" src="../images/image-66.png" />
+<img alt="alt text" src="../images/image-68.png" /></p>
+<h5 id="time-lapse-mosaics">Time-lapse mosaics<a class="headerlink" href="#time-lapse-mosaics" title="点击此处可置顶内容">&para;</a></h5>
+<p><img alt="alt text" src="../images/image-69.png" /></p>
+<h5 id="clean-plate-production">Clean-plate production<a class="headerlink" href="#clean-plate-production" title="点击此处可置顶内容">&para;</a></h5>
+<p><img alt="alt text" src="../images/image-70.png" /></p>
+<p><img alt="alt text" src="../images/image-71.png" /></p>
 
 
 
@@ -1256,7 +1425,7 @@ E(f)=\sum_{p\in P}D_p(f_p)+\sum_{p,q\in N}V_{p,q}(f_p,f_q)
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月3日 12:18:49</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月5日 19:33:50</span>
   </span>
 
     

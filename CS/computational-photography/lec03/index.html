@@ -8,26 +8,24 @@
       
       
       
-        <link rel="canonical" href="https://jiepenglab.github.io/notebook/">
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/computational-photography/lec03/">
       
       
       
-        <link rel="next" href="Friends/">
       
-      
-      <link rel="icon" href="images/icon.jpg">
+      <link rel="icon" href="../../../images/icon.jpg">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
-        <title>home - Jiepeng's notes</title>
+        <title>Lec03 交互式图像分割与抠像 - Jiepeng's notes</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.bcfcd587.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
   
@@ -87,17 +85,17 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
     
-      <link rel="stylesheet" href="assets/stylesheets/glightbox.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
     
-      <link rel="stylesheet" href="assets/stylesheets/galaxy.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -123,7 +121,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#lec03" class="md-skip">
           跳转至
         </a>
       
@@ -137,9 +135,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
       
-  <img src="images/logo.png" alt="logo">
+  <img src="../../../images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -156,7 +154,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              home
+              Lec03 交互式图像分割与抠像
             
           </span>
         </div>
@@ -263,13 +261,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="." class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
           
   
     
@@ -289,7 +285,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="Fundemental/" class="md-tabs__link">
+        <a href="../../../Fundemental/" class="md-tabs__link">
           
   
     
@@ -309,7 +305,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="CS/" class="md-tabs__link">
+        <a href="../../" class="md-tabs__link">
           
   
     
@@ -329,7 +325,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="CS_Online/" class="md-tabs__link">
+        <a href="../../../CS_Online/" class="md-tabs__link">
           
   
     
@@ -349,7 +345,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="Mess/" class="md-tabs__link">
+        <a href="../../../Mess/" class="md-tabs__link">
           
   
     
@@ -384,9 +380,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
       
-  <img src="images/logo.png" alt="logo">
+  <img src="../../../images/logo.png" alt="logo">
 
     </a>
     Jiepeng's notes
@@ -410,8 +406,6 @@
       
   
   
-    
-  
   
   
     
@@ -424,105 +418,6 @@
         
       
         
-      
-        
-      
-    
-    
-      
-        
-        
-      
-      
-    
-    
-      
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
-        
-          
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="." class="md-nav__link md-nav__link--active">
-              
-  
-  <span class="md-ellipsis">
-    首页
-  </span>
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link md-nav__link--active" for="__nav_1" id="__nav_1_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_1">
-            <span class="md-nav__icon md-icon"></span>
-            首页
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Friends/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    朋友们！
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Zju2-2/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    正在学习的课程
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
       
         
       
@@ -542,11 +437,11 @@
         
   
   
-    <a href="Zju2-1/" class="md-nav__link">
+    <a href="../../.." class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    已完成学习的课程
+    首页
   </span>
   
 
@@ -560,14 +455,6 @@
     </li>
   
 
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
     
       
       
@@ -608,7 +495,7 @@
         
   
   
-    <a href="Fundemental/" class="md-nav__link">
+    <a href="../../../Fundemental/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -672,7 +559,7 @@
         
   
   
-    <a href="CS/" class="md-nav__link">
+    <a href="../../" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -724,7 +611,7 @@
         
   
   
-    <a href="CS_Online/" class="md-nav__link">
+    <a href="../../../CS_Online/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -780,7 +667,7 @@
         
   
   
-    <a href="Mess/" class="md-nav__link">
+    <a href="../../../Mess/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -819,6 +706,110 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯混合模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯混合模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      混合模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sgm" class="md-nav__link">
+    <span class="md-ellipsis">
+      单高斯模型 | SGM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯混合模型 | GMM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      马尔科夫随机场与图像处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="马尔科夫随机场与图像处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      马尔科夫随机过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -835,72 +826,197 @@
   
 
 
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JJP</title>
-    <style>
-        canvas {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            right: 0%;
-            bottom: 0%;
-            z-index: -1;
-        }
-    </style>
-</head>
-
-<html>
-
-    <canvas></canvas>
-
-</html>
-<script src="./assets/javascripts/canvas.js"></script>
-</html>
-
-<h1 id="_1">👋欢迎<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h1>
+<h1 id="lec03">Lec03 交互式图像分割与抠像<a class="headerlink" href="#lec03" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 141 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 1 分钟</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 3193 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 16 分钟</p>
 </div>
-<p>欢迎来到JiepengLab！我是浙江大学22级混合班的学生，主修计算机科学与技术，辅修竺可桢学院工程教育高级班。我会时不时更新一些目前正在学习的笔记！</p>
 <div class="admonition note">
-<p>你知道吗？在电脑端，长按能放一个巨~大的烟花噢🎇🎇🎇！</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">推荐阅读</p>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="Fundemental/Mathematical-Modeling/">数学建模</a></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="CS/NA/">数值分析</a></li>
+<ul>
+<li>图像分割指的是将数字图像中感兴趣的区域分割出来。</li>
+<li>抠像除了要得到前景轮廓外还要进一步估计半透明通道，以实现真实的合成。</li>
 </ul>
 </div>
-<div class="experience" ></div>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <style>
-        .img{
-            width: 50px;
-            height: 50px;
-            position: absolute;
-            background-image: url('./images/chase.gif');
-            background-size: cover;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="img"></div>
-</body>
-    <script src="./assets/javascripts/chase.js">
-    </script>
-</html>
-
-<div class="admonition info">
-<p>本站共有 250 个页面，451488 个字，6181 行代码。</p>
+<div class="admonition tips">
+<p class="admonition-title">内容</p>
+<ol>
+<li>常用模型<ol>
+<li>高斯混合模型；</li>
+<li>马尔科夫随机场；</li>
+</ol>
+</li>
+<li>交互式图像分割算法</li>
+<li>GrabCut；</li>
+<li>Lazy Snapping；</li>
+<li>抠像算法</li>
+<li>贝叶斯抠像</li>
+<li>Closed Form Matting；</li>
+<li>基于深度学习的图像分割</li>
+<li>基于深度学习的抠像</li>
+</ol>
+</div>
+<h2 id="_1">常用模型<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="_2">高斯混合模型<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h3>
+<h4 id="_3">混合模型<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h4>
+<p>混合模型是一个可以用来表示在总体分布（distribution）中含有 K 个子分布的概率模型，换句话说，混合模型表示了观测数据在总体中的概率分布，它是一个由 K 个子分布组成的混合分布。混合模型不要求观测数据提供关于子分布的信息，来计算观测数据在总体分布中的概率。</p>
+<h4 id="_4">高斯模型<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h4>
+<p>高斯模型就是用高斯概率密度函数（正态分布曲线）精确地量化事物，将一个事物分解为若干的基于高斯概率密度函
+数（正态分布曲线）形成的模型。</p>
+<p>高斯模型有单高斯模型（SGM）和混合高斯模型（GMM）两种</p>
+<h5 id="sgm">单高斯模型 | SGM<a class="headerlink" href="#sgm" title="点击此处可置顶内容">&para;</a></h5>
+<p>当样本数据 X 是一维数据（Univariate）时，高斯分布遵从下方概率密度函数（Probability Density Function）：</p>
+<div class="arithmatex">\[
+N(x; \mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+\]</div>
+<p>其中，<span class="arithmatex">\(\mu\)</span> 是均值，<span class="arithmatex">\(\sigma^2\)</span> 是方差。</p>
+<p>当样本数据 X 是多维数据（Multivariate）时，高斯分布遵从下方概率密度函数：</p>
+<div class="arithmatex">\[
+N(x; \mu,\Sigma) = \frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)
+\]</div>
+<p>其中，<span class="arithmatex">\(\mu\)</span> 是均值，<span class="arithmatex">\(\Sigma\)</span> 是协方差矩阵。</p>
+<p>在实际应用中，<span class="arithmatex">\(\mu\)</span> 通常用样本均值来代替，<span class="arithmatex">\(\Sigma\)</span> 通常用样本协方差矩阵来代替。</p>
+<p>因为每个类别都有自己的 <span class="arithmatex">\(\mu\)</span> 和 <span class="arithmatex">\(\Sigma\)</span>，所以我们很容易判断一个样本 <span class="arithmatex">\(x\)</span> 是否属于类别 C，只需把 <span class="arithmatex">\(x\)</span> 代入上式，当概率大于一定阈值时我们就认为 <span class="arithmatex">\(x\)</span> 属于类别 C。</p>
+<p>从几何上讲，单高斯分布模型在二维空间应该近似于椭圆，在三维空间上近似于椭球。</p>
+<p><img alt="alt text" src="../images/image-72.png" width="50%" /></p>
+<h5 id="gmm">高斯混合模型 | GMM<a class="headerlink" href="#gmm" title="点击此处可置顶内容">&para;</a></h5>
+<p>GMM（Gaussian Mixture Model），高斯混合模型（或者混合高斯模型），也可以简写为 MOG（Mixture of Gaussian）。</p>
+<p>高斯混合模型可以看作是由 <span class="arithmatex">\(K\)</span> 个单高斯模型组合而成的模型，这 <span class="arithmatex">\(K\)</span> 个子模型是混合模型的隐变量（Hidden variable）。一般来说，一个混合模型可以使用任何概率分布，这里使用高斯混合模型是因为高斯分布具备很好的数学性质以及良好的计算性能。</p>
+<p>举个不是特别稳妥的例子，比如我们现在有一组狗的样本数据，不同种类的狗，体型、颜色、长相各不相同，但都属于狗这个种类，此时单高斯模型可能不能很好的来描述这个分布，因为样本数据分布并不是一个单一的椭圆，所以用混合高斯分布可以更好的描述这个问题，如下图所示：</p>
+<p><img alt="alt text" src="../images/image-73.png" /></p>
+<p>GMM认为数据是从几个GSM中生成出来的，即</p>
+<div class="arithmatex">\[
+Pr(x) = \sum_{k=1}^{K} \pi_k N(x; \mu_k,\Sigma_k)
+\]</div>
+<p>其中的任意一个高斯分布 <span class="arithmatex">\(N(x; \mu_k,\Sigma_k)\)</span> 称为一个分量（Component）；<span class="arithmatex">\(K\)</span> 需要事先确定好，代表component个数；<span class="arithmatex">\(\pi_k\)</span> 是权值系数，满足 <span class="arithmatex">\(\sum_{k=1}^{K} \pi_k = 1\)</span>。</p>
+<p>将 <span class="arithmatex">\(K\)</span> 个高斯模型混合在一起，每个点出现的概率是几个高斯混合的结果。当 <span class="arithmatex">\(K\)</span> 足够大时，GMM可以用来逼近任意连续的概率密度分布。</p>
+<p><img alt="alt text" src="../images/image-74.png" /></p>
+<p>GMM是一种聚类算法，每个component就是一个聚类中心。为了在只有样本点，不知道样本分类（含有隐含变量）的情况下，计算出模型参数 <span class="arithmatex">\(\pi_k, \mu_k, \Sigma_k\)</span>，可以使用EM算法。</p>
+<div class="admonition note">
+<p class="admonition-title">样本分类已知情况下的 GMM</p>
+<p>当每个样本所属分类已知时，GMM的参数非常好确定，直接利用Maximum Likelihood。设样本容量为 <span class="arithmatex">\(N\)</span> ，属于<span class="arithmatex">\(K\)</span>个分类的样本数量分别是 <span class="arithmatex">\(N_1, N_2, ..., N_k\)</span>，属于第 <span class="arithmatex">\(k\)</span> 个分类的样本集合是 <span class="arithmatex">\(L(k)\)</span>。 </p>
+<p>于是我们有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\pi_k &amp;= \frac{N_k}{N} \\
+\mu_k &amp;= \frac{1}{N_k} \sum_{x \in L(k)} x \\
+\Sigma_k &amp;= \frac{1}{N_k} \sum_{x \in L(k)} (x-\mu_k)(x-\mu_k)^T
+\end{aligned}
+\]</div>
+<p>其中，<span class="arithmatex">\(\pi_k\)</span> 是第 <span class="arithmatex">\(k\)</span> 个分类的权重，<span class="arithmatex">\(\mu_k\)</span> 是第 <span class="arithmatex">\(k\)</span> 个分类的均值，<span class="arithmatex">\(\Sigma_k\)</span> 是第 <span class="arithmatex">\(k\)</span> 个分类的协方差矩阵。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">样本分类未知情况下的 GMM</p>
+<div class="admonition note">
+<p class="admonition-title">对数似然函数</p>
+<p>有 <span class="arithmatex">\(N\)</span> 个数据点，服从某种分布 <span class="arithmatex">\(Pr(x;\theta)\)</span>，我们想找到一组参数 <span class="arithmatex">\(\theta\)</span>，使得生成这些数据点的概率最大，这个概率就是</p>
+<div class="arithmatex">\[ \prod_{i=1}^{N} Pr(x_i;\theta) \]</div>
+<p>这称作似然函数（Likelihood Function）。</p>
+<p>通常单个点的概率很小，连乘之后数据会更小，容易造成浮点数下溢，所以一般取其对数，变成</p>
+<div class="arithmatex">\[ \sum_{i=1}^{N} log(Pr(x_i;\theta)) \]</div>
+<p>这称作对数似然函数（Log Likelihood Function）。</p>
+</div>
+<p>对于 GMM，我们的目标是找到一组参数 <span class="arithmatex">\(\theta = \{\pi_k, \mu_k, \Sigma_k\}\)</span>，使得数据点 <span class="arithmatex">\(x_i\)</span> 的对数似然函数最大，即</p>
+<div class="arithmatex">\[ \max_{\theta} \sum_{i=1}^{N} log(\sum_{k=1}^{K} \pi_k N(x_i; \mu_k,\Sigma_k)) \]</div>
+<p>这里每个样本 <span class="arithmatex">\(x_i\)</span> 所属的类别 <span class="arithmatex">\(z_k\)</span> 是未知的，<span class="arithmatex">\(Z\)</span> 是隐含变量，我们就是要找到最佳的模型参数，使得上式所示的期望最大，<strong>“期望最大化算法”</strong>名字由此而来。</p>
+<p>对于每个观测数据点来说，事先并不知道它是属于哪个子分布的（hidden variable），因此 <span class="arithmatex">\(\log\)</span> 里面还有求和，对于每个子模型都有未知的 <span class="arithmatex">\(\pi_k, \mu_k, \Sigma_k\)</span>，直接求导无法计算。需要通过迭代的方法求解。</p>
+<div class="admonition note">
+<p class="admonition-title">EM 算法</p>
+<p>EM 算法是一种迭代算法，1977 年由 Dempster 等人总结提出，用于含有隐变量（Hidden variable）的概率模型参数的最大似然估计。</p>
+<p>EM 要求解的问题一般形式是:</p>
+<div class="arithmatex">\[
+\theta^* = \arg \max_{\theta} \prod_{j=1}^{|x|}\sum_{y\in Y} Pr(X=x_j,Y=y;\theta)
+\]</div>
+<p>其中，<span class="arithmatex">\(X\)</span> 是观测变量，<span class="arithmatex">\(Y\)</span> 是隐变量，<span class="arithmatex">\(\theta\)</span> 是模型参数。</p>
+<p>EM算法的基本思路是：随机初始化一组参数 <span class="arithmatex">\(\theta(0)\)</span>，根据后验概率 <span class="arithmatex">\(Pr(Y|X;\theta)\)</span> 来更新 <span class="arithmatex">\(Y\)</span> 的期望 <span class="arithmatex">\(E(Y)\)</span>，然后用 <span class="arithmatex">\(E(Y)\)</span> 代替 <span class="arithmatex">\(Y\)</span> 求出新的模型参数 <span class="arithmatex">\(\theta(1)\)</span>。如此迭代直到 <span class="arithmatex">\(\theta\)</span> 趋于稳定。</p>
+<blockquote>
+<p>如果数据点的分类标签 <span class="arithmatex">\(Y\)</span> 是已知的，那么求解模型参数直接利用Maximum Likelihood就可以了。</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">E-Step</p>
+<p>E 是Expectation的意思，就是假设模型参数已知的情况下求隐含变量 <span class="arithmatex">\(Z\)</span> 分别取 <span class="arithmatex">\(z_1,z_2,...\)</span> 的期望，亦即 <span class="arithmatex">\(Z\)</span> 分别取 <span class="arithmatex">\(z_1,z_2,...\)</span> 的概率。在 GMM 中就是求数据点由各个 component 生成的概率。</p>
+<div class="arithmatex">\[ \gamma(i,k) = \alpha_k Pr(z_k|x_i;\pi,\mu,\Sigma) \]</div>
+<p>注意到我们在Z的后验概率前面乘以了一个权值因子 <span class="arithmatex">\(\alpha_k\)</span>，它表示在训练集中数据点属于类别 <span class="arithmatex">\(z_k\)</span> 的频率，在 GMM 中它就是 <span class="arithmatex">\(\pi_k\)</span>。</p>
+<p>因为 <span class="arithmatex">\(Pr(x) = \sum_{k=1}^{K} \pi_k N(x; \mu_k,\Sigma_k)\)</span>，所以</p>
+<div class="arithmatex">\[ 
+\gamma(i,k) = \alpha_k \frac{\pi_k N(x_i; \mu_k,\Sigma_k)}{\sum_{j=1}^{K} \pi_j N(x_i; \mu_j,\Sigma_j)}
+\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">M-Step</p>
+<p>M 就是Maximization的意思，就是用最大似然的方法求出模型参数。</p>
+<p>现在我们认为上一步求出的 <span class="arithmatex">\(\gamma(i,k)\)</span> 就是“数据点 <span class="arithmatex">\(x_i\)</span> 由 component <span class="arithmatex">\(k\)</span> 生成的概率”，那么我们可以用这个概率来更新模型参数。</p>
+<div class="arithmatex">\[
+\begin{aligned}
+N_k &amp;= \sum_{i=1}^{N} \gamma(i,k) \\
+\pi_k &amp;= \frac{N_k}{N} \\
+\mu_k &amp;= \frac{1}{N_k} \sum_{i=1}^{N} \gamma(i,k) x_i \\
+\Sigma_k &amp;= \frac{1}{N_k} \sum_{i=1}^{N} \gamma(i,k) (x_i-\mu_k)(x_i-\mu_k)^T
+\end{aligned}
+\]</div>
+</div>
+<p>重复计算 E-step 和 M-step 直至收敛 （<span class="arithmatex">\(\|\theta_{i+1}-\theta_i\| &lt; \epsilon\)</span>，<span class="arithmatex">\(\epsilon\)</span> 是一个很小的正数，表示经过一次迭代之后参数变化非常小）。</p>
+</div>
+<p>至此，我们就找到了高斯混合模型的参数。需要注意的是，EM 算法具备收敛性，但并不保证找到全局最大值，有可能找到局部最大值。解决方法是初始化几次不同的参数进行迭代，取结果最好的那次。</p>
+</div>
+<h3 id="_5">马尔科夫随机场与图像处理<a class="headerlink" href="#_5" title="点击此处可置顶内容">&para;</a></h3>
+<h4 id="_6">马尔科夫随机过程<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h4>
+<p>通俗的讲，马尔科夫随机过程就是，下一个时间点的状态只与当前的状态有关系，而与以前的状态没有关系，即未来的状态决定于现在而不决定于过去。</p>
+<div class="admonition note">
+<p class="admonition-title">一维马尔科夫过程</p>
+<p>设有随机过程 <span class="arithmatex">\(\{X_n,n\in T\}\)</span>，若对于任意正整数 <span class="arithmatex">\(n \in T\)</span> 和任意的 <span class="arithmatex">\(i_0,i_1,...,i_{n+1} \in I\)</span>，条件概率满足</p>
+<div class="arithmatex">\[
+P(X_{n+1}=i_{n+1}|X_n=i_n,X_{n-1}=i_{n-1},...,X_0=i_0) = P(X_{n+1}=i_{n+1}|X_n=i_n)
+\]</div>
+<p>就称 <span class="arithmatex">\(\{X_n,n\in T\}\)</span> 为马尔科夫过程，该随机过程的统计特性完全由条件概率所决定。</p>
+</div>
+<p>马尔科夫随机过程可以按照参数集和状态空间分成四类：</p>
+<ul>
+<li>时间和状态都是离散的马尔科夫过程。也称为马尔科夫链；</li>
+<li>时间连续、状态离散的马尔科夫过程。通常称为纯不连续马尔科夫过程；</li>
+<li>时间和状态都是连续的马尔科夫过程；</li>
+<li>时间离散、状态连续的马尔科夫过程。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">马尔科夫随机场</p>
+<p>马尔科夫随机场包含两层意思：
+- 马尔科夫性质
+- 随机场</p>
+<div class="admonition note">
+<p class="admonition-title">马尔科夫性质</p>
+<p>马尔科夫性质指的是一个随机变量序列按时间先后关系依次排开的时候，第 <span class="arithmatex">\(N+1\)</span> 时刻的分布特性，与 <span class="arithmatex">\(N\)</span> 时刻以前的随机变量的取值无关。</p>
+<p>即在一个随机过程中，给定现在状态，未来状态与过去状态是独立的。即</p>
+<div class="arithmatex">\[
+P(X_{n+1}=i_{n+1}|X_n=i_n,X_{n-1}=i_{n-1},...,X_0=i_0) = P(X_{n+1}=i_{n+1}|X_n=i_n)
+\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">随机场</p>
+<p><strong>随机场</strong>是一种随机变量的集合，这些随机变量的取值是空间上的某种结构，比如二维平面上的像素点。</p>
+<p>当给每一个位置中按照某种分布随机赋予相空间的一个值之后，其全体就叫做随机场。其中有两个概念：位置（site），相空间（phase space）。</p>
+<p>不妨拿种地来打个比方。“位置”好比是一亩亩农田；“<strong>相空间</strong>” 好比是要种的各种庄稼。我们可以给不同的地种上不同的庄稼，这就好比给随机场的每个“<strong>位置</strong>”，赋予相空间里不同的值。所以，通俗点讲，随机场就是在哪块地里种什么庄稼的事情。</p>
+<p>如果任何一块地里种的庄稼的种类仅仅与它邻近的地里种的庄稼的种类有关，与其它地方的庄稼的种类无关，那么这些地里种的庄稼的集合，就是一个<strong>马尔科夫随机场</strong></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">马尔科夫随机场与图像的关系</p>
+<p>一维马尔科夫随机过程很好的描述了随机过程中某点的状态只与该点之前的一个点的状态有关系。</p>
+<p>对于定义在二维空间上的图像，也可以将它看为一个二维随机场。</p>
+<p>说到二维随机场，自然也存在二维马尔科夫随机场。此时我们必须考虑空间上的关系，二维MRF的平面网格结构同样可以较好的<strong>表现图像中像素之间的空间相关性</strong>。</p>
+<p>设 </p>
+<ul>
+<li><span class="arithmatex">\(S=\{(i,j)|1\leq i\leq M,1\leq j\leq N\}\)</span> 表示 MN 位置的有限格点集，即随机场中的位置；</li>
+<li><span class="arithmatex">\(\Lambda\)</span> 表示状态空间，即随机场中的相空间；</li>
+<li><span class="arithmatex">\(X=\{x_s|s\in S\}\)</span> 表示定义在 <span class="arithmatex">\(\forall s \in S\)</span> 处的随机场；<ul>
+<li><span class="arithmatex">\(x_s\)</span> 表示在随机场 <span class="arithmatex">\(X\)</span> 上，状态空间为 <span class="arithmatex">\(\Lambda\)</span> 的隐状态随机变量，即<span class="arithmatex">\(x_s\in \Lambda\)</span></li>
+</ul>
+</li>
+</ul>
+<p>在图像中</p>
+<ul>
+<li>格点集 <span class="arithmatex">\(S\)</span> 表示像素的位置 ；</li>
+<li><span class="arithmatex">\(X\)</span> 称为标号场，也可以表示像素值的集合或图像经小波变换后的小波系数集合；</li>
+<li><span class="arithmatex">\(\Lambda\)</span>为标号随机变量 <span class="arithmatex">\(x_s\)</span> 的集合；</li>
+<li><span class="arithmatex">\(L\)</span>表示将图像分割为不同区域的数目。</li>
+</ul>
+</div>
 </div>
 
 
@@ -910,8 +1026,37 @@
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月5日 19:33:50</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月5日 19:33:50</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -935,28 +1080,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="页脚" >
-        
-        
-          
-          <a href="Friends/" class="md-footer__link md-footer__link--next" aria-label="下一页: 朋友们！">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                下一页
-              </span>
-              <div class="md-ellipsis">
-                朋友们！
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
@@ -997,14 +1120,14 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
       
-        <script src="assets/javascripts/katex.js"></script>
+        <script src="../../../assets/javascripts/katex.js"></script>
       
-        <script src="assets/javascripts/mathjax.js"></script>
+        <script src="../../../assets/javascripts/mathjax.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
       
@@ -1014,13 +1137,13 @@
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
-        <script src="assets/javascripts/titlechange.js"></script>
+        <script src="../../../assets/javascripts/titlechange.js"></script>
       
-        <script src="assets/javascripts/glightbox.min.js"></script>
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
       
-        <script src="assets/javascripts/click.js"></script>
+        <script src="../../../assets/javascripts/click.js"></script>
       
-        <script src="assets/javascripts/galaxy.js"></script>
+        <script src="../../../assets/javascripts/galaxy.js"></script>
       
     
   </body>
