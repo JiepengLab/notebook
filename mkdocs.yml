@@ -151,9 +151,9 @@ nav:
       # - 08-堆 | The Heap ADT: 
       - 09-并查集 | The Disjoint Set ADT: ./CS/FDS/set.md
     - 人工智能:
-      - ./CS/Introduction-to-AI/index.md
-      - 知识表达与推理: ./CS/Introduction-to-AI/Chapter02.md
-      - 搜索探寻与问题求解: ./CS/Introduction-to-AI/Chapter03.md
+      - ./CS/AI/index.md
+      - 知识表达与推理: ./CS/AI/Chapter02.md
+      - 搜索探寻与问题求解: ./CS/AI/Chapter03.md
     - 高级数据结构与算法分析:
       - ./CS/ADS/index.md
     - 计算摄影学:
