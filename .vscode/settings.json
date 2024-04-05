@@ -1,4 +1,10 @@
 {
     "editor.inlineSuggest.showToolbar": "always",
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "files.associations": {
+        "*.cjson": "jsonc",
+        "*.wxss": "css",
+        "*.wxs": "javascript",
+        "cmath": "c"
+    }
 }

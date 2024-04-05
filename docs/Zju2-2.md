@@ -50,6 +50,7 @@
 - [ ] **04.22 13:15** 数据库系统：[书后习题 6.1、6.2、6.21 | 随堂测试 | 讨论](https://courses.zju.edu.cn/course/67605/learning-activity#/785979?view=scores)
 - [ ] **04.23 15:50** 计组：[Lab02](https://courses.zju.edu.cn/course/68313/learning-activity#/824567)
 - [ ] **04.26 21:30** 数据库系统：[实验5 数据库程序设计](https://courses.zju.edu.cn/course/67605/learning-activity#/785973?view=scores)
+- [ ] **04.28 23:59** 计算摄影学：[Lab 6 - 深度学习图像补全](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab6-deep-learning/lab6.html)
 - [ ] **04.30 15:50** 计组：[Lab03](https://courses.zju.edu.cn/course/68313/learning-activity#/824568)
 - [ ] **05.31 24:00** UX：大作业
 - [x] **06.30 00:00** 数学软件：[准备工作](https://courses.zju.edu.cn/course/68818/learning-activity/full-screen#/808545)
@@ -58,10 +59,10 @@
 - [x] **06.30 00:00** 数学软件：[项目结合实现](https://courses.zju.edu.cn/course/68818/learning-activity#/814923)
 - [x] **06.30 00:00** 数学软件：[调查并实现 Conway GOL的各种模式](https://courses.zju.edu.cn/course/68818/learning-activity#/819134)
 - [x] **06.30 00:00** 数学软件：[进一步完善 GOL 项目](https://courses.zju.edu.cn/course/68818/learning-activity#/820282)
-- [ ] **06.30 00:00** 数学软件：[调查作业：Mandelbrot 集](https://courses.zju.edu.cn/course/68818/learning-activity#/820491)
+- [x] **06.30 00:00** 数学软件：[调查作业：Mandelbrot 集](https://courses.zju.edu.cn/course/68818/learning-activity#/820491)
 - [ ] **06.30 00:00** 数学软件：[调查作业 Shell 脚本的实现](https://courses.zju.edu.cn/course/68818/learning-activity#/822493)
-- [ ] **06.30 00:00** 数学软件：[更新你的项目](https://courses.zju.edu.cn/course/68818/learning-activity#/822988)
-- [ ] **06.30 00:00** 数学软件：[项目作业: Mandelbrot 集的可视化实现](https://courses.zju.edu.cn/course/68818/learning-activity#/824862)
+- [x] **06.30 00:00** 数学软件：[更新你的项目](https://courses.zju.edu.cn/course/68818/learning-activity#/822988)
+- [x] **06.30 00:00** 数学软件：[项目作业: Mandelbrot 集的可视化实现](https://courses.zju.edu.cn/course/68818/learning-activity#/824862)
 
 ## ADS
 
