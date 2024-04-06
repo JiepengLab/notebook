@@ -9,7 +9,7 @@
 ## 作业DDL
 
 <div class="g-container">
-    <div class="g-number">37/60</div>
+    <div class="g-number">39/61</div>
     <div class="g-contrast">
             <div class="g-circle"></div>
     </div>
@@ -42,8 +42,8 @@
 - [x] **04.01 20:47** ADS：[PTA_HW4](https://pintia.cn/problem-sets/1769677146061225984)
 - [x] **04.02 08:00** 数据库系统：[实验3 SQL数据完整性](https://courses.zju.edu.cn/course/67605/learning-activity#/785963?view=scores)
 - [x] **04.03 14:32** 毛概：[第三章 阅读材料及思考题](https://courses.zju.edu.cn/course/69115/learning-activity#/820171?view=scores)
-- [ ] **04.06 23:59** UX：[期中问卷](https://ke.neoschool.com/student/)
-- [ ] **04.06 23:59** 控制的哲学与方法：三个有质量的小纸条，可以是问题/疑惑/思考
+- [x] **04.06 23:59** UX：[期中问卷](https://ke.neoschool.com/student/)
+- [x] **04.06 23:59** 控制的哲学与方法：三个有质量的小纸条，可以是问题/疑惑/思考
 - [ ] **04.07 19:00** UX：[HW4](https://ke.neoschool.com/student/)
 - [ ] **04.08 13:15** 数据库系统：[书后习题 5.6、5.15、5.19 | 随堂测试 | 讨论](https://courses.zju.edu.cn/course/67605/learning-activity#/785972?view=scores)
 - [ ] **04.08 17:25** ADS：[PTA_HW5](https://pintia.cn/problem-sets/1772162901027262464)
@@ -75,6 +75,7 @@
 - [ ] **06.30 00:00** 数学软件：[调查作业 Shell 脚本的实现](https://courses.zju.edu.cn/course/68818/learning-activity#/822493)
 - [x] **06.30 00:00** 数学软件：[更新你的项目](https://courses.zju.edu.cn/course/68818/learning-activity#/822988)
 - [x] **06.30 00:00** 数学软件：[项目作业: Mandelbrot 集的可视化实现](https://courses.zju.edu.cn/course/68818/learning-activity#/824862)
+- [ ] **06.30 00:00** 数学软件：[项目作业: 矩阵乘法](https://courses.zju.edu.cn/course/68818/learning-activity#/825358)
 
 ## ADS
 
