@@ -160,7 +160,10 @@ nav:
       - ./CS/Computational-Photography/index.md
       - 颜色空间、图像的数字化、滤波与频域变换: ./CS/Computational-Photography/lec01.md
       - 泊松图像编辑与交互式数字蒙太奇: ./CS/Computational-Photography/lec02.md
-      - 交互式图像分割与抠像: ./CS/Computational-Photography/lec03.md
+      - 交互式图像分割与抠像: 
+        - ./CS/Computational-Photography/lec03.md
+        - 常用模型: ./CS/Computational-Photography/lec03-1.md
+        - 交互式图像分割算法: ./CS/Computational-Photography/lec03-2.md
       - Appendix:
         - Hammersley-Clifford定理的证明: ./CS/Computational-Photography/Hammersley-Clifford.md
 
