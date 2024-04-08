@@ -86,7 +86,6 @@ nav:
       - ./CS/AI_Start/index.md
       - Note 01-AI数学基础:
         - 矩阵导数运算: ./CS/AI_Start/Note01-diff.md
-        - 概率论: ./CS/AI_Start/Note01-prob.md
     - 数字逻辑设计:
       - ./CS/DigitalDesign/index.md
       - Glossary: ./CS/DigitalDesign/glossary.md

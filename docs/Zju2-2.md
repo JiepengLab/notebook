@@ -45,7 +45,7 @@
 - [x] **04.06 23:59** UX：[期中问卷](https://ke.neoschool.com/student/)
 - [x] **04.06 23:59** 控制的哲学与方法：三个有质量的小纸条，可以是问题/疑惑/思考
 - [x] **04.07 19:00** UX：[HW4](https://ke.neoschool.com/student/)
-- [ ] **04.08 13:15** 数据库系统：[书后习题 5.6、5.15、5.19 | 随堂测试 | 讨论](https://courses.zju.edu.cn/course/67605/learning-activity#/785972?view=scores)
+- [x] **04.08 13:15** 数据库系统：[书后习题 5.6、5.15、5.19 | 随堂测试 | 讨论](https://courses.zju.edu.cn/course/67605/learning-activity#/785972?view=scores)
 - [ ] **04.08 15:32** ADS：[Project2](https://pintia.cn/problem-sets/1772164889915912192/exam/overview)
 - [x] **04.08 17:25** ADS：[PTA_HW5](https://pintia.cn/problem-sets/1772162901027262464)
 - [x] **04.08 23:59** 密码学：[第02次作业](https://pintia.cn/problem-sets/1769719326503018496/exam/problems/1769719976095850496?type=9&page=0)
