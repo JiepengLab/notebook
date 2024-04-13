@@ -18,7 +18,7 @@
     
     
       
-        <title>Lec06 深度学习 - Jiepeng's notes</title>
+        <title>Lec05 深度学习 - Jiepeng's notes</title>
       
     
     
@@ -123,7 +123,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lec06" class="md-skip">
+        <a href="#lec05" class="md-skip">
           跳转至
         </a>
       
@@ -156,7 +156,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lec06 深度学习
+              Lec05 深度学习
             
           </span>
         </div>
@@ -1123,6 +1123,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#data-augmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data augmentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deep-learning-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deep learning frameworks
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1131,9 +1149,156 @@
         <li class="md-nav__item">
   <a href="#network-architectures" class="md-nav__link">
     <span class="md-ellipsis">
-      Network architectures
+      Network architectures | 网络架构
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Network architectures | 网络架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alexnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      AlexNet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      ResNet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-deep-learning-is-powerful" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why deep learning is powerful
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semantic-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semantic segmentation | 语义分割
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantic segmentation | 语义分割">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sliding window
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fully-convolutional-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fully convolutional network | 全卷积网络
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object detection | 目标检测
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object detection | 目标检测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      R-CNN
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Faster R-CNN
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yolo" class="md-nav__link">
+    <span class="md-ellipsis">
+      YOLO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instance segmentation | 实例分割
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instance segmentation | 实例分割">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mask-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mask R-CNN
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1155,9 +1320,9 @@
   
 
 
-<h1 id="lec06">Lec06 深度学习<a class="headerlink" href="#lec06" title="点击此处可置顶内容">&para;</a></h1>
+<h1 id="lec05">Lec05 深度学习<a class="headerlink" href="#lec05" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 2171 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 3 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 11 分钟</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 2701 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 3 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 14 分钟</p>
 </div>
 <div class="admonition note">
 <p>周晓巍老师过来上的第一门课</p>
@@ -1232,6 +1397,9 @@
 <li><strong>在新图像上评估分类器</strong>：在这个阶段，我们在训练完模型后，使用一些模型未见过的图像（测试集）来评估模型的性能。这通常涉及到计算一些评价指标，如精度（accuracy）、召回率（recall）或F1值等。</li>
 </ol>
 <h2 id="image-classification">Image classification<a class="headerlink" href="#image-classification" title="点击此处可置顶内容">&para;</a></h2>
+<p>老师的Slide从下面摘的</p>
+<p><a href="https://web.eecs.umich.edu/~justincj/slides/eecs498/WI2022/598_WI2022_lecture02.pdf">Slide1</a>
+<a href="https://web.eecs.umich.edu/~justincj/slides/eecs498/WI2022/598_WI2022_lecture03.pdf">Slide2</a></p>
 <h3 id="linear-classifier">Linear classifier<a class="headerlink" href="#linear-classifier" title="点击此处可置顶内容">&para;</a></h3>
 <div class="admonition note">
 <p>输入：猫猫的图片，输出：类别是猫。
@@ -1257,6 +1425,7 @@
 <p><img alt="alt text" src="../images/image-59.png" /></p>
 <h3 id="cross-entropy-loss">Cross-entropy loss<a class="headerlink" href="#cross-entropy-loss" title="点击此处可置顶内容">&para;</a></h3>
 <p><img alt="alt text" src="../images/image-60.png" /></p>
+<p><img alt="alt text" src="../images/image-203.png" /></p>
 <h2 id="neural-networks">Neural networks<a class="headerlink" href="#neural-networks" title="点击此处可置顶内容">&para;</a></h2>
 <h3 id="perceptron">Perceptron<a class="headerlink" href="#perceptron" title="点击此处可置顶内容">&para;</a></h3>
 <p>对线性分类器来说，其图形化表述为：</p>
@@ -1452,7 +1621,66 @@ L(w) = \frac{1}{n} \sum_{i=1}^{n} l(y_i, f_w(x_i))
 <li>idea 3 好，在train上训练，在validation上调参，在test上判断效果。</li>
 </ul>
 <p><img alt="alt text" src="../images/image-186.png" /></p>
-<h2 id="network-architectures">Network architectures<a class="headerlink" href="#network-architectures" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="data-augmentation">Data augmentation<a class="headerlink" href="#data-augmentation" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li><strong>数据增强</strong>：通过对训练数据进行随机变换，如旋转、翻转、缩放等，来生成更多的训练样本。这有助于提高模型的泛化能力，减少过拟合。</li>
+</ul>
+<p><img alt="alt text" src="../images/image-187.png" /></p>
+<p><img alt="alt text" src="../images/image-188.png" /></p>
+<h3 id="deep-learning-frameworks">Deep learning frameworks<a class="headerlink" href="#deep-learning-frameworks" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li><strong>TensorFlow</strong></li>
+<li><strong>PyTorch</strong></li>
+<li><strong>Caffe</strong></li>
+</ul>
+<h2 id="network-architectures">Network architectures | 网络架构<a class="headerlink" href="#network-architectures" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="alexnet">AlexNet<a class="headerlink" href="#alexnet" title="点击此处可置顶内容">&para;</a></h3>
+<p>AlexNet 是一个深度卷积神经网络，由 Alex Krizhevsky、Ilya Sutskever 和 Geoffrey Hinton 设计。它是第一个在 ImageNet 数据集上取得成功的深度学习模型，赢得了 2012 年 ImageNet 大规模视觉识别挑战赛的冠军。</p>
+<p><img alt="alt text" src="../images/image-189.png" /></p>
+<h3 id="resnet">ResNet<a class="headerlink" href="#resnet" title="点击此处可置顶内容">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">为什么添加网络层数会导致性能下降？</p>
+<ul>
+<li>观察到恒等映射，即 <span class="arithmatex">\(f(x)=x\)</span>，在网络中的表现不佳</li>
+</ul>
+</div>
+<p>ResNet 是由微软研究院的 Kaiming He 等人提出的一种深度卷积神经网络架构。ResNet 通过引入残差模块（residual block）来解决深度神经网络训练过程中的梯度消失问题，使得网络可以<strong>训练更深</strong>。</p>
+<p><img alt="alt text" src="../images/image-190.png" /></p>
+<p>现在，我们学的<span class="arithmatex">\(F(x)\)</span>实际上是输入和输出的差值，即残差。</p>
+<p><img alt="alt text" src="../images/image-191.png" /></p>
+<p>残差网络由多个残差块组成，每个残差块包含两个卷积层和一个跳跃连接。跳跃连接将输入直接添加到输出，从而使得网络可以学习残差映射。</p>
+<p><img alt="alt text" src="../images/image-192.png" /></p>
+<h2 id="why-deep-learning-is-powerful">Why deep learning is powerful<a class="headerlink" href="#why-deep-learning-is-powerful" title="点击此处可置顶内容">&para;</a></h2>
+<p>深度学习是端到端的学习，不需要人工特征提取。</p>
+<p><img alt="alt text" src="../images/image-193.png" /></p>
+<h2 id="applications">Applications<a class="headerlink" href="#applications" title="点击此处可置顶内容">&para;</a></h2>
+<p><img alt="alt text" src="../images/image-194.png" /></p>
+<h3 id="semantic-segmentation">Semantic segmentation | 语义分割<a class="headerlink" href="#semantic-segmentation" title="点击此处可置顶内容">&para;</a></h3>
+<p><img alt="alt text" src="../images/image-195.png" /></p>
+<h4 id="sliding-window">Sliding window<a class="headerlink" href="#sliding-window" title="点击此处可置顶内容">&para;</a></h4>
+<p>Slide window 的方法：以像素为中心，取一个窗口，然后进行分类。</p>
+<p>用 Slide window 的方法，效果不好：效率低，感受域小</p>
+<h4 id="fully-convolutional-network">Fully convolutional network | 全卷积网络<a class="headerlink" href="#fully-convolutional-network" title="点击此处可置顶内容">&para;</a></h4>
+<!-- Make predictions all at once
+• What is the loss function for training?
+– Per-pixel cross-entropy
+ -->
+<p>全卷积网络（FCN）：将全连接层替换为卷积层，使得网络可以接受任意大小的输入图像，并输出相同大小的预测图像。</p>
+<p><img alt="alt text" src="../images/image-196.png" /></p>
+<p>这样做的好处是，我们可以一次性预测所有像素，而不是一个像素一个像素的预测。</p>
+<h3 id="object-detection">Object detection | 目标检测<a class="headerlink" href="#object-detection" title="点击此处可置顶内容">&para;</a></h3>
+<p>输入：图像，输出：图像中的物体的Bounding Box（边界框）和类别</p>
+<p><img alt="alt text" src="../images/image-197.png" /></p>
+<h4 id="r-cnn">R-CNN<a class="headerlink" href="#r-cnn" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="alt text" src="../images/image-198.png" /></p>
+<h4 id="faster-r-cnn">Faster R-CNN<a class="headerlink" href="#faster-r-cnn" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="alt text" src="../images/image-199.png" /></p>
+<h4 id="yolo">YOLO<a class="headerlink" href="#yolo" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="alt text" src="../images/image-200.png" /></p>
+<h3 id="instance-segmentation">Instance segmentation | 实例分割<a class="headerlink" href="#instance-segmentation" title="点击此处可置顶内容">&para;</a></h3>
+<p><img alt="alt text" src="../images/image-201.png" /></p>
+<h4 id="mask-r-cnn">Mask R-CNN<a class="headerlink" href="#mask-r-cnn" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="alt text" src="../images/image-202.png" /></p>
 
 
 
@@ -1475,7 +1703,7 @@ L(w) = \frac{1}{n} \sum_{i=1}^{n} l(y_i, f_w(x_i))
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月8日 16:16:10</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月13日 19:18:29</span>
   </span>
 
     
