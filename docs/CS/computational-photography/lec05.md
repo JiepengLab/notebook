@@ -1,4 +1,4 @@
-# Lec06 深度学习
+# Lec05 深度学习
 
 !!! note ""
     周晓巍老师过来上的第一门课
@@ -78,6 +78,11 @@ graph LR
 
 ## Image classification
 
+老师的Slide从下面摘的
+
+[Slide1](https://web.eecs.umich.edu/~justincj/slides/eecs498/WI2022/598_WI2022_lecture02.pdf)
+[Slide2](https://web.eecs.umich.edu/~justincj/slides/eecs498/WI2022/598_WI2022_lecture03.pdf)
+
 ### Linear classifier
 
 !!! note ""
@@ -108,6 +113,8 @@ An Image classifier is hard to define
 ### Cross-entropy loss
 
 ![alt text](images/image-60.png)
+
+![alt text](images/image-203.png)
 
 ## Neural networks
 
@@ -360,4 +367,100 @@ $$
 
 ![alt text](images/image-186.png)
 
-## Network architectures
+### Data augmentation
+
+- **数据增强**：通过对训练数据进行随机变换，如旋转、翻转、缩放等，来生成更多的训练样本。这有助于提高模型的泛化能力，减少过拟合。
+
+![alt text](images/image-187.png)
+
+![alt text](images/image-188.png)
+
+### Deep learning frameworks
+
+- **TensorFlow**
+- **PyTorch**
+- **Caffe**
+
+## Network architectures | 网络架构
+
+### AlexNet
+
+AlexNet 是一个深度卷积神经网络，由 Alex Krizhevsky、Ilya Sutskever 和 Geoffrey Hinton 设计。它是第一个在 ImageNet 数据集上取得成功的深度学习模型，赢得了 2012 年 ImageNet 大规模视觉识别挑战赛的冠军。
+
+![alt text](images/image-189.png)
+
+### ResNet
+
+!!! note "为什么添加网络层数会导致性能下降？"
+    - 观察到恒等映射，即 $f(x)=x$，在网络中的表现不佳
+
+ResNet 是由微软研究院的 Kaiming He 等人提出的一种深度卷积神经网络架构。ResNet 通过引入残差模块（residual block）来解决深度神经网络训练过程中的梯度消失问题，使得网络可以**训练更深**。
+
+![alt text](images/image-190.png)
+
+现在，我们学的$F(x)$实际上是输入和输出的差值，即残差。
+
+![alt text](images/image-191.png)
+
+残差网络由多个残差块组成，每个残差块包含两个卷积层和一个跳跃连接。跳跃连接将输入直接添加到输出，从而使得网络可以学习残差映射。
+
+![alt text](images/image-192.png)
+
+## Why deep learning is powerful
+
+深度学习是端到端的学习，不需要人工特征提取。
+
+![alt text](images/image-193.png)
+
+## Applications
+
+![alt text](images/image-194.png)
+
+### Semantic segmentation | 语义分割
+
+![alt text](images/image-195.png)
+
+#### Sliding window
+
+Slide window 的方法：以像素为中心，取一个窗口，然后进行分类。
+
+用 Slide window 的方法，效果不好：效率低，感受域小
+
+#### Fully convolutional network | 全卷积网络
+
+<!-- Make predictions all at once
+• What is the loss function for training?
+– Per-pixel cross-entropy
+ -->
+全卷积网络（FCN）：将全连接层替换为卷积层，使得网络可以接受任意大小的输入图像，并输出相同大小的预测图像。
+
+![alt text](images/image-196.png)
+
+这样做的好处是，我们可以一次性预测所有像素，而不是一个像素一个像素的预测。
+
+### Object detection | 目标检测
+
+输入：图像，输出：图像中的物体的Bounding Box（边界框）和类别
+
+![alt text](images/image-197.png)
+
+#### R-CNN
+
+![alt text](images/image-198.png)
+
+#### Faster R-CNN
+
+![alt text](images/image-199.png)
+
+#### YOLO
+
+![alt text](images/image-200.png)
+
+### Instance segmentation | 实例分割
+
+![alt text](images/image-201.png)
+
+#### Mask R-CNN
+
+![alt text](images/image-202.png)
+

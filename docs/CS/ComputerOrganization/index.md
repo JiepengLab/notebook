@@ -1,21 +1,32 @@
-# 写在前面
+# Computer Organization & Design | 计算机组成
 
 !!! note ""
 
+    - 授课：林芃
     - 学在浙大：[上课课件](https://courses.zju.edu.cn/course/68311/courseware#/)
     - 学在浙大：[实验课件](https://courses.zju.edu.cn/course/68313/courseware#/)
 
+    ![alt text](images/image.png)
+    课程评分方法：
+
+    - 平时占 20%：作业、课堂、阅读
+    - 期中闭卷(英文)考试(统一时间段)，10%
+    - 期末闭卷(英文)考试 40%
+    - 实验占 30%
+        - Lab00~03: 基本实验 30%
+        - Lab04 :单周期CPU 30%
+        - Lab05 : 流水线CPU 40%
+        - 附加分奖励：优秀作品 (附加后不超过100分)
+
+    注：卷面成绩不到45分(满分100分)者，总评不及格。
 
 !!! danger ""
-    我的笔记所追求的目标是有逻辑、通畅地总结知识；因此如果您在阅读过程中在任何地方发现了不容易读懂的部分，请务必在评论区或者通过其它方式告知我QWQ！非常感谢！
 
-    本文经 @IsshikiHugh 补充和完善。
+    本文来自 [咸鱼暄的代码空间](https://xuan-insr.github.io/computer_organization/)
 
 这是计算机组成课程的学习记录。
 
 使用的课本是 _Computer Organization and Design - The Hardware / Software Interface (RISC-V Edition)_：
-
-<center>![image.png](../../../assets/1654452339796-a855e535-5361-4b3f-96bc-f084bb514e00.png){width=300}</center>
 
 !!! warning "说明"
     我自认为在 **3 Arithmetic**, **4 Processor**, **5 Cache** 三章中的整理和讲解是非常详细的，如果这些部分存在看不懂的地方，请务必联系我。

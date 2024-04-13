@@ -32,33 +32,35 @@ D--->G
 D--->H
 ```
 
-
-## 1.1 Eight Great Ideas
+## 1.1 Eight Great Ideas | 八个伟大思想
 
 部分在实际题目中还挺难区分的，注意识别题目中的关键暗示。此外，先学习了之后的内容会对部分思想有更深刻的理解。
 
-- Design for Moore’s Law （设计紧跟摩尔定律）
+- Design for Moore’s Law | 设计紧跟摩尔定律
     - **Moore's Law**: Integrated circuit resources double every 18-24 months.
     - Design for where it will be when finishes rather than design for where it starts.
 - Use Abstraction to Simplify Design (采用抽象简化设计)
     - 层次化、模块化的设计
-- Make the Common Case Fast (加速大概率事件)
-- Performance via Parallelism (通过并行提高性能)
-- Performance via Pipelining (通过流水线提高性能)
+- Make the Common Case Fast | 加速经常性事件
+- Performance via Parallelism | 通过并行提高性能
+- Performance via Pipelining | 通过流水线提高性能
     - 换句话说就是，每个流程同时进行，只不过每一个流程工作的对象是时间上相邻的若干产品；
     - 相比于等一个产品完全生产完再开始下一个产品的生产，会快很多；
     - 希望每一个流程的时间是相对均匀的；
-- Performance via Prediction (通过预测提高性能)
+- Performance via Prediction | 通过预测提高性能
     - 例如先当作 `if()` 条件成立，执行完内部内容，如果后来发现确实成立，那么直接 apply，否则就再重新正常做；
     - 这么做就好在（又或者说只有这种情况适合预测），预测成功了就加速了，预测失败了纠正的成本也不高； 
-- Hierarchy of Memories (存储器层次)
+- Hierarchy of Memories | 存储器层次
     - Disk / Tape -> Main Memory(DRAM) -> L2-Cache(SRAM) -> L1-Cache(On-Chip) -> Registers
-- Dependability via Redundancy (通过冗余提高可靠性)
+    - ![alt text](images/image-3.png)
+- Dependability via Redundancy | 通过冗余提高可靠性
     - 类似于卡车的多个轮胎，一个模块 down 了以后不会剧烈影响整个系统；
 
 ---
 
 ## 1.2 Below Program
+
+![alt text](images/image-6.png){width=50%}
 
 ```mermaid
 graph TD;
@@ -74,23 +76,28 @@ A --->|"Compiler"| B --->|"Assembler"| C
 
 ## 1.3 Components of a computer
 
+![alt text](images/image-4.png)
+
 The five classic components of a computer:
 
-- **input**;
-- **output**;
-- **memory** (DRAM);
+- **Input**;
+- **Output**;
+- **Memory** (DRAM);
     - 程序、数据存储的地方，也是程序“运行的位置”；
     - cache memory (SRAM): buffer for the DRAM memory;
-- **datapath**;
+- **Datapath**;
     - 负责实际的数据处理；
 - **control**;
     - 负责指挥控制如何进行数据处理，给出控制信号；
 
-> **processor** / **(central processor unit)CPU** = datapath + control
+> **processor** / **central processor unit | CPU** = datapath + control
 
 为了实现抽象，我们设计了一套硬件和最低抽象程度的软件之间的接口——**instruction set architecture** (ISA)，本课程将会以 RISC-V 为例进行介绍，详细内容将放在[第二章](./2_instructions.md)。
 
 此外，根据是否具有易失性，内存被分为两类：**main memory / prime memory** (eg. DRAM) 和 **secondary memory** (eg. magnetic disks, flash memory)。
+
+### LCD
+
 
 ---
 
