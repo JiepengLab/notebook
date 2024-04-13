@@ -63,7 +63,7 @@ for i in range(2, len(raw_text) - 2):
 CONTEXT_SIZE = 2  # 上下文窗口大小
 ```
 
-`CONTEXT_SIZE` 就是上下文窗口的大小，这里设置为2
+`CONTEXT_SIZE` 就是上下文窗口的大小，这里设置为 2。例如，对于句子"The cat sits on the mat"，sits 的上下文为[The, cat, on, mat]。
 
 #### `EMDEDDING_DIM`
 
