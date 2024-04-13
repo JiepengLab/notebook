@@ -1764,7 +1764,7 @@
 </span></code></pre></div>
 <p>同样，构建了线性层，其输出是一个<code>128 * vocab_size</code>的矩阵。<code>nn.LogSoftmax</code> 是一个类，用于构建LogSoftmax激活函数。</p>
 <div class="admonition note">
-<p><code>dim = -1</code> 表示对最后一个维度进行LogSoftmax操作。实际上，这里并不需要 <code>dim = -1</code>，因为我们在各项运行中，矩阵的形式都是<code>[[...]]</code>，所以 <code>dim</code> 可以省略。为什么是这种形式？因为调用的时候输入的是<code>.view(1,-1)</code>，这样就会得到一个二维的矩阵。</p>
+<p><code>dim = -1</code> 表示对最后一个维度进行LogSoftmax操作。实际上，这里并不需要 <code>dim = -1</code>，因为我们在各项运行中，矩阵的形式都是<code>[[...]]</code>，所以 <code>dim</code> 可以省略。为什么是这种形式？因为调用的时候输入的是<code>.view(1,-1)</code>，这样就会得到一个二维的矩阵。具体可看<a href="#sumselfembeddingsinputsview1-1">这里</a>。</p>
 </div>
 <h5 id="_7">总结<a class="headerlink" href="#_7" title="点击此处可置顶内容">&para;</a></h5>
 <p>这里的CBOW模型包含了一个嵌入层、一个隐藏层和一个输出层。嵌入层用于将词索引转换为词向量，隐藏层用于学习词向量之间的关系，输出层用于预测目标词。</p>
@@ -1797,7 +1797,7 @@
 </span></code></pre></div>
 <p><code>forward</code> 方法是 CBOW 模型的前向传播方法。在这个方法中，我们首先将输入的词索引转换为词向量，然后将词向量相加，得到一个大小为<code>1 * embedding_dim</code>的词向量。接着，我们将这个词向量输入到隐藏层，然后通过激活函数，最后输入到输出层，得到预测的目标词。</p>
 <h5 id="sumselfembeddingsinputsview1-1"><code>sum(self.embeddings(inputs)).view(1,-1)</code><a class="headerlink" href="#sumselfembeddingsinputsview1-1" title="点击此处可置顶内容">&para;</a></h5>
-<p>举个例子，假设我们目标词的上下文的索引为<code>[1, 2, 4, 5]</code>，那么我们可以得到这些词的词向量，然后将这些词向量相加，得到一个大小为<code>1 * embedding_dim</code>的词向量。具体可看<a href="#sumselfembeddingsinputsview1-1">这里</a>。</p>
+<p>举个例子，假设我们目标词的上下文的索引为<code>[1, 2, 4, 5]</code>，那么我们可以得到这些词的词向量，然后将这些词向量相加，得到一个大小为<code>1 * embedding_dim</code>的词向量。</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kn">import</span> <span class="nn">torch</span>
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
@@ -2150,7 +2150,7 @@
 <p>为什么要用<code>torch.argmax(a[0]).item()</code>？</p>
 <div class="admonition note">
 <p><code>torch.argmax(a[0])</code>是找到<code>a[0]</code>中最大值的索引，然后通过<code>item()</code>方法将这个索引转换为Python的整数。</p>
-<p>!!! 为什么要找最大值的索引？</p>
+<p>!!! "为什么要找最大值的索引？"</p>
 <div class="language-text highlight"><pre><span></span><code>因为我们的模型是通过预测目标词的概率来预测目标词的，所以我们需要找到概率最大的词，而越接近0的值，概率越大。
 
 ```python
@@ -2190,7 +2190,7 @@ Word:  programs
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月14日 04:20:34</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月14日 04:40:31</span>
   </span>
 
     
