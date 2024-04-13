@@ -22,18 +22,8 @@ CBOW模型与语言建模（language modeling）有所不同，因为CBOW模型*
     + 如果是语言建模的话，模型会尝试根据"cat", “sits”, “on”, "the"等词来预测"mat"这个词，也就是预测下一个词。
 
 > 通常，CBOW模型被用来快速训练词嵌入（word embeddings），而这些词嵌入会被用来初始化一些更复杂模型的嵌入。这通常被称为预训练嵌入（pretraining embeddings）。通常情况下，这种做法能够帮助模型性能提升几个百分点。
+> 
 > CBOW模型的预训练嵌入可以被用于各种自然语言处理任务，比如情感分析、命名实体识别等。通过使用预训练的词嵌入，模型在开始学习任务时就能够具备一定的语义信息，从而提升了模型的性能。
-
-<!-- ## CBOW 的架构
-
-CBOW模型的神经网络结构如下：
-
-1. 输入层：输入是一个大小为`2 * C`的词向量，其中`C`是上下文窗口的大小。在本程序中，`CONTEXT_SIZE`为2，因此输入大小为4。
-2. 隐藏层：隐藏层是一个线性层，其输出维度为`embedding_dim`。
-3. 输出层：输出层是一个线性层，其输出维度为`vocab_size`。
-4. 激活函数：隐藏层使用`ReLU`激活函数，输出层使用`LogSoftmax`激活函数。
-5. 词嵌入层：词嵌入层是一个`vocab_size * embedding_dim`的矩阵，用于将词索引转换为词向量。
-6. 损失函数：损失函数使用负对数似然损失函数。 -->
 
 ## 算法流程
 
@@ -248,7 +238,7 @@ class CBOW(torch.nn.Module):
 同样，构建了线性层，其输出是一个`128 * vocab_size`的矩阵。`nn.LogSoftmax` 是一个类，用于构建LogSoftmax激活函数。
 
 !!! note ""
-    `dim = -1` 表示对最后一个维度进行LogSoftmax操作。
+    `dim = -1` 表示对最后一个维度进行LogSoftmax操作。实际上，这里并不需要 `dim = -1`，因为我们在各项运行中，矩阵的形式都是`[[...]]`，所以 `dim` 可以省略。为什么是这种形式？因为调用的时候输入的是`.view(1,-1)`，这样就会得到一个二维的矩阵。
 
 ##### 总结
 
@@ -293,7 +283,7 @@ class CBOW(torch.nn.Module):
 
 ##### `sum(self.embeddings(inputs)).view(1,-1)`
     
-举个例子，假设我们目标词的上下文的索引为`[1, 2, 4, 5]`，那么我们可以得到这些词的词向量，然后将这些词向量相加，得到一个大小为`1 * embedding_dim`的词向量。
+举个例子，假设我们目标词的上下文的索引为`[1, 2, 4, 5]`，那么我们可以得到这些词的词向量，然后将这些词向量相加，得到一个大小为`1 * embedding_dim`的词向量。具体可看[这里](#sumselfembeddingsinputsview1-1)。
 
 ```python
 import torch.nn as nn
@@ -336,7 +326,7 @@ tensor([[-0.4425,  1.2221,  1.2357, -0.2781]], grad_fn=<ViewBackward0>)
 
 !!! note ""
 
-    我们在这里训练的其实是前后文词向量的和，然后通过神经网络来预测目标词。
+    我们在这里训练的其实是前后文**词向量的和**，然后通过神经网络来预测目标词。
 
 ### 训练模型
 
@@ -379,6 +369,48 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.001)
 
 我们定义了损失函数为负对数似然损失函数，优化器为随机梯度下降。
 
+##### `nn.NLLLoss()`
+
+`nn.NLLLoss()` 是一个类，用于构建负对数似然损失函数。这个损失函数通常用于多分类问题，它的输入是一个对数概率向量和一个目标标签，输出是一个标量。
+
+```python
+import torch
+import torch.nn as nn
+
+nllloss = nn.NLLLoss() 
+
+predict = torch.Tensor([[2, 3, 1]])
+label = torch.tensor([1])
+
+print(nllloss(predict, label))
+```
+
+输出为
+
+```python
+tensor(-3.)
+```
+
+即将索引为1的值取出，然后取负数。
+
+!!! note ""
+    由于经过了`nn.LogSoftmax`，所以这里的输入是一个对数概率向量，其必小于0。所以我们得到的损失值是一个正数。
+
+##### `torch.optim.SGD`
+
+`torch.optim.SGD` 是一个类，用于构建随机梯度下降优化器。这个优化器通常用于训练神经网络，它的输入是模型的参数和学习率，输出是一个优化器对象。
+
+下面是 torch.optim.SGD 的主要参数及其说明：
+
+```python
+CLASS torch.optim.SGD(params, lr=0.001, momentum=0, dampening=0, weight_decay=0, nesterov=False, *, maximize=False, foreach=None, differentiable=False)
+```
+
+其中，`params`是一个包含了需要优化的参数（张量）的迭代器，例如模型的参数 model.parameters()。`lr` 是指学习率（learning rate）。它是一个正数，控制每次参数更新的步长。较小的学习率会导致收敛较慢，较大的学习率可能导致震荡或无法收敛。
+
+
+
+
 #### 训练模型
 
 ```python
@@ -398,6 +430,89 @@ for epoch in range(50):
     total_loss.backward()
     optimizer.step()
 ```
+
+##### 后三个步骤
+
+总得来说，这三个函数的作用是先将梯度归零（`optimizer.zero_grad()`），然后反向传播计算得到每个参数的梯度值（`total_loss.backward()`），最后通过梯度下降执行一步参数更新（`optimizer.step()`）
+
+!!! note ""
+    `param_groups`：`Optimizer` 类在实例化时会在构造函数中创建一个 `param_groups` 列表，列表中有 `num_groups` 个长度为 6 的 `param_group` 字典（`num_groups` 取决于你定义 `optimizer` 时传入了几组参数），每个 `param_group` 包含了 `['params', 'lr', 'momentum', 'dampening', 'weight_decay', 'nesterov']` 这 6 组键值对。
+
+    `param_group['params']`：由传入的模型参数组成的列表，即实例化 `Optimizer` 类时传入该 `group` 的参数，如果参数没有分组，则为整个模型的参数 `model.parameters()`，每个参数是一个`torch.nn.parameter.Parameter`对象。
+
+1. `optimizer.zero_grad()`
+
+    ```python
+    def zero_grad(self):
+            r"""Clears the gradients of all optimized :class:`torch.Tensor` s."""
+            for group in self.param_groups:
+                for p in group['params']:
+                    if p.grad is not None:
+                        p.grad.detach_()
+                        p.grad.zero_()
+    ```
+
+    `optimizer.zero_grad()` 函数会遍历模型的所有参数，通过`p.grad.detach_()`方法截断反向传播的梯度流，再通过`p.grad.zero_()`函数将每个参数的梯度值设为0，即上一次的梯度记录被清空。
+
+    因为训练的过程通常使用mini-batch方法，所以如果不将梯度清零的话，梯度会与上一个batch的数据相关，因此该函数要写在反向传播和梯度下降之前。
+
+2. `total_loss.backward()`
+
+    PyTorch的反向传播(即tensor.backward())是通过autograd包来实现的，autograd包会根据tensor进行过的数学运算来自动计算其对应的梯度。
+
+    具体来说，torch.tensor是**autograd包的基础类**，如果你设置tensor的requires_grads为True，就会开始跟踪这个tensor上面的所有运算，如果你做完运算后使用tensor.backward()，**所有的梯度就会自动运算，tensor的梯度将会累加到它的.grad属性里面去。**
+
+    更具体地说，损失函数loss是由模型的所有权重 w 经过一系列运算得到的，若某个w的requires_grads为True，则w的所有上层参数（后面层的权重w）的.grad_fn属性中就保存了对应的运算，然后在使用loss.backward()后，会一层层的反向传播计算每个w的梯度值，并保存到该w的.grad属性中。
+
+    如果没有进行tensor.backward()的话，梯度值将会是None，因此loss.backward()要写在optimizer.step()之前。
+
+3. `optimizer.step()`
+
+    以SGD为例，torch.optim.SGD().step()源码如下：
+
+    ```python
+    def step(self, closure=None):
+        """Performs a single optimization step.
+        Arguments:
+            closure (callable, optional): A closure that reevaluates the model
+                and returns the loss.
+        """
+        loss = None
+        if closure is not None:
+            loss = closure()
+ 
+        for group in self.param_groups:
+            weight_decay = group['weight_decay']
+            momentum = group['momentum']
+            dampening = group['dampening']
+            nesterov = group['nesterov']
+ 
+            for p in group['params']:
+                if p.grad is None:
+                    continue
+                d_p = p.grad.data
+                if weight_decay != 0:
+                    d_p.add_(weight_decay, p.data)
+                if momentum != 0:
+                    param_state = self.state[p]
+                    if 'momentum_buffer' not in param_state:
+                        buf = param_state['momentum_buffer'] = torch.clone(d_p).detach()
+                    else:
+                        buf = param_state['momentum_buffer']
+                        buf.mul_(momentum).add_(1 - dampening, d_p)
+                    if nesterov:
+                        d_p = d_p.add(momentum, buf)
+                    else:
+                        d_p = buf
+ 
+                p.data.add_(-group['lr'], d_p)
+ 
+        return loss
+    ```
+    `step()`函数的作用是执行一次优化步骤，通过梯度下降法来更新参数的值。因为梯度下降是基于梯度的，所以在执行 `optimizer.step()` 函数前应先执行 `loss.backward()` 函数来计算梯度。
+    > `optimizer` 只负责通过梯度下降进行优化，而不负责产生梯度，梯度是 `tensor.backward()` 方法产生的。
+
+看到这里，我不禁有个疑问，词向量矩阵会被更新吗？
 
 !!! note "我们不妨先看看训练了什么"
 
@@ -540,3 +655,53 @@ for epoch in range(50):
                 -0.0013, -0.0496, -0.0820, -0.0791,  0.0156,  0.0151,  0.0491, -0.0292,
                 0.0800], requires_grad=True)
         ```
+
+可以发现，三个矩阵的参数都被训练了。
+
+!!! note "我们来看看Loss的变化"
+
+    ![alt text](images/image-3.png)
+
+    可以看到，Loss是逐渐减小的，说明模型在训练过程中是在学习的。
+
+### 测试模型
+
+```python
+#TESTING
+context = ['People','create','to', 'direct']
+context_vector = make_context_vector(context, word_to_ix)
+a = model(context_vector)
+print("A: ", a)
+print("Argmax: ", torch.argmax(a[0]).item())
+print("Word: ", ix_to_word[torch.argmax(a[0]).item()])
+
+#Print result
+print(f'Raw text: {" ".join(raw_text)}\n')
+print(f'Context: {context}\n')
+print(f'Prediction: {ix_to_word[torch.argmax(a[0]).item()]}')
+```
+
+在测试模型时，我们首先将上下文转换为词索引，然后将这些索引传入模型，得到预测的目标词。最后，我们将预测的目标词转换为文本。
+
+为什么要用`torch.argmax(a[0]).item()`？
+
+!!! note ""
+    `torch.argmax(a[0])`是找到`a[0]`中最大值的索引，然后通过`item()`方法将这个索引转换为Python的整数。
+
+    !!! 为什么要找最大值的索引？
+
+        因为我们的模型是通过预测目标词的概率来预测目标词的，所以我们需要找到概率最大的词，而越接近0的值，概率越大。
+
+        ```python
+        A:  tensor([[-3.7513, -6.2869, -6.8150, -5.1289, -6.9883, -5.3580, -5.2035, -6.7499,
+                    -6.0924, -6.7021, -6.5731, -5.9785, -5.3764, -3.4208, -4.2214, -3.7667,
+                    -6.6148, -5.4716, -3.5843, -4.9430, -4.8275, -6.5689, -6.6325, -6.3984,
+                    -6.3533, -5.8073, -5.3653, -6.3790, -6.6963, -7.7279, -5.9274, -4.1960,
+                    -7.0970, -7.7351, -6.9880, -3.9405, -5.4583, -5.5144, -4.8269, -0.4173, #39
+                    -3.3376, -5.9999, -5.6215, -4.8908, -5.7223, -4.6213, -3.7666, -5.3217,
+                    -6.0109]], grad_fn=<LogSoftmaxBackward0>)
+        Argmax:  39
+        Word:  programs
+        ```
+
+        可以看到，`Argmax`是39，对应的词是`programs`。
