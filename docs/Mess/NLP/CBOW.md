@@ -238,7 +238,8 @@ class CBOW(torch.nn.Module):
 同样，构建了线性层，其输出是一个`128 * vocab_size`的矩阵。`nn.LogSoftmax` 是一个类，用于构建LogSoftmax激活函数。
 
 !!! note ""
-    `dim = -1` 表示对最后一个维度进行LogSoftmax操作。实际上，这里并不需要 `dim = -1`，因为我们在各项运行中，矩阵的形式都是`[[...]]`，所以 `dim` 可以省略。为什么是这种形式？因为调用的时候输入的是`.view(1,-1)`，这样就会得到一个二维的矩阵。
+    `dim = -1` 表示对最后一个维度进行LogSoftmax操作。实际上，这里并不需要 `dim = -1`，因为我们在各项运行中，矩阵的形式都是`[[...]]`，所以 `dim` 可以省略。为什么是这种形式？因为调用的时候输入的是`.view(1,-1)`，这样就会得到一个二维的矩阵。具体可看[这里](#sumselfembeddingsinputsview1-1)。
+
 
 ##### 总结
 
@@ -283,7 +284,7 @@ class CBOW(torch.nn.Module):
 
 ##### `sum(self.embeddings(inputs)).view(1,-1)`
     
-举个例子，假设我们目标词的上下文的索引为`[1, 2, 4, 5]`，那么我们可以得到这些词的词向量，然后将这些词向量相加，得到一个大小为`1 * embedding_dim`的词向量。具体可看[这里](#sumselfembeddingsinputsview1-1)。
+举个例子，假设我们目标词的上下文的索引为`[1, 2, 4, 5]`，那么我们可以得到这些词的词向量，然后将这些词向量相加，得到一个大小为`1 * embedding_dim`的词向量。
 
 ```python
 import torch.nn as nn
@@ -688,7 +689,7 @@ print(f'Prediction: {ix_to_word[torch.argmax(a[0]).item()]}')
 !!! note ""
     `torch.argmax(a[0])`是找到`a[0]`中最大值的索引，然后通过`item()`方法将这个索引转换为Python的整数。
 
-    !!! 为什么要找最大值的索引？
+    !!! "为什么要找最大值的索引？"
 
         因为我们的模型是通过预测目标词的概率来预测目标词的，所以我们需要找到概率最大的词，而越接近0的值，概率越大。
 
