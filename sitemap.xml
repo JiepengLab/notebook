@@ -1291,6 +1291,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jiepenglab.github.io/notebook/Mess/NLP/CBOW/</loc>
+         <lastmod>2024-04-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jiepenglab.github.io/notebook/Mess/QDC/</loc>
          <lastmod>2024-04-13</lastmod>
          <changefreq>daily</changefreq>
