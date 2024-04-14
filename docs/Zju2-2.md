@@ -2,7 +2,7 @@
 
 ## 考试
 
-- [ ] **04.13 20:00-22:00** UX：期中考核
+- [x] **04.13 20:00-22:00** UX：期中考核
 - [ ] **04.17 10:00** 毛概：小测
 - [ ] **05.07** 计算机组成：期中考试，包含单周期处理器
 - [ ] **05.25 20:00-22:00** UX：期中考核
@@ -56,14 +56,16 @@
 - [x] **04.10 20:07** 计算摄影学：[Lab5 非线性最小二乘](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab5-gauss-newton/gauss-newton.html)
 - [x] **04.12 15:38** 计组：[Lab01 报告](https://courses.zju.edu.cn/course/68313/learning-activity#/810440)
 - [x] **04.13 23:59** 控制的哲学与方法：三个有质量的小纸条，可以是问题/疑惑/思考
-- [ ] **04.15 23:59** 密码学：[第03次作业](https://pintia.cn/problem-sets/1774804733921169408)
 - [ ] **04.15 13:15** 数据库系统：[讨论]
+- [ ] **04.15 23:59** 密码学：[第03次作业](https://pintia.cn/problem-sets/1774804733921169408)
 - [ ] **04.16 00:42** ADS：[PTA_HW6](https://pintia.cn/problem-sets/1774809628464222208/exam/overview)
+- [ ] **04.16 23:59** 信息理论：[黑白棋](https://mo.zju.edu.cn/classroom/class/65d811402b0dde6bb0eac218?&activeKey=work)
 - [ ] **04.16 23:59** 人工智能：[黑白棋](https://mo.zju.edu.cn/classroom/class/65d811402b0dde6bb0eac218?&activeKey=work)
 - [ ] **04.17 10:00** 毛概：PPT(在工作方法六十条中，你觉得哪些方法至今仍有借鉴？举例说明。)
 - [ ] **04.17 23:59** 控制的哲学与方法：小组成员合作完成，含配音的pptx，≤10页，≤5分钟，≤50MB，小纸条表单
 - [ ] **04.18 09:54** ADS：[Project3](https://pintia.cn/problem-sets/1775703610572509184)
-- [ ] **04.21 23:59** 控制的哲学与方法：小组成员合作完成，含配音的pptx，≤10页，≤5分钟，≤50MB，小纸条表单
+- [ ] **04.21 23:59** 控制的哲学与方法：提出三个有质量的小纸条，可以是问题/疑惑/思考，小纸条表单
+- [ ] **04.21 23:59** 控制的哲学与方法：小组展示。
 - [ ] **04.22 13:15** 数据库系统：[讨论]
 - [ ] **04.22 13:15** 数据库系统：[书后习题 6.1、6.2、6.21 | 随堂测试 | 讨论](https://courses.zju.edu.cn/course/67605/learning-activity#/785979?view=scores)
 - [ ] **04.23 15:50** 计组：[Lab02](https://courses.zju.edu.cn/course/68313/learning-activity#/824567)
