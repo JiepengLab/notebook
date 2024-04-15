@@ -6,11 +6,20 @@
 - [ ] **04.17 10:00** 毛概：小测
 - [ ] **05.07** 计算机组成：期中考试，包含单周期处理器
 - [ ] **05.25 20:00-22:00** UX：期中考核
+- [ ] **06.20 10:30-12:30** 面向对象程序设计：期末考试
+- [ ] **06.21 08:00-10:00** 数据库系统：期末考试
+- [ ] **06.22 14:00-16:00** 计算机组成：期末考试
+- [ ] **06.22 18:30-20:30** 信息理论：期末考试
+- [ ] **06.23 10:30-12:30** 人工智能：期末考试
+- [ ] **06.23 14:00-16:00** 毛泽东思想和中国特色社会主义理论体系概论(H)：期末考试
+- [ ] **06.24 10:30-12:30** 高级数据结构与算法分析：期末考试
+- [ ] **06.26 08:00-10:00** 数学软件：期末考试
+- [ ] **06.27 08:00-10:00** 密码学：期末考试
 
 ## 作业DDL
 
 <div class="g-container">
-    <div class="g-number">48/74</div>
+    <div class="g-number">52/76</div>
     <div class="g-contrast">
             <div class="g-circle"></div>
     </div>
@@ -56,9 +65,8 @@
 - [x] **04.10 20:07** 计算摄影学：[Lab5 非线性最小二乘](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab5-gauss-newton/gauss-newton.html)
 - [x] **04.12 15:38** 计组：[Lab01 报告](https://courses.zju.edu.cn/course/68313/learning-activity#/810440)
 - [x] **04.13 23:59** 控制的哲学与方法：三个有质量的小纸条，可以是问题/疑惑/思考
-- [ ] **04.15 13:15** 数据库系统：[讨论]
-- [ ] **04.15 23:59** 密码学：[第03次作业](https://pintia.cn/problem-sets/1774804733921169408)
-- [ ] **04.16 00:42** ADS：[PTA_HW6](https://pintia.cn/problem-sets/1774809628464222208/exam/overview)
+- [x] **04.15 13:00** 数据库系统：[讨论]
+- [x] **04.16 00:42** ADS：[PTA_HW6](https://pintia.cn/problem-sets/1774809628464222208/exam/overview)
 - [ ] **04.16 23:59** 信息理论：[黑白棋](https://mo.zju.edu.cn/classroom/class/65d811402b0dde6bb0eac218?&activeKey=work)
 - [ ] **04.16 23:59** 人工智能：[黑白棋](https://mo.zju.edu.cn/classroom/class/65d811402b0dde6bb0eac218?&activeKey=work)
 - [ ] **04.17 10:00** 毛概：PPT(在工作方法六十条中，你觉得哪些方法至今仍有借鉴？举例说明。)
@@ -68,6 +76,7 @@
 - [ ] **04.21 23:59** 控制的哲学与方法：小组展示。
 - [ ] **04.22 13:15** 数据库系统：[讨论]
 - [ ] **04.22 13:15** 数据库系统：[书后习题 6.1、6.2、6.21 | 随堂测试 | 讨论](https://courses.zju.edu.cn/course/67605/learning-activity#/785979?view=scores)
+- [ ] **04.22 23:59** 密码学：[第03次作业](https://pintia.cn/problem-sets/1774804733921169408)
 - [ ] **04.23 15:50** 计组：[Lab02](https://courses.zju.edu.cn/course/68313/learning-activity#/824567)
 - [ ] **04.26 21:30** 数据库系统：[实验5 数据库程序设计](https://courses.zju.edu.cn/course/67605/learning-activity#/785973?view=scores)
 - [x] **04.28 23:59** 计算摄影学：[Lab 6 - 深度学习图像补全](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab6-deep-learning/lab6.html)
