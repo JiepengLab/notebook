@@ -1,6 +1,4 @@
-# 信息的度量
-
-## 第一讲：随机变量的熵和互信息
+# 第一讲：随机变量的熵和互信息
 
 !!! note ""
 
@@ -10,7 +8,7 @@
     - 了解随机变量的条件熵和联合熵及其性质
     - 掌握随机变量互信息定义以及互信息的性质
 
-### 概率论基础
+## 概率论基础
 
 !!! note "随机变量的概率空间"
 
@@ -35,7 +33,7 @@
 
     $$p(x|y)=\frac{p(x,y)}{\omega(y)},\quad p(y|x)=\frac{p(x,y)}{q(x)}$$
 
-### 自信息
+## 自信息
 
 !!! note ""
     自信息：事件发生后提供的信息量。
@@ -62,7 +60,7 @@ $$I(x_k)=-\log_aq(x_k)$$
 
 概率越小的事件，其自信息越大，概率为1的事件，其自信息为0。
 
-#### 条件自信息
+### 条件自信息
 
 对于二维随机变量 $\{(X,Y),\mathcal{X}\times\mathcal{Y},p(x,y)\}$，事件 $Y=y_j$ 发生后，事件 $X=x_k$ 的条件自信息为：
 
@@ -73,13 +71,13 @@ $$I(x_k|y_j)=-\log p(x_k|y_j)$$
     1. 事件 $Y=y_j$ 发生后，事件 $X=x_k$ 再发生需要新的信息量。
     2. 事件 $Y=y_j$ 发生后，事件 $X=x_k$ 再发生提供给观察者的信息量。
 
-#### 联合自信息
+### 联合自信息
 
 对于二维随机变量 $\{(X,Y),\mathcal{X}\times\mathcal{Y},p(x,y)\}$，事件 $(X,Y)=(x_k,y_j)$ 的联合自信息为：
 
 $$I(x_k,y_j)=-\log p(x_k,y_j)$$
 
-### 互信息
+## 互信息
 
 !!! note ""
     互信息：相互之间提供的信息量。
@@ -99,7 +97,7 @@ $$I(x_k;y_j)=I(x_k)-I(x_k|y_j)=\log\frac{p(x_k,y_j)}{q(x_k)\omega(y_j)}$$
 
         比如说 $I(x_k)=2$，$I(x_k|y_j)=3$，那么 $I(x_k,y_j)=-1$，表示事件 $Y=y_j$ 发生后事件 $X=x_k$ 的不确定性增加了1。
 
-#### 条件互信息
+### 条件互信息
 
 在给定事件 $Z=z$ 的条件下，事件 $X=x$ 和事件 $Y=y$ 的条件互信息为：
 
@@ -116,7 +114,7 @@ $$I((x;y)|z)=I(x|z)-I(x|(y,z))=\log \frac{p(x|(y,z))}{q(x|z)}=\log\frac{p(x,y|z)
 
 表示在给定事件 $Z=z$ 的条件下，事件 $X=x$ 和事件 $Y=y$ 相互之间提供的信息量。
 
-#### 联合互信息
+### 联合互信息
 
 联合事件 $\{Y=y,Z=z\}$ 与事件 $\{X=x\}$ 之间的互信息为:
 
@@ -124,13 +122,13 @@ $$I(x;(y,z))=\log\frac{p(x|y,z)}{q(x)}=\log\frac{p(x,y,z)}{q(x)\omega(y,z)}$$
 
 表示事件 $Y=y$ 和事件 $Z=z$ 联合发生后对事件 $X=x$ "不确定性的减少量 / 提供的信息量"。
 
-##### 链式法则
+#### 链式法则
 
 $$I(x;(y,z))=I(x;y)+I(x;z|y)$$
 
 事件 $Y=y$ 和事件 $Z=z$ 联合发生后对事件 $X=x$ 的信息量等于事件 $Y=y$ 发生后对事件 $X=x$ 的信息量加上事件 $Z=z$ 发生后对事件 $X=x$ 的信息量。
 
-### 熵
+## 熵
 
 !!! note ""
     熵：随机变量的不确定性。
@@ -154,9 +152,9 @@ $$H(X)=E[I(X)]=\sum_{x\in\mathcal{X}}q(x)I(x)=-\sum_{x\in\mathcal{X}}q(x)\log q(
     当 $p=0.5$ 时，$H(X)=1$，表示 $X$ 的不确定性最大；当 $p=0$ 或 $p=1$ 时，$H(X)=0$，表示 $X$ 的不确定性最小。
 
 
-#### 条件熵
+### 条件熵
 
-##### 给定事件
+#### 给定事件
 
 在给定事件 $Y=y$ 的条件下，事件 $X$ 的条件熵为：
 
@@ -164,7 +162,7 @@ $$H(X|Y=y)=-\sum_{x\in\mathcal{X}}p(x|y)\log p(x|y)$$
 
 $H(X|y)$ 不一定比 $H(X)$ 小，可能随着 $y$ 的引入，系统更加混乱。
 
-##### 随机变量
+#### 随机变量
 
 在随机变量 $Y$ 的条件下，随机变量 $X$ 的条件熵为 $H(X|y)$ 对 $y$ 的平均：
 
@@ -178,7 +176,7 @@ $$
 
 当 $X$ 和 $Y$ 统计独立时，$H(X|Y)=H(X)$。
 
-#### 联合熵
+### 联合熵
 
 对于二维随机变量 $\{(X,Y),\mathcal{X}\times\mathcal{Y},p(x,y)\}$，事件 $(X,Y)$ 的联合熵为：
 
@@ -186,7 +184,7 @@ $$H(X,Y)=-\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}p(x,y)\log p(x,y)$$
 
 表示随机变量 $X$ 和 $Y$ 联合发生后的不确定性。
 
-##### 链式法则
+#### 链式法则
 
 $$H(X,Y)=H(X)+H(Y|X)=H(Y)+H(X|Y)$$
 
@@ -198,7 +196,7 @@ $$H(X,Y)=H(X)+H(Y|X)=H(Y)+H(X|Y)$$
 
 $$H(X,Y,Z)=H(X)+H(Y|X)+H(Z|X,Y)$$
 
-#### 熵的性质
+### 熵的性质
 
 对于随机变量 $X$ ，如果
 
@@ -268,9 +266,9 @@ $$H(X)\triangleq H_K({p_1,p_2,\cdots,p_K})\triangleq H_K(P)=-\sum_{k=1}^Kp_k\log
         \end{cases}
         $$
 
-#### 其他熵（仅做了解）
+### 其他熵（仅做了解）
 
-##### 加权熵
+#### 加权熵
 
 香农熵仅考虑事件发生的客观规律，无法描述主观意义上对事件判断的差别。为了解决这个问题，引入了加权熵的概念。
 
@@ -283,7 +281,7 @@ $$
 
 就相当于给每个事件赋予了一个权重。
 
-##### R$\acute{e}$nyi熵
+#### R$\acute{e}$nyi熵
 
 $$
 H_{\alpha}(X)=\frac{1}{1-\alpha}\log\sum_{k=1}^Kp_k^{\alpha}
@@ -293,13 +291,13 @@ $$
 
 当 $\alpha = 0$ 时，$H_{\alpha}(X)=\log K$。
 
-### 平均互信息
+## 平均互信息
 
 在概率空间 $\{(X,Y),\mathcal{X}\times\mathcal{Y},p(x,y)\}$ 中，事件 $(X,Y)$ 的平均互信息（简称互信息）为随机变量 $I(x;y)$ 的数学期望：
 
 $$I(X;Y)=E[I(x;y)]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}p(x,y)\log\frac{p(x,y)}{q(x)\omega(y)}$$
 
-#### 性质
+### 性质
 
 1. $I(X;Y)=I(Y;X)$
 2. $I(X;Y)\geq 0$，当且仅当 $X$ 和 $Y$ 独立时取等号
@@ -307,19 +305,19 @@ $$I(X;Y)=E[I(x;y)]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}p(x,y)\log\frac{p
    ![alt text](images/image-6.png)
 4. $I(X;Y)\leq \min\{H(X),H(Y)\}$
 
-### 条件互信息
+## 条件互信息
 
 在概率空间 $\{(X,Y,Z),\mathcal{X}\times\mathcal{Y}\times\mathcal{Z},p(x,y,z)\}$ 中，事件 $(X,Y)$ 在给定事件 $Z$ 的条件下的条件互信息为：
 
 $$I(X;Y|Z)=E[I(x;y|z)]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\in\mathcal{Z}}p(x,y,z)\log\frac{p(x,y|z)}{q(x|z)\omega(y|z)}$$
 
-### 联合互信息
+## 联合互信息
 
 在概率空间 $\{(X,Y,Z),\mathcal{X}\times\mathcal{Y}\times\mathcal{Z},p(x,y,z)\}$ 中，事件 $X$ 和事件 $(Y,Z)$ 的联合互信息为：
 
 $$I(X;(Y,Z))=E[I(x;(y,z))]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\in\mathcal{Z}}p(x,y,z)\log\frac{p(x|y,z)}{q(x)}=I(X;Z)+I(X;Y|Z)$$
 
-### 相对熵 | 鉴别熵
+## 相对熵 | 鉴别熵
 
 ![alt text](images/image-7.png)
 
@@ -328,3 +326,47 @@ $$I(X;(Y,Z))=E[I(x;(y,z))]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\i
 ![alt text](images/image-9.png)
 
 ![alt text](images/image-10.png)
+
+互信息和相对熵的关系↑
+
+![alt text](images/image-11.png)
+
+![alt text](images/image-12.png)
+
+### 相对熵的应用
+
+![alt text](images/image-13.png)
+
+## 关于疑义度的Fano不等式
+
+## 马尔科夫链
+
+!!! warning ""
+    人生是马尔科夫的
+
+![alt text](images/image-14.png)
+
+![alt text](images/image-15.png)
+
+![alt text](images/image-18.png)
+
+2. 给定现在的状态，未来的状态与过去的状态无关。
+
+!!! note "2的推导"
+
+    $$
+    \begin{aligned}
+    I(X;Z|Y)&=\sum_{x\in\mathcal{X}}\sum_{z\in\mathcal{Z}}\sum_{y\in\mathcal{Y}}p(x,y,z)\log\frac{p(x|y,z)}{q(x|y)}\\&=\sum_{x\in\mathcal{X}}\sum_{z\in\mathcal{Z}}\sum_{y\in\mathcal{Y}}p(x,y,z)\log\frac{p(x,z|y)}{q(x|y)w(z|y)}\\&=0
+    \end{aligned}
+    $$
+
+!!! warning ""
+    PPT第三条这里打错了，我已修改。
+3. 如果 $X,Y,Z$ 构成马尔科夫链，那么 $Z,Y,X$ 也构成马尔科夫链。
+
+### 数据处理定理
+
+![alt text](images/image-17.png)
+
+!!! note ""
+    随机变量的互信息有非负性。
