@@ -65,6 +65,11 @@ nav:
       - 7. 参数估计: ./Fundemental/Probability-and-Mathematical-Statistics/Chap07.md
       - 8. 假设检验: ./Fundemental/Probability-and-Mathematical-Statistics/Chap08.md
     - 大学物理（乙）II: ./Fundemental/Physics-II/index.md
+    - 信息理论:
+      - ./Fundemental/Information-Theory/index.md
+      - 00-引入: ./Fundemental/Information-Theory/Note00.md
+      - 01-信息的度量: ./Fundemental/Information-Theory/Note01.md
+      - All: ./Fundemental/Information-Theory/IT_AllSum.md
   - 校内CS课程: 
     - ./CS/index.md
 
