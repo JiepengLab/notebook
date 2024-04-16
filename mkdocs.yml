@@ -70,7 +70,8 @@ nav:
       - 00-引入: ./Fundemental/Information-Theory/Preface.md
       - 01-信息的度量: 
         - 随机变量的熵和互信息: ./Fundemental/Information-Theory/Chapter2-1.md
-      #   - 连续随机变量的互信息和微分熵: ./Fundemental/Information-Theory/Chapter2-2.md
+        - 连续随机变量的互信息和微分熵: ./Fundemental/Information-Theory/Chapter2-2.md
+        - 平稳离散信源的熵: ./Fundemental/Information-Theory/Chapter2-3.md
       # - 02-信息的无损压缩:
       #   - 等长编码: ./Fundemental/Information-Theory/Chapter3-1.md
       #   - 不等长编码: ./Fundemental/Information-Theory/Chapter3-2.md

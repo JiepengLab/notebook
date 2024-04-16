@@ -339,6 +339,59 @@ $$I(X;(Y,Z))=E[I(x;(y,z))]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\i
 
 ## 关于疑义度的Fano不等式
 
+这里 $Pr$ 就是 $P$
+
+![alt text](images/image-19.png)
+
+表示上界，不确定性最多这么多
+
+!!! note ""
+
+    $E$ 表示不等的情况，即 $E =
+    \left \{
+        \begin{array}{c}
+        0,X = \hat{X}\\
+        1,X \ne \hat{X}
+        \end{array}
+    \right.$，$P_E$ 为出错的概率。
+
+### 证明
+
+1. 法一
+    ![alt text](images/image-20.png)
+
+2. 法二
+    ![alt text](images/image-25.png)
+
+3. 法三
+   ![alt text](images/image-23.png)
+
+   第一行：因为 $E$ 是由 $X,\hat{X}$ 确定的，所以 $H(E|X,\hat{X})$为0
+
+    前两行是由于 $H(X,Y)=H(X)+H(Y|X)=H(Y)+H(X|Y)$
+
+    显然 $H(E)=H(P_E)$，显然吗？
+
+    $$
+    \begin{aligned}
+    H(E)&=E_{\text{期望}}[I(E)]\\&=\sum_{e\in E}q(e)I(e)\\&=-\sum_{e\in E}q(e)\log q(e)\\&=-q(0)\log q(0)-q(1)\log q(1)
+    \\&=-(\sum\limits_{k=0}^{K-1}p(k,k))\log(1-P_E)-(\sum\limits_{k=0}^{K-1}\sum\limits_{j=0, j\neq k}^{K-1}p(k,j))\log(P_E)\\
+    &=-(1-P_E)\log(1-P_E)-P_E\log(P_E)
+    \\&=H(P_E)
+    \end{aligned}
+    $$
+
+    最后一步是为什么？这是定义...
+
+    ![alt text](images/image-26.png)
+
+
+### 物理意义
+
+![alt text](images/image-24.png)
+
+$K=2$，表示两个事件，一个是正确，一个是错误。如果$P_E=1$，那么$H_2(P_E)=0$，也表示是完全确定，没有不确定性。
+
 ## 马尔科夫链
 
 !!! warning ""
@@ -370,3 +423,17 @@ $$I(X;(Y,Z))=E[I(x;(y,z))]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\i
 
 !!! note ""
     随机变量的互信息有非负性。
+
+### 四变量马尔科夫链
+
+![alt text](images/image-27.png)
+
+![alt text](images/image-28.png)
+
+## 互信息的凸性
+
+![alt text](images/image-29.png)
+
+![alt text](images/image-30.png)
+
+![alt text](images/image-31.png)
