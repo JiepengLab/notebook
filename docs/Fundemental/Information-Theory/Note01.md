@@ -322,3 +322,9 @@ $$I(X;(Y,Z))=E[I(x;(y,z))]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\i
 ### 相对熵 | 鉴别熵
 
 ![alt text](images/image-7.png)
+
+![alt text](images/image-8.png)
+
+![alt text](images/image-9.png)
+
+![alt text](images/image-10.png)
