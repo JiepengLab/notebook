@@ -32,16 +32,17 @@ $\begin{cases}
     \text{联合链式法则：} H(X,Y) = H(X) + H(Y|X)=H(Y)+H(X|Y)
 \end{cases}$
 
-$\begin{cases}
+$
+\begin{cases}
 \lim_{\epsilon\to 0}H_{K+1}(P_1,P_2,\cdots,P_K-\epsilon,\epsilon)=H_K(P_1,P_2,\cdots,P_K)\\
 H_M(p_1q_{11},p_1q_{21},\cdots,p_1q_{m1},p_2q_{12},\cdots,p_2q_{m2},\cdots,p_nq_{mn})=H_N(p_1,p_2,\cdots,p_n)+\sum_{i=1}^n p_iH_M(q_1,q_2,\cdots,q_m)，树状图魅力时刻\\
 H_K(P)\leq \log K\\
 \text{H(X)是严格上凸函数，} H(\lambda \vec{P_1}+(1-\lambda)\vec{P_2})\geq \lambda H(\vec{P_1})+(1-\lambda)H(\vec{P_2}),\quad 0\leq \lambda\leq 1\\
 \text{极大值的充要条件：}
-\begin{cases}
-\frac{\partial f(P)}{\partial p_k}=\lambda\qquad p_k > 0\\
-\frac{\partial f(P)}{\partial p_k}\leq \lambda\qquad p_k = 0
-\end{cases}
+    \begin{cases}
+    \frac{\partial f(P)}{\partial p_k}=\lambda\qquad p_k > 0\\
+    \frac{\partial f(P)}{\partial p_k}\leq \lambda\qquad p_k = 0
+    \end{cases}
 \end{cases}
 $
 

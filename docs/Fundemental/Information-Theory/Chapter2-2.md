@@ -28,7 +28,7 @@
 
 ### 条件微分熵和联合微分熵及其性质
 
-![alt text](images/image-37.png)
+![alt text](images/image-48.png)
 
 ![alt text](images/image-38.png)
 
