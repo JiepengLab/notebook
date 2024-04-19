@@ -76,7 +76,7 @@ nav:
       #   - 等长编码: ./Fundemental/Information-Theory/Chapter3-1.md
       #   - 不等长编码: ./Fundemental/Information-Theory/Chapter3-2.md
       #   - 几种不等长编码: ./Fundemental/Information-Theory/Chapter3-3.md 
-      # - All: ./Fundemental/Information-Theory/IT_AllSum.md
+      - All: ./Fundemental/Information-Theory/IT_AllSum.md
   - 校内CS课程: 
     - ./CS/index.md
 
