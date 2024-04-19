@@ -39,10 +39,8 @@ H_M(p_1q_{11},p_1q_{21},\cdots,p_1q_{m1},p_2q_{12},\cdots,p_2q_{m2},\cdots,p_nq_
 H_K(P)\leq \log K\\
 \text{H(X)是严格上凸函数，} H(\lambda \vec{P_1}+(1-\lambda)\vec{P_2})\geq \lambda H(\vec{P_1})+(1-\lambda)H(\vec{P_2}),\quad 0\leq \lambda\leq 1\\
 \text{极大值的充要条件：}
-    \begin{cases}
-    \frac{\partial f(P)}{\partial p_k}=\lambda\qquad p_k > 0\\
-    \frac{\partial f(P)}{\partial p_k}\leq \lambda\qquad p_k = 0
-    \end{cases}
+\frac{\partial f(P)}{\partial p_k}=\lambda,\ p_k > 0\quad\text{且}
+\frac{\partial f(P)}{\partial p_k}\leq \lambda,\  p_k = 0
 \end{cases}
 $
 
