@@ -32,8 +32,7 @@ $\begin{cases}
     \text{联合链式法则：} H(X,Y) = H(X) + H(Y|X)=H(Y)+H(X|Y)
 \end{cases}$
 
-$
-\begin{cases}
+$\begin{cases}
 \lim_{\epsilon\to 0}H_{K+1}(P_1,P_2,\cdots,P_K-\epsilon,\epsilon)=H_K(P_1,P_2,\cdots,P_K)\\
 H_M(p_1q_{11},p_1q_{21},\cdots,p_1q_{m1},p_2q_{12},\cdots,p_2q_{m2},\cdots,p_nq_{mn})=H_N(p_1,p_2,\cdots,p_n)+\sum_{i=1}^n p_iH_M(q_1,q_2,\cdots,q_m)，树状图魅力时刻\\
 H_K(P)\leq \log K\\
@@ -41,8 +40,7 @@ H_K(P)\leq \log K\\
 \text{极大值的充要条件：}
 \frac{\partial f(P)}{\partial p_k}=\lambda,\ p_k > 0\quad\text{且}
 \frac{\partial f(P)}{\partial p_k}\leq \lambda,\  p_k = 0
-\end{cases}
-$
+\end{cases}$
 
 $\begin{cases}
 \text{互信息：}I(X;Y) =E\{I(x;y)\}=\sum_x\sum_yp(x,y)\log\frac{p(x|y)}{q(x)}\geq 0\quad{是输入分布的上凸函数，转移概率矩阵的下凸函数}\\
@@ -99,3 +97,6 @@ $\begin{cases}
 \text{熵功率}\overline{\sigma_x}^2=\frac{1}{2\pi e}e^{2H_C(X)}\\
 H_C(X)\leq \frac{1}{2}\ln\sqrt{2\pi e\sigma^2}\Leftrightarrow \overline{\sigma_x}^2\leq \sigma^2\\
 \end{cases}$
+
+#### 随机过程
+
