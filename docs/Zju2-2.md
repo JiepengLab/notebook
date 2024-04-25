@@ -69,23 +69,25 @@
 - [x] **04.15 13:00** 数据库系统：[讨论]
 - [x] **04.16 00:42** ADS：[PTA_HW6](https://pintia.cn/problem-sets/1774809628464222208/exam/overview)
 - [x] **04.16 23:59** 信息理论：第二章作业
-- [ ] **04.16 23:59** 人工智能：[黑白棋](https://mo.zju.edu.cn/classroom/class/65d811402b0dde6bb0eac218?&activeKey=work)
 - [x] **04.17 10:00** 毛概：PPT(在工作方法六十条中，你觉得哪些方法至今仍有借鉴？举例说明。)
 - [x] **04.17 23:59** 控制的哲学与方法：小组成员合作完成，含配音的pptx，≤10页，≤5分钟，≤50MB，小纸条表单
 - [x] **04.18 09:54** ADS：[Project3](https://pintia.cn/problem-sets/1775703610572509184)
-- [ ] **04.21 23:59** 控制的哲学与方法：提出三个有质量的小纸条，可以是问题/疑惑/思考，小纸条表单
-- [ ] **04.21 23:59** 控制的哲学与方法：小组展示。
-- [ ] **04.22 13:15** 数据库系统：[讨论]
-- [ ] **04.22 13:15** 数据库系统：[书后习题 6.1、6.2、6.21 | 随堂测试 | 讨论](https://courses.zju.edu.cn/course/67605/learning-activity#/785979?view=scores)
-- [ ] **04.22 23:59** 密码学：[第03次作业](https://pintia.cn/problem-sets/1774804733921169408)
-- [ ] **04.23 13:05** ADS：[PTA_HW7](https://pintia.cn/problem-sets/1777533325767835648/exam/overview)
-- [ ] **04.23 15:50** 计组：[Lab02](https://courses.zju.edu.cn/course/68313/learning-activity#/824567)
+- [x] **04.21 23:59** 控制的哲学与方法：提出三个有质量的小纸条，可以是问题/疑惑/思考，小纸条表单
+- [x] **04.21 23:59** 控制的哲学与方法：小组展示。
+- [x] **04.22 13:15** 数据库系统：[讨论]
+- [x] **04.22 13:15** 数据库系统：[书后习题 6.1、6.2、6.21 | 随堂测试 | 讨论](https://courses.zju.edu.cn/course/67605/learning-activity#/785979?view=scores)
+- [x] **04.22 23:59** 密码学：[第03次作业](https://pintia.cn/problem-sets/1774804733921169408)
+- [x] **04.22 23:59** UX：[HW5](https://ke.neoschool.com/student/)
+- [x] **04.23 13:05** ADS：[PTA_HW7](https://pintia.cn/problem-sets/1777533325767835648/exam/overview)
+- [x] **04.23 15:50** 计组：[Lab02](https://courses.zju.edu.cn/course/68313/learning-activity#/824567)
 - [ ] **04.26 21:30** 数据库系统：[实验5 数据库程序设计](https://courses.zju.edu.cn/course/67605/learning-activity#/785973?view=scores)
+- [x] **04.28 10:00** UX：[HW5](https://ke.neoschool.com/student/)
 - [x] **04.28 23:59** 计算摄影学：[Lab 6 - 深度学习图像补全](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab6-deep-learning/lab6.html)
 - [ ] **04.29 13:15** 数据库系统：[书后习题 7.1、7.13、7.21、7.22、7.30](https://courses.zju.edu.cn/course/67605/learning-activity/full-screen#/785984)
 - [ ] **04.29 14:45** ADS：[Project4](https://pintia.cn/problem-sets/1779763173806538752/exam/overview)
 - [ ] **04.29 14:57** ADS：[PTA_HW8](https://pintia.cn/problem-sets/1779736258848718848/exam/overview)
 - [ ] **04.30 15:50** 计组：[Lab03](https://courses.zju.edu.cn/course/68313/learning-activity#/824568)
+- [ ] **05.05 23:59** 计算摄影学：[Lab 7 - 全景图拼接](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab7-panorama/panorama.html)
 - [ ] **05.06 23:59** 密码学：[第04次作业](https://pintia.cn/problem-sets/1779727015819042816/exam/overview)
 - [ ] **05.31 24:00** UX：[大作业](https://courses.zju.edu.cn/course/71734/learning-activity#/827443?&view=scores)
 - [x] **06.30 00:00** 数学软件：[准备工作](https://courses.zju.edu.cn/course/68818/learning-activity/full-screen#/808545)
@@ -101,9 +103,9 @@
 - [ ] **06.30 00:00** 数学软件：[项目作业: 矩阵乘法](https://courses.zju.edu.cn/course/68818/learning-activity#/825358)
 - [ ] **06.30 00:00** 数学软件：[调查作业: Pi 的计算](https://courses.zju.edu.cn/course/68818/learning-activity#/828015)
 
-- [ ] 计组：[Lab00 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
-- [ ] 计组：[Lab01 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
-- [ ] 计组：[Lab02 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
+- [x] 计组：[Lab00 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
+- [x] 计组：[Lab01 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
+- [x] 计组：[Lab02 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [ ] 计组：[Lab03 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [ ] 计组：[Lab04 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [ ] 计组：[Lab05 验收](https://courses.zju.edu.cn/course/68313/courseware#/)

@@ -1,10 +1,8 @@
 # Information Theory All Sum
 
-## 第二章
+## 第二章 信息的度量
 
-### 信息的度量
-
-#### 事件
+### 事件
 
 $\begin{cases}
     \text{事件自信息：} I(x) = -\log P(x) >0\\
@@ -22,7 +20,7 @@ $\begin{cases}
     \text{联合链式法则：} I(x;(y,z)) = I(x;y)+I(x;z|y)
     \end{cases}$
 
-#### 离散随机变量
+### 离散随机变量
 
 $\begin{cases}
     \text{熵：} H(X) = -\sum_{i=1}^{n}P(x_i)\log P(x_i)>0\\
@@ -65,14 +63,14 @@ $\begin{cases}
 \text{Fano不等式：}\hat{X}\text{已知条件下}X\text{的疑义度：}H(X|\hat{X})\leq H(P_E)+P_E\log (K-1)\\
 \end{cases}$
 
-#### 马尔科夫链
+### 马尔科夫链
 
 $\begin{cases}
 \text{如果}X\rightarrow Y\rightarrow Z\text{，则} \max\{I(X;Z),I(X;Y|Z)\}\leq I(X;Y)\\
 \text{如果}U\rightarrow X\rightarrow Y \rightarrow V \text{，则} I(X;Y)\geq I(U;V)\\
 \end{cases}$
 
-#### 连续随机变量
+### 连续随机变量
 
 $\begin{cases}
 \text{互信息：}I(X;Y)=\int\int p(x,y)\log\frac{p(x|y)}{q(x)}dxdy\geq 0\\
@@ -98,5 +96,22 @@ $\begin{cases}
 H_C(X)\leq \frac{1}{2}\ln\sqrt{2\pi e\sigma^2}\Leftrightarrow \overline{\sigma_x}^2\leq \sigma^2\\
 \end{cases}$
 
-#### 随机过程
+### 平稳信源
 
+$\begin{cases}
+H(\mathrm{X})=H(X_1,X_2\cdots X_n)=-\sum_{i=1}^{n}P(x_i)\log P(x_i)\text{，长度越大，}\mathrm{X}\text{越容易被确定，}H(\mathrm{X})\text{单调不增}\\
+H_N(\mathrm{X})=\frac1N H(\mathrm{X})\text{，平均每符号熵，单调不增}\\
+H_\infty(\mathrm{X})=\lim_{N\to\infty}H_N(\mathrm{X})=H(X_N|X_{N-1},X_{N-2}\cdots X_1)\text{，熵速率}\\
+H(X_N|X_{N-1},X_{N-2}\cdots X_1)\leq H_N(X)\text{，平均条件熵，单调不增}\\
+\eta = \frac{H_\infty(\mathrm{X})}{\log K}\text{，熵速率，}0\leq \eta\leq 1\\
+R = 1-\eta\text{，冗余度，}0\leq R\leq 1\\
+\end{cases}$
+
+### 马尔科夫源
+
+$\begin{cases}
+\vec{q}=\mathrm{P}\vec{q}\\
+H_{\infty}(X)=H(X|S)
+\end{cases}$
+
+## 第三章 信息的无损压缩
