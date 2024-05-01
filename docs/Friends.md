@@ -150,6 +150,18 @@
         </a>
     </div> 
 
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](https://github.com/JiepengLab/notebook/blob/master/docs/images/icon.jpg)
+        </div>
+        <a href="https://zicx.top/notebook" title="lhmd" target="_blank">
+            <div class="flink-item-name">Zicx's notebook</div>
+            <div class="flink-item-desc">工高的光电前辈，但是CV！</div>
+        </a>
+    </div> 
+
+
+
 ??? summary "🔗 我的好朋友们！"
 
     <div class="flink-list-item">
