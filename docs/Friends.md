@@ -152,7 +152,7 @@
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
-            ![Alt text](https://github.com/JiepengLab/notebook/blob/master/docs/images/icon.jpg)
+            ![Alt text](https://github.com/cxzhou35/notebook/blob/main/docs/_assets/avatars/zicx.jpeg)
         </div>
         <a href="https://zicx.top/notebook" title="lhmd" target="_blank">
             <div class="flink-item-name">Zicx's notebook</div>
