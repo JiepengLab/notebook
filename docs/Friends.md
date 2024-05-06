@@ -160,7 +160,15 @@
         </a>
     </div> 
 
-
+    <div class="flink-list-item">
+        <div class="flink-item-icon">
+            ![Alt text](https://img2.imgtp.com/2024/05/02/MfSGKnUF.png)
+        </div>
+        <a href="https://zjuatri.cn/" title="lhmd" target="_blank">
+            <div class="flink-item-name">zjuatri's homepage</div>
+            <div class="flink-item-desc">atri组儿子！</div>
+        </a>
+    </div> 
 
 ??? summary "🔗 我的好朋友们！"
 

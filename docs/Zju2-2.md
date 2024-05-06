@@ -4,8 +4,8 @@
 
 - [x] **04.13 20:00-22:00** UX：期中考核
 - [x] **04.17 10:00** 毛概：小测
-- [ ] **04.22 10:00** ADS：期中考试
-- [ ] **05.07** 计算机组成：期中考试，包含单周期处理器
+- [x] **04.22 10:00** ADS：期中考试
+- [ ] **05.11** 计算机组成：期中考试，包含单周期处理器
 - [ ] **05.25 20:00-22:00** UX：期中考核
 - [ ] **06.20 10:30-12:30** 面向对象程序设计：期末考试
 - [ ] **06.21 08:00-10:00** 数据库系统：期末考试
@@ -80,16 +80,22 @@
 - [x] **04.22 23:59** UX：[HW5](https://ke.neoschool.com/student/)
 - [x] **04.23 13:05** ADS：[PTA_HW7](https://pintia.cn/problem-sets/1777533325767835648/exam/overview)
 - [x] **04.23 15:50** 计组：[Lab02](https://courses.zju.edu.cn/course/68313/learning-activity#/824567)
-- [ ] **04.26 21:30** 数据库系统：[实验5 数据库程序设计](https://courses.zju.edu.cn/course/67605/learning-activity#/785973?view=scores)
-- [x] **04.28 10:00** UX：[HW5](https://ke.neoschool.com/student/)
+- [x] **04.26 21:30** 数据库系统：[实验5 数据库程序设计](https://courses.zju.edu.cn/course/67605/learning-activity#/785973?view=scores)
+- [x] **04.28 10:00** UX：[HW6](https://ke.neoschool.com/student/)
 - [x] **04.28 23:59** 计算摄影学：[Lab 6 - 深度学习图像补全](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab6-deep-learning/lab6.html)
-- [ ] **04.29 13:15** 数据库系统：[书后习题 7.1、7.13、7.21、7.22、7.30](https://courses.zju.edu.cn/course/67605/learning-activity/full-screen#/785984)
-- [ ] **04.29 14:45** ADS：[Project4](https://pintia.cn/problem-sets/1779763173806538752/exam/overview)
-- [ ] **04.29 14:57** ADS：[PTA_HW8](https://pintia.cn/problem-sets/1779736258848718848/exam/overview)
-- [ ] **04.30 15:50** 计组：[Lab03](https://courses.zju.edu.cn/course/68313/learning-activity#/824568)
-- [ ] **05.05 23:59** 计算摄影学：[Lab 7 - 全景图拼接](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab7-panorama/panorama.html)
-- [ ] **05.06 23:59** 密码学：[第04次作业](https://pintia.cn/problem-sets/1779727015819042816/exam/overview)
-- [ ] **05.31 24:00** UX：[大作业](https://courses.zju.edu.cn/course/71734/learning-activity#/827443?&view=scores)
+- [x] **04.29 13:15** 数据库系统：[书后习题 7.1、7.13、7.21、7.22、7.30](https://courses.zju.edu.cn/course/67605/learning-activity/full-screen#/785984)
+- [x] **04.29 14:45** ADS：[Project4](https://pintia.cn/problem-sets/1779763173806538752/exam/overview)
+- [x] **04.29 14:57** ADS：[PTA_HW8](https://pintia.cn/problem-sets/1779736258848718848/exam/overview)
+- [x] **04.30 15:50** 计组：[Lab03](https://courses.zju.edu.cn/course/68313/learning-activity#/824568)
+- [x] **05.05 23:59** 计算摄影学：[Lab 7 - 全景图拼接](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab7-panorama/panorama.html)
+- [x] **05.06 19:55** 数据库系统：[作业9 书后习题 12.1、13.5、13.9、13.11](https://courses.zju.edu.cn/course/67605/learning-activity#/785999?view=scores)
+- [x] **05.06 23:00** UX：[HW7](https://ke.neoschool.com/student/)
+- [ ] **05.07 13:17** ADS：[PTA_HW9](https://pintia.cn/problem-sets/1782609865617960960/exam/overview)
+- [ ] **05.08 21:34** ADS：[Project5](https://pintia.cn/problem-sets/1783127670282457088/exam/overview)
+- [ ] **05.13 13:15** 数据库系统：[作业10 书后习题 14.3[a] 、14.4、14.11、24.10](https://courses.zju.edu.cn/course/67605/learning-activity#/786005?view=scores)
+- [ ] **05.13 23:59** 密码学：[第04次作业](https://pintia.cn/problem-sets/1779727015819042816/exam/overview)
+- [ ] **05.20 15:45** 计组：[Lab04](https://courses.zju.edu.cn/course/68313/learning-activity#/824568)
+- [ ] **05.31 24:00** UX：[大作业](https://courses.zju.edu.cn/course/68313/learning-activity#/826267?view=scores)
 - [x] **06.30 00:00** 数学软件：[准备工作](https://courses.zju.edu.cn/course/68818/learning-activity/full-screen#/808545)
 - [x] **06.30 00:00** 数学软件：[复习和预习作业](https://courses.zju.edu.cn/course/68818/learning-activity#/812102)
 - [x] **06.30 00:00** 数学软件：[调查作业：生命游戏 (GOL)](https://courses.zju.edu.cn/course/68818/learning-activity#/812106)
@@ -102,7 +108,7 @@
 - [x] **06.30 00:00** 数学软件：[项目作业: Mandelbrot 集的可视化实现](https://courses.zju.edu.cn/course/68818/learning-activity#/824862)
 - [ ] **06.30 00:00** 数学软件：[项目作业: 矩阵乘法](https://courses.zju.edu.cn/course/68818/learning-activity#/825358)
 - [ ] **06.30 00:00** 数学软件：[调查作业: Pi 的计算](https://courses.zju.edu.cn/course/68818/learning-activity#/828015)
-
+- [ ] **06.30 00:00** 数学软件：[项目作业: Pi 的计算](https://courses.zju.edu.cn/course/68818/learning-activity#/830947?&view=scores)
 - [x] 计组：[Lab00 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [x] 计组：[Lab01 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [x] 计组：[Lab02 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
