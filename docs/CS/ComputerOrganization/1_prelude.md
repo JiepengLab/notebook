@@ -39,7 +39,7 @@ D--->H
 - Design for Moore’s Law | 设计紧跟摩尔定律
     - **Moore's Law**: Integrated circuit resources double every 18-24 months.
     - Design for where it will be when finishes rather than design for where it starts.
-- Use Abstraction to Simplify Design (采用抽象简化设计)
+- Use Abstraction to Simplify Design | 采用抽象简化设计
     - 层次化、模块化的设计
 - Make the Common Case Fast | 加速经常性事件
 - Performance via Parallelism | 通过并行提高性能
