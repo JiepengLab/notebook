@@ -5,6 +5,12 @@
         "*.cjson": "jsonc",
         "*.wxss": "css",
         "*.wxs": "javascript",
-        "cmath": "c"
+        "cmath": "c",
+        "safestack.h": "c",
+        "rsa.h": "c",
+        "bn.h": "c",
+        "md5.h": "c",
+        "rand.h": "c",
+        "time.h": "c"
     }
 }
