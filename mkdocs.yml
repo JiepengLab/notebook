@@ -169,7 +169,7 @@ nav:
         - 贪婪最佳优先搜索: ./CS/AI/搜索探寻与问题求解/贪婪最佳优先搜索.md
         - A-star搜索: ./CS/AI/搜索探寻与问题求解/A-star搜索.md
         - Minimax搜索: ./CS/AI/搜索探寻与问题求解/Minimax搜索.md
-        - alpha-beta搜索: ./CS/AI/搜索探寻与问题求解/alpha-beta搜索.md
+        - alpha-beta剪枝: ./CS/AI/搜索探寻与问题求解/alpha-beta剪枝.md
         - 蒙特卡洛树搜索: ./CS/AI/搜索探寻与问题求解/蒙特卡洛树搜索.md
       - 机器学习:
         - 基本概念: ./CS/AI/机器学习/基本概念.md

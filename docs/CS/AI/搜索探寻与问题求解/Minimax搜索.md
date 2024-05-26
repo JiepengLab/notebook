@@ -15,8 +15,23 @@
 决策方法：
 
 $$
-\text{minimax}(s)=\left\{\begin{array}{ll}\text{utility}(s),&\text{if terminal_test}(s)\\\max_{a\in\text{action}(s)}\text{minimax}(\text{result}(s,a)),&\text{if player}(s)=\text{MAX}\\\min_{a\in\text{action}(s)}\text{minimax}(\text{result}(s,a)),&\text{if player}(s)=\text{MIN}\end{array}\right.
+\text{minimax}(s)=\left\{
+	\begin{array}{ll}
+	\text{utility}(s), & \text{if terminal\_test}(s) \\
+	\max_{a\in\text{action}(s)}\text{minimax}(\text{result}(s,a)), & \text{if player}(s)=\text{MAX} \\
+	\min_{a\in\text{action}(s)}\text{minimax}(\text{result}(s,a)), & \text{if player}(s)=\text{MIN}
+	\end{array}
+\right.
 $$
+
+- 最大最小搜索（minimax search）是求解对抗搜索问题的基本算法
+- 该算法假设两名玩家在决策时总是理性地倾向于最大化自己的得分（最小化对方得分）
+- 算法过程
+    - 假设以最大化得分为目标的玩家为 MAX，以最小化得分为目标的玩家为 MIN
+    - 某一层由 MAX 玩家行动，则其会选择得分最大的子树进行行动
+    - 某一层由 MIN 玩家行动，则其会选择得分最小的子树进行行动
+    - 递归地进行上述过程，直到达到终局状态
+    - （子树的得分由所有它的子树的得分取最大或最小得到）
 
 ```
 MinimaxDecision:(MAX行动)
@@ -40,3 +55,5 @@ MinValue:
 		v ← min(v, MaxValue(result(s,a)))
 	end
 ```
+
+- 最大最小搜索的时间复杂度为 $O(b^m)$，空间复杂度为 $O(bm)$
