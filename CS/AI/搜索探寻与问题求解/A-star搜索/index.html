@@ -1143,11 +1143,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../alpha-beta%E6%90%9C%E7%B4%A2/" class="md-nav__link">
+      <a href="../alpha-beta%E5%89%AA%E6%9E%9D/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    alpha-beta搜索
+    alpha-beta剪枝
   </span>
   
 
@@ -1736,9 +1736,10 @@
 <p>评价函数和启发函数各司其职，在评价函数中考虑从起始结点到当前结点的路径代价</p>
 </div>
 <p>A*搜索的评价函数为<span class="arithmatex">\(f(n) = g(n) + h(n)\)</span>，其中：</p>
-<div class="language-text highlight"><pre><span></span><code>- $g(n)$ 为从初始结点到结点 $n$ 的实际代价，即当前最小代价
-- $h(n)$ 为从结点 $n$ 到目标结点的估计代价，即启发函数
-</code></pre></div>
+<ul>
+<li><span class="arithmatex">\(g(n)\)</span> 为从初始结点到结点 <span class="arithmatex">\(n\)</span> 的实际代价，即当前最小代价</li>
+<li><span class="arithmatex">\(h(n)\)</span> 为从结点 <span class="arithmatex">\(n\)</span> 到目标结点的估计代价，即启发函数</li>
+</ul>
 <pre class="mermaid"><code>graph LR
     A((A)) &lt;--5--&gt; B((B))
     A &lt;--3--&gt; D((D))
@@ -1851,7 +1852,7 @@ $\therefore$ 为最短路
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年5月26日 18:24:35</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年5月26日 20:01:52</span>
   </span>
 
     
