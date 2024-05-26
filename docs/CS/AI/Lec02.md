@@ -368,7 +368,7 @@ $$
                     board._move(action, player)
                 player = 'X' if player == 'O' else 'O'
             return self.evaluate(board)
-        
+
         def evaluate(self, board: Board):
             winner, diff = board.get_winner()
             if winner == 2:
