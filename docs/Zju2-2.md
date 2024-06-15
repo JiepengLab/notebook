@@ -35,7 +35,6 @@
 - [x] **03.13 13:38** ADS：[PTA_Project1](https://pintia.cn/problem-sets/1762714625671319552/exam/overview)
 - [x] **03.13 15:32** ADS：[PTA_HW1](https://pintia.cn/problem-sets/1762712504909582336/exam/overview)
 - [x] **03.13 20:01** 毛概：[第一章 阅读材料及思考题](https://courses.zju.edu.cn/course/69115/learning-activity#/808583)
-- [x] **03.16 23:59** OOP：[8-1 Students I](https://pintia.cn/problem-sets/1763038164098105344/exam/problems/1763038232272322560?type=8&page=0)
 - [x] **03.18 13:25** 数据库系统：[书后习题 3.8、3.9](https://courses.zju.edu.cn/course/67605/learning-activity#/785957)
 - [x] **03.18 16:00** ADS：[PTA_HW2](https://pintia.cn/problem-sets/1764531499556134912/exam/overview)
 - [x] **03.18 22:00** 数据库系统：Quiz 1, Quiz 2
@@ -105,14 +104,14 @@
 - [x] **05.22 23:59** 密码学：[第05次作业](https://pintia.cn/problem-sets/1785491687654924288/exam/overview)
 - [x] **05.22 23:59** UX：[HW9](https://ke.neoschool.com/student/)
 - [x] **05.27 22:25** ADS：[PTA_HW12](https://pintia.cn/problem-sets/1789995487511252992/exam/overview)
-- [ ] **05.28 20:45** 计组：[Lab04](https://courses.zju.edu.cn/course/68313/learning-activity#/826267)
-- [ ] **05.31 24:00** UX：[大作业](https://courses.zju.edu.cn/course/68313/learning-activity#/826267?view=scores)
+- [x] **05.28 20:45** 计组：[Lab04](https://courses.zju.edu.cn/course/68313/learning-activity#/826267)
+- [x] **05.31 24:00** UX：[大作业](https://courses.zju.edu.cn/course/68313/learning-activity#/826267?view=scores)
 - [x] **05.31 23:59** 计算摄影学：[Lab 9 - 增强现实](http://www.cad.zju.edu.cn/home/gfzhang/course/computational-photography/2024/lab9-ar/ar.html)
-- [ ] **06.03 14:55** ADS：[Project7](https://pintia.cn/problem-sets/1792449328521859072/exam/problem)
-- [ ] **06.03 15:40** 数据库系统：[书后习题 17.6、17.7](https://courses.zju.edu.cn/course/67605/learning-activity/full-screen#/786023)
+- [x] **06.03 15:40** 数据库系统：[书后习题 17.6、17.7](https://courses.zju.edu.cn/course/67605/learning-activity/full-screen#/786023)
 - [x] **06.03 17:01** ADS：[PTA_HW13](https://pintia.cn/problem-sets/1792450601170169856/exam/problems/type/1)
-- [ ] **06.10 23:59** 密码学：[第06次作业](https://pintia.cn/problem-sets/1792552941353099264/exam/problems/type/9)
+- [x] **06.10 23:59** 密码学：[第06次作业](https://pintia.cn/problem-sets/1792552941353099264/exam/problems/type/9)
 - [ ] **06.10 14:59** ADS：[Project8](https://pintia.cn/problem-sets/1792450151960203264/exam/problem)
+- [ ] **06.12** 计算摄影学：[大程]
 - [ ] **06.15 14:50** 计组：[Lab05](https://courses.zju.edu.cn/course/68313/learning-activity#/842973)
 - [x] **06.18 00:00** 数学软件：[准备工作](https://courses.zju.edu.cn/course/68818/learning-activity/full-screen#/808545)
 - [x] **06.18 00:00** 数学软件：[复习和预习作业](https://courses.zju.edu.cn/course/68818/learning-activity#/812102)
@@ -135,6 +134,13 @@
 - [ ] 计组：[Lab04 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [ ] 计组：[Lab05 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [ ] 计组：[Lab06 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
+- [x] 面向对象程序设计：[Lab01]
+- [x] 面向对象程序设计：[Lab02]
+- [x] 面向对象程序设计：[Lab03]
+- [x] 面向对象程序设计：[Lab04]
+- [x] 面向对象程序设计：[Lab05]
+- [x] 面向对象程序设计：[Lab06]
+- [ ] 面向对象程序设计：[Lab07]
 
 
 ## ADS

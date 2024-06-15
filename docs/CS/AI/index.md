@@ -1,5 +1,8 @@
 # 人工智能前沿
 
+!!! warning "注意"
+    本文主要参考[Jerry's Blog](https://blog.wxxcl.tech/course/aid/%E7%9F%A5%E8%AF%86%E8%A1%A8%E8%BE%BE%E4%B8%8E%E6%8E%A8%E7%90%86/%E5%91%BD%E9%A2%98%E9%80%BB%E8%BE%91/)，加以符合我个人习惯的改造，仅供学习交流。
+
 !!! note "基本信息："
     - 授课：吴飞
     - 笔记：[📙](/docs/cs/Introduction-to-AI/index.md)

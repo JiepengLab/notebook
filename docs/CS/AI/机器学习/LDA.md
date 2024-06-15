@@ -1,3 +1,5 @@
+# LDA | 线性判别分析
+
 高维灾难：数据在高维空间失去区分性（超过30维的欧式距离无区别）
 
 思想：类内方差小，类间方差大
@@ -22,7 +24,7 @@ $$
 \mathbf s_1=\sum_{x\in C_i}(w^\mathsf Tx-w^\mathsf Tm_i)^2=w^\mathsf T[\sum_{x\in C_i}(x-m_i)(x-m_i)^\mathsf T]w
 $$
 + 目标：
-	1. 统一类别协方差最小：$\mathbf s_1+\mathbf s_2$
+	1. 同一类别协方差最小：$\mathbf s_1+\mathbf s_2$
 	2. 不同类别均值距离差距最大：
 		+ 样本数据中心：$\mathbf m_1=w^\mathsf Tm_1,\mathbf m_2=w^\mathsf Tm_2$
 		+ 距离定义：$\Vert \mathbf m_2-\mathbf m_1\Vert_2^2$
@@ -35,9 +37,10 @@ $$
 J(\mathbf w)=\dfrac{\Vert \mathbf w^\mathsf T(m_2-m_1)\Vert_2^2}{\mathbf w^\mathsf T\Sigma_1\mathbf w+\mathbf w^\mathsf T\Sigma_2\mathbf w}=\dfrac{\mathbf w^\mathsf T(m_2-m_1)(m_2-m_1)^\mathsf T\mathbf w}{\mathbf w^\mathsf T(\Sigma_1+\Sigma_2)\mathbf w}\equiv\dfrac{\mathbf w^\mathsf TS_b\mathbf w}{\mathbf w^\mathsf TS_w\mathbf w}
 $$
 其中$S_b$为类间散度矩阵，$S_w$为类内散度矩阵
-由于分子分母都是关于$\mathbf w$的二次式，故仅与$\mathbf w$方向有关；令$\mathbf w^\mathsf TS_w\mathbf w=1$转化为约束最值
+由于分子分母都是关于$\mathbf w$的二次式，故仅与$\mathbf w$方向有关，与$\mathbf w$的长度无关；令$\mathbf w^\mathsf TS_w\mathbf w=1$转化为约束最值
 
-+ 优化方法：Lagrange乘子法
++ 上述带约束条件（即$𝒘^𝑇 𝑺_𝑊 𝒘−1=0$）的函数极大值（即 $𝒘^𝑇 𝑺_𝑏 𝒘$取值最大）优化问题所对应拉格朗日函数为：
+
 $$
 L(\mathbf w)=\mathbf w^\mathsf TS_b\mathbf w-\lambda(\mathbf w^\mathsf TS_w\mathbf w-1)
 $$
