@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../images/icon.jpg">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
     
     
       
@@ -126,6 +126,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -220,7 +225,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             正在初始化搜索引擎
@@ -1252,6 +1257,19 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    循环神经网络
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -1262,6 +1280,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      长短时记忆网络
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1702,6 +1748,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      长短时记忆网络
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1719,15 +1784,17 @@
   
 
 
-  <h1>循环神经网络</h1>
-
+<h1 id="_1">循环神经网络<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 342 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 2 分钟</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 758 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 4 分钟</p>
+</div>
+<div class="admonition note">
+<p>先前所介绍的前馈神经网络或卷积神经网络所需要处理的输入数据一次性给定，难以处理存在前后依赖关系的数据。</p>
 </div>
 <p>应用：处理序列数据（文本句子、视频帧）时采用的网络结构</p>
 <p>本质：希望模拟人所具有的记忆能力，在学习过程中记住部分已经出现的信息，并利用所记住的信息影响后续节点的输出</p>
-<p>网络模型：在处理数据过程中构成循环体，在<span class="arithmatex">\(t\)</span>时刻读取当前输入数据<span class="arithmatex">\(x_i\)</span>和前一时刻输入数据<span class="arithmatex">\(x_{i-1}\)</span>所对应的隐式编码结果<span class="arithmatex">\(h_{i-1}\)</span>，一起生成<span class="arithmatex">\(t\)</span>时刻的编隐式码结果<span class="arithmatex">\(h_i\)</span></p>
-<p><img alt="image.png" src="https://s2.loli.net/2023/11/13/nMmzCY4fPGNpXIe.png" /></p>
+<p>网络模型：在处理数据过程中构成循环体，在<span class="arithmatex">\(t\)</span>时刻读取当前输入数据<span class="arithmatex">\(x_i\)</span>和前一时刻输入数据<span class="arithmatex">\(x_{i-1}\)</span>所对应的隐式编码结果<span class="arithmatex">\(h_{i-1}\)</span>，一起生成<span class="arithmatex">\(t\)</span>时刻的隐式编码结果<span class="arithmatex">\(h_i\)</span></p>
+<p><img alt="alt text" src="../images/image-15.png" /></p>
 <ul>
 <li>表示：<span class="arithmatex">\(h_i=\Phi(U\times x_i+W\times h_{i-1})\)</span></li>
 <li>展开：按照时间展开得到与前馈神经网络相似的网络结构，沿时间反向传播算法
@@ -1738,11 +1805,16 @@ $$</li>
 $$
 \dfrac{\partial E_t}{\partial W_x}=\sum_{i=1}^t\dfrac{\partial E_t}{\partial O_t}\dfrac{\partial O_t}{\partial h_t}\left(\prod_{j=i+1}^t\dfrac{\partial h_j}{\partial h_{j-1}}\right)\dfrac{\partial h_j}{\partial W_x}
 $$</li>
-<li>解决：LSTM</li>
+<li>解决：长短时记忆模型（Long Short-Term Memory，LSTM）</li>
 </ul>
-<p>长短时记忆网络：</p>
-<p><img alt="image.png|500" src="https://s2.loli.net/2023/11/13/uBdf2coF4U3ZEzM.png" />
-<img alt="image.png|500" src="https://s2.loli.net/2023/11/13/RD3Qjb2cZ1AC4so.png" /></p>
+<p>在循环神经网络中，根据输入序列数据与输出序列数据中所包含“单元”的多寡，循环神经网络可以实现“多对多”（即输入和输出序列数据中包含多个单元，常用于机器翻译）、“多对一”（即输入序列数据包含多个单元，输出序列数据只包含一个单元，常用于文本的情感分类）和“一对多”（即输入序列数据包含一个单元，输出序列数据包含多个单元，常用于图像描述生成）三种模式</p>
+<p><img alt="alt text" src="../images/image-18.png" /></p>
+<h2 id="_2">长短时记忆网络<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h2>
+<p>引入了内部记忆单元和门结构来对当前输入信息以及前序时刻所生成的信息进行整合和传递。在这里，内部记忆单元中信息可视为对“历史信息”的累积。</p>
+<p>常见的LSTM模型中有输入门(input gate)、遗忘门(forget gate)和输出门(output gate)三种门结构。对于给定的当前时刻输入数据 <span class="arithmatex">\(𝑥_𝑡\)</span> 和前一时刻隐式编码 <span class="arithmatex">\(ℎ_{𝑡−1}\)</span>，输入门、遗忘门和输出门通过各自参数对其编码，分别得到三种门结构的输出 <span class="arithmatex">\(𝑖_𝑡\)</span>、<span class="arithmatex">\(𝑓_𝑡\)</span>和<span class="arithmatex">\(𝑜_𝑡\)</span>。
+在此基础上，再进一步结合前一时刻内部记忆单元信息<span class="arithmatex">\(𝑐_{𝑡−1}\)</span>来更新当前时刻内部记忆单元信息<span class="arithmatex">\(𝑐_𝑡\)</span>，最终得到当前时刻的隐式编码<span class="arithmatex">\(ℎ_𝑡\)</span></p>
+<p><img alt="alt text" src="../images/image-16.png" />
+<img alt="alt text" src="../images/image-17.png" /></p>
 <blockquote>
 <p>对<span class="arithmatex">\(c_t=f_t\odot c_{t-1}+i_t\cdot \tanh(W_{xc}x_t+W_{hc}h_{t-1}+b_c)\)</span>求导，结果为
 <span class="arithmatex">\(\dfrac{\partial c_t}{\partial c_{t-1}}=f_t+\dfrac{\partial f_t}{\partial c_{t-1}}\times c_{t-1}+\cdots\)</span>
@@ -1770,7 +1842,7 @@ $$</li>
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年5月26日 18:24:35</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月15日 21:50:18</span>
   </span>
 
     
@@ -1891,7 +1963,7 @@ $$</li>
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
         <script src="../../../../assets/javascripts/katex.js"></script>
       

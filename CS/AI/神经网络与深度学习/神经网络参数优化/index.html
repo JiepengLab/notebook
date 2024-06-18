@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../images/icon.jpg">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
     
     
       
@@ -126,6 +126,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -220,7 +225,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             正在初始化搜索引擎
@@ -1189,6 +1194,19 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    神经网络参数优化
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -1199,6 +1217,67 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      损失函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      误差反向传播
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="误差反向传播">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子 - 三类分类
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1702,6 +1781,58 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      损失函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      误差反向传播
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="误差反向传播">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子 - 三类分类
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1719,35 +1850,61 @@
   
 
 
-  <h1>神经网络参数优化</h1>
-
+<h1 id="_1">神经网络参数优化<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 433 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 2 分钟</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 1262 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 6 分钟</p>
 </div>
 <p>目的：使得神经网络能够将给定输入数据映射到所期望的输出语义空间，完成分类识别等任务</p>
-<p>本质：神经网络参数优化是一个监督学习的过程</p>
-<p>操作：模型利用反向传播算法将损失函数计算所得误差从输出端出发，由后向前传递给神经网络中每个单元，然后通过梯度下降算法对神经网络中的参数进行更新；当迭代达到一定轮次或准确率达到一定水平时，则可认为模型参数已被优化完毕</p>
-<p>损失函数：计算模型预测值与真实值之间的误差</p>
+<p>本质：神经网络参数优化是一个<strong>监督学习</strong>的过程</p>
+<p>操作：模型利用反向传播算法将损失函数计算所得误差从输出端出发，<strong>由后向前</strong>传递给神经网络中每个单元，然后通过<strong>梯度下降算法</strong>对神经网络中的参数进行更新；当迭代达到一定轮次或<strong>准确率达到一定水平</strong>时，则可认为模型参数已被优化完毕</p>
+<h2 id="_2">损失函数<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h2>
+<p>损失函数（loss function）又称为代价函数（cost function），用来计算模型预测值与真实值之间的误差。</p>
 <ul>
 <li>均方误差损失函数：<span class="arithmatex">\(\text{MSE}=\dfrac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2\)</span></li>
-<li>交叉熵损失函数：<span class="arithmatex">\(H(y_i,\hat y_i)=-y_i\times\log_2\hat y_i\)</span></li>
+<li>
+<p>交叉熵损失函数：<span class="arithmatex">\(H(y_i,\hat y_i)=-y_i\times\log_2\hat y_i\)</span></p>
+<div class="admonition note">
+<p>“熵”被用来表示热力学系统所呈现的无序程度。香农将这一概念引入信息论领域，提出了“信息熵”概念，通过对数函数来测量信息的不确定性。</p>
+<p>交叉熵（cross entropy）是信息论中的重要概念，主要用来度量两个概率分布间的差异。<span class="arithmatex">\(𝑦_𝑖\)</span> 是样本 <span class="arithmatex">\(𝑥_𝑖\)</span> 分类的真实概率、<span class="arithmatex">\(\hat{𝑦}_𝑖\)</span>是模型预测概率，通过 <span class="arithmatex">\(\hat{𝑦}_𝑖\)</span> 来表示 <span class="arithmatex">\(𝑦_𝑖\)</span> 的交叉熵可如上计算。</p>
+<p>交叉熵刻画了两个概率分布之间的距离，旨在描绘通过概率分布 <span class="arithmatex">\(\hat{𝑦}_𝑖\)</span> 来表达概率分布𝑦_𝑖的困难程度。根据公式不难理解，两个概率分布 <span class="arithmatex">\(𝑦_𝑖\)</span> 和 <span class="arithmatex">\(\hat{𝑦}_𝑖\)</span> 越接近，交叉熵越小。也就是说，预测类别分布概率与实际类别分布概率之间的差距越小，交叉熵就越小。</p>
+</div>
+</li>
 </ul>
-<p>梯度下降：使损失函数最小化的方法</p>
+<h2 id="_3">梯度下降<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h2>
+<p>梯度下降是一种使损失函数最小化的方法。</p>
 <ul>
 <li>梯度：<span class="arithmatex">\(\dfrac{\text{d}f(x)}{\text{d}x}=\lim\limits_{h\to0}\dfrac{f(x+h)-f(x)}{h}\quad f(x+\Delta x)-f(x)\approx(\nabla f(x))^\mathsf T\Delta x\)</span></li>
 <li>操作：<span class="arithmatex">\(x\leftarrow x-\eta\nabla f(x)\)</span></li>
 <li>方法：<ul>
-<li>批量梯度下降：在整个训练集上计算损失误差（数据集较大导致内存不足）</li>
-<li>随机梯度下降：使用每个数据计算损失误差（波动大难收敛；可跳出局部最优）</li>
-<li>小批量梯度下降</li>
+<li>批量梯度下降（batch gradient descent）：在整个训练集上计算损失误差（数据集较大导致内存不足）</li>
+<li>随机梯度下降（stochastic gradient descent）：使用每个数据计算损失误差（波动大收敛慢；可跳出局部最优）</li>
+<li>小批量梯度下降（mini-batch gradient descent）：选取训练集中小批量样本计算损失误差ℒ(θ)，根据每一批量样本所得到的累加误差来更新参数，这样可保证训练过程更稳定，而且采用批量训练方法也可利用矩阵计算优势，因此其成为目前最常用的梯度下降算法</li>
 </ul>
 </li>
 </ul>
-<p>误差反向传播：利用损失函数来计算模型预测结果与真实结果之间的误差以优化调整模型参数</p>
-<p><img alt="image.png|500" src="https://s2.loli.net/2023/11/13/JyfP8j7HdTqOC9m.png" />
-$$
-\dfrac{\partial\mathcal L}{\partial w_1}=\dfrac{\partial\mathcal L}{\partial o}\dfrac{\partial o}{\partial x}\dfrac{\partial x}{\partial w_1}\quad w_1^\text{new}=w_1-\eta\times\dfrac{\partial\mathcal L}{\partial w_1}
-$$</p>
+<h2 id="_4">误差反向传播<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h2>
+<p>利用损失函数来计算模型预测结果与真实结果之间误差以优化调整模型参数，这一优化调整机制是从输出端向输入端，由后向前递进进行。</p>
+<p><img alt="alt text" src="../images/image-4.png" /></p>
+<p><img alt="alt text" src="../images/image-5.png" /></p>
+<p><img alt="alt text" src="../images/image-6.png" /></p>
+<p><img alt="alt text" src="../images/image-7.png" /></p>
+<h3 id="-">例子 - 三类分类<a class="headerlink" href="#-" title="点击此处可置顶内容">&para;</a></h3>
+<p>给定一个包含输入层、一层隐藏层和输出层的多层感知机（如图5.7所示），其中隐藏层由两个神经元构成。这里为了简化介绍过程，因此只使用了一层隐藏层。</p>
+<p><img alt="alt text" src="../images/image-9.png" /></p>
+<p>网络使用Sigmoid函数作为神经元的激活函数，使用均方损失函数来计算网络输出值与实际值之间的误差。</p>
+<p>在图5.7中，每个神经元完成如下两项任务：</p>
+<ol>
+<li>对相邻前序层所传递信息进行线性加权累加；</li>
+<li>对加权累加结果进行非线性变换。</li>
+</ol>
+<p>假设样本数据输入为 <span class="arithmatex">\((𝑥_1, 𝑥_2, 𝑥_3)\)</span>，其标注信息为<span class="arithmatex">\((𝑦_1, 𝑦_2,𝑦_3)\)</span>。在三类分类问题中，对于输入数据<span class="arithmatex">\((𝑥_1, 𝑥_2, 𝑥_3)\)</span>，<span class="arithmatex">\(𝑦_1\)</span> 、<span class="arithmatex">\(𝑦_2\)</span> 和 <span class="arithmatex">\(𝑦_3\)</span> 中只有一个取值为1、其余两个取值为0。</p>
+<p><img alt="alt text" src="../images/image-11.png" /></p>
+<p>一旦神经网络在当前参数下给出了预测结果 <span class="arithmatex">\((\hat{𝑦_1}, \hat{𝑦_2}, \hat{𝑦_3})\)</span>后，通过均方误差损失函数来计算模型预测值与真实值<span class="arithmatex">\((𝑦_1,𝑦_2,𝑦_3)\)</span>之间误差，记为$𝑙𝑜𝑠𝑠=\frac13 ∑_{𝑖=1}<sup>3(\hat{𝑦_𝑖}−𝑦_𝑖)</sup>2 $。</p>
+<p>接下来通过梯度下降和误差反向传播方法，沿着损失函数梯度的反方向来更改参数变量取值，使得损失函数快速下降到其最小值。由于损失函数对<span class="arithmatex">\(𝑤_7\sim 𝑤_{12}\)</span>的偏导计算相似，在此以<span class="arithmatex">\(𝑤_7\)</span>为例来介绍如何更新<span class="arithmatex">\(𝑤_7\)</span>这一参数取值。记损失函数为<span class="arithmatex">\(ℒ(𝑤)\)</span>，$ℒ(𝑤)=\frac13 ∑_{𝑖=1}<sup>3(\hat{𝑦_𝑖}−𝑦_𝑖)</sup>2 $。</p>
+<p><img alt="alt text" src="../images/image-12.png" /></p>
+<p>在得到<span class="arithmatex">\(𝑤_7\sim 𝑤_{12}\)</span>相对于损失函数的偏导结果后，利用链式求导法则，可计算得到损失函数相对于<span class="arithmatex">\(𝑤_1\sim 𝑤_6\)</span>的偏导结果。</p>
+<p><img alt="alt text" src="../images/image-13.png" /></p>
+<p>在计算得到所有参数相对于损失函数ℒ的偏导结果后，利用梯度下降算法，通过 <span class="arithmatex">\(𝑤_𝑖^{𝑛𝑒𝑤}= 𝑤_𝑖  − 𝜂 ∗ 𝛿_𝑖\)</span> 来更新参数取值。然后不断迭代，直至模型参数收敛，此时损失函数减少到其最小值。</p>
 
 
 
@@ -1770,7 +1927,7 @@ $$</p>
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年5月26日 18:24:35</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月15日 21:50:18</span>
   </span>
 
     
@@ -1891,7 +2048,7 @@ $$</p>
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
         <script src="../../../../assets/javascripts/katex.js"></script>
       

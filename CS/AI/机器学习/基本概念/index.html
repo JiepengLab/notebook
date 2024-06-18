@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../images/icon.jpg">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
     
     
       
@@ -126,6 +126,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -220,7 +225,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             正在初始化搜索引擎
@@ -1111,6 +1116,19 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    基本概念
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -1121,6 +1139,43 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型评估
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1160,6 +1215,27 @@
   
   <span class="md-ellipsis">
     决策树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k均值聚类
   </span>
   
 
@@ -1239,32 +1315,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../k%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB/" class="md-nav__link">
+      <a href="../%E6%BC%94%E5%8C%96%E7%AE%97%E6%B3%95/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    k均值聚类
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    遗传算法
+    演化算法
   </span>
   
 
@@ -1744,6 +1799,34 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型评估
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1761,33 +1844,34 @@
   
 
 
-  <h1>基本概念</h1>
-
+<h1 id="_1">机器学习基本概念<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 1080 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 5 分钟</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 1185 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 6 分钟</p>
 </div>
-<p>机器学习：</p>
+<h2 id="_2">机器学习<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h2>
 <ul>
 <li>概念：机器学习通过对数据的优化学习，<mark>建立能够刻画数据中所蕴含语义概念或分布结构等信息的模型</mark></li>
 <li>性质：数据驱动学习</li>
 <li>分类：按数据利用角度<ul>
 <li>有监督学习：
-    监督学习算法从假设空间 (hypothesis space) 学习得到一个最优映射函数<span class="arithmatex">\(f\)</span>（又称决策函数），映射函数<span class="arithmatex">\(f\)</span>将输入数据映射到语义标注空间，实现数据的分类和识别<ul>
-<li>例：[[回归分析]]， [[决策树]]</li>
-<li>特征降维：[[LDA]]</li>
+    监督学习算法从假设空间 (hypothesis space) 学习得到一个最优映射函数 <span class="arithmatex">\(f\)</span>（又称决策函数），映射函数 <span class="arithmatex">\(f\)</span> 将输入数据映射到语义标注空间，实现数据的分类和识别<ul>
+<li>例：<a href="../%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/">回归分析</a>， <a href="../k%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB/">决策树</a></li>
+<li>特征降维：<a href="../LDA/">LDA</a></li>
 </ul>
 </li>
 <li>无监督学习：
-    无监督学习是直接从无标签数据<span class="arithmatex">\(\set{x,i=1,⋯,n}\)</span>出发学习映射函数<ul>
-<li>例：[[k均值聚类]]</li>
-<li>特征降维：[[PCA]]</li>
+    无监督学习是直接从<strong>无标签数据</strong><span class="arithmatex">\(\set{x_i,i=1,⋯,n}\)</span>出发学习映射函数<ul>
+<li>例：<a href="../k%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB/">k均值聚类</a></li>
+<li>特征降维：<a href="../PCA/">PCA</a></li>
 </ul>
 </li>
 <li>半监督学习：
     半监督学习在学习映射函数的过程中使用的一部分数据有标签，一部分数据没有标签</li>
 </ul>
 </li>
-<li>模型评估：<ul>
+</ul>
+<h2 id="_3">模型评估<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h2>
+<ul>
 <li>数据：<ul>
 <li>训练集：在训练集上完成模型参数优化</li>
 <li>验证集：在训练集上训练模型的同时会在验证集上对模型进行评估，以便得到最佳参数</li>
@@ -1802,28 +1886,30 @@
 <li>对数似然函数：<span class="arithmatex">\(Loss(y_i,P(y_i|x_i))=-\log P(y_i|x_i)\)</span></li>
 </ul>
 </li>
-<li>性能度量：正例P，负例N，真正例TP，假正例FP，真反例TN，假反例FN<ul>
+<li>
+<p>性能度量：正例P，负例N，真正例TP，假正例FP，真反例TN，假反例FN</p>
+<ul>
 <li>衡量标准：<ul>
 <li>准去率：ACC = <span class="arithmatex">\(\dfrac{\text{TP+TN}}{\text{P+N}}\)</span></li>
-<li>错误率：errRate = 1 - ACC</li>
-<li>精确率（查准率）：precision = <span class="arithmatex">\(\dfrac{\text{TP}}{\text{TP+FP}}\)</span></li>
-<li>召回率（查全率）：recall = <span class="arithmatex">\(\dfrac{\text{TP}}{\text{TP+FN}}\)</span></li>
+<li>错误率：errRate = 1 - ACC = <span class="arithmatex">\(\dfrac{\text{FP+FN}}{\text{P+N}}\)</span></li>
+<li>精确率（查准率）：precision = <span class="arithmatex">\(\dfrac{\text{TP}}{\text{TP+FP}}\)</span>，被模型预测为正例的样本中实际为正例的比例。</li>
+<li>召回率（查全率）：recall = <span class="arithmatex">\(\dfrac{\text{TP}}{\text{TP+FN}}\)</span>，所有正例样本中被模型预测为正例的比例。</li>
 </ul>
 </li>
 <li>问题：精确率与召回率矛盾</li>
 <li>解决：综合分类率：F1-score = <span class="arithmatex">\(\dfrac{2}{\dfrac{1}{\text{precision}}+\dfrac{1}{\text{recall}}}\)</span></li>
 </ul>
 </li>
-</ul>
-</li>
-<li>泛化能力：在机器学习中，需要保证模型在训练集上所取得的性能与在测试集上所取得的性能保持一致，即模型具有泛化能力
-    <img alt="image.png|500" src="https://s2.loli.net/2023/10/23/CNAej6oIkGn7HYs.png" /><ul>
-<li>经验风险：<span class="arithmatex">\(R_{\text{emp}}=\dfrac{1}{n}\sum\limits_{i=1}^nLoss(y_i,f(x_i))\)</span></li>
-<li>期望风险：<span class="arithmatex">\(R=\int\limits_{x\times y}Loss(y,f(x))P(x,y)\text{d}x\text{d}y\)</span></li>
+<li>
+<p>泛化能力：在机器学习中，需要保证模型在训练集上所取得的性能与在测试集上所取得的性能保持一致，即模型具有泛化能力
+    <img alt="alt text" src="../images/image.png" /></p>
+<ul>
+<li>经验风险：<span class="arithmatex">\(R_{\text{emp}}=\dfrac{1}{n}\sum\limits_{i=1}^nLoss(y_i,f(x_i))\)</span>，在训练集上所产生的损失</li>
+<li>期望风险：<span class="arithmatex">\(R=\int\limits_{x\times y}Loss(y,f(x))P(x,y)\text{d}x\text{d}y\)</span>，如果知道某一任务包含的所有数据，则可以从所有数据中计算模型产生的损失。</li>
 <li>关系：期望风险 <span class="arithmatex">\(\not=\)</span> 经验风险，<span class="arithmatex">\(R\leqslant R_{\text{emp}}+\text{err}\)</span>，其中err取值与模型复杂程度和训练集样本数目有关</li>
 <li>优化目标：经验风险最小化（<mark>并非模型复杂度越大越好</mark>）</li>
-<li>过学习：在模型训练过程中，如果使用同一批训练数据反复训练，模型会变得越来越复杂，虽然经验风险<span class="arithmatex">\(R_{\text{emp}}\)</span>会降低，但是err取值会越大，导致期望风险<span class="arithmatex">\(R\)</span>增加</li>
-<li>解决：降低复杂度<span class="arithmatex">\(\dfrac{1}{n}\sum_{i=1}^nLoss(y_i,f(x_i))+\lambda J(f)\)</span>，<span class="arithmatex">\(J(f)\)</span>为正则化因子（惩罚因子）</li>
+<li>过学习(overfitting)：在模型训练过程中，如果使用同一批训练数据反复训练，模型会变得越来越复杂，虽然经验风险<span class="arithmatex">\(R_{\text{emp}}\)</span>会降低，但是 <span class="arithmatex">\(err\)</span> 取值会越大，导致期望风险<span class="arithmatex">\(R\)</span>增加</li>
+<li>解决：降低复杂度<span class="arithmatex">\(\dfrac{1}{n}\sum_{i=1}^nLoss(y_i,f(x_i))+\lambda J(f)\)</span>，<span class="arithmatex">\(J(f)\)</span>为正则化因子（惩罚因子），防止结构过于复杂</li>
 </ul>
 </li>
 <li>参数优化：<ul>
@@ -1854,7 +1940,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年5月26日 18:24:35</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月15日 21:50:18</span>
   </span>
 
     
@@ -1975,7 +2061,7 @@
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
         <script src="../../../../assets/javascripts/katex.js"></script>
       
