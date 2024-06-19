@@ -23,9 +23,9 @@ $\begin{cases}
 ### 离散随机变量
 
 $\begin{cases}
-    \text{熵：} H(X) = -\sum_{i=1}^{n}P(x_i)\log P(x_i)>0\\
-    \text{条件熵：} 0<H(X|Y) = -\sum_{i=1}^{n}P(x_i,y)\log P(x_i|y)\leq H(X)\\
-    \text{联合熵：} H(X,Y) = -\sum_{i=1}^{n}P(x_i,y)\log P(x_i,y)\\
+    \text{熵：} H(X) = -\sum_{i=1}^{n}P(x_i)\log P(x_i)\geq 0\\
+    \text{条件熵：} 0<H(X|Y) = -\sum_{y\in\mathcal{Y}}\sum_{x\in\mathcal{X}}p(x,y)\log p(x|y)\leq H(X)\\
+    \text{联合熵：} H(X,Y=y) = -\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}p(x,y)\log p(x,y)\\
     \downarrow\downarrow\downarrow\downarrow\\
     \text{联合链式法则：} H(X,Y) = H(X) + H(Y|X)=H(Y)+H(X|Y)
 \end{cases}$

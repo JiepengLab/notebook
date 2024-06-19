@@ -151,7 +151,6 @@ $$H(X)=E[I(X)]=\sum_{x\in\mathcal{X}}q(x)I(x)=-\sum_{x\in\mathcal{X}}q(x)\log q(
 
     当 $p=0.5$ 时，$H(X)=1$，表示 $X$ 的不确定性最大；当 $p=0$ 或 $p=1$ 时，$H(X)=0$，表示 $X$ 的不确定性最小。
 
-
 ### 条件熵
 
 #### 给定事件
@@ -229,9 +228,9 @@ $$H(X)\triangleq H_K({p_1,p_2,\cdots,p_K})\triangleq H_K(P)=-\sum_{k=1}^Kp_k\log
 
         所以：
 
-        ```math
+        $$
         \lim_{\epsilon \to 0} H_{K+1}(P_1, P_2, \cdots, P_{K-1}, P_K - \epsilon, \epsilon) = -\sum_{i=1}^{K-1} P_i \log P_i - P_K \log P_K = H_K(P_1, P_2, \cdots, P_K)
-        ```
+        $$
 
         这样，我们证明了熵的可扩展性。
 
@@ -266,69 +265,62 @@ $$H(X)\triangleq H_K({p_1,p_2,\cdots,p_K})\triangleq H_K(P)=-\sum_{k=1}^Kp_k\log
 
         #### 总熵公式
 
-        将以上各部分结合，得到总熵公式：
-
-        \[ H(X_2) = H(X_1) + H(X_2 | X_1) \]
-
-        ### 详细推导过程
-
         1. **定义粗略层次熵 \(H(X_1)\)**：
 
-        \[ H(X_1) = -\sum_{x_1 \in \mathcal{X}_1} P(x_1) \log P(x_1) \]
+            \[ H(X_1) = -\sum_{x_1 \in \mathcal{X}_1} P(x_1) \log P(x_1) \]
 
-        对于 \(\mathcal{X}_1 = \{A, B\}\)，
+            对于 \(\mathcal{X}_1 = \{A, B\}\)，
 
-        \[ H(X_1) = -[P(A) \log P(A) + P(B) \log P(B)] \]
+            \[ H(X_1) = -[P(A) \log P(A) + P(B) \log P(B)] \]
 
         2. **定义细化层次熵 \(H(X_2)\)**：
 
-        \[ H(X_2) = -\sum_{x_2 \in \mathcal{X}_2} P(x_2) \log P(x_2) \]
+            \[ H(X_2) = -\sum_{x_2 \in \mathcal{X}_2} P(x_2) \log P(x_2) \]
 
-        对于 \(\mathcal{X}_2\)，
+            对于 \(\mathcal{X}_2\)，
 
-        \[ H(X_2) = -[P(A)P_{A_1} \log (P(A)P_{A_1}) + P(A)P_{A_2} \log (P(A)P_{A_2}) + P(A)P_{A_3} \log (P(A)P_{A_3}) + P(B)P_{B_1} \log (P(B)P_{B_1}) + P(B)P_{B_2} \log (P(B)P_{B_2})] \]
+            \[ H(X_2) = -[P(A)P_{A_1} \log (P(A)P_{A_1}) + P(A)P_{A_2} \log (P(A)P_{A_2}) + P(A)P_{A_3} \log (P(A)P_{A_3}) + P(B)P_{B_1} \log (P(B)P_{B_1}) + P(B)P_{B_2} \log (P(B)P_{B_2})] \]
 
         3. **定义条件熵 \(H(X_2 | X_1)\)**：
 
-        \[ H(X_2 | X_1) = \sum_{x_1 \in \mathcal{X}_1} P(x_1) H(X_2 | x_1) \]
+            \[ H(X_2 | X_1) = \sum_{x_1 \in \mathcal{X}_1} P(x_1) H(X_2 | x_1) \]
 
-        - 对于 \(x_1 = A\)：
+            - 对于 \(x_1 = A\)：
 
-            \[ H(X_2 | A) = -[P_{A_1} \log P_{A_1} + P_{A_2} \log P_{A_2} + P_{A_3} \log P_{A_3}] \]
+                \[ H(X_2 | A) = -[P_{A_1} \log P_{A_1} + P_{A_2} \log P_{A_2} + P_{A_3} \log P_{A_3}] \]
 
-        - 对于 \(x_1 = B\)：
+            - 对于 \(x_1 = B\)：
 
-            \[ H(X_2 | B) = -[P_{B_1} \log P_{B_1} + P_{B_2} \log P_{B_2}] \]
+                \[ H(X_2 | B) = -[P_{B_1} \log P_{B_1} + P_{B_2} \log P_{B_2}] \]
 
-        所以，
+            所以，
 
-        \[ H(X_2 | X_1) = P(A) H(P_{A_1}, P_{A_2}, P_{A_3}) + P(B) H(P_{B_1}, P_{B_2}) \]
+            \[ H(X_2 | X_1) = P(A) H(P_{A_1}, P_{A_2}, P_{A_3}) + P(B) H(P_{B_1}, P_{B_2}) \]
 
         4. **将条件熵分解到总熵公式中**：
 
-        结合以上公式：
+            结合以上公式：
 
-        ```math
-        H(X_2) = H(X_1) + H(X_2 | X_1)
-        ```
+            !!! note 
+                $H(X_2) = H(X_1) + H(X_2 | X_1)$
 
-        具体计算：
+            具体计算：
 
-        \[ H(X_2) = -\sum_{x_2 \in \mathcal{X}_2} P(x_2) \log P(x_2) \]
+            \[ H(X_2) = -\sum_{x_2 \in \mathcal{X}_2} P(x_2) \log P(x_2) \]
 
-        展开：
+            展开：
 
-        \[ H(X_2) = -[P(A)P_{A_1} \log (P(A)P_{A_1}) + P(A)P_{A_2} \log (P(A)P_{A_2}) + P(A)P_{A_3} \log (P(A)P_{A_3}) + P(B)P_{B_1} \log (P(B)P_{B_1}) + P(B)P_{B_2} \log (P(B)P_{B_2})] \]
+            \[ H(X_2) = -[P(A)P_{A_1} \log (P(A)P_{A_1}) + P(A)P_{A_2} \log (P(A)P_{A_2}) + P(A)P_{A_3} \log (P(A)P_{A_3}) + P(B)P_{B_1} \log (P(B)P_{B_1}) + P(B)P_{B_2} \log (P(B)P_{B_2})] \]
 
-        分解成粗略层次和条件熵部分：
+            分解成粗略层次和条件熵部分：
 
-        \[ H(X_2) = -[P(A) \log P(A) + P(B) \log P(B)] + P(A) H(P_{A_1}, P_{A_2}, P_{A_3}) + P(B) H(P_{B_1}, P_{B_2}) \]
+            \[ H(X_2) = -[P(A) \log P(A) + P(B) \log P(B)] + P(A) H(P_{A_1}, P_{A_2}, P_{A_3}) + P(B) H(P_{B_1}, P_{B_2}) \]
 
-        最终等式为：
+            最终等式为：
 
-        ```math
-        H(X_2) = H(X_1) + H(X_2 | X_1)
-        ```
+            $$
+            H(X_2) = H(X_1) + H(X_2 | X_1)
+            $$
 
         ### 总结
 
@@ -336,22 +328,47 @@ $$H(X)\triangleq H_K({p_1,p_2,\cdots,p_K})\triangleq H_K(P)=-\sum_{k=1}^Kp_k\log
 
     熵的可加性一般表达式：
 
+    假设一个随机变量可以取的值被划分成 \(K\) 个子集，每个子集的出现概率为 \(p_k\)，其中 \(k = 1, 2, \cdots, K\)。对每个子集进一步划分成 \(m_k\) 个小单元，记这些小单元的出现概率为 \(p_k \cdot q_{jk}\)，其中 \(j = 1, 2, \cdots, m_k\)，\(q_{jk}\) 是条件概率。整个范围被划分成 \(M = \sum_{k=1}^K m_k\) 个小单元。
+
+    总熵 \(H_M\) 的可加性可以表示为：
+
     $$
     \begin{aligned}
-    &H_M(p_1q_{11},p_1q_{21},\cdots,p_1q_{m1},p_2q_{12},\cdots,p_2q_{m2},\cdots,p_nq_{mn})\\
-    =&H_N(p_1,p_2,\cdots,p_n)+\sum_{i=1}^n p_iH_M(q_1,q_2,\cdots,q_m)
+    H_M &= -\sum_{k=1}^K \sum_{j=1}^{m_k} p_k q_{jk} \log (p_k q_{jk}) \\
+    &= -\sum_{k=1}^K \sum_{j=1}^{m_k} p_k q_{jk} \log p_k - \sum_{k=1}^K \sum_{j=1}^{m_k} p_k q_{jk} \log q_{jk} \\
+    &= -\sum_{k=1}^K p_k \log p_k \sum_{j=1}^{m_k} q_{jk} - \sum_{k=1}^K p_k \sum_{j=1}^{m_k} q_{jk} \log q_{jk} \\
+    &= -\sum_{k=1}^K p_k \log p_k - \sum_{k=1}^K p_k \sum_{j=1}^{m_k} q_{jk} \log q_{jk} \\
+    &= H_K(p_1, p_2, \cdots, p_K) + \sum_{k=1}^K p_k H_{m_k}(q_{1k}, q_{2k}, \cdots, q_{m_k k})
     \end{aligned}
     $$
 
     对变量 $X$ 可以进行多步分层的观察，每一步都可从上一步的观察结果中得到更为细致的结果，变量 $X$ 在最后的观察结果集合中的不确定性等于第一次观察结果的不确定性，加上其后每次观察结果在前一次观察结果已知的前提下的条件不确定性。
-
-6. **极值性**：$H(X)\leq \log K$，当且仅当 $X$ 是**均匀分布**时取等号。
+6. **极值性**：$H_K(p_1,p_2,\cdots,p_k)\leq H_K(\frac1K,\frac1K,\cdots,\frac1K) =  \log K$，当且仅当 $X$ 是**均匀分布**时取等号。
 7. **条件熵小于等于熵**：$H(X|Y)\leq H(X)$——增加条件，减少不确定性。当且仅当 $X$ 和 $Y$ 独立时取等号
-    ![alt text](images/image-3.png)
+    $$
+    \begin{aligned}
+    H(X|Y) &= E \{H(X|y)\} \\
+    &= -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x, y) \log P(x|y) \\
+    &= -\sum_{y \in \mathcal{Y}} \omega(y) \left\{\sum_{x \in \mathcal{X}} P(x|y) \log P(x|y)\right\} \\
+    &\leq -\sum_{y \in \mathcal{Y}} \omega(y) \left\{\sum_{x \in \mathcal{X}} P(x|y) \log Q(x)\right\} \\
+    &= -\sum_{x \in \mathcal{X}} \left\{\sum_{y \in \mathcal{Y}} P(x|y) w(y)\right\} \log Q(x) \\
+    &= -\sum_{x \in \mathcal{X}} P(x,y) \log Q(x) \\
+    &= H(X)
+    \end{aligned}
+    $$
 8. **凸性**：$H(X)$是严格上凸函数， $H(\lambda \vec{P_1}+(1-\lambda)\vec{P_2})\geq \lambda H(\vec{P_1})+(1-\lambda)H(\vec{P_2}),\quad 0\leq \lambda\leq 1$
 
-
     !!! note "取极大值的充要条件"
+        Jensen不等式：
+
+        $$
+        \begin{aligned}
+            &\text{令 } (\alpha_1, \alpha_2, \cdots, \alpha_L) \text{ 是凸集中的一组矢量，} f(\alpha) \text{ 是该凸集上的一个上凸函数，} \\
+            &(\theta_1, \theta_2, \cdots, \theta_L) \text{ 是一组概率分布，则有} \\
+            &\sum_{l=1}^L \theta_l f(\alpha_l) \leq f \left( \sum_{l=1}^L \theta_l \alpha_l \right)
+        \end{aligned}
+        $$
+
         首先我们有
 
         ![alt text](images/image-5.png)
@@ -359,9 +376,9 @@ $$H(X)\triangleq H_K({p_1,p_2,\cdots,p_K})\triangleq H_K(P)=-\sum_{k=1}^Kp_k\log
         !!! note "怎么理解？"
             注意到，此时每个分量为非负。我们要找到极值，就是让这个函数在邻域内的值都比它小。
             
-            如果 $\alpha_k$ 大于零，那么这个偏导数一定要为零，否则必定在这个方向上有增大的空间。
+            如果 $\alpha_k$ 大于零，那么这个偏导数一定要为零，否则必定在这个方向或反方向上有增大的空间。-->如果我们增大或减小 $\alpha_k$，那么这个函数的值会增大。
 
-            如果 $\alpha_k$ 等于零，那么这个偏导数需要小于或等于零。如果大于零，必定在这个方向上有增大的空间。
+            如果 $\alpha_k$ 等于零，那么这个偏导数需要小于或等于零。如果大于零，必定在这个方向上有增大的空间。-->如果我们增大 $\alpha_k$，那么这个函数的值会增大。
 
         把这个移作概率空间。除了要求非负，还要求和为1。所以我们用拉式乘子法，构造函数：
 
@@ -378,7 +395,7 @@ $$H(X)\triangleq H_K({p_1,p_2,\cdots,p_K})\triangleq H_K(P)=-\sum_{k=1}^Kp_k\log
         \end{cases}
         $$
 
-        根据非负性，我们有：
+        根据前文的解释，我们有：
 
         $$
         \begin{cases}
@@ -446,17 +463,144 @@ $$I(X;(Y,Z))=E[I(x;(y,z))]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\i
 
 ![alt text](images/image-9.png)
 
-![alt text](images/image-10.png)
+!!! note "相对熵的性质"
+    ![alt text](images/image-10.png)    
 
-互信息和相对熵的关系↑
+    互信息和相对熵的关系↑
 
-![alt text](images/image-11.png)
+    ![alt text](images/image-11.png)
 
-![alt text](images/image-12.png)
+    这个公式展示了熵 \( H(X) \) 可以分解为均匀分布熵 \( H(U) \) 减去相对熵 \( D(X \parallel U) \)。
+
+    ![alt text](images/image-12.png)
+
+    公式 (5): 独立分布下的相对熵分解
+
+
+    \[ D(P \parallel Q) = D(P_1 \parallel Q_1) + D(P_2 \parallel Q_2) \]
+
+    假设 \( P_1 \) 和 \( P_2 \) 是独立分布，并且联合分布是 \( P = P_1 P_2 \)，如果 \( Q_1 \) 和 \( Q_2 \) 是独立分布，并且联合分布是 \( Q = Q_1 Q_2 \)，那么相对熵 \( D(P \parallel Q) \) 可以分解为两个独立分布的相对熵之和。
+
+    #### 数学推导
+
+    1. **相对熵的定义**:
+
+    对于联合分布 \( P \) 和 \( Q \)：
+
+    \[
+    D(P \parallel Q) = \sum_{x_1, x_2} P(x_1, x_2) \log \frac{P(x_1, x_2)}{Q(x_1, x_2)}
+    \]
+
+    2. **引入独立分布**:
+
+    假设 \( P_1 \) 和 \( P_2 \) 是独立分布：
+
+    \[
+    P(x_1, x_2) = P_1(x_1) P_2(x_2)
+    \]
+
+    \( Q_1 \) 和 \( Q_2 \) 也是独立分布：
+
+    \[
+    Q(x_1, x_2) = Q_1(x_1) Q_2(x_2)
+    \]
+
+    将这些分布代入相对熵公式：
+
+    \[
+    D(P \parallel Q) = \sum_{x_1, x_2} P_1(x_1) P_2(x_2) \log \frac{P_1(x_1) P_2(x_2)}{Q_1(x_1) Q_2(x_2)}
+    \]
+
+    3. **分解**:
+
+    可以分解为两个部分：
+
+    \[
+    D(P \parallel Q) = \sum_{x_1, x_2} P_1(x_1) P_2(x_2) \left( \log \frac{P_1(x_1)}{Q_1(x_1)} + \log \frac{P_2(x_2)}{Q_2(x_2)} \right)
+    \]
+
+    \[
+    D(P \parallel Q) = \sum_{x_1} P_1(x_1) \log \frac{P_1(x_1)}{Q_1(x_1)} + \sum_{x_2} P_2(x_2) \log \frac{P_2(x_2)}{Q_2(x_2)}
+    \]
+
+    \[
+    D(P \parallel Q) = D(P_1 \parallel Q_1) + D(P_2 \parallel Q_2)
+    \]
+
+    #### 实际意义
+
+    - **分解属性**: 如果联合分布 \(P\) 和 \(Q\) 是由独立分布 \(P_1\), \(P_2\) 和 \(Q_1\), \(Q_2\) 组成的，那么相对熵 \( D(P \parallel Q) \) 可以分解为两个独立相对熵的总和。这种性质在处理多维分布时非常有用，可以简化计算。
 
 ### 相对熵的应用
 
 ![alt text](images/image-13.png)
+
+图片展示了 **相对熵（KL 散度）** 在模型拟合中的应用，即如何使用参数分布 \( q(x|\theta) \) 来逼近未知分布 \( p(x) \)，并通过最小化 KL 散度来优化参数 \(\theta\)。以下是详细解释和推导。
+
+#### 问题描述
+
+假设我们有一个数据集，该数据集由未知的真实分布 \( p(x) \) 生成，但我们不知道这个真实分布。我们希望通过一个参数化的分布 \( q(x|\theta) \) 来逼近这个未知分布 \( p(x) \)。
+
+#### 目标
+
+通过最小化相对熵 \( D(p \parallel q) \) 来优化参数 \(\theta\)，使得 \( q(x|\theta) \) 尽可能接近 \( p(x) \)。
+
+#### 相对熵公式及其应用
+
+##### 相对熵的定义
+
+相对熵 \( D(p \parallel q) \) 度量了两个概率分布 \( p \) 和 \( q \) 之间的差异性：
+
+\[
+D(p \parallel q) = \sum_x p(x) \log \frac{p(x)}{q(x)}
+\]
+
+##### 最小化相对熵
+
+我们的目标是通过最小化 \( D(p \parallel q) \) 来找到最佳参数 \(\theta\)：
+
+\[
+\min_\theta D(p \parallel q)
+\]
+
+#### 数学推导
+
+假设我们有 \(N\) 个独立同分布（i.i.d.）的样本 \( x_1, x_2, \cdots, x_N \) 来自真实分布 \( p(x) \)，我们可以用样本均值来近似期望值。将相对熵 \( D(p \parallel q) \) 的公式展开：
+
+\[
+D(p \parallel q) = \sum_x p(x) \log \frac{p(x)}{q(x|\theta)}
+\]
+
+对 \( N \) 个样本，我们可以使用经验分布来替代真实分布 \( p(x) \)：
+
+\[
+\hat{p}(x) = \frac{1}{N} \sum_{n=1}^N \delta(x - x_n)
+\]
+
+!!! note ""
+    这里的 \(\delta(x - x_n)\) 是狄拉克函数，表示当 \(x = x_n\) 时为1，否则为0。
+
+将其代入相对熵公式：
+
+\[
+D(\hat{p} \parallel q) = \sum_x \hat{p}(x) \log \frac{\hat{p}(x)}{q(x|\theta)}
+\]
+
+因为 \(\hat{p}(x)\) 是经验分布，我们可以简化为样本的平均：
+
+\[
+D(\hat{p} \parallel q) \approx \frac{1}{N} \sum_{n=1}^N \log \frac{\hat{p}(x_n)}{q(x_n|\theta)}
+\]
+
+其中 \(\hat{p}(x_n) = \frac{1}{N}\)，所以公式变为：
+
+\[
+\min_\theta D(p \parallel q) = \frac{1}{N} \sum_{n=1}^N \left( -\log q(x_n|\theta) + \log p(x_n) \right)
+\]
+
+1. **相对熵** \( D(p \parallel q) \) 度量了两个分布之间的差异，用于优化模型参数以使得模型分布 \( q(x|\theta) \) 接近真实分布 \( p(x) \)。
+2. **最小化 KL 散度** 等价于最大化对数似然，这是很多机器学习和统计模型中的核心思想。
+3. **应用广泛**: 这种方法在各种概率模型、生成模型和贝叶斯推断中有广泛应用，帮助我们在缺乏真实分布的情况下使用参数化模型进行近似。
 
 ## 关于疑义度的Fano不等式
 
@@ -475,6 +619,16 @@ $$I(X;(Y,Z))=E[I(x;(y,z))]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\i
         1,X \ne \hat{X}
         \end{array}
     \right.$，$P_E$ 为出错的概率。
+
+### 图示解释
+
+图片中的图示解释了这些熵的分解和条件概率的关系。它展示了误码概率 \( P_E \) 的不同值对条件熵 \( H(X | \hat{X}) \) 的影响，进一步帮助理解条件熵在不同情况下的变化。
+
+### 实际意义
+
+1. **误码概率**：这个推导的结果展示了误码概率 \( P_E \) 对条件熵的影响。较高的误码概率 \( P_E \) 导致较高的条件熵。
+2. **熵的上下界**：这个证明过程帮助我们理解如何通过联合熵和条件熵来确定随机变量的上下界。
+
 
 ### 证明
 
@@ -505,7 +659,6 @@ $$I(X;(Y,Z))=E[I(x;(y,z))]=\sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}\sum_{z\i
     最后一步是为什么？这是定义...
 
     ![alt text](images/image-26.png)
-
 
 ### 物理意义
 
@@ -556,5 +709,10 @@ $K=2$，表示两个事件，一个是正确，一个是错误。如果$P_E=1$�
 ![alt text](images/image-29.png)
 
 ![alt text](images/image-30.png)
-
+![alt text](images/image-49.png)
+![alt text](images/image-50.png)
+![alt text](images/image-53.png)
+![alt text](images/image-54.png)
 ![alt text](images/image-31.png)
+![alt text](images/image-55.png)
+![alt text](images/image-56.png)
