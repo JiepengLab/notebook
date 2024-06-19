@@ -1807,12 +1807,12 @@ $$
 $$</li>
 <li>解决：长短时记忆模型（Long Short-Term Memory，LSTM）</li>
 </ul>
-<p>在循环神经网络中，根据输入序列数据与输出序列数据中所包含“单元”的多寡，循环神经网络可以实现“多对多”（即输入和输出序列数据中包含多个单元，常用于机器翻译）、“多对一”（即输入序列数据包含多个单元，输出序列数据只包含一个单元，常用于文本的情感分类）和“一对多”（即输入序列数据包含一个单元，输出序列数据包含多个单元，常用于图像描述生成）三种模式</p>
+<p>在循环神经网络中，根据输入序列数据与输出序列数据中所包含“单元”的多寡，循环神经网络可以实现<strong>多对多</strong>（即输入和输出序列数据中包含多个单元，常用于机器翻译）、<strong>多对一</strong>（即输入序列数据包含多个单元，输出序列数据只包含一个单元，常用于文本的情感分类）和<strong>一对多</strong>（即输入序列数据包含一个单元，输出序列数据包含多个单元，常用于图像描述生成）三种模式</p>
 <p><img alt="alt text" src="../images/image-18.png" /></p>
 <h2 id="_2">长短时记忆网络<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h2>
 <p>引入了内部记忆单元和门结构来对当前输入信息以及前序时刻所生成的信息进行整合和传递。在这里，内部记忆单元中信息可视为对“历史信息”的累积。</p>
-<p>常见的LSTM模型中有输入门(input gate)、遗忘门(forget gate)和输出门(output gate)三种门结构。对于给定的当前时刻输入数据 <span class="arithmatex">\(𝑥_𝑡\)</span> 和前一时刻隐式编码 <span class="arithmatex">\(ℎ_{𝑡−1}\)</span>，输入门、遗忘门和输出门通过各自参数对其编码，分别得到三种门结构的输出 <span class="arithmatex">\(𝑖_𝑡\)</span>、<span class="arithmatex">\(𝑓_𝑡\)</span>和<span class="arithmatex">\(𝑜_𝑡\)</span>。
-在此基础上，再进一步结合前一时刻内部记忆单元信息<span class="arithmatex">\(𝑐_{𝑡−1}\)</span>来更新当前时刻内部记忆单元信息<span class="arithmatex">\(𝑐_𝑡\)</span>，最终得到当前时刻的隐式编码<span class="arithmatex">\(ℎ_𝑡\)</span></p>
+<p>常见的LSTM模型中有<strong>输入门(input gate)</strong>、 <strong>遗忘门(forget gate)</strong> 和 <strong>输出门(output gate)</strong> 三种门结构。对于给定的当前时刻输入数据 <span class="arithmatex">\(𝑥_𝑡\)</span> 和前一时刻隐式编码 <span class="arithmatex">\(ℎ_{𝑡−1}\)</span>，输入门、遗忘门和输出门通过各自参数对其编码，分别得到三种门结构的输出 <span class="arithmatex">\(𝑖_𝑡\)</span>、<span class="arithmatex">\(𝑓_𝑡\)</span>和<span class="arithmatex">\(𝑜_𝑡\)</span>。</p>
+<p>在此基础上，再进一步结合前一时刻内部记忆单元信息<span class="arithmatex">\(𝑐_{𝑡−1}\)</span>来更新当前时刻内部记忆单元信息<span class="arithmatex">\(𝑐_𝑡\)</span>，最终得到当前时刻的隐式编码<span class="arithmatex">\(ℎ_𝑡\)</span></p>
 <p><img alt="alt text" src="../images/image-16.png" />
 <img alt="alt text" src="../images/image-17.png" /></p>
 <blockquote>
@@ -1842,7 +1842,7 @@ $$</li>
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月15日 21:50:18</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月19日 21:15:31</span>
   </span>
 
     
