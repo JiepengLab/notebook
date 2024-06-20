@@ -2529,19 +2529,19 @@ H_M &amp;= -\sum_{k=1}^K \sum_{j=1}^{m_k} p_k q_{jk} \log (p_k q_{jk}) \\
 <p><strong>极值性</strong>：<span class="arithmatex">\(H_K(p_1,p_2,\cdots,p_k)\leq H_K(\frac1K,\frac1K,\cdots,\frac1K) =  \log K\)</span>，当且仅当 <span class="arithmatex">\(X\)</span> 是<strong>均匀分布</strong>时取等号。</p>
 </li>
 <li>
-<p><strong>条件熵小于等于熵</strong>：<span class="arithmatex">\(H(X|Y)\leq H(X)\)</span>——增加条件，减少不确定性。当且仅当 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 独立时取等号
-    $$
-    \begin{aligned}
-    H(X|Y) &amp;= E {H(X|y)} \
-    &amp;= -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x, y) \log P(x|y) \
-    &amp;= -\sum_{y \in \mathcal{Y}} \omega(y) \left{\sum_{x \in \mathcal{X}} P(x|y) \log P(x|y)\right} \
-    &amp;\leq -\sum_{y \in \mathcal{Y}} \omega(y) \left{\sum_{x \in \mathcal{X}} P(x|y) \log P(x)\right} \
-    &amp;= -\sum_{x \in \mathcal{X}} \left{\sum_{y \in \mathcal{Y}} P(x|y) w(y)\right} \log P(x) \
-    &amp;= -\sum_{x \in \mathcal{X}} \left{\sum_{y \in \mathcal{Y}} P(x,y)\right} \log P(x) \
-    &amp;= -\sum_{x \in \mathcal{X}} P(x) \log P(x) \
-    &amp;= H(X)
-    \end{aligned}
-    $$</p>
+<p><strong>条件熵小于等于熵</strong>：<span class="arithmatex">\(H(X|Y)\leq H(X)\)</span>——增加条件，减少不确定性。当且仅当 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 独立时取等号</p>
+<div class="arithmatex">\[
+\begin{aligned}
+H(X|Y) &amp;= E \{H(X|y)\} \\
+&amp;= -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x, y) \log P(x|y) \\
+&amp;= -\sum_{y \in \mathcal{Y}} \omega(y) \left\{\sum_{x \in \mathcal{X}} P(x|y) \log P(x|y)\right\} \\
+&amp;\leq -\sum_{y \in \mathcal{Y}} \omega(y) \left\{\sum_{x \in \mathcal{X}} P(x|y) \log P(x)\right\} \\
+&amp;= -\sum_{x \in \mathcal{X}} \left\{\sum_{y \in \mathcal{Y}} P(x|y) w(y)\right\} \log P(x) \\
+&amp;= -\sum_{x \in \mathcal{X}} \left\{\sum_{y \in \mathcal{Y}} P(x,y)\right\} \log P(x) \\
+&amp;= -\sum_{x \in \mathcal{X}} P(x) \log P(x) \\
+&amp;= H(X)
+\end{aligned}
+\]</div>
 </li>
 <li>
 <p><strong>凸性</strong>：<span class="arithmatex">\(H(X)\)</span>是严格上凸函数， <span class="arithmatex">\(H(\lambda \vec{P_1}+(1-\lambda)\vec{P_2})\geq \lambda H(\vec{P_1})+(1-\lambda)H(\vec{P_2}),\quad 0\leq \lambda\leq 1\)</span></p>
@@ -2839,7 +2839,7 @@ I(X;Z|Y)&amp;=\sum_{x\in\mathcal{X}}\sum_{z\in\mathcal{Z}}\sum_{y\in\mathcal{Y}}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月21日 03:23:53</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月21日 03:25:59</span>
   </span>
 
     
