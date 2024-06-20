@@ -2,6 +2,9 @@
 
 ## 第二章 信息的度量
 
+!!! note ""
+    - 事件的互信息可正可负
+
 ### 事件
 
 $\begin{cases}
@@ -13,7 +16,7 @@ $\begin{cases}
 \end{cases}$
 
 $\begin{cases}
-    \text{互信息：} I(x;y) = I(x) - I(x|y)=\log \frac{P(x|y)}{P(x)}\\
+    \text{事件互信息：} I(x;y) = I(x) - I(x|y)=\log \frac{P(x|y)}{P(x)}\leq I(x)[\text{或}I(y)] \quad\text{可正可负}\\
     \text{条件互信息：} I(x;z|y) = I(x|y) - I(x|y,z)\\
     \text{联合互信息：} I(x;(y,z)) = I(x) - I(x|y,z)\\
     \downarrow\downarrow\downarrow\downarrow\\
