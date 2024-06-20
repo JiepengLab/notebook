@@ -2431,24 +2431,24 @@ H(X)=-p\log p-(1-p)\log(1-p)
    <img alt="alt text" src="../images/image.png" /></p>
 <div class="admonition note">
 <p>通过图示和公式，我们可以理解如何从一个粗略的观察层次细化到更细的层次，并如何计算总不确定性。</p>
-<h4 id="_17">设定<a class="headerlink" href="#_17" title="点击此处可置顶内容">&para;</a></h4>
+<h5 id="_17">设定<a class="headerlink" href="#_17" title="点击此处可置顶内容">&para;</a></h5>
 <ol>
 <li><strong>事件集合 <span class="arithmatex">\(\mathcal{X}_1\)</span></strong>：粗略观察，包含事件 <span class="arithmatex">\(\{A, B\}\)</span>。</li>
 <li><strong>事件集合 <span class="arithmatex">\(\mathcal{X}_2\)</span></strong>：细化观察，包含事件 <span class="arithmatex">\(\{A_1, A_2, A_3, B_1, B_2\}\)</span>，其中：</li>
 <li>事件 <span class="arithmatex">\(A\)</span> 被细分为 <span class="arithmatex">\(A_1, A_2, A_3\)</span>。</li>
 <li>事件 <span class="arithmatex">\(B\)</span> 被细分为 <span class="arithmatex">\(B_1, B_2\)</span>。</li>
 </ol>
-<h4 id="_18">熵的计算<a class="headerlink" href="#_18" title="点击此处可置顶内容">&para;</a></h4>
+<h5 id="_18">熵的计算<a class="headerlink" href="#_18" title="点击此处可置顶内容">&para;</a></h5>
 <ol>
 <li><strong>第一层次（粗略层次）的熵 <span class="arithmatex">\(H(X_1)\)</span></strong>：</li>
-<li>计算公式：[ H(X_1) = H(P(A), P(B)) ]</li>
+<li>计算公式：<span class="arithmatex">\( H(X_1) = H(P(A), P(B)) \)</span></li>
 <li>
 <p>这里，<span class="arithmatex">\(H\)</span> 表示熵函数，<span class="arithmatex">\(P(A)\)</span> 和 <span class="arithmatex">\(P(B)\)</span> 是事件 <span class="arithmatex">\(A\)</span> 和 <span class="arithmatex">\(B\)</span> 的概率。</p>
 </li>
 <li>
 <p><strong>第二层次（细化层次）的熵 <span class="arithmatex">\(H(X_2)\)</span></strong>：</p>
 </li>
-<li>计算公式：[ H(X_2) = H(P(A)P_{A_1}, P(A)P_{A_2}, P(A)P_{A_3}, P(B)P_{B_1}, P(B)P_{B_2}) ]</li>
+<li>计算公式：<span class="arithmatex">\( H(X_2) = H(P(A)P_{A_1}, P(A)P_{A_2}, P(A)P_{A_3}, P(B)P_{B_1}, P(B)P_{B_2}) \)</span></li>
 <li>
 <p>这里，<span class="arithmatex">\(P_{A_1}, P_{A_2}, P_{A_3}\)</span> 是在 <span class="arithmatex">\(A\)</span> 发生的情况下，细分事件 <span class="arithmatex">\(A_1, A_2, A_3\)</span> 的条件概率。类似地，<span class="arithmatex">\(P_{B_1}, P_{B_2}\)</span> 是在 <span class="arithmatex">\(B\)</span> 发生的情况下，细分事件 <span class="arithmatex">\(B_1, B_2\)</span> 的条件概率。</p>
 </li>
@@ -2456,10 +2456,10 @@ H(X)=-p\log p-(1-p)\log(1-p)
 <p><strong>条件熵 <span class="arithmatex">\(H(X_2 | X_1)\)</span></strong>：</p>
 </li>
 <li>表示在已知第一层次事件的情况下，第二层次事件的不确定性。</li>
-<li>计算公式：[ H(X_2 | X_1) = P(A) H(P_{A_1}, P_{A_2}, P_{A_3}) + P(B) H(P_{B_1}, P_{B_2}) ]</li>
+<li>计算公式：<span class="arithmatex">\( H(X_2 | X_1) = P(A) H(P_{A_1}, P_{A_2}, P_{A_3}) + P(B) H(P_{B_1}, P_{B_2}) \)</span></li>
 <li>这里，<span class="arithmatex">\(P(A)\)</span> 和 <span class="arithmatex">\(P(B)\)</span> 是事件 <span class="arithmatex">\(A\)</span> 和 <span class="arithmatex">\(B\)</span> 的概率。<span class="arithmatex">\(H(P_{A_1}, P_{A_2}, P_{A_3})\)</span> 和 <span class="arithmatex">\(H(P_{B_1}, P_{B_2})\)</span> 分别是事件 <span class="arithmatex">\(A\)</span> 和 <span class="arithmatex">\(B\)</span> 的细分事件的熵。</li>
 </ol>
-<h4 id="_19">总熵公式<a class="headerlink" href="#_19" title="点击此处可置顶内容">&para;</a></h4>
+<h5 id="_19">总熵公式<a class="headerlink" href="#_19" title="点击此处可置顶内容">&para;</a></h5>
 <ol>
 <li>
 <p><strong>定义粗略层次熵 <span class="arithmatex">\(H(X_1)\)</span></strong>：</p>
@@ -2523,21 +2523,27 @@ H_M &amp;= -\sum_{k=1}^K \sum_{j=1}^{m_k} p_k q_{jk} \log (p_k q_{jk}) \\
 &amp;= H_K(p_1, p_2, \cdots, p_K) + \sum_{k=1}^K p_k H_{m_k}(q_{1k}, q_{2k}, \cdots, q_{m_k k})
 \end{aligned}
 \]</div>
-<p>对变量 <span class="arithmatex">\(X\)</span> 可以进行多步分层的观察，每一步都可从上一步的观察结果中得到更为细致的结果，变量 <span class="arithmatex">\(X\)</span> 在最后的观察结果集合中的不确定性等于第一次观察结果的不确定性，加上其后每次观察结果在前一次观察结果已知的前提下的条件不确定性。
-6. <strong>极值性</strong>：<span class="arithmatex">\(H_K(p_1,p_2,\cdots,p_k)\leq H_K(\frac1K,\frac1K,\cdots,\frac1K) =  \log K\)</span>，当且仅当 <span class="arithmatex">\(X\)</span> 是<strong>均匀分布</strong>时取等号。
-7. <strong>条件熵小于等于熵</strong>：<span class="arithmatex">\(H(X|Y)\leq H(X)\)</span>——增加条件，减少不确定性。当且仅当 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 独立时取等号
-$$
-\begin{aligned}
-H(X|Y) &amp;= E {H(X|y)} \
-&amp;= -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x, y) \log P(x|y) \
-&amp;= -\sum_{y \in \mathcal{Y}} \omega(y) \left{\sum_{x \in \mathcal{X}} P(x|y) \log P(x|y)\right} \
-&amp;\leq -\sum_{y \in \mathcal{Y}} \omega(y) \left{\sum_{x \in \mathcal{X}} P(x|y) \log Q(x)\right} \
-&amp;= -\sum_{x \in \mathcal{X}} \left{\sum_{y \in \mathcal{Y}} P(x|y) w(y)\right} \log Q(x) \
-&amp;= -\sum_{x \in \mathcal{X}} P(x,y) \log Q(x) \
-&amp;= H(X)
-\end{aligned}
-$$
-8. <strong>凸性</strong>：<span class="arithmatex">\(H(X)\)</span>是严格上凸函数， <span class="arithmatex">\(H(\lambda \vec{P_1}+(1-\lambda)\vec{P_2})\geq \lambda H(\vec{P_1})+(1-\lambda)H(\vec{P_2}),\quad 0\leq \lambda\leq 1\)</span></p>
+<p>对变量 <span class="arithmatex">\(X\)</span> 可以进行多步分层的观察，每一步都可从上一步的观察结果中得到更为细致的结果，变量 <span class="arithmatex">\(X\)</span> 在最后的观察结果集合中的不确定性等于第一次观察结果的不确定性，加上其后每次观察结果在前一次观察结果已知的前提下的条件不确定性。</p>
+</li>
+<li>
+<p><strong>极值性</strong>：<span class="arithmatex">\(H_K(p_1,p_2,\cdots,p_k)\leq H_K(\frac1K,\frac1K,\cdots,\frac1K) =  \log K\)</span>，当且仅当 <span class="arithmatex">\(X\)</span> 是<strong>均匀分布</strong>时取等号。</p>
+</li>
+<li>
+<p><strong>条件熵小于等于熵</strong>：<span class="arithmatex">\(H(X|Y)\leq H(X)\)</span>——增加条件，减少不确定性。当且仅当 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 独立时取等号
+    $$
+    \begin{aligned}
+    H(X|Y) &amp;= E {H(X|y)} \
+    &amp;= -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x, y) \log P(x|y) \
+    &amp;= -\sum_{y \in \mathcal{Y}} \omega(y) \left{\sum_{x \in \mathcal{X}} P(x|y) \log P(x|y)\right} \
+    &amp;\leq -\sum_{y \in \mathcal{Y}} \omega(y) \left{\sum_{x \in \mathcal{X}} P(x|y) \log Q(x)\right} \
+    &amp;= -\sum_{x \in \mathcal{X}} \left{\sum_{y \in \mathcal{Y}} P(x|y) w(y)\right} \log Q(x) \
+    &amp;= -\sum_{x \in \mathcal{X}} P(x,y) \log Q(x) \
+    &amp;= H(X)
+    \end{aligned}
+    $$</p>
+</li>
+<li>
+<p><strong>凸性</strong>：<span class="arithmatex">\(H(X)\)</span>是严格上凸函数， <span class="arithmatex">\(H(\lambda \vec{P_1}+(1-\lambda)\vec{P_2})\geq \lambda H(\vec{P_1})+(1-\lambda)H(\vec{P_2}),\quad 0\leq \lambda\leq 1\)</span></p>
 <div class="admonition note">
 <p class="admonition-title">取极大值的充要条件</p>
 <p>Jensen不等式：</p>
@@ -2832,7 +2838,7 @@ I(X;Z|Y)&amp;=\sum_{x\in\mathcal{X}}\sum_{z\in\mathcal{Z}}\sum_{y\in\mathcal{Y}}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月20日 03:13:01</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月21日 02:59:50</span>
   </span>
 
     
