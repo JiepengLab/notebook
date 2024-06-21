@@ -474,36 +474,112 @@ $I(V;X)=H(V)-H(V|X)=0.5\log2$
 
     实际上，三者地位是对称的，所以 $p(0)=p(1)=p(2)$
 
-- (b) $H(X)=-\sum_{i=0}^{2}p(i)\log p(i)=\log3$
+- (b) 马尔可夫信源的熵率等于信源在各状态下的条件熵对状态概率求平均。
+
+$$
+\begin{aligned}
+H_\infty &= H(X|S)\\
+&= \frac{1}{3}(H(1-p, \frac{p}{2}, \frac{p}{2})+H(\frac{p}{2}, 1-p, \frac{p}{2})+H(\frac{p}{2}, \frac{p}{2}, 1-p))\\
+&= H(1-p, \frac{p}{2}, \frac{p}{2})\\
+&= -(1-p)\log(1-p)-p\log\frac{p}{2}\\
+\end{aligned}
+$$
+
+- (c) 无记忆信源的熵
+
+概率分布等于平稳分布，即(b)中的$p=\frac{2}{3}$
+
+$$H(X)=\log3$$
+
+求导可得：
+
+$$H_\infty\leq H(X)$$
+
+- (d)
+    - $p=\frac{2}{3}$ 时 $H_\infty$ 取最大值
+    - $p=0$ 时 $H_\infty=0$
+    - $p=1$ 时 $H_\infty=\log2$
 
 ---
 
 ### 2.25
 
-(a) 求状态转移矩阵为
+!!! note ""
 
-\[
-P = \begin{pmatrix}
-1 - p_{01} & p_{01} \\
-p_{10} & 1 - p_{10}
-\end{pmatrix}
-\]
+    (a) 求状态转移矩阵为
 
-的 2 状态马尔可夫信源的熵率。
+    \[
+    P = \begin{pmatrix}
+    1 - p_{01} & p_{01} \\
+    p_{10} & 1 - p_{10}
+    \end{pmatrix}
+    \]
 
-(b) 使 (a) 中熵率最大的 \( p_{01}, p_{10} \) 为多少？
+    的 2 状态马尔可夫信源的熵率。
 
-(c) 如状态转移矩阵为
+    (b) 使 (a) 中熵率最大的 \( p_{01}, p_{10} \) 为多少？
 
-\[
-P = \begin{pmatrix}
-1 - p & p \\
-1 & 0
-\end{pmatrix}
-\]
+    (c) 如状态转移矩阵为
 
-则相应的 2 状态马尔可夫信源熵率为多少？
+    \[
+    P = \begin{pmatrix}
+    1 - p & p \\
+    1 & 0
+    \end{pmatrix}
+    \]
 
-(d) 寻找最大化 (c) 中熵率的 \( p \) 值。
+    则相应的 2 状态马尔可夫信源熵率为多少？
 
-(e) 令 \( N(t) \) 表示 (c) 中马尔可夫信源输出的长度为 \( t \) 的可允许状态序列的数目。求 \( N(t) \) 并计算 \( H = \lim_{t \to \infty} \frac{1}{t} \log N(t) \)。
+    (d) 寻找最大化 (c) 中熵率的 \( p \) 值。
+
+    (e) 令 \( N(t) \) 表示 (c) 中马尔可夫信源输出的长度为 \( t \) 的可允许状态序列的数目。求 \( N(t) \) 并计算 \( H = \lim_{t \to \infty} \frac{1}{t} \log N(t) \)。
+
+- (a) 
+
+$$\begin{aligned}
+\begin{bmatrix}
+\mu_1\\
+\mu_2
+\end{bmatrix}&=\begin{bmatrix}
+1-p_{01}&p_{01}\\
+p_{10}&1-p_{10}
+\end{bmatrix}^T\begin{bmatrix}
+\mu_1\\
+\mu_2
+\end{bmatrix}\\
+\end{aligned}$$
+
+解得 $\mu_1=\frac{p_{10}}{p_{01}+p_{10}}, \mu_2=\frac{p_{01}}{p_{01}+p_{10}}$
+
+$$H_\infty=H(X|S)=\mu_1H(1-p_{01}, p_{01})+\mu_2H(p_{10}, 1-p_{10})$$
+
+- (b) 由对称性，当 $p_{01}=p_{10} = \frac{1}{2}$ 时熵最大
+- (c)
+
+取 $p_{01}=p$，$p_{10}=1$
+
+$$H_\infty=H(X|S)=\mu_1H(1-p, p)+\mu_2H(1, 0)=\mu_1H(1-p, p)$$
+
+- (d) 求个导
+
+- (e)
+
+序列的可能性如下：
+
+```mermaid
+graph TD
+    A((0)) --p--> B((1))
+    A --1-p--> A
+    B --1--> A
+```
+
+
+对于长度为 $t$ 的序列。
+- 若该序列结尾为0，则其前 $t-1$ 长度的序列的末位可取0或1，共 $N(t-1)$ 种可能。
+- 若该序列结尾为1，则其前 $t-1$ 长度的序列的末位只能取0；则其前 $t-2$ 长度的序列的末位可取0或1，共 $N(t-2)$ 种可能。
+
+$$N(t)=N(t-1)+N(t-2), N(1)=2, N(2)=3$$
+
+$$N(t)=\frac{1}{\sqrt{5}}\left[\left(\frac{1+\sqrt{5}}{2}\right)^{t+2}-\left(\frac{1-\sqrt{5}}{2}\right)^{t+2}\right]$$
+
+$$H=\lim_{t\to\infty}\frac{1}{t}\log N(t)=\log\frac{1+\sqrt{5}}{2}$$
