@@ -26,7 +26,7 @@
 
 ![alt text](images/image-60.png)
 
-!!! note '证明'
+!!! note "证明"
     ![alt text](images/image-61.png)
     ![alt text](images/image-62.png)
     ![alt text](images/image-63.png)
