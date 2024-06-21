@@ -328,13 +328,117 @@ X_2 & \text{以概率} \ 1 - \alpha
     \end{aligned}
     $$
 
-    令导数为 0，解得 \(\log\frac{1-\alpha}{\alpha}=H(X_2)-H(X_1)\)
+    令导数为 0，底数为2，有 \(\log\frac{1-\alpha}{\alpha}=H(X_2)-H(X_1)\)，解得 \(\alpha = \frac{1}{1+2^{H(X_2)-H(X_1)}}\)。
 
     $$
     \begin{aligned}
     H(X)_{max} &= -\alpha\log\alpha - (1-\alpha)\log(1-\alpha) + \alpha H(X_1) + (1-\alpha)H(X_2)\\
     &= -\log(1-\alpha) + \alpha\log(\frac{1-\alpha}{\alpha}) + \alpha H(X_1) + (1-\alpha)H(X_2)\\
-    &= -\log(1-\alpha) + \alpha(H(X_2)-H(X_1)) + \alpha H(X_1) + (1-\alpha)H(X_2)\\
-    &= -\log(1-\alpha) + H(X_2)\\
+    &= -\log(1-\frac{1}{1+2^{H(X_2)-H(X_1)}}) + \alpha(H(X_2)-H(X_1)) + \alpha H(X_1) + (1-\alpha)H(X_2)\\
+    &= -\log(\frac{2^{H(X_2)-H(X_1)}}{1+2^{H(X_2)-H(X_1)}}) + H(X_2)\\
+    &= \log(\frac{2^{H(X_1)}+2^{H(X_2)}}{2^{H(X_2)}}) + H(X_2)\\
+    &= \log(2^{H(X_1)}+2^{H(X_2)})\\
     \end{aligned}
     $$
+
+    证明 \( 2^{H(X)} \leq 2^{H(X_1)} + 2^{H(X_2)} \)。
+
+### 2.19
+
+设 \( X \) 是 \([-1, 1]\) 上的均匀分布的随机变量，试求 \( H_c(X) \) 和 \( H_c(X^2) \)。
+
+$p(x)=\frac{1}{2}, x\in[-1,1]$
+
+- \( H_c(X) = -\int_{-1}^{1}\frac{1}{2}\log\frac{1}{2}dx = \log 2 \)
+
+记 $Y=X^2$，
+
+$F_Y(y)=P(Y\leq y)=P(X^2\leq y)=P(-\sqrt{y}\leq X\leq \sqrt{y})=\int_{-\sqrt{y}}^{\sqrt{y}}\frac{1}{2}dx=\sqrt{y}$
+
+$P(Y=y)=F_Y'(y)=\frac{1}{2\sqrt{y}}, y\in[0,1]$
+
+- $H_c(X^2) = -\int_{0}^{1}\frac{1}{2\sqrt{y}}\log\frac{1}{2\sqrt{y}}dy = \log 2-\log e$
+
+---
+
+### 2.20
+
+令 \( X \) 是取值 \( \pm 1 \) 的二元随机变量，概率分布为 \( p(x = 1) = p(x = -1) = 0.5 \)，令 \( Y \) 是连续随机变量，已知条件概率密度为
+
+\[ p(y|x) = \begin{cases} 
+1/4 & -2 < y - x \leq 2 \\
+0 & \text{其他}
+\end{cases} \]
+
+试求：
+
+(a) \( Y \) 的概率密度。
+
+(b) \( I(X; Y) \)。
+
+(c) 若对 \( Y \) 做硬判决
+\[ V = \begin{cases} 
+1 & y > 1 \\
+0 & -1 < y \leq 1 \\
+-1 & y \leq -1
+\end{cases} \]
+
+求 \( I(V; X) \)，并对结果加以解释。
+
+- (a) $p(y)=\sum_{x\in X}p(x)p(y|x)=\begin{cases}
+    \frac{1}{4}, &x=1, -1<y\leq3\\
+    \frac{1}{4}, &x=-1, -3<y\leq1\\
+    0, & \text{其他}
+    \end{cases}$= $\begin{cases}
+    \frac{1}{8}, & -3<y\leq-1\\
+    \frac{1}{4}, & -1<y\leq1\\
+    \frac{1}{8}, & 1<y\leq3\\
+    0, & \text{其他}
+    \end{cases}$
+
+(b) 
+
+$$
+\begin{aligned}
+H(Y)=&-\int_{-3}^{-1}\frac{1}{8}\log\frac{1}{8}dy-\int_{-1}^{1}\frac{1}{4}\log\frac{1}{4}dy-\int_{1}^{3}\frac{1}{8}\log\frac{1}{8}dy\\
+&=\frac{1}{4}\log 8 + \frac{1}{2}\log 4 + \frac{1}{4}\log 8\\
+&=\frac52\log 2
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+H(Y|X)=\sum_{x\in X}p(x)H(Y|X=x)&=\frac{1}{2}H(Y|X=1)+\frac{1}{2}H(Y|X=-1)\\
+&=\frac{1}{2}\left[-\int_{-1}^{3}\frac{1}{4}\log\frac{1}{4}dy-\int_{-3}^{1}\frac{1}{4}\log\frac{1}{4}dy\right]\\
+&=\log4\\
+&=2\log2\\
+\end{aligned}
+$$
+
+$I(X;Y)=H(Y)-H(Y|X)=\frac{5}{2}\log2-2\log2=\frac{1}{2}\log2$
+
+(c)
+
+$P(V)=\begin{cases}
+    \frac{1}{4}, &-3<y\leq-1,V=-1\\
+    \frac{1}{2}, &-1<y\leq1,V=0\\
+    \frac{1}{4}, &1<y\leq3,V=1\\
+    0, &\text{其他}
+    \end{cases}$
+
+$H(V)=-\frac{1}{4}\log\frac{1}{4}-\frac{1}{2}\log\frac{1}{2}-\frac{1}{4}\log\frac{1}{4}=1.5\log2$
+
+$P(V,X)=\begin{cases}
+P(V,X=1)=\begin{cases}
+    \frac{1}{2}, &V=0,X=-1\\
+    \frac{1}{2}, &V=-1,X=-1\\
+    \end{cases}\\
+    P(V,X=-1)=\begin{cases}
+    \frac{1}{2}, &V=0,X=1\\
+    \frac{1}{2}, &V=1,X=1\\
+    \end{cases}\\0, &\text{其他}
+    \end{cases}$
+
+$H(V|X)=\frac{1}{2}H(V|X=1)+\frac{1}{2}H(V|X=-1)=\log2$
+
+$I(V;X)=H(V)-H(V|X)=0.5\log2$

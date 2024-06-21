@@ -28,11 +28,8 @@
 
 !!! note '证明'
     ![alt text](images/image-61.png)
-
     ![alt text](images/image-62.png)
-
     ![alt text](images/image-63.png)
-
     ![alt text](images/image-64.png)
 
 ### 熵速率
