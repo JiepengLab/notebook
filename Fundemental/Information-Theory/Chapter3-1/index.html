@@ -712,6 +712,65 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      等长编码的基本概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      香农信源编码定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="香农信源编码定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      渐进等分性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      典型列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      证明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -730,8 +789,42 @@
 
 <h1 id="_1">第一讲：等长编码<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 7 个字 </p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"/></svg></span> 约 399 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"/></svg></span> 预计阅读时间 2 分钟</p>
 </div>
+<div class="admonition note">
+<ul>
+<li>了解离散无记忆信源等长编码的基本概念</li>
+<li>掌握香农信源编码定理</li>
+<li>了解随机序列的渐进等分性质</li>
+<li>了解典型列的基本概念和意义</li>
+</ul>
+</div>
+<h2 id="_2">等长编码的基本概念<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h2>
+<p>一个离散无记忆信源，它的输出字符表为 <span class="arithmatex">\(\mathcal{A} = \{a_1, a_2, \cdots, a_k\}\)</span>，相应的概率分布为 <span class="arithmatex">\(\{p_1, p_2, \cdots, p_k\}\)</span>，<span class="arithmatex">\(\sum_{i=1}^k p_i = 1\)</span>。如果信源输出长度为 <span class="arithmatex">\(L\)</span> 的消息序列为 <span class="arithmatex">\(u^L = (u_1, u_2, \cdots, u_k)\)</span>，显然信源可能输出 <span class="arithmatex">\(K^L\)</span> 种长度为 <span class="arithmatex">\(L\)</span> 的不同序列。另一个包含 <span class="arithmatex">\(D\)</span> 个符号的集合 <span class="arithmatex">\(\mathcal{B} = \{b_1, b_2, \cdots, b_D\}\)</span>，称为编码字符表。现在要用长度为 <span class="arithmatex">\(N\)</span> 的编码字符序列（称为码字）来表示长度为 <span class="arithmatex">\(L\)</span> 的信源输出序列。这样的编码称为等长编码。因为所有待编码的消息序列都是等长的，所有码字长度也是一样的。显然若这种表示是无损的，也就是说能从码字唯一正确地恢复出信源信息序列，则要求</p>
+<div class="arithmatex">\[ D^N \geq K^L \tag{3.1.1} \]</div>
+<p>即要求</p>
+<div class="arithmatex">\[ N \geq \frac{L \log K}{\log D} \tag{3.1.2} \]</div>
+<p>当 <span class="arithmatex">\(D = 2\)</span> 时，也就是要求用 <span class="arithmatex">\(N\)</span> 个比特来表示长度为 <span class="arithmatex">\(L\)</span> 的每个消息序列时要求</p>
+<div class="arithmatex">\[ N \geq L \log K \tag{3.1.3} \]</div>
+<p><img alt="alt text" src="../images/image-72.png" /></p>
+<p><img alt="alt text" src="../images/image-73.png" /></p>
+<h2 id="_3">香农信源编码定理<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h2>
+<p><img alt="alt text" src="../images/image-74.png" /></p>
+<p><img alt="alt text" src="../images/image-75.png" /></p>
+<p><img alt="alt text" src="../images/image-76.png" /></p>
+<p><img alt="alt text" src="../images/image-78.png" /></p>
+<p>对典型列编码即可。</p>
+<h3 id="_4">渐进等分性质<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h3>
+<p><img alt="alt text" src="../images/image-79.png" /></p>
+<p><img alt="alt text" src="../images/image-80.png" /></p>
+<p>落在 <span class="arithmatex">\(H(U)\)</span> 的邻域里的典型列的概率是很大的。</p>
+<h3 id="_5">典型列<a class="headerlink" href="#_5" title="点击此处可置顶内容">&para;</a></h3>
+<p><img alt="alt text" src="../images/image-81.png" /></p>
+<p><img alt="alt text" src="../images/image-82.png" /></p>
+<p><img alt="alt text" src="../images/image-83.png" /></p>
+<h3 id="_6">证明<a class="headerlink" href="#_6" title="点击此处可置顶内容">&para;</a></h3>
+<p><img alt="alt text" src="../images/image-84.png" /></p>
+<p><img alt="alt text" src="../images/image-85.png" /></p>
 
 
 
@@ -754,7 +847,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年4月25日 16:09:05</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年6月21日 21:27:38</span>
   </span>
 
     
