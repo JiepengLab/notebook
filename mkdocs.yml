@@ -73,10 +73,11 @@ nav:
         - 连续随机变量的互信息和微分熵: ./Fundemental/Information-Theory/Chapter2-2.md
         - 平稳离散信源的熵: ./Fundemental/Information-Theory/Chapter2-3.md
         - 作业: ./Fundemental/Information-Theory/HW2.md
-      # - 02-信息的无损压缩:
-      #   - 等长编码: ./Fundemental/Information-Theory/Chapter3-1.md
-      #   - 不等长编码: ./Fundemental/Information-Theory/Chapter3-2.md
-      #   - 几种不等长编码: ./Fundemental/Information-Theory/Chapter3-3.md 
+      - 02-信息的无损压缩:
+        - 等长编码: ./Fundemental/Information-Theory/Chapter3-1.md
+        - 不等长编码: ./Fundemental/Information-Theory/Chapter3-2.md
+        - 几种不等长编码: ./Fundemental/Information-Theory/Chapter3-3.md 
+        - 作业: ./Fundemental/Information-Theory/HW3.md
       - All: ./Fundemental/Information-Theory/IT_AllSum.md
   - 校内CS课程: 
     - ./CS/index.md

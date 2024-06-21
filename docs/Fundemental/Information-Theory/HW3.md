@@ -171,12 +171,12 @@
     $H(U) = -\sum_{i=1}^{10} p_i \log_2 p_i = 3.234 bit$。
 
     !!! note "(a)"
-        ![alt text](images/image-88.png)
+        ![alt text](images/image-88.png){width=70%}
         $R = \overline{n}=3*(1-0.08-0.07-0.06-0.05)+4*(0.08+0.07+0.06+0.05)=3.26 bit$。
         $\eta_0=\frac{H(U)}{R}=99.20\%$。
 
     !!! note "(b)"
-        ![alt text](images/image-89.png)
+        ![alt text](images/image-89.png){width=70%}
         $\overline{n}=2*(1-0.06-0.05)+3*(0.06+0.05)=2.11 bit$。
         $R=\overline{n}\log(D)=2.11*log(3)=3.34 bit$。
         $\eta_0=\frac{H(U)}{R}=96.70\%$。
@@ -196,12 +196,12 @@
     $H(U) = -\sum_{i=1}^{13} p_i \log_2 p_i = 3.3545 bit$。
 
     !!! note "(a)"
-        ![alt text](images/image-90.png)
+        ![alt text](images/image-90.png){width=70%}
         $R = \overline{n}=2*(0.2)+3*(0.18+0.1+0.1+0.1)+4*(0.061)+5*(0.059+0.04+0.04+0.04+0.04)+6*(0.03+0.01)=3.419 bit$。
         $\eta_0=\frac{H(U)}{R}=98.11\%$。
 
     !!! note "(b)"
-        ![alt text](images/image-91.png)
+        ![alt text](images/image-91.png){width=70%}
         $\overline{n}=1*(0.2)+2*(0.18+0.1+0.1+0.1)+3*(0.061+0.059+0.04+0.04+0.04)+4*(0.04+0.03+0.01)=2.20 bit$。
         $R=\overline{n}\log(D)=2.20*log(3)=3.4869 bit$。
         $\eta_0=\frac{H(U)}{R}=96.20\%$。
