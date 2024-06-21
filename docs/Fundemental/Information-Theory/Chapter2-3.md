@@ -27,12 +27,10 @@
 ![alt text](images/image-60.png)
 
 !!! note '证明'
+
     ![alt text](images/image-61.png)
-
     ![alt text](images/image-62.png)
-
     ![alt text](images/image-63.png)
-
     ![alt text](images/image-64.png)
 
 ### 熵速率
@@ -46,10 +44,15 @@
 
 ## 马尔可夫信源
 
-
 !!! note ""
     对于 $m$ 阶马尔科夫信源，$x_{i_{n}}$是$n$时刻信源输出符号，$s_{i_{n}}$是$n$时刻信源状态。每一个状态$s_{i}$对应一个长度为 $m$ 的符号序列。
 
 ![alt text](images/image-67.png)
 
 ![alt text](images/image-68.png)
+
+!!! note ""
+
+    $p_{ij}(n)$ 是 $n$ 时刻状态 $s_{i}$ 转移到 $s_{j}$ 的概率。
+
+![alt text](images/image-69.png)
