@@ -442,3 +442,68 @@ P(V,X=1)=\begin{cases}
 $H(V|X)=\frac{1}{2}H(V|X=1)+\frac{1}{2}H(V|X=-1)=\log2$
 
 $I(V;X)=H(V)-H(V|X)=0.5\log2$
+
+### 2.23
+
+一阶马尔可夫信源的状态图如习题 2.23 图所示，信源符号集为 \(\{0, 1, 2\}\)，并定义 \( p = 1 - \overline{p_0} \)。
+
+![alt text](images/image-71.png){width=50%}
+
+(a) 求信源平稳概率分布 \( p(0), p(1), p(2) \)。
+
+(b) 求此信源的熵。
+
+(c) 近似认为此信源为无记忆时，符号概率分布等于平稳分布，求此近似信源的熵 \( H(X) \)，并与 \( H_{\infty} \) 进行比较。
+
+(d) 对一阶马尔可夫信源，\( p \) 取何值时 \( H_{\infty} \) 取最大值？又当 \( p = 0 \) 和 \( p = 1 \) 时结果如何？
+
+- (a) $\mathbf{P}=\begin{bmatrix}1-p&\frac{p}{2}&\frac{p}{2}\\ \frac{p}{2}&1-p&\frac{p}{2}\\ \frac{p}{2}&\frac{p}{2}&1-p\end{bmatrix}$
+
+    $$\begin{cases}
+    \mathbf{P}^T
+        \begin{bmatrix}
+        p(0)\\p(1)\\p(2)
+        \end{bmatrix}=
+        \begin{bmatrix}
+        p(0)\\p(1)\\p(2)
+        \end{bmatrix}\\
+    p(0)+p(1)+p(2)=1
+    \end{cases}$$
+
+    解得 $p(0)=p(1)=p(2)=\frac{1}{3}$
+
+    实际上，三者地位是对称的，所以 $p(0)=p(1)=p(2)$
+
+- (b) $H(X)=-\sum_{i=0}^{2}p(i)\log p(i)=\log3$
+
+---
+
+### 2.25
+
+(a) 求状态转移矩阵为
+
+\[
+P = \begin{pmatrix}
+1 - p_{01} & p_{01} \\
+p_{10} & 1 - p_{10}
+\end{pmatrix}
+\]
+
+的 2 状态马尔可夫信源的熵率。
+
+(b) 使 (a) 中熵率最大的 \( p_{01}, p_{10} \) 为多少？
+
+(c) 如状态转移矩阵为
+
+\[
+P = \begin{pmatrix}
+1 - p & p \\
+1 & 0
+\end{pmatrix}
+\]
+
+则相应的 2 状态马尔可夫信源熵率为多少？
+
+(d) 寻找最大化 (c) 中熵率的 \( p \) 值。
+
+(e) 令 \( N(t) \) 表示 (c) 中马尔可夫信源输出的长度为 \( t \) 的可允许状态序列的数目。求 \( N(t) \) 并计算 \( H = \lim_{t \to \infty} \frac{1}{t} \log N(t) \)。
