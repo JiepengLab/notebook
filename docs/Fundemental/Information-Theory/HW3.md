@@ -99,7 +99,7 @@
 确定下面码是否唯一可译，若不是则构造一个模糊序列。
 
 (a)
-\[
+\(
 \begin{aligned}
 &x_1: 010 \\
 &x_2: 0001 \\
@@ -110,10 +110,10 @@
 &x_7: 11110 \\
 &x_8: 101011
 \end{aligned}
-\]
+\)
 
 (b)
-\[
+\(
 \begin{aligned}
 &x_1: \text{abc} \\
 &x_2: \text{abcd} \\
@@ -124,7 +124,7 @@
 &x_7: \text{ceab} \\
 &x_8: \text{eabd}
 \end{aligned}
-\]
+\)
 
 
 !!! note "answer"
@@ -153,6 +153,7 @@
         |   dba   |       |       |       |       |       |       |       |       |       |          ||
         |    e    |       |       |       |       |       |       |       |       |       |          ||
         |   eabd  |       |       |       |       |       |       |       |       |       |          ||
+        
         因为 $S_i\wedge S_0=\emptyset$，所以该码是唯一可译的。
 
 
