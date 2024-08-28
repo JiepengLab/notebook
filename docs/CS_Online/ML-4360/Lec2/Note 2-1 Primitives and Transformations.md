@@ -82,7 +82,7 @@ $$\widetilde{\mathbf{x} }=\begin{pmatrix}\widetilde{x}\\\widetilde{y}\\\widetild
 
 ### 2D Lines
 
-**2D 的线段** 也可以用齐次坐标表示为 $\mathbf{\widetilde{l}}=(a,b,c)^T$，我们用 $\mathbf{\widetilde{l}}$ 与点 $\mathbf{\overline{x}}$ 的内积为 $0$ 来表示点 $\mathbf{\overline{x}}$ 在线段 $\mathbf{\widetilde{l}}$上 ：
+**2D 的线段** 也可以用齐次坐标表示为 $\mathbf{\widetilde{l}}=(a,b,c)^T$，我们用 $\mathbf{\widetilde{l}}$ 与点 $\mathbf{\overline{x}}$ 的内积为 $0$ 来表示点 $\mathbf{\overline{x}}$ 在线段 $\mathbf{\widetilde{l}}$ 上：
 
 $$\{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{\widetilde{l}}=0\} \Leftrightarrow (x,y,1)\begin{pmatrix}a\\b\\c\end{pmatrix}=0\Leftrightarrow \{x,y | ax+by+c=0\}$$
 
@@ -143,10 +143,10 @@ $$\mathbf{\widetilde{l}}=\mathbf{\overline{x}}_1\times \mathbf{\overline{x}}_2$$
     $$
     由于$\tilde{l}$是点$\tilde{x}_1$和$\tilde{x}_2$的连线，因此$\tilde{l}$必然同时满足点$\tilde{x}_1$和$\tilde{x}_2$的方程，即：
     $$
-    \begin{aligned}
+    \begin{cases}
     x_1x + y_1y + 1 &= 0 \\
     x_2x + y_2y + 1 &= 0
-    \end{aligned}
+    \end{cases}
     $$
     解这个方程组，得到：
     $$
@@ -194,7 +194,7 @@ $$\{\mathbf{\overline{x}}|{\mathbf{\overline{x}}}^T\mathbf{Q}\mathbf{\overline{x
 
 ### 3D Lines
 
-**3D 线段** 显得就不太好看了。 一种表示方法是用直线上两个点$\mathbf{p}$、$\mathbf{q}$的线性组合来表示：
+**3D 线段**显得就不太好看了。一种表示方法是用直线上两个点$\mathbf{p}$、$\mathbf{q}$的线性组合来表示：
 
 $$\{\mathbf{x}|\mathbf{x}=(1-\lambda)\mathbf{p}+\lambda\mathbf{q},\lambda\in \mathbb{R}\}$$
 
