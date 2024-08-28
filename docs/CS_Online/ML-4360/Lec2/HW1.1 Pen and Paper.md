@@ -242,7 +242,7 @@
             \mathbf{\tilde{x}}_{s_8} = \begin{pmatrix}12\\8\\1\end{pmatrix}
             \end{aligned}$$
             
-            ![image](.\images/Camera_Projections_1.png)
+            ![image](./images/Camera_Projections_1.png)
 
         ??? question "ii) Let’s move the cube further away from the pinhole camera along the $z$-axis such that the distance of the center of the new cube $\mathcal{C}_1$ is now $20$. Further, let’s zoom in with our camera such that the focal lengths are $f_x = f_y = 10$ and the principal point remains the same. Draw the projected points and edges of the cube in a coordinate system on a paper."
 
@@ -276,7 +276,7 @@
             \mathbf{\tilde{x}}_{s_8} = \begin{pmatrix}\frac{40}{3}\\\frac{20}{3}\\1\end{pmatrix}
             \end{aligned}$$
 
-            ![image](.\images/Camera_Projections_2.png)
+            ![image](./images/Camera_Projections_2.png)
 
         ??? question "iii) Let’s move it even further away along the $z$-axis while zooming in. Now, the distance of the center of cube $\mathcal{C}_2$ is $100$ and the focal lengths are $f_x = f_y = 90$. Draw the projected points and edges of the cube in a coordinate system on a paper."
 
@@ -310,13 +310,13 @@
             \mathbf{\tilde{x}}_{s_8} = \begin{pmatrix}\frac{200}{11}\\\frac{20}{11}\\1\end{pmatrix}
             \end{aligned}$$
             
-            ![image](.\images/Camera_Projections_3.png)
+            ![image](./images/Camera_Projections_3.png)
 
         ??? question "iv) Project the $8$ corners of the first cube $\mathcal{C}_0$ using an orthographic projection and add the principal point $\mathbf{c}_c = (10, 10)^T$ onto the obtained pixel coordinates to be in the same coordinate system as before. Draw the projected points and edges of the cube in a coordinate system on a paper."
 
             Solution:
 
-            ![image](.\images/Camera_Projections_4.png)
+            ![image](./images/Camera_Projections_4.png)
 
         ??? question "v) When is the perspective projection most similar to the orthographic projection?"
 
@@ -340,7 +340,7 @@
 
     ??? question "b) Write the diameter of the circle of confusion $c$ as a function of the focal length $f$, the image plane distance $z_s$ as well as the distance $\Delta z_s$ and the f-number $N$."
 
-        ![image](.\images/Photometric_Image_Formation_1.png)
+        ![image](./images/Photometric_Image_Formation_1.png)
         
         Solution:
 
