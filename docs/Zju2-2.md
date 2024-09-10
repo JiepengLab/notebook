@@ -7,16 +7,16 @@
 - [x] **04.22 10:00** ADS：期中考试
 - [x] **05.11** 计算机组成：期中考试，包含单周期处理器
 - [x] **05.25 20:00-22:00** UX：期中考核
-- [ ] **05.30** 计算机组成：小测
-- [ ] **06.20 10:30-12:30** 面向对象程序设计：期末考试
-- [ ] **06.21 08:00-10:00** 数据库系统：期末考试
-- [ ] **06.22 14:00-16:00** 计算机组成：期末考试
-- [ ] **06.22 18:30-20:30** 信息理论：期末考试
-- [ ] **06.23 10:30-12:30** 人工智能：期末考试
-- [ ] **06.23 14:00-16:00** 毛泽东思想和中国特色社会主义理论体系概论(H)：期末考试
-- [ ] **06.24 10:30-12:30** 高级数据结构与算法分析：期末考试
-- [ ] **06.26 08:00-10:00** 数学软件：期末考试
-- [ ] **06.27 08:00-10:00** 密码学：期末考试
+- [x] **05.30** 计算机组成：小测
+- [x] **06.20 10:30-12:30** 面向对象程序设计：期末考试
+- [x] **06.21 08:00-10:00** 数据库系统：期末考试
+- [x] **06.22 14:00-16:00** 计算机组成：期末考试
+- [x] **06.22 18:30-20:30** 信息理论：期末考试
+- [x] **06.23 10:30-12:30** 人工智能：期末考试
+- [x] **06.23 14:00-16:00** 毛泽东思想和中国特色社会主义理论体系概论(H)：期末考试
+- [x] **06.24 10:30-12:30** 高级数据结构与算法分析：期末考试
+- [x] **06.26 08:00-10:00** 数学软件：期末考试
+- [x] **06.27 08:00-10:00** 密码学：期末考试
 
 ## 作业DDL
 
@@ -110,9 +110,9 @@
 - [x] **06.03 15:40** 数据库系统：[书后习题 17.6、17.7](https://courses.zju.edu.cn/course/67605/learning-activity/full-screen#/786023)
 - [x] **06.03 17:01** ADS：[PTA_HW13](https://pintia.cn/problem-sets/1792450601170169856/exam/problems/type/1)
 - [x] **06.10 23:59** 密码学：[第06次作业](https://pintia.cn/problem-sets/1792552941353099264/exam/problems/type/9)
-- [ ] **06.10 14:59** ADS：[Project8](https://pintia.cn/problem-sets/1792450151960203264/exam/problem)
-- [ ] **06.12** 计算摄影学：[大程]
-- [ ] **06.15 14:50** 计组：[Lab05](https://courses.zju.edu.cn/course/68313/learning-activity#/842973)
+- [x] **06.10 14:59** ADS：[Project8](https://pintia.cn/problem-sets/1792450151960203264/exam/problem)
+- [x] **06.12** 计算摄影学：[大程]
+- [x] **06.15 14:50** 计组：[Lab05](https://courses.zju.edu.cn/course/68313/learning-activity#/842973)
 - [x] **06.18 00:00** 数学软件：[准备工作](https://courses.zju.edu.cn/course/68818/learning-activity/full-screen#/808545)
 - [x] **06.18 00:00** 数学软件：[复习和预习作业](https://courses.zju.edu.cn/course/68818/learning-activity#/812102)
 - [x] **06.18 00:00** 数学软件：[调查作业：生命游戏 (GOL)](https://courses.zju.edu.cn/course/68818/learning-activity#/812106)
@@ -120,27 +120,27 @@
 - [x] **06.18 00:00** 数学软件：[调查并实现 Conway GOL的各种模式](https://courses.zju.edu.cn/course/68818/learning-activity#/819134)
 - [x] **06.18 00:00** 数学软件：[进一步完善 GOL 项目](https://courses.zju.edu.cn/course/68818/learning-activity#/820282)
 - [x] **06.18 00:00** 数学软件：[调查作业：Mandelbrot 集](https://courses.zju.edu.cn/course/68818/learning-activity#/820491)
-- [ ] **06.18 00:00** 数学软件：[调查作业 Shell 脚本的实现](https://courses.zju.edu.cn/course/68818/learning-activity#/822493)
+- [x] **06.18 00:00** 数学软件：[调查作业 Shell 脚本的实现](https://courses.zju.edu.cn/course/68818/learning-activity#/822493)
 - [x] **06.18 00:00** 数学软件：[更新你的项目](https://courses.zju.edu.cn/course/68818/learning-activity#/822988)
 - [x] **06.18 00:00** 数学软件：[项目作业: Mandelbrot 集的可视化实现](https://courses.zju.edu.cn/course/68818/learning-activity#/824862)
-- [ ] **06.18 00:00** 数学软件：[项目作业: 矩阵乘法](https://courses.zju.edu.cn/course/68818/learning-activity#/825358)
-- [ ] **06.18 00:00** 数学软件：[调查作业: Pi 的计算](https://courses.zju.edu.cn/course/68818/learning-activity#/828015)
-- [ ] **06.18 00:00** 数学软件：[项目作业: Pi 的计算](https://courses.zju.edu.cn/course/68818/learning-activity#/830947?&view=scores)
-- [ ] **06.18 23:59** 信息理论：报告
+- [x] **06.18 00:00** 数学软件：[项目作业: 矩阵乘法](https://courses.zju.edu.cn/course/68818/learning-activity#/825358)
+- [x] **06.18 00:00** 数学软件：[调查作业: Pi 的计算](https://courses.zju.edu.cn/course/68818/learning-activity#/828015)
+- [x] **06.18 00:00** 数学软件：[项目作业: Pi 的计算](https://courses.zju.edu.cn/course/68818/learning-activity#/830947?&view=scores)
+- [x] **06.18 23:59** 信息理论：报告
 - [x] 计组：[Lab00 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [x] 计组：[Lab01 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [x] 计组：[Lab02 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
-- [ ] 计组：[Lab03 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
-- [ ] 计组：[Lab04 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
-- [ ] 计组：[Lab05 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
-- [ ] 计组：[Lab06 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
+- [x] 计组：[Lab03 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
+- [x] 计组：[Lab04 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
+- [x] 计组：[Lab05 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
+- [x] 计组：[Lab06 验收](https://courses.zju.edu.cn/course/68313/courseware#/)
 - [x] 面向对象程序设计：[Lab01]
 - [x] 面向对象程序设计：[Lab02]
 - [x] 面向对象程序设计：[Lab03]
 - [x] 面向对象程序设计：[Lab04]
 - [x] 面向对象程序设计：[Lab05]
 - [x] 面向对象程序设计：[Lab06]
-- [ ] 面向对象程序设计：[Lab07]
+- [x] 面向对象程序设计：[Lab07]
 
 
 ## ADS

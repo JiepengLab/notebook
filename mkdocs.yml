@@ -2,9 +2,10 @@ nav:
   - 首页:
     - home: index.md
     - 朋友们！: ./Friends.md
-    - 正在学习的课程: ./Zju2-2.md
+    - 正在学习的课程: ./Zju3-1.md
     - 已完成学习的课程: 
       - 大二上: ./Zju2-1.md
+      - 大二下: ./Zju2-2.md
   - 基础课程:
     - ./Fundemental/index.md
     - 离散数学及其应用:
@@ -220,7 +221,6 @@ nav:
       - 深度学习: ./CS/Computational-Photography/lec05.md
       - Appendix:
         - Hammersley-Clifford定理的证明: ./CS/Computational-Photography/Hammersley-Clifford.md
-
 
   - 校外CS课程: 
     - ./CS_Online/index.md
