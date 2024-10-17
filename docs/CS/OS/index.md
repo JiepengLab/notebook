@@ -5,6 +5,7 @@
     [实验文档](https://yuque.zju.edu.cn/ytqfu3/mgf5fz)
 
     * [HobbitQ的笔记](https://note.hobbitqia.cc/OS/)，内有手写的 Cheating Sheet
+    * [前人实验经验](https://ruoxining.github.io/notebook/CS/OS/lab/)
     * [咸鱼喧学长的笔记](https://xuan-insr.github.io/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/os/I_overview/1_intro/)
     * [修佬的笔记](https://note.isshikih.top/cour_note/D3QD_OperatingSystem/)
     * jjm 作业和 quiz 题可以在求是潮仓库里找到（我也放了一份在我的仓库里），其中本学期的 quiz5 与以往不同。
