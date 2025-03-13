@@ -240,9 +240,6 @@ $$\int_a^b f(x)\mathrm{d}x-T_n=\frac{h^2}{12}(b-a)f''(\xi)$$
 
 ### 复合 Simpson 法则 | Composite Simpson's Rule
 
-!!! warning ""
-    $n$ 必须是偶数。
-
 将区间 $[a,b]$ 分成 $n$ 个子区间，每个子区间长度为 $h = \frac{b-a}{n}$，则
 
 $$\int_{x_k}^{x_{k+1}}f(x)dx\approx\frac h6[f(x_k)+4f(x_{k+\frac12})+f(x_{k+1})]$$
