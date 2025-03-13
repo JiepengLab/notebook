@@ -328,7 +328,7 @@ $$
 
 - 若$X\sim N(\mu,\sigma^2)$，则$P\{a<X<b\}=
 P\{\frac{a-\mu}{\sigma}< \frac{X-\mu}{\sigma} < \frac{b-\mu}{\sigma} \}=\Phi(\frac{b-\mu}{\sigma})-\Phi(\frac{a-\mu}{\sigma})$
-- 特别的：若$X\sim N(\mu,\sigma^2)$，则$P\{|X-\mu|<k\sigma\} = \Phi(k)-\Phi(-k)=2\Phi(k)-1$，这说明在对称轴左右，以$\mu$倍数为区间的概率值，与$\mu$和$\sigma$都无关。
+- 特别的：若$X\sim N(\mu,\sigma^2)$，则$P\{|X-\mu|<k\sigma\} = \Phi(k)-\Phi(-k)=2\Phi(k)-1$，这说明在对称轴左右，以$\sigma$倍数为区间的概率值，与$\mu$和$\sigma$都无关。
 - $3\sigma$法则
 
 ---

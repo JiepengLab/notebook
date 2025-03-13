@@ -280,10 +280,10 @@ $$Cov(X,Y)=E\{[X-E(X)][Y-E(Y)]\}=E(XY)-E(X)E(Y)$$
 
 ### 相关系数的性质
 
-随机变量 $X,Y$ 的**相关系数** $\rho _{_{XY}}=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}=Cov(\frac{X-E(X)}{\sqrt{Var(X)}},\frac{Y-E(Y)}{\sqrt{Var(Y)}})= Cov(X^*,Y^*) $，其中 $X^*,Y^*$ 分别为 $X,Y$ 的标准化变量。
+随机变量 $X,Y$ 的**相关系数** $\rho _{_{XY}}=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}=Cov(\frac{X-E(X)}{\sqrt{Var(X)}},\frac{Y-E(Y)}{\sqrt{Var(Y)}})= Cov(X^*,Y^*)$，其中 $X^*,Y^*$ 分别为 $X,Y$ 的标准化变量。
 
 1. $|\rho_{_{XY}}|\leq 1$；
-2. $|\rho_{_{XY}}|=1 \;\; \Leftrightarrow \;\; \exists a,b\in \R,\;使得\;P(Y=a+bX)=1$；
+2. $|\rho_{_{XY}}|=1 \;\; \Leftrightarrow \;\; \exists a,b\in \mathbb{R} ,\;使得\;P(Y=a+bX)=1$；
     - $\rho_{_{XY}}=+1$时，$b>0$；
     - $\rho_{_{XY}}=-1$时，$b<0$；
 3. 上述两条性质可以合并写成：
