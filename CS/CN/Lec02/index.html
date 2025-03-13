@@ -1,0 +1,1901 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jiepenglab.github.io/notebook/CS/CN/Lec02/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../images/icon.jpg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+    
+    
+      
+        <title>物理层 | The Physical Layer - Jiepeng's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.75 1.75 0 0 1 1 7.775m1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25m13.274 9.537zl-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074M4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5M4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75M8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.5 4.5 0 0 1-.563-1.191 3.84 3.84 0 0 1-.05-2.063 4.65 4.65 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .75.75 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.4 2.4 0 0 1-.507-.441 3.1 3.1 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19.01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.7 3.7 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.76 2.76 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6 6 0 0 0-.26.16 1 1 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661q.154-.1.313-.195l.007-.004c.1-.061.182-.11.258-.161a1 1 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.61.61 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1 1 0 0 0-.34.398M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343za8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746m1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275M6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.75.75 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.75.75 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L6.94 8 4.97 6.03a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005 0-.009.004"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.5 3.5 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327q0 .15-.025.292c.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5q-.002.615-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A5 5 0 0 1 8 16a5 5 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5 5 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.7 1.7 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06m.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.17.17 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.75.75 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5m4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5m0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5M2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/glightbox.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/galaxy.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/charging.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-physical-layer" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-header__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiepeng's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              物理层 | The Physical Layer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="orange"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+    
+  
+  首页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Fundemental/" class="md-tabs__link">
+          
+  
+    
+  
+  基础课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  校内CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CS_Online/" class="md-tabs__link">
+          
+  
+    
+  
+  校外CS课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Mess/" class="md-tabs__link">
+          
+  
+    
+  
+  杂项
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jiepeng&#39;s notes" class="md-nav__button md-logo" aria-label="Jiepeng's notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Jiepeng's notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JiepengLab/notebook" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JiepengLab/notebook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../.." class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    首页
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Fundemental/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    基础课程
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    校内CS课程
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../CS_Online/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    校外CS课程
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Mess/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    杂项
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#theoretical-basis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theoretical Basis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Theoretical Basis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fourier-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fourier Series
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bandwidth-limited-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      带宽受限信号(Bandwidth-limited Signals)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="带宽受限信号(Bandwidth-limited Signals)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#baseband-signals-vs-passband-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      基带信号(Baseband Signals) vs 带通信号(Passband Signals)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amplitude-modulation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      幅度调制示例(Amplitude Modulation Example)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs-bandwidth-vs-maximum-data-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      带宽 vs. 最大数据速率(Bandwidth vs. Maximum Data Rate)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theoretical-basis-the-maximum-data-rate-of-a-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      理论基础——信道的最大数据速率 (Theoretical Basis — The Maximum Data Rate of a Channel)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theoretical-basis-nyquist-bandwidth" class="md-nav__link">
+    <span class="md-ellipsis">
+      理论基础 — 奈奎斯特带宽 (Theoretical Basis — Nyquist Bandwidth)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theoretical-basis-shannon-capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      理论基础 — 香农容量 (Theoretical Basis — Shannon Capacity)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-transmission-media-i-guided-transmission-media" class="md-nav__link">
+    <span class="md-ellipsis">
+      传输媒体 I：引导传输媒体 (Transmission Media I: Guided Transmission Media)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="传输媒体 I：引导传输媒体 (Transmission Media I: Guided Transmission Media)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistent-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      持久存储 (Persistent Storage)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#twisted-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      双绞线 (Twisted Pairs)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coaxial-cable" class="md-nav__link">
+    <span class="md-ellipsis">
+      同轴电缆 (Coaxial Cable)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      电力线 (Power Lines)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fiber-optics" class="md-nav__link">
+    <span class="md-ellipsis">
+      光纤 (Fiber Optics)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="光纤 (Fiber Optics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transmission-of-light-through-fiber" class="md-nav__link">
+    <span class="md-ellipsis">
+      光纤传输光信号 (Transmission of Light Through Fiber)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      光纤相比铜缆的优势
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      光纤的缺点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-transmission-media-ii-wireless" class="md-nav__link">
+    <span class="md-ellipsis">
+      传输媒体 II：无线传输媒体 (Transmission Media II: Wireless)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="传输媒体 II：无线传输媒体 (Transmission Media II: Wireless)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-electromagnetic-spectrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      电磁频谱 (The Electromagnetic Spectrum)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见使用频段的通信方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常见使用频段的通信方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#radio-transmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      无线电传输 (Radio Transmission)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microwave-transmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      微波传输 (Microwave Transmission)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-politics-of-the-electromagnetic-spectrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      电磁频谱的管理 (The politics of the Electromagnetic spectrum)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-commonly-used-allocation-methods-in-the-past" class="md-nav__link">
+    <span class="md-ellipsis">
+      过去常用的三种频谱分配方式 (Three commonly used allocation methods in the past)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spectrum-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      频谱分配 (Spectrum allocation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#light-transmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      光传输 | Light Transmission
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satellite-transmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      卫星传输 | Satellite Transmission
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-modulation-and-multiplexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制与多路复用 | Digital Modulation and Multiplexing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数字调制与多路复用 | Digital Modulation and Multiplexing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#digital-modulation-baseband-transmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制：基带传输 | Digital Modulation: Baseband Transmission
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-modulation-passband-transmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制：带通传输 | Digital Modulation: Passband Transmission
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequency-division-multiplexing-fdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制：频分复用 (Frequency Division Multiplexing | FDM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orthogonal-frequency-division-multiplexing-ofdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制：正交频分复用 (Orthogonal Frequency Division Multiplexing | OFDM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-division-multiplexing-tdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制：时分复用 (Time Division Multiplexing | TDM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-division-multiplexing-cdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制：码分复用 (Code Division Multiplexing | CDM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-modulation-cdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制: 码分复用 (Digital Modulation: CDM)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="the-physical-layer">物理层 | The Physical Layer<a class="headerlink" href="#the-physical-layer" title="点击此处可置顶内容">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 7290 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 16 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 36 分钟</p>
+</div>
+<ul>
+<li><strong>物理层</strong>(The Physical Layer)<ul>
+<li>在我们的协议模型中，物理层是网络构建的基础，它是最低层。</li>
+<li>它定义了电气、定时以及其他接口，通过这些接口比特(<strong>bits</strong>)作为信号通过信道发送。</li>
+<li>不同类型物理信道的性能包括：<strong>吞吐量</strong>(throughput)、<strong>延迟</strong>(latency/delay)和<strong>错误率</strong>(error rate)。</li>
+</ul>
+</li>
+</ul>
+<p>请看以下是图片中的内容：</p>
+<h2 id="theoretical-basis">Theoretical Basis<a class="headerlink" href="#theoretical-basis" title="点击此处可置顶内容">&para;</a></h2>
+<h3 id="fourier-series">Fourier Series<a class="headerlink" href="#fourier-series" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>
+<p>信息可以通过改变某些物理属性（如电压(voltage)或电流(current)）在电线上传输。</p>
+<ul>
+<li>通过将电压或电流的值表示为时间的单值函数 <span class="arithmatex">\( f(t) \)</span>，我们可以对信号的行为进行建模或分析。</li>
+</ul>
+</li>
+<li>
+<p><strong>傅里叶级数 (Fourier Series)</strong></p>
+<ul>
+<li>在19世纪早期，法国数学家让-巴蒂斯特·傅里叶（Jean-Baptiste Fourier）证明了任何合理表现的周期函数 <span class="arithmatex">\( g(t) \)</span> 具有周期 <span class="arithmatex">\( T \)</span>，可以表示为：</li>
+</ul>
+<div class="arithmatex">\[
+g(t) = g(t + nT_0)
+\]</div>
+<div class="arithmatex">\[
+g(t) = \sum_{n=-\infty}^{\infty} a_n e^{j 2\pi f_0 n t}
+\]</div>
+<ul>
+<li>如果 <span class="arithmatex">\( T_0 \)</span> 是已知的，并且已知系数 <span class="arithmatex">\( a_n \)</span>，则原始的周期信号 <span class="arithmatex">\( g(t) \)</span> 可以通过以下公式重构：</li>
+</ul>
+<div class="arithmatex">\[
+g(t) = C + \sum_{n=1}^{\infty} 2A_n \cos(2\pi n f_0 t) + \sum_{n=1}^{\infty} 2B_n \sin(2\pi n f_0 t)
+\]</div>
+<ul>
+<li><strong>如果 <span class="arithmatex">\( g(t) \)</span> 是实数信号</strong>，则系数 <span class="arithmatex">\( a_{-n} \)</span> 是 <span class="arithmatex">\( a_n \)</span> 的共轭：</li>
+</ul>
+<div class="arithmatex">\[
+g(t) = C + \sum_{n=1}^{\infty} 2A_n \cos(2\pi n f_0 t) + \sum_{n=1}^{\infty} 2B_n \sin(2\pi n f_0 t)
+\]</div>
+<ul>
+<li>其中 <span class="arithmatex">\( A_n = \frac{1}{T_0} \int_{T_0} g(t) \cos(2\pi n f_0 t) dt \)</span></li>
+<li><span class="arithmatex">\( B_n = \frac{1}{T_0} \int_{T_0} g(t) \sin(2\pi n f_0 t) dt \)</span></li>
+<li>
+<p><span class="arithmatex">\( C = \frac{1}{T} \int_T g(t) dt \)</span></p>
+</li>
+<li>
+<p><strong>在现实世界中</strong>，数据信号不是周期性的，并且具有有限的持续时间。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="bandwidth-limited-signals">带宽受限信号(Bandwidth-limited Signals)<a class="headerlink" href="#bandwidth-limited-signals" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>
+<p>没有通信信道能够在不损失部分功率的情况下传输信号。</p>
+<ul>
+<li>如果所有的傅里叶分量(Fourier components)均等减少，结果信号的幅度将会降低，但形状不会失真。</li>
+</ul>
+</li>
+<li>
+<p>然而，大多数实际通信信道会以不同的方式影响不同的频率分量。</p>
+</li>
+<li>
+<p>通常，对于一根电线，幅度在从 0 到某个频率 <span class="arithmatex">\( f_c \)</span>（以每秒周期或赫兹(Hertz, Hz)为单位测量）时，几乎没有减弱，而所有超过这个截止频率(cutoff frequency)的频率都会衰减。</p>
+<ul>
+<li><span class="arithmatex">\( f_c \)</span> —— 截止频率(cutoff frequency)</li>
+</ul>
+</li>
+<li>
+<p>在没有被强烈衰减的情况下传输的频率范围宽度称为带宽(bandwidth)。</p>
+<ul>
+<li>带宽是传输介质的物理属性(physical property)，例如，它取决于电线或光纤的构造、厚度和长度。</li>
+</ul>
+</li>
+</ul>
+<h4 id="baseband-signals-vs-passband-signals">基带信号(Baseband Signals) vs 带通信号(Passband Signals)<a class="headerlink" href="#baseband-signals-vs-passband-signals" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>基带信号(Baseband Signals) 是指从0到最大频率范围的信号。</li>
+<li>带通信号(Passband Signals) 是指经过移频后占据更高频率范围的信号，例如在所有无线传输中使用的信号。</li>
+</ul>
+<h4 id="amplitude-modulation-example">幅度调制示例(Amplitude Modulation Example)<a class="headerlink" href="#amplitude-modulation-example" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="alt text" src="../images/image-23.png" /></p>
+<ul>
+<li>上图展示了信号(the signal)、载波(the carrier)、以及调制信号(the modulated signal) 的波形变化。</li>
+</ul>
+<h4 id="vs-bandwidth-vs-maximum-data-rate">带宽 vs. 最大数据速率(Bandwidth vs. Maximum Data Rate)<a class="headerlink" href="#vs-bandwidth-vs-maximum-data-rate" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>对电气工程师来说，（模拟）带宽是一个以赫兹(Hz)为单位的量。</li>
+<li>对计算机科学家来说，（数字）带宽是信道的最大数据速率，以比特每秒(bits/sec)为单位。</li>
+<li>数据速率是利用物理信道的模拟带宽进行数字传输的最终结果，这两者是相关的。</li>
+</ul>
+<h3 id="theoretical-basis-the-maximum-data-rate-of-a-channel">理论基础——信道的最大数据速率 (Theoretical Basis — The Maximum Data Rate of a Channel)<a class="headerlink" href="#theoretical-basis-the-maximum-data-rate-of-a-channel" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>信道容量 (Channel Capacity) —— 在给定条件下，数据能够通过某个通信路径或信道传输的 <strong>最大速率</strong>。</li>
+<li>四个相关概念：<ul>
+<li><strong>数据速率 (Data rate)</strong> (bps)  <ul>
+<li>如果二进制输入和二进制输出的信道没有噪声，数据速率将为 1 bps。</li>
+<li><strong>带宽 (Bandwidth)</strong>：由以下因素决定</li>
+<li>发射端故意限制以防止其他源的干扰。</li>
+<li>传输介质的物理属性（<strong>赫兹 (Hz)</strong>）。(带宽越大，通信系统的成本越高)</li>
+</ul>
+</li>
+<li><strong>噪声 (Noise)</strong></li>
+<li><strong>误码率 (Error rate)</strong>：错误发生的速率。错误是指在传输 "0" 时接收到了 "1"，或在传输 "1" 时接收到了 "0"。</li>
+</ul>
+</li>
+</ul>
+<h3 id="theoretical-basis-nyquist-bandwidth">理论基础 — 奈奎斯特带宽 (Theoretical Basis — Nyquist Bandwidth)<a class="headerlink" href="#theoretical-basis-nyquist-bandwidth" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>早在1924年，AT&amp;T的工程师亨利·奈奎斯特(Henry Nyquist)意识到，即使是一个完美的信道也具有有限的传输能力。  <ul>
+<li>调查确定在不产生符号间干扰(intersymbol interference)的情况下，给定带宽的电报信道上可使用的最大信号传输速率的问题。</li>
+<li>其中，<span class="arithmatex">\( g(t) \)</span>表示基本脉冲形状，<span class="arithmatex">\( \{a_n\} \)</span>是以1/T比特/秒的速率传输的二进制序列。</li>
+</ul>
+</li>
+</ul>
+<div class="arithmatex">\[
+s(t) = \sum_{n} a_n g(t - nT)
+\]</div>
+<h3 id="_1">问题<a class="headerlink" href="#_1" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>确定最佳脉冲形状(optimal pulse shape)，其带宽被限制在B Hz的范围内，并最大化比特率，约束条件是脉冲在采样时间<span class="arithmatex">\( kT \)</span>(<span class="arithmatex">\( k = 0, \pm 1, \pm 2, \dots \)</span>)下不产生符号间干扰。</li>
+</ul>
+<div class="arithmatex">\[
+g(t) = \frac{\sin(2\pi Bt)}{2\pi Bt}
+\]</div>
+<ul>
+<li>二进制(Binary)：<span class="arithmatex">\( C = 2B \)</span></li>
+<li>多电平信号(Multilevel Signaling)：<span class="arithmatex">\( C = 2B \log_2 V \)</span> (V是离散信号或电压级数的数量)</li>
+</ul>
+<p>对于给定带宽，可以通过增加不同信号元素的数量来提高数据速率。</p>
+<ul>
+<li>然而这会增加接收机的负担。</li>
+<li>噪声和传输线上的其他损害将限制V的实际值。</li>
+</ul>
+<h3 id="theoretical-basis-shannon-capacity">理论基础 — 香农容量 (Theoretical Basis — Shannon Capacity)<a class="headerlink" href="#theoretical-basis-shannon-capacity" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>
+<p>数据速率、噪声和错误率之间的关系：</p>
+<ul>
+<li>对于给定的噪声模式，如果增加数据速率，那么比特会变得“更短”，因此更多的比特会受到影响。</li>
+<li>对于给定的噪声水平，增加信号强度将提高正确接收数据的能力。</li>
+</ul>
+</li>
+<li>
+<p>香农容量(Shannon Capacity)：</p>
+<ul>
+<li><span class="arithmatex">\( C = B \log_2(1 + \text{SNR}) \)</span></li>
+<li>仅假设白噪声，不考虑衰减、延迟或脉冲噪声。</li>
+<li>理论最大值</li>
+<li>随着带宽(B)的增加，信噪比(SNR)会下降 —— 假设噪声为白噪声，带宽越宽，系统中引入的噪声就越多。</li>
+</ul>
+</li>
+</ul>
+<div class="arithmatex">\[
+\text{SNR}_{dB} = 10 \log_{10} \left( \frac{\text{信号功率}}{\text{噪声功率}} \right) = 10 \log_{10} (\text{SNR})
+\]</div>
+<h3 id="i-transmission-media-i-guided-transmission-media">传输媒体 I：引导传输媒体 (Transmission Media I: Guided Transmission Media)<a class="headerlink" href="#i-transmission-media-i-guided-transmission-media" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>持久存储 (Persistent storage)</li>
+<li>双绞线 (Twisted pairs)</li>
+<li>同轴电缆 (Coaxial cable)</li>
+<li>电力线 (Power lines)</li>
+<li>光纤 (Fiber optics)</li>
+</ul>
+<h4 id="persistent-storage">持久存储 (Persistent Storage)<a class="headerlink" href="#persistent-storage" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>由磁性或固态存储介质组成</li>
+<li>传输数据的常见方法：<ul>
+<li>写入持久存储介质</li>
+<li>物理传输磁带或磁盘到目的机器</li>
+<li>读取并传输数据</li>
+</ul>
+</li>
+<li>在需要高数据传输率或每比特成本的场景中，持久存储非常具有成本效益</li>
+<li>别低估装满磁带的车在高速公路上行驶时的带宽</li>
+<li>延迟特性较差：传输时间按小时或天计算，而不是毫秒<ul>
+<li>网络 (The web)</li>
+<li>视频会议 (Video conference)</li>
+<li>网络游戏 (Online game)</li>
+</ul>
+</li>
+</ul>
+<h4 id="twisted-pairs">双绞线 (Twisted Pairs)<a class="headerlink" href="#twisted-pairs" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>最古老且仍然最常见的传输媒体</li>
+<li>双绞线由两根绝缘的铜线组成，通常约1毫米厚。两根线以螺旋形扭在一起，就像DNA分子一样<ul>
+<li>扭绞是因为两根平行的线会构成一个天线</li>
+</ul>
+</li>
+<li>通常以电压差形式传输信号<ul>
+<li>这样提供了对外部噪音的更强免疫力，因为噪音倾向于影响两根线一样，使得电压差保持不变</li>
+</ul>
+</li>
+<li>双绞线可以用来传输模拟或数字信息</li>
+<li>
+<p>带宽取决于线的厚度和传输距离，但在许多情况下，几公里内可以实现每秒几兆比特的传输速度</p>
+</li>
+<li>
+<p>不同的局域网(LAN)标准可能对双绞线的使用有所不同</p>
+</li>
+<li>100Mbps以太网使用四对线中的两对，每个方向一对</li>
+<li>1Gbps以太网同时使用所有四对线，但这需要接收器过滤掉本地传输的信号</li>
+</ul>
+<p><img alt="alt text" src="../images/image-24.png" /></p>
+<ul>
+<li>全双工 (Full duplex) 链接（1Gbps以太网，四对线同时双向传输）</li>
+<li>半双工 (Half duplex) 链接（100Mbps以太网，每个方向一对线）</li>
+<li>单工 (Simplex) 链接（单向传输）</li>
+</ul>
+<h4 id="coaxial-cable">同轴电缆 (Coaxial Cable)<a class="headerlink" href="#coaxial-cable" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>常用于有线电视和城域网 (MAN)，并为家庭提供高速互联网连接。</li>
+<li>现代电缆的带宽可达几千兆赫兹 (GHz)。</li>
+</ul>
+<p><img alt="alt text" src="../images/image-25.png" /></p>
+<blockquote>
+<p>这张图片展示了同轴电缆的结构：
+    - <strong>铜芯</strong>（Copper core）：电缆的中心导体，用于传输信号。
+    - <strong>绝缘材料</strong>（Insulating material）：包围在铜芯外的材料，用于隔离铜芯与外部导体，以防止信号泄漏。
+    - <strong>编织外导体</strong>（Braided outer conductor）：由编织金属丝构成，主要用于屏蔽外界的电磁干扰，确保信号的稳定传输。
+    - <strong>保护塑料外壳</strong>（Protective plastic covering）：最外层的保护层，保护电缆免受物理损伤或环境因素的影响。
+    这个结构示意图有助于理解同轴电缆如何通过一系列屏蔽和绝缘层来传输信号，同时减少外部干扰。</p>
+</blockquote>
+<h4 id="power-lines">电力线 (Power Lines)<a class="headerlink" href="#power-lines" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>数据信号叠加在低频率的电力信号上。</li>
+<li>使用家庭电力线路作为网络传输存在的困难在于电力线原本设计用于传输电力信号。<ul>
+<li>线路的电气特性会随着电器的开关变化，导致数据信号在线路中反弹。</li>
+<li>家用电器在开关时产生的瞬态电流会在各种频率范围内产生电噪声。</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../images/image-26.png" /></p>
+<h4 id="fiber-optics">光纤 (Fiber Optics)<a class="headerlink" href="#fiber-optics" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>允许几乎无限的带宽。</li>
+<li>必须考虑成本，尤其是安装最后一英里和传输数据的成本。</li>
+<li>用途：<ul>
+<li>长途传输用于网络主干网(Long-haul transmission in network backbones)。</li>
+<li>高速局域网 (LAN)。</li>
+<li>高速互联网接入。</li>
+</ul>
+</li>
+<li>关键组件包括光源、传输介质和探测器。</li>
+<li>传输系统基于物理学原理。</li>
+</ul>
+<div class="admonition note">
+<p><img alt="alt text" src="../images/image-27.png" /></p>
+<p>这张图展示了光在光纤中的传播路径，分为两个部分：</p>
+<ul>
+<li>
+<p><strong>图(a)</strong> 显示了一束光线以不同角度撞击空气/硅边界。在不同角度下（<span class="arithmatex">\(\alpha_1\)</span>, <span class="arithmatex">\(\alpha_2\)</span>, <span class="arithmatex">\(\alpha_3\)</span>），光线的反射角度（<span class="arithmatex">\(\beta_1\)</span>, <span class="arithmatex">\(\beta_2\)</span>, <span class="arithmatex">\(\beta_3\)</span>）发生变化。当光的入射角小于临界角时，光线部分会射出光纤边界，而当入射角大于临界角时，光线会反射回光纤内部。</p>
+</li>
+<li>
+<p><strong>图(b)</strong> 说明了光线在光纤中通过 <strong>全内反射(total internal reflection)</strong> 而被困住，这样光线可以在光纤内长距离传输，而不会从光纤边界逸出。这种现象是光纤通信技术的核心，利用光的全内反射实现高速数据传输。</p>
+</li>
+</ul>
+<p>光纤通过控制光线的反射和折射来实现数据的高效传输，特别是在远距离通信中起到了关键作用。</p>
+</div>
+<h5 id="transmission-of-light-through-fiber">光纤传输光信号 (Transmission of Light Through Fiber)<a class="headerlink" href="#transmission-of-light-through-fiber" title="点击此处可置顶内容">&para;</a></h5>
+<ul>
+<li>光在玻璃中的衰减(Attenuation)：<ul>
+<li>取决于光的波长。</li>
+<li>定义为输入信号与输出信号功率的比率。</li>
+</ul>
+</li>
+<li>光纤电缆(Fiber cables)：<ul>
+<li>类似于同轴电缆(coax)，但没有编织层(braid)。</li>
+</ul>
+</li>
+<li>两种信号光源：<ul>
+<li>LED (发光二极管,Light Emitting Diodes)。</li>
+<li>半导体激光器(Semiconductor lasers)。</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../images/image-28.png" /></p>
+<p>这张图展示了<strong>光纤</strong>（Fiber Optics）中光在不同波长（Wavelength）下的衰减特性（Attenuation）。图中标示了三个常用的波长带（Wavelength Bands），分别是：</p>
+<ul>
+<li><strong>0.85微米波段</strong>（0.85μ Band）：衰减较高，通常用于短距离传输（Short-distance Transmission）。</li>
+<li><strong>1.30微米波段</strong>（1.30μ Band）：衰减较低，是较长距离光纤通信（Long-distance Fiber Optic Communication）的常用波段。</li>
+<li><strong>1.55微米波段</strong>（1.55μ Band）：衰减最低，是现代光纤通信中最常用的波段，适合长距离传输（Long-distance Transmission）。</li>
+</ul>
+<p>每公里光纤的衰减单位为<strong>分贝</strong>（dB/km，Decibels per Kilometer）。从图中可以看出，波长为1.30微米和1.55微米的光具有更低的衰减（Lower Attenuation），因此更适合用于长距离光纤传输（Long-distance Fiber Transmission）。相较之下，0.85微米波段的衰减较高，适合短距离通信（Short-distance Communication）。</p>
+<p><img alt="alt text" src="../images/image-29.png" /></p>
+<ul>
+<li>
+<p><strong>核心（Core）</strong> 由玻璃（Glass）制成，外围包裹着折射率低于核心的玻璃包层（Cladding），以保证所有的光都被限制在核心内部。</p>
+</li>
+<li>
+<p><strong>多模光纤（Multimode Fiber）</strong>（直径约50微米）：许多不同角度的光线会在包层和核心之间反射。</p>
+</li>
+<li>
+<p><strong>单模光纤（Single-mode Fiber）</strong>（直径小于10微米）：光线只能沿直线传播，几乎没有反射。</p>
+</li>
+<li>
+<p>光传输<strong>本质上是单向的</strong>（Optical transmission is inherently unidirectional），双向通信需要两根光纤，或者在一根光纤上使用两个不同的频带。</p>
+</li>
+</ul>
+<h5 id="_2">光纤相比铜缆的优势<a class="headerlink" href="#_2" title="点击此处可置顶内容">&para;</a></h5>
+<ul>
+<li><strong>更高的带宽</strong> (Handles higher bandwidth)</li>
+<li><strong>不受电源浪涌、电磁干扰、电源故障、腐蚀性化学品的影响</strong> (Not affected by power surges, electromagnetic interference, power failures, corrosive chemicals)</li>
+<li><strong>轻薄且重量轻</strong> (Thin and lightweight)</li>
+<li><strong>光信号不会泄漏</strong> (Do not leak light)</li>
+<li><strong>难以被窃听</strong> (Difficult to tap)</li>
+</ul>
+<h5 id="_3">光纤的缺点<a class="headerlink" href="#_3" title="点击此处可置顶内容">&para;</a></h5>
+<ul>
+<li><strong>技术不够普及，要求特定的工程技能</strong> (Less familiar technology that requires specific engineering skills)</li>
+<li><strong>光纤易受损伤，特别是过度弯曲时</strong> (Fibers damaged easily by being bent too much)</li>
+</ul>
+<h3 id="ii-transmission-media-ii-wireless">传输媒体 II：无线传输媒体 (Transmission Media II: Wireless)<a class="headerlink" href="#ii-transmission-media-ii-wireless" title="点击此处可置顶内容">&para;</a></h3>
+<h4 id="the-electromagnetic-spectrum">电磁频谱 (The Electromagnetic Spectrum)<a class="headerlink" href="#the-electromagnetic-spectrum" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>电磁波的频谱从极低频到极高频，涵盖了不同的通信方式<ul>
+<li><strong>无线电波 (Radio waves)</strong>: 主要用于无线电广播 (AM、FM) 和电视信号的传输</li>
+<li><strong>微波 (Microwaves)</strong>: 用于卫星通信、地面微波通信等</li>
+<li><strong>红外线 (Infrared)</strong>: 用于短距离的设备通信</li>
+<li><strong>紫外线 (UV)</strong>: 一般不用于通信，更多用于科学应用</li>
+<li><strong>X射线 (X-rays)</strong> 和 <strong>伽马射线 (Gamma rays)</strong>: 通常用于医学和科学研究，而不是通信</li>
+</ul>
+</li>
+</ul>
+<h4 id="_4">常见使用频段的通信方式<a class="headerlink" href="#_4" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>双绞线 (Twisted pair)</strong>: 用于较低频率的信号传输，如电话和以太网，频率大约在 10^4 到 10^7 Hz 之间</li>
+<li><strong>同轴电缆 (Coaxial cable)</strong>: 用于更高频率的电视、互联网等信号传输，频率范围大约为 10^6 到 10^8 Hz</li>
+<li><strong>卫星 (Satellite)</strong>: 在更高频率的微波频段中使用，通常在 10^9 到 10^11 Hz</li>
+<li><strong>光纤 (Fiber optics)</strong>: 用于非常高频率的传输，通常是 10^15 Hz 以上的频率</li>
+</ul>
+<p>这张图展示了不同通信技术在电磁频谱中的使用范围，包括从低频 (LF) 到超高频 (EHF) 等各个频段的应用。</p>
+<p><img alt="alt text" src="../images/image-30.png" /></p>
+<ul>
+<li>大多数无线传输通过将信号集中在窄频带 (narrow frequency band) 上来高效利用频谱 (spectrum)，获得合理的数据传输速率，并通过足够的功率传输。</li>
+<li>频带宽度 (Δf/f &lt;&lt; 1)</li>
+<li>在某些情况下，使用较宽的频带 (wider band)，有三种变体：<ul>
+<li><strong>频率跳变扩频 (Frequency Hopping Spread Spectrum, FHSS)</strong>：发射器每秒跳变多个频率，提高抗干扰能力。这一技术在 Bluetooth 和早期的 802.11 标准中应用广泛。</li>
+<li><strong>直接序列扩频 (Direct Sequence Spread Spectrum, DSSS)</strong>：例如 CDMA，通过将信号扩展到较宽频带来减少干扰。</li>
+<li><strong>超宽带 (Ultra WideBand, UWB)</strong>：UWB 发送一系列快速脉冲，通过快速的过渡来传播信息，信号被稀释到一个非常宽的频带中。</li>
+</ul>
+</li>
+</ul>
+<h5 id="radio-transmission">无线电传输 (Radio Transmission)<a class="headerlink" href="#radio-transmission" title="点击此处可置顶内容">&para;</a></h5>
+<ul>
+<li>无线电频率 (RF) 波容易生成，传播距离长，能轻易穿透建筑物，因此广泛应用于室内和室外的通信。</li>
+<li>无线电波是全向传播的 (omnidirectional)，意味着它们从源头向所有方向传播，因此发射器和接收器不需要精确对准。</li>
+<li>无线电波的特性取决于频率：<ul>
+<li>在低频率下，无线电波能够很好地穿过障碍物，但随着与源的距离增加，信号强度会急剧衰减，至少以 <span class="arithmatex">\(1/r^2\)</span> 的速度在空气中衰减，这种衰减被称为路径损耗 (path loss)。</li>
+<li>在高频率下，无线电波通常沿直线传播，并会从障碍物反射。</li>
+</ul>
+</li>
+<li>对于光纤、同轴电缆和双绞线 (fiber, coax, twisted pair)，信号随着每单位距离按照相同的比例衰减，例如双绞线每100米衰减20dB。而对于无线电 (radio)，信号强度随着距离的加倍而等比例衰减。</li>
+<li>这种特性意味着无线电波可以传播很长距离，但用户之间的干扰是个问题。</li>
+<li>地波 (Ground wave) 在低频 (VLF, LF, MF) 频段下跟随地球曲率传播，而高频 (HF) 频段下，无线电波会从电离层 (ionosphere) 反射。</li>
+</ul>
+<h5 id="microwave-transmission">微波传输 (Microwave Transmission)<a class="headerlink" href="#microwave-transmission" title="点击此处可置顶内容">&para;</a></h5>
+<ul>
+<li>在100MHz以上，微波几乎以直线传播，可以集中在窄波束内。</li>
+<li>通过抛物面天线将所有能量集中到一个小波束中，能获得更高的信噪比，但发射和接收天线必须精确对齐。</li>
+<li>微波以直线传播，因此如果塔台间距过大，地球曲率将成为障碍。因此，需要定期使用中继器 (repeater)。<ul>
+<li>中继器之间的距离大致与塔的高度的平方根成比例增加。</li>
+</ul>
+</li>
+<li>延迟的信号波可能与直接波不同步，从而抵消信号。<ul>
+<li>这种效应称为多路径衰落 (multipath fading)。</li>
+</ul>
+</li>
+</ul>
+<h5 id="the-politics-of-the-electromagnetic-spectrum">电磁频谱的管理 (The politics of the Electromagnetic spectrum)<a class="headerlink" href="#the-politics-of-the-electromagnetic-spectrum" title="点击此处可置顶内容">&para;</a></h5>
+<ul>
+<li>ITU-R（国际电信联盟无线电通信部门，International Telecommunication Union-Radiocommunication）</li>
+<li>FCC（美国联邦通信委员会，Federal Communications Commission）</li>
+</ul>
+<h5 id="three-commonly-used-allocation-methods-in-the-past">过去常用的三种频谱分配方式 (Three commonly used allocation methods in the past)<a class="headerlink" href="#three-commonly-used-allocation-methods-in-the-past" title="点击此处可置顶内容">&para;</a></h5>
+<ul>
+<li>美容竞赛法 (Beauty contest)</li>
+<li>抽签法 (Lottery)</li>
+<li>拍卖法 (Auction)</li>
+</ul>
+<h5 id="spectrum-allocation">频谱分配 (Spectrum allocation)<a class="headerlink" href="#spectrum-allocation" title="点击此处可置顶内容">&para;</a></h5>
+<ul>
+<li>ISM 和 U-NII（非许可国家信息基础设施，Unlicensed National Information Infrastructure）频段在美国被无线设备广泛使用。</li>
+<li>5 GHz 频段相对较少开发，但由于其带宽较大，通常用于诸如 802.11 ac 的 WiFi 规范。</li>
+</ul>
+<h5 id="light-transmission">光传输 | Light Transmission<a class="headerlink" href="#light-transmission" title="点击此处可置顶内容">&para;</a></h5>
+<p><img alt="alt text" src="../images/image-31.png" /></p>
+<ul>
+<li>不同于微波传输(microwave transmission)，光传输(light transmission)无需政府许可。</li>
+<li>对流气流(convection currents)（风、温度、雾等）可能会干扰激光通信系统(laser communication system)。图中展示了一个使用双向激光(bidirectional laser)的系统。</li>
+</ul>
+<h3 id="satellite-transmission">卫星传输 | Satellite Transmission<a class="headerlink" href="#satellite-transmission" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>
+<p>通信卫星位于地球不同的轨道上，具有不同的特性，包括到地球的高度、往返延迟时间以及覆盖全球所需的卫星数量。</p>
+</li>
+<li>
+<p>主要的卫星频段 (satellite bands)：</p>
+<ul>
+<li>L 频段：下行 1.5 GHz，上行 1.6 GHz，带宽 15 MHz，问题：带宽低，拥挤</li>
+<li>S 频段：下行 1.9 GHz，上行 2.2 GHz，带宽 70 MHz，问题：带宽低，拥挤</li>
+<li>C 频段：下行 4.0 GHz，上行 6.0 GHz，带宽 500 MHz，问题：地面干扰</li>
+<li>Ku 频段：下行 11 GHz，上行 14 GHz，带宽 500 MHz，问题：降雨</li>
+<li>Ka 频段：下行 20 GHz，上行 30 GHz，带宽 3500 MHz，问题：降雨，设备成本</li>
+</ul>
+</li>
+<li>
+<p>中地球轨道卫星 (MEO, Medium-Earth Orbit satellites)：</p>
+<ul>
+<li>位于较低的高度——在两个范艾伦带(Van Allen belts)之间</li>
+<li>在经度方向上缓慢漂移（绕地球一圈需 6 小时）</li>
+<li>必须在天空中追踪</li>
+<li>在地面上具有较小的覆盖范围</li>
+<li>需要较小功率的发射器来连接</li>
+</ul>
+</li>
+<li>
+<p>用于导航系统，例如：</p>
+<ul>
+<li>由大约 30 颗全球定位系统 (GPS, Global Positioning System) 卫星组成的星座，轨道高度约为 20,200 公里。</li>
+</ul>
+</li>
+<li>
+<p>通信卫星在某些光纤无法覆盖的利基市场中具有显著优势：</p>
+<ul>
+<li>快速部署 (Rapid deployment)</li>
+<li>在地面基础设施较差的地区进行通信 (For communication in places where the terrestrial infrastructure is poorly developed)</li>
+<li>广播需求至关重要时 (When broadcasting is essential)</li>
+</ul>
+</li>
+</ul>
+<h3 id="digital-modulation-and-multiplexing">数字调制与多路复用 | Digital Modulation and Multiplexing<a class="headerlink" href="#digital-modulation-and-multiplexing" title="点击此处可置顶内容">&para;</a></h3>
+<ul>
+<li>有线和无线信道传输模拟信号(analog signals)，例如连续变化的电压、光强或声音强度。</li>
+<li>为了传输数字信息，我们必须设计模拟信号来表示比特(bits)。<ul>
+<li>在比特与表示比特的信号之间转换的过程称为数字调制(digital modulation)。</li>
+</ul>
+</li>
+<li>大约有两种将比特转换为信号的方案：
+    1) 基带传输(baseband transmission)（用于有线信道）
+        - 信号占据的频率从零开始，直到依赖于信号速率的最大值。
+    2) 带通传输(passband transmission)（用于无线和光学信道）
+        - 调节载波信号的振幅(amplitude)、相位(phase)和频率(frequency)来传输比特。（信号占据载波信号频率范围内的一段频率带）。</li>
+<li>信道通常由多个信号共享。<ul>
+<li>使用一根线来传输多个信号——多路复用(Multiplexing)。</li>
+</ul>
+</li>
+</ul>
+<h4 id="digital-modulation-baseband-transmission">数字调制：基带传输 | Digital Modulation: Baseband Transmission<a class="headerlink" href="#digital-modulation-baseband-transmission" title="点击此处可置顶内容">&para;</a></h4>
+<p><img alt="alt text" src="../images/image-32.png" /></p>
+<ul>
+<li>(a) 比特流(Bit stream)</li>
+<li>(b) 非归零码(Non-Return to Zero, NRZ)</li>
+<li>&copy; 非归零反码(NRZ Invert, NRZI)</li>
+<li>(d) 曼彻斯特编码(Manchester)<ul>
+<li>使用与比特异或的时钟(Clock that is XORed with bits)</li>
+</ul>
+</li>
+<li>
+<p>(e) 双极编码(Bipolar encoding)</p>
+<ul>
+<li>也称为交替标记反转(Alternate Mark Inversion, AMI)</li>
+</ul>
+</li>
+<li>
+<p><strong>NRZ (Non-Return-to-Zero)</strong></p>
+<ul>
+<li>最简单的数字调制形式是使用<strong>正电压</strong>(positive voltage)表示1，使用<strong>负电压</strong>(negative voltage)表示0。对于光纤(Optical Fiber)，光的存在可能表示1，而光的缺失表示0。</li>
+<li>接收器将信号采样并定期转换成比特(bits)。<ul>
+<li>信号将<strong>不会</strong>(not)与发送的信号完全相同。由于信道和噪声，信号将被<strong>衰减</strong>(attenuated)和<strong>失真</strong>(distorted)。</li>
+<li>为了解码比特，接收器将信号样本映射到最接近的符号(symbols)。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>使用有限带宽的策略 | Strategy for Using Limited Bandwidth</strong></p>
+<ul>
+<li>
+<p>一个策略是使用多于两个信号级别。</p>
+<ul>
+<li>例如，通过使用四种电压，我们可以一次发送2比特(bits)作为一个符号(symbol)。</li>
+<li>但是在接收端，接收器(receiver)应该足够强大，以区分四个级别。</li>
+<li>信号变化的速率(rate)是比特率(bit rate)的一半，因此所需的带宽(bandwidth)减少了。</li>
+</ul>
+</li>
+<li>
+<p>比特率(bit rate) = 符号率(symbol rate) × 每个符号的比特数(bits per symbol)</p>
+<ul>
+<li>在二进制领域，波特率(baud rate)和每秒比特数(bits per second)是同义词。</li>
+<li>波特率(baud rate) = 符号率(symbol rate)</li>
+</ul>
+</li>
+<li>
+<p>对于所有将<strong>比特</strong>(bits)编码为<strong>符号</strong>(symbols)的方案，<strong>接收器</strong>(receiver)必须知道一个符号何时结束，另一个符号何时开始，才能正确解码比特。</p>
+<ul>
+<li><strong>准确的时钟</strong>(clock)有助于解决这个问题。</li>
+</ul>
+</li>
+<li>
+<p><strong>策略</strong></p>
+<ul>
+<li>1) 向接收器发送单独的时钟信号。</li>
+<li>2) 一种巧妙的技巧是通过<strong>异或</strong>(XOR)将时钟信号与数据信号混合在一起，这样就不需要额外的线路了。</li>
+</ul>
+</li>
+<li>
+<p><strong>曼彻斯特编码</strong>(Manchester Encoding)：0 —— <strong>低到高转换</strong>；1 —— <strong>高到低转换</strong>。</p>
+<ul>
+<li><strong>曼彻斯特编码</strong>的缺点是由于需要时钟，它比<strong>非归零</strong>(NRZ)编码需要两倍的<strong>带宽</strong>(bandwidth)。</li>
+<li>许多<strong>以太网</strong>(Ethernet)技术使用<strong>曼彻斯特编码</strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>NRZI</strong> (非归零反转编码，<strong>Non-Return-to-Zero Inverted</strong>)</p>
+<ul>
+<li>通过将<strong>1</strong>编码为一个<strong>转换</strong>(transition)，将<strong>0</strong>编码为<strong>无转换</strong>(no transition)，或者反之亦然。</li>
+<li>流行的<strong>USB</strong>(通用串行总线，<strong>Universal Serial Bus</strong>)标准用于连接计算机外设采用<strong>NRZI</strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>扰码</strong>(Scrambling)</p>
+<ul>
+<li>通过在传输前将数据与一个<strong>伪随机</strong>(pseudorandom)序列进行<strong>异或</strong>(XOR)，使数据看起来是随机的。</li>
+<li><strong>扰码</strong>可以防止出现主导的<strong>频率成分</strong>(dominant frequency components)（由重复的数据模式引起），这些成分可能辐射出<strong>电磁干扰</strong>(electromagnetic interference)。<ul>
+<li><strong>扰码</strong>有助于使信号趋于“白色”(white)，或者在频率成分上能量均匀分布。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>平衡信号</strong> | <strong>Balanced signals</strong></p>
+<ul>
+<li><strong>平衡信号</strong>(Balanced signals)是指正电压和负电压在短时间内保持相等的信号，平均为零（没有直流分量，<strong>DC component</strong>）。</li>
+<li>缺少<strong>直流分量</strong>(DC component)是一种优势，因为某些信道（如同轴电缆或带有变压器的线路）由于其物理特性，会强烈衰减<strong>直流分量</strong>。</li>
+<li>将接收器连接到信道的一种方法称为<strong>电容耦合</strong>(capacitive coupling)，它仅传递信号的交流成分。</li>
+<li>构建<strong>平衡码</strong>(balanced code)的一种简单方法是使用两种电压电平来表示<strong>逻辑1</strong>(logical 1)（如+1伏或-1伏），使用0伏表示<strong>逻辑0</strong>(logical 0)。——<strong>双极编码</strong>(bipolar encoding)</li>
+</ul>
+<h4 id="digital-modulation-passband-transmission">数字调制：带通传输 | Digital Modulation: Passband Transmission<a class="headerlink" href="#digital-modulation-passband-transmission" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>
+<p><strong>带通传输</strong>(Passband transmission)：使用任意频带传输信号。</p>
+<ul>
+<li>将占据0到B赫兹的基带信号移到S到S+B赫兹的带通频带，而不改变其所携带的信息量。</li>
+<li>在接收端，信号可以被移回基带。</li>
+</ul>
+</li>
+<li>
+<p><strong>为什么使用带通传输？</strong>(Why passband transmission?)</p>
+<ul>
+<li>
+<p>对于无线信道，发送非常低频率的信号并不实用，因为<strong>天线的尺寸</strong>(the size of the antenna)需要是信号波长的一个分数，这会使天线尺寸变大。</p>
+</li>
+<li>
+<p>法规限制和避免干扰的需求通常决定了频率的选择。</p>
+</li>
+<li>
+<p>即使对于电线，在给定的频带中放置信号也有助于让不同类型的信号共存于信道中。——<strong>频分多址</strong>(FDMA)用于多路复用</p>
+</li>
+</ul>
+</li>
+<li>
+<p>数字调制(Digital modulation)通过调节或调制带通中的载波信号来完成带通传输。</p>
+</li>
+<li>
+<p>我们可以调制载波信号的<strong>幅度</strong>(amplitude)、<strong>频率</strong>(frequency)或<strong>相位</strong>(phase)。</p>
+<ul>
+<li><strong>ASK</strong> (幅移键控，Amplitude Shift Keying)：使用两种不同的幅度表示0和1。</li>
+<li><strong>FSK</strong> (频移键控，Frequency Shift Keying)：使用两个或多个不同的音调。</li>
+<li><strong>PSK</strong> (相移键控，Phase Shift Keying)：载波波形在每个符号周期内以0度或180度系统性地移相。<ul>
+<li><strong>BPSK</strong> (二进制相移键控，Binary PSK)：0度和180度</li>
+<li><strong>QPSK</strong> (正交相移键控，Quadrature PSK)：45度、135度、225度和315度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../images/image-33.png" /></p>
+<ul>
+<li>我们可以结合这些方案并使用更多级别来传输每个符号的更多比特。<ul>
+<li>星座图 (Constellation diagram)</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../images/image-34.png" /></p>
+<p>图表解释：
+- (a) QPSK (正交相移键控)
+- (b) QAM-16 (16阶正交幅度调制)
+- &copy; QAM-64 (64阶正交幅度调制)</p>
+<p><strong>说明</strong>：
+构建电子设备以在每个坐标轴上产生符号比通过幅度和相位值的组合更容易。这就是为什么这些图案看起来像正方形而不是同心圆的原因。</p>
+<ul>
+<li>之前看到的星座图并没有展示如何将比特分配给符号。在进行分配时，一个重要的考虑因素是<strong>接收端的少量噪声</strong>不会导致太多比特错误。<ul>
+<li><strong>格雷码</strong> (Gray Code)</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../images/image-35.png" width="60%" /></p>
+<p>图示：
+当发送1101时，不同点位的解码结果及比特错误：
+- 点A: 1101 (0个比特错误)
+- 点B: 1100 (1个比特错误)
+- 点C: 1001 (1个比特错误)
+- 点D: 1111 (1个比特错误)
+- 点E: 0101 (1个比特错误)</p>
+<h4 id="frequency-division-multiplexing-fdm">数字调制：频分复用 (Frequency Division Multiplexing | FDM)<a class="headerlink" href="#frequency-division-multiplexing-fdm" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>FDM (Frequency Division Multiplexing)</strong>  <ul>
+<li>将频谱划分为频率带宽(frequency band)，每个用户拥有专属的频带用于发送信号。  </li>
+<li>例如：AM(Amplitude Modulation)广播——分配的频谱(spectrum)约为1 MHz，范围大约为500 kHz到1500 kHz。不同的频率(frequency)分配给不同的逻辑信道(logical channel)，每个信道在频谱的不同部分工作，信道之间的分离(interchannel separation)足够大以防止干扰(interference)。</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../images/image-36.png" /></p>
+<h4 id="orthogonal-frequency-division-multiplexing-ofdm">数字调制：正交频分复用 (Orthogonal Frequency Division Multiplexing | OFDM)<a class="headerlink" href="#orthogonal-frequency-division-multiplexing-ofdm" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>OFDM (Orthogonal Frequency Division Multiplexing)</strong>  <ul>
+<li>频道带宽(channel bandwidth)被划分为多个子载波(subcarriers)，每个子载波独立地发送数据。每个子载波的频率响应(frequency response)设计为在相邻子载波中心为零。为了实现这一点，需要在时间上重复符号信号的一部分，作为保护时间(guard time)，以确保它们具有所需的频率响应。</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../images/image-37.png" /></p>
+<h4 id="time-division-multiplexing-tdm">数字调制：时分复用 (Time Division Multiplexing | TDM)<a class="headerlink" href="#time-division-multiplexing-tdm" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>TDM (Time Division Multiplexing)</strong> —— 用户依次轮流占用带宽(类似轮询机制)，每个用户在一个小的时间段内周期性地获取整个带宽。<ul>
+<li><strong>时间片 (Time slot)</strong></li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../images/image-38.png" /></p>
+<p>这个流(stream)的速率是各个独立流的总和。为了实现这一点，所有流必须在时间上同步(synchronized)。</p>
+<h4 id="code-division-multiplexing-cdm">数字调制：码分复用 (Code Division Multiplexing | CDM)<a class="headerlink" href="#code-division-multiplexing-cdm" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li><strong>CDM (Code Division Multiplexing)</strong> </li>
+<li>一种扩频通信形式，其中窄带信号被扩展(spread out)到更宽的频率带宽。</li>
+<li>更具抗干扰性。</li>
+<li>允许每个站点在整个频谱上同时进行传输。使用编码理论将多路同时传输区分开。</li>
+<li>在<strong>CDMA</strong>中，每个位时间被细分为<strong>m</strong>个短间隔，称为<strong>码片 (chips)</strong>。<ul>
+<li>通常，每个位包含64或128个码片。</li>
+<li>每个站点都有自己独特的码片序列——<strong>沃尔什码 (Walsh codes)</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="digital-modulation-cdm">数字调制: 码分复用 (Digital Modulation: CDM)<a class="headerlink" href="#digital-modulation-cdm" title="点击此处可置顶内容">&para;</a></h4>
+<ul>
+<li>增加从 <strong>b</strong> 比特/秒到 <strong>mb</strong> 比特/秒的每个站点传输的信息量意味着，CDMA所需的带宽比不使用CDMA的站点大 <strong>m</strong> 倍。<ul>
+<li>如果有1-MHz的频带可供100个站点使用，使用FDMA时，每个站点会获得10 kHz的带宽，并以10 kbps的速率发送。</li>
+<li>使用CDMA时，每个站点使用完整的1-MHz带宽，因此芯片速率是100芯片/比特，用于在信道上传播站点的10 kbps比特率。</li>
+<li>其中一个重要的限制是我们假设所有芯片在接收端是同步的(synchronized)。</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2024年10月17日 19:00:16">2024年10月17日 19:00:16</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2024年10月17日 19:00:16">2024年10月17日 19:00:16</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiepeng Jin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/JiepengLab" target="_blank" rel="noopener" title="Jiepeng&#39;s Lab" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.path", "navigation.prune", "navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "toc.follow", "content.code.annotate", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../assets/javascripts/katex.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/javascripts/titlechange.js"></script>
+      
+        <script src="../../../assets/javascripts/glightbox.min.js"></script>
+      
+        <script src="../../../assets/javascripts/click.js"></script>
+      
+        <script src="../../../assets/javascripts/galaxy.js"></script>
+      
+    
+  </body>
+</html>
