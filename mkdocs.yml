@@ -200,8 +200,6 @@ nav:
         - 人工智能可解释性: ./CS/AI/人工智能伦理与安全/人工智能可解释性.md
         - 人工智能模型安全: ./CS/AI/人工智能伦理与安全/人工智能模型安全.md
       # ./CS/AI/Lec02.md
-    - 高级数据结构与算法分析:
-      - ./CS/ADS/index.md
     - 计算摄影学:
       - ./CS/Computational-Photography/index.md
       - 颜色空间、图像的数字化、滤波与频域变换: ./CS/Computational-Photography/lec01.md
