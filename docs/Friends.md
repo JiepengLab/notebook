@@ -204,8 +204,7 @@
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
-            ![Alt text](https://github.com/memset0/gatsby-blog/blob/master/src/images/avatar-4x.png)
-        </div>
+            ![Alt text](images/friends/mem.png)
         <a href="https://mem.ac/" title="Memset0的blog" target="_blank">
             <div class="flink-item-name">Memset0的blog</div>
             <div class="flink-item-desc">超级厉害的学弟！</div>
