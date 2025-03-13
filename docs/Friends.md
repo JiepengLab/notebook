@@ -162,7 +162,7 @@
 
     <div class="flink-list-item">
         <div class="flink-item-icon">
-            ![Alt text](https://img2.imgtp.com/2024/05/02/MfSGKnUF.png)
+            ![Alt text](images/friends/atri.png)
         </div>
         <a href="https://zjuatri.cn/" title="lhmd" target="_blank">
             <div class="flink-item-name">zjuatri's homepage</div>
