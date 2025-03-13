@@ -182,16 +182,6 @@
         </a>
     </div>
 
-    <!-- <div class="flink-list-item">
-        <div class="flink-item-icon">
-            ![Alt text](images/friends/Sol.jpg)
-        </div>
-        <a href="https://projectdimlight.github.io/#/" title="Sol发电站" target="_blank">
-            <div class="flink-item-name">Sol发电站</div>
-            <div class="flink-item-desc">Sol佬！</div>
-        </a>
-    </div> -->
-
     <div class="flink-list-item">
         <div class="flink-item-icon">
             ![Alt text](images/friends/hualing.jpg)
@@ -205,6 +195,7 @@
     <div class="flink-list-item">
         <div class="flink-item-icon">
             ![Alt text](images/friends/mem.png)
+        </div>
         <a href="https://mem.ac/" title="Memset0的blog" target="_blank">
             <div class="flink-item-name">Memset0的blog</div>
             <div class="flink-item-desc">超级厉害的学弟！</div>
