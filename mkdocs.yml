@@ -215,7 +215,17 @@ nav:
       - 深度学习: ./CS/Computational_Photography/lec05.md
       - Appendix:
         - Hammersley-Clifford定理的证明: ./CS/Computational_Photography/Hammersley-Clifford.md
-
+    - 多媒体技术:
+      - ./CS/MM/index.md
+      - 01-Introduction to Multimedia: ./CS/MM/Lec01.md
+      - 02-Graphics and Image Data Representations: 
+        - Graphics and Image Data Types: ./CS/MM/Lec02_1.md
+        - Popular File Formats: ./CS/MM/Lec02_2.md
+      - 03-Color in Image and Video: ./CS/MM/Lec03.md
+      # - 03-数字音频处理: ./CS/Multimedia_Technology/03.md
+      # - 04-数字视频处理: ./CS/Multimedia_Technology/04.md
+      # - 05-多媒体通信: ./CS/Multimedia_Technology/05.md
+      # - 06-多媒体系统: ./CS/Multimedia_Technology/06.md
   - 校外CS课程: 
     - ./CS_Online/index.md
     - ML-4360:
