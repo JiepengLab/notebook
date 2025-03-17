@@ -222,8 +222,7 @@ nav:
         - Graphics and Image Data Types: ./CS/MM/Lec02_1.md
         - Popular File Formats: ./CS/MM/Lec02_2.md
       - 03-Color in Image and Video: ./CS/MM/Lec03.md
-      # - 03-数字音频处理: ./CS/Multimedia_Technology/03.md
-      # - 04-数字视频处理: ./CS/Multimedia_Technology/04.md
+      - 04-Fundamental Concepts in Video: ./CS/MM/Lec04.md
       # - 05-多媒体通信: ./CS/Multimedia_Technology/05.md
       # - 06-多媒体系统: ./CS/Multimedia_Technology/06.md
   - 校外CS课程: 
