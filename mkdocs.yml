@@ -223,8 +223,8 @@ nav:
         - Popular File Formats: ./CS/MM/Lec02_2.md
       - 03-Color in Image and Video: ./CS/MM/Lec03.md
       - 04-Fundamental Concepts in Video: ./CS/MM/Lec04.md
-      # - 05-多媒体通信: ./CS/Multimedia_Technology/05.md
-      # - 06-多媒体系统: ./CS/Multimedia_Technology/06.md
+      - 05-Basics of Digital Audio: ./CS/MM/Lec05.md
+      - 06-Lossless Compression Algorithms: ./CS/MM/Lec06.md
   - 校外CS课程: 
     - ./CS_Online/index.md
     - ML-4360:
