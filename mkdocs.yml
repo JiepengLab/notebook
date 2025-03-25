@@ -225,6 +225,7 @@ nav:
       - 04-Fundamental Concepts in Video: ./CS/MM/Lec04.md
       - 05-Basics of Digital Audio: ./CS/MM/Lec05.md
       - 06-Lossless Compression Algorithms: ./CS/MM/Lec06.md
+      - 07-Lossy Compression Algorithms: ./CS/MM/Lec07.md
   - 校外CS课程: 
     - ./CS_Online/index.md
     - ML-4360:
